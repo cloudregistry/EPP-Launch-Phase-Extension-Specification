@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:creData
+         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+       <domain:name>example.tld</domain:name>
+       <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
+       <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
+      </domain:creData>
+    </resData>
+    <extension>
+      <lp:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
+      </lp:creData>
+    </extension>
+    <trID>
+      <clTRID>example:epp:239332</clTRID>
+      <svTRID>server-8551292e23b</svTRID>
+    </trID>
+  </response>
+</epp>

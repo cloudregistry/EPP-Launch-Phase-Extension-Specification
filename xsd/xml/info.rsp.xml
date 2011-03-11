@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:infData
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+        <domain:roid>32302393_TESTDOMAIN-TLD</domain:roid>
+        <domain:status s="pendingCreate"/>
+        <domain:registrant>ga3000</domain:registrant>
+        <domain:contact type="admin">ue312987</domain:contact>
+        <domain:contact type="tech">ue312987</domain:contact>
+        <domain:contact type="billing">ue312987</domain:contact>
+        <domain:ns>
+          <domain:hostObj>ns1.example.com</domain:hostObj>
+          <domain:hostObj>ns2.example.net</domain:hostObj>
+        </domain:ns>
+        <domain:clID>registrar1</domain:clID>
+        <domain:crID>registrar1</domain:crID>
+        <domain:crDate>2010-09-18T06:12:39.0Z</domain:crDate>
+        <domain:authInfo>
+          <domain:pw>foo!bar#baz</domain:pw>
+        </domain:authInfo>
+      </domain:infData>
+    </resData>
+    <extension>
+      <lp:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
+        <lp:phase>phase1</lp:phase>
+        <lp:status s="pending"/>
+        <lp:trademark_name>Hello</lp:trademark_name>
+        <lp:trademark_number>GE 3933232</lp:trademark_number>
+        <lp:trademark_locality>AU</lp:trademark_locality>
+        <lp:trademark_entitlement>owner</lp:trademark_entitlement>
+        <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
+      </lp:infData>
+    </extension>
+    <trID>
+      <clTRID>example:epp:239331</clTRID>
+      <svTRID>server-8551292e23a</svTRID>
+    </trID>
+  </response>
+</epp>
