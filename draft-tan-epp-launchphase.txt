@@ -3,8 +3,9 @@
 
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
-Intended status: Experimental                             March 12, 2011
-Expires: September 13, 2011
+Intended status: Experimental                                   G. Brown
+Expires: September 2, 2011                                CentralNic Ltd
+                                                              March 2011
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -31,7 +32,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 13, 2011.
+   This Internet-Draft will expire on September 2, 2011.
 
 Copyright Notice
 
@@ -51,8 +52,7 @@ Copyright Notice
 
 
 
-
-Tan                    Expires September 13, 2011               [Page 1]
+Tan & Brown             Expires September 2, 2011               [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -87,7 +87,7 @@ Table of Contents
    6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 18
    7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 19
    8.  Normative References . . . . . . . . . . . . . . . . . . . . . 19
-   Author's Address . . . . . . . . . . . . . . . . . . . . . . . . . 19
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 19
 
 
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Tan                    Expires September 13, 2011               [Page 2]
+Tan & Brown             Expires September 2, 2011               [Page 2]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -164,7 +164,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011               [Page 3]
+Tan & Brown             Expires September 2, 2011               [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -220,7 +220,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011               [Page 4]
+Tan & Brown             Expires September 2, 2011               [Page 4]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -276,7 +276,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011               [Page 5]
+Tan & Brown             Expires September 2, 2011               [Page 5]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -332,7 +332,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011               [Page 6]
+Tan & Brown             Expires September 2, 2011               [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -388,7 +388,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011               [Page 7]
+Tan & Brown             Expires September 2, 2011               [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -415,8 +415,8 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
              <domain:hostObj>ns1.example.com</domain:hostObj>
              <domain:hostObj>ns2.example.net</domain:hostObj>
            </domain:ns>
-           <domain:clID>registrar1</domain:clID>
-           <domain:crID>registrar1</domain:crID>
+           <domain:clID>client1</domain:clID>
+           <domain:crID>client1</domain:crID>
            <domain:crDate>2010-09-18T06:12:39.0Z</domain:crDate>
            <domain:authInfo>
              <domain:pw>foo!bar#baz</domain:pw>
@@ -444,7 +444,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011               [Page 8]
+Tan & Brown             Expires September 2, 2011               [Page 8]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -500,7 +500,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011               [Page 9]
+Tan & Brown             Expires September 2, 2011               [Page 9]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -556,7 +556,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 10]
+Tan & Brown             Expires September 2, 2011              [Page 10]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -612,7 +612,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 11]
+Tan & Brown             Expires September 2, 2011              [Page 11]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -668,7 +668,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 12]
+Tan & Brown             Expires September 2, 2011              [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -724,7 +724,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 13]
+Tan & Brown             Expires September 2, 2011              [Page 13]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -780,7 +780,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 14]
+Tan & Brown             Expires September 2, 2011              [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -836,7 +836,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 15]
+Tan & Brown             Expires September 2, 2011              [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -892,7 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 16]
+Tan & Brown             Expires September 2, 2011              [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -948,7 +948,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 17]
+Tan & Brown             Expires September 2, 2011              [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -1004,7 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 18]
+Tan & Brown             Expires September 2, 2011              [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
@@ -1060,12 +1060,12 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
 
-Tan                    Expires September 13, 2011              [Page 19]
+Tan & Brown             Expires September 2, 2011              [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2011
 
 
-Author's Address
+Authors' Addresses
 
    Wil Tan
    Cloud Registry
@@ -1079,6 +1079,15 @@ Author's Address
    URI:   http://www.cloudregistry.net
 
 
+   Gavin Brown
+   CentralNic Ltd
+   35-39 Mooregate
+   London, England  EC2R 6AR
+   GB
+
+   Phone: +44 8700 170 900
+   Email: gavin.brown@centralnic.com
+   URI:   http://www.centralnic.com
 
 
 
@@ -1107,14 +1116,5 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-Tan                    Expires September 13, 2011              [Page 20]
+Tan & Brown             Expires September 2, 2011              [Page 20]
 

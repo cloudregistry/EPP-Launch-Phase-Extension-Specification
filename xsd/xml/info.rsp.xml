@@ -18,8 +18,8 @@
           <domain:hostObj>ns1.example.com</domain:hostObj>
           <domain:hostObj>ns2.example.net</domain:hostObj>
         </domain:ns>
-        <domain:clID>registrar1</domain:clID>
-        <domain:crID>registrar1</domain:crID>
+        <domain:clID>client1</domain:clID>
+        <domain:crID>client1</domain:crID>
         <domain:crDate>2010-09-18T06:12:39.0Z</domain:crDate>
         <domain:authInfo>
           <domain:pw>foo!bar#baz</domain:pw>
