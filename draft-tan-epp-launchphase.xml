@@ -154,11 +154,11 @@
       <t>
         Upon receiving a request to create a domain, the server creates an application object corresponding
         to the request and assigns an identifier for the application and returns it to the client.
-        This mapping defines an "application_id" element for this purpose.
+        This mapping defines an "applicationID" element for this purpose.
       </t>
       <t>
         In order to facilitate correlation, all subsequent operations on the domain object MUST be qualified by the
-        previously assigned application_id.
+        previously assigned applicationID.
       </t>
       <t>
         To support common use cases of launch phase operations, this mapping also defines several other elements
@@ -170,7 +170,7 @@
           To allow for multiple launch phases, the application object MAY also include an &lt;lp:phase&gt; element
           whose content is a server-defined opaque identifier corresponding to each launch phase.
           Depending on the policy of the domain registry, the phase may be implicit (based on the time of request
-          or encoded as part of the application_id) or explicitly required.
+          or encoded as part of the applicationID) or explicitly required.
         </t>
       </section>
 
@@ -281,7 +281,7 @@
           the following child elements:
 
           <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:application_id&gt;">the application identifier for which the client wishes to query.</t>
+            <t hangText="&lt;lp:applicationID&gt;">the application identifier for which the client wishes to query.</t>
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
           </list>
@@ -290,7 +290,7 @@
           If the query was successful, the server replies with an &lt;lp:infData&gt; element along with
           the regular EPP &lt;resData&gt;. The &lt;lp:infData&lt; contains the following child elements:
           <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:application_id&gt;">the application identifier of the returned application.</t>
+            <t hangText="&lt;lp:applicationID&gt;">the application identifier of the returned application.</t>
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
             <t hangText="&lt;lp:status&gt;"> (optional) status of the application.</t>
@@ -329,7 +329,7 @@
     </info>
     <extension>
       <lp:info xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
+        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
         <lp:phase>phase1</lp:phase>
       </lp:info>
     </extension>
@@ -372,7 +372,7 @@
     </resData>
     <extension>
       <lp:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
+        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
         <lp:phase>phase1</lp:phase>
         <lp:status s="pending"/>
         <lp:trademarkName>Hello</lp:trademarkName>
@@ -420,9 +420,9 @@
 
           Upon successful processing, the server assigns an application identifier and returns it in an
           &lt;lp:creData&gt; element together with the regular &lt;resData&gt;. The &lt;lp:creData&gt; element
-          contains a single &lt;lp:application_id&gt; element as described below:
+          contains a single &lt;lp:applicationID&gt; element as described below:
           <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:application_id&gt;">the application identifier assigned by the server.</t>
+            <t hangText="&lt;lp:applicationID&gt;">the application identifier assigned by the server.</t>
 
           </list>
         </t>
@@ -487,7 +487,7 @@
     </resData>
     <extension>
       <lp:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
+        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
       </lp:creData>
     </extension>
     <trID>
@@ -524,7 +524,7 @@
           The &lt;lp:update&gt; element contains the following child elements:
 
           <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:application_id&gt;">the application identifier for which the client wishes to update.</t>
+            <t hangText="&lt;lp:applicationID&gt;">the application identifier for which the client wishes to update.</t>
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
           </list>
@@ -539,7 +539,7 @@
           <t>
             A server implementation that conforms to this specification MUST respect and process
             the &lt;lp:update&gt; section, if present, and MUST respond with an error if the 
-            application_id does not correspond with the domain name in the &lt;domain:name&gt; element.
+            applicationID does not correspond with the domain name in the &lt;domain:name&gt; element.
           </t>
         </section>
 
@@ -571,7 +571,7 @@
     </update>
     <extension>
       <lp:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
+        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
         <lp:phase>phase1</lp:phase>
       </lp:update>
     </extension>
@@ -615,7 +615,7 @@
           The &lt;lp:delete&gt; element contains the following child elements:
 
           <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:application_id&gt;">the application identifier for which the client wishes to delete.</t>
+            <t hangText="&lt;lp:applicationID&gt;">the application identifier for which the client wishes to delete.</t>
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
           </list>
@@ -630,7 +630,7 @@
           <t>
             A server implementation that conforms to this specification MUST respect and process
             the &lt;lp:delete&gt; section, if present, and MUST respond with an error if the 
-            application_id does not correspond with the domain name in the &lt;domain:name&gt; element.
+            applicationID does not correspond with the domain name in the &lt;domain:name&gt; element.
           </t>
           <t>
             Depending on the server policy, an implementation may choose to delete the application object immediately
@@ -655,7 +655,7 @@
     </delete>
     <extension>
       <lp:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
+        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
         <lp:phase>phase1</lp:phase>
       </lp:delete>
     </extension>
@@ -745,7 +745,7 @@
 
   <complexType name="queryType">
     <sequence>
-      <element name="application_id" type="lp:idStringType" />
+      <element name="applicationID" type="lp:idStringType" />
       <element name="phase" type="lp:idStringType" minOccurs="0" />
     </sequence>
   </complexType>
@@ -794,13 +794,13 @@
 
   <complexType name="creDataType">
     <sequence>
-      <element name="application_id" type="lp:idStringType" />
+      <element name="applicationID" type="lp:idStringType" />
     </sequence>
   </complexType>
 
   <complexType name="infDataType">
     <sequence>
-      <element name="application_id" type="lp:idStringType"/>
+      <element name="applicationID" type="lp:idStringType"/>
       <element name="phase" type="lp:idStringType" minOccurs="0"/>
       <element name="status" type="lp:statusType"/>
       <element name="trademarkName"
