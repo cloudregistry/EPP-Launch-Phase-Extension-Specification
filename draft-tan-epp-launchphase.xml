@@ -236,13 +236,13 @@
         <t>
           Several optional trademark elements are defined:
           <list style="symbols">
-            <t hangText="trademark_name">registered trademark</t>
+            <t hangText="trademarkName">registered trademark</t>
 
-            <t hangText="trademark_number">registration number for the given trademark</t>
+            <t hangText="trademarkNumber">registration number for the given trademark</t>
 
-            <t hangText="trademark_locality">locality in which the trademark was registered</t>
+            <t hangText="trademarkLocality">locality in which the trademark was registered</t>
 
-            <t hangText="trademark_entitlement">capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
+            <t hangText="trademarkEntitlement">capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
 
             <t hangText="pvrc">pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.</t>
           </list>
@@ -294,13 +294,13 @@
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
             <t hangText="&lt;lp:status&gt;"> (optional) status of the application.</t>
-            <t hangText="&lt;lp:trademark_name&gt;">(optional) registered trademark</t>
+            <t hangText="&lt;lp:trademarkName&gt;">(optional) registered trademark</t>
 
-            <t hangText="&lt;lp:trademark_number&gt;">(optional) registration number for the given trademark</t>
+            <t hangText="&lt;lp:trademarkNumber&gt;">(optional) registration number for the given trademark</t>
 
-            <t hangText="&lt;lp:trademark_locality&gt;">(optional) locality in which the trademark was registered</t>
+            <t hangText="&lt;lp:trademarkLocality&gt;">(optional) locality in which the trademark was registered</t>
 
-            <t hangText="&lt;lp:trademark_entitlement&gt;">(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
+            <t hangText="&lt;lp:trademarkEntitlement&gt;">(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
             <t hangText="&lt;lp:pvrc&gt;">(optional) pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.</t>
           </list>
         </t>
@@ -375,10 +375,10 @@
         <lp:application_id>2393-9323-E08C-03B1</lp:application_id>
         <lp:phase>phase1</lp:phase>
         <lp:status s="pending"/>
-        <lp:trademark_name>Hello</lp:trademark_name>
-        <lp:trademark_number>GE 3933232</lp:trademark_number>
-        <lp:trademark_locality>AU</lp:trademark_locality>
-        <lp:trademark_entitlement>owner</lp:trademark_entitlement>
+        <lp:trademarkName>Hello</lp:trademarkName>
+        <lp:trademarkNumber>GE 3933232</lp:trademarkNumber>
+        <lp:trademarkLocality>AU</lp:trademarkLocality>
+        <lp:trademarkEntitlement>owner</lp:trademarkEntitlement>
         <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
       </lp:infData>
     </extension>
@@ -408,13 +408,13 @@
           submitted. The &lt;lp:create&gt; element contains the following child elements.
           <list hangIndent="8" style="hanging">
             <t hangText="&lt;lp:phase&gt;">(optional) the phase during which the application was submitted or is associated with.</t>
-            <t hangText="&lt;lp:trademark_name&gt;">(optional) registered trademark</t>
+            <t hangText="&lt;lp:trademarkName&gt;">(optional) registered trademark</t>
 
-            <t hangText="&lt;lp:trademark_number&gt;">(optional) registration number for the given trademark</t>
+            <t hangText="&lt;lp:trademarkNumber&gt;">(optional) registration number for the given trademark</t>
 
-            <t hangText="&lt;lp:trademark_locality&gt;">(optional) locality in which the trademark was registered</t>
+            <t hangText="&lt;lp:trademarkLocality&gt;">(optional) locality in which the trademark was registered</t>
 
-            <t hangText="&lt;lp:trademark_entitlement&gt;">(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
+            <t hangText="&lt;lp:trademarkEntitlement&gt;">(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
             <t hangText="&lt;lp:pvrc&gt;">(optional) pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.</t>
           </list>
 
@@ -455,10 +455,10 @@
     <extension>
       <lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
         <lp:phase>phase1</lp:phase>
-        <lp:trademark_name>Hello</lp:trademark_name>
-        <lp:trademark_number>GE 3933232</lp:trademark_number>
-        <lp:trademark_locality>AU</lp:trademark_locality>
-        <lp:trademark_entitlement>owner</lp:trademark_entitlement>
+        <lp:trademarkName>Hello</lp:trademarkName>
+        <lp:trademarkNumber>GE 3933232</lp:trademarkNumber>
+        <lp:trademarkLocality>AU</lp:trademarkLocality>
+        <lp:trademarkEntitlement>owner</lp:trademarkEntitlement>
         <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
       </lp:create>
     </extension>
@@ -730,13 +730,13 @@
   <complexType name="createType">
     <sequence>
       <element name="phase" type="lp:idStringType" minOccurs="0" />
-      <element name="trademark_name" 
+      <element name="trademarkName" 
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademark_number" 
+      <element name="trademarkNumber" 
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/> 
-      <element name="trademark_locality" 
+      <element name="trademarkLocality" 
         type="lp:ccType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademark_entitlement" 
+      <element name="trademarkEntitlement" 
         ype="lp:entitlementType" minOccurs="0" maxOccurs="1"/>
       <element name="pvrc"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
@@ -803,13 +803,13 @@
       <element name="application_id" type="lp:idStringType"/>
       <element name="phase" type="lp:idStringType" minOccurs="0"/>
       <element name="status" type="lp:statusType"/>
-      <element name="trademark_name"
+      <element name="trademarkName"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademark_number"
+      <element name="trademarkNumber"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/> 
-      <element name="trademark_locality" 
+      <element name="trademarkLocality" 
         type="lp:ccType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademark_entitlement" 
+      <element name="trademarkEntitlement" 
         type="lp:entitlementType" minOccurs="0" maxOccurs="1"/>
       <element name="pvrc" 
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
