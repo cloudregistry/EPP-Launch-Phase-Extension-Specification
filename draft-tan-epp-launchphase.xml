@@ -6,6 +6,7 @@
 
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC5730 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5730.xml">
+<!ENTITY RFC5733 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5733.xml">
 <!ENTITY RFC5731 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5731.xml">
 <!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
@@ -87,7 +88,7 @@
       </address>
     </author>
 
-    <date month="March" year="2011" />
+    <date month="September" year="2011" />
 
 
     <!-- Meta-data Declarations -->
@@ -113,8 +114,8 @@
         launch phase extension in a domain name registry.
       </t>
       <t>
-        It is typical for domain registries to operate in a special mode
-        within a certain period of time to facilitate allocation of domain names
+        It is typical for domain registries to operate in special modes
+        within certain periods of time to facilitate allocation of domain names
         for a subset of the zone namespace that becomes available. This document
         uses the term "launch phase" to refer to such a period.
       </t>
@@ -167,7 +168,7 @@
 
       <section title="&lt;lp:phase&gt; Element">
         <t>
-          To allow for multiple launch phases, the application object MAY also include an &lt;lp:phase&gt; element
+          To allow for multiple simultaneous launch phases, the application object MAY also include an &lt;lp:phase&gt; element
           whose content is a server-defined opaque identifier corresponding to each launch phase.
           Depending on the policy of the domain registry, the phase may be implicit (based on the time of request
           or encoded as part of the applicationID) or explicitly required.
@@ -180,21 +181,21 @@
           beyond what is specified in the object mapping to which this application object represents.
         </t>
         <t>
-          The following status values are defiend:
-          <list hangIndent="8" style="hanging">
-            <t hangText="pending">the initial state of a newly-created application object.</t>
+          The following status values are defined:
+          <list style="hanging">
+            <t hangText="pending:">the initial state of a newly-created application object.</t>
 
-            <t hangText="validated">the application meets relevant registry rules.</t>
+            <t hangText="validated:">the application meets relevant registry rules.</t>
 
-            <t hangText="invalid">the application does not validate according to registry rules</t>
+            <t hangText="invalid:">the application does not validate according to registry rules</t>
 
-            <t hangText="allocated">one of two possible end states of an application object; the object corresponding to the application has been provisioned</t>
+            <t hangText="allocated:">one of two possible end states of an application object; the object corresponding to the application has been provisioned</t>
 
-            <t hangText="cancelled">the other possible end state; the object was not provisioned</t>
+            <t hangText="rejected:">the other possible end state; the object was not provisioned</t>
           </list>
         </t>
         <t>
-          Certain status values MAY be combined. For example, an application can be invalid and cancelled.
+          Certain status values MAY be combined. For example, an application can be invalid and rejected.
           <cref anchor="Q1" source="WT">Should we allow multiples?</cref>
         </t>
 
@@ -214,7 +215,7 @@
        v              v                 v              v
  +-----------+   +---------+        +-------+      +-------+
  |           |   |         |       /         \    /         \
- | validated |   | invalid +----->| cancelled |  | allocated |
+ | validated |   | invalid +----->| rejected  |  | allocated |
  |           |   |         |       \         /    \         /
  +----+------+   +----+----+        +-------+      +-------+
       |               |                 ^              ^
@@ -231,24 +232,28 @@
 
       </section>
 
+      <section title="Claim Elements">
+          <t>An application may have one or more &lt;claim&gt; elements. A &lt;claim&gt; element
+          describes an applicant's prior right to a given domain name.</t>
+          <t>The &lt;claim&gt; element has the boolean "preValidated" attribute, which indicates
+          whether a third party validation agency has already validated the claim. When this attribute has a true value,
+          the &lt;pvrc&gt; element must always be present.</t>
 
-      <section title="Trademark Elements">
-        <t>
-          Several optional trademark elements are defined:
-          <list style="symbols">
-            <t hangText="trademarkName">registered trademark</t>
-
-            <t hangText="trademarkNumber">registration number for the given trademark</t>
-
-            <t hangText="trademarkLocality">locality in which the trademark was registered</t>
-
-            <t hangText="trademarkEntitlement">capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
-
-            <t hangText="pvrc">pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.</t>
+          <t>Several child elements of the &lt;claim&gt; element are defined:
+          <list style="hanging">
+            <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code, an opaque string issued by a third-party validation agent</t>
+            <t hangText="&lt;claimIssuer&gt;:">contains the ID of a contact object (as described in <xref target="RFC5733">RFC 5733</xref>) identifying the contact information of the authority which issued the right (for example, a trade mark office or company registration bureau)</t>
+            <t hangText="&lt;claimName&gt;:">identifying the text string in which the applicant is claiming a prior right</t>
+            <t hangText="&lt;claimNumber&gt;:">the registration number of the right (ie trademark number or company registration number)</t>
+            <t hangText="&lt;claimType&gt;:">indicates the type of claim being made (eg trademark, symbol, combined mark, company name)</t>
+            <t hangText="&lt;claimEntitlement&gt;:">indicates the applicant's entitlement to the claim (ie, owner or licensee)</t>
+            <t hangText="&lt;claimRegDate&gt;:">the date of registration of the claim</t>
+            <t hangText="&lt;claimExDate&gt;:">the date of expiration of the claim</t>
+            <t hangText="&lt;claimCountry&gt;:">indicates the country in which the claim is valid</t>
+            <t hangText="&lt;claimRegion&gt;:">indicates the name of a city, state, province or other geographic region in which the claim is valid. This may be a two-character code from [WIPO.ST3]</t>
           </list>
-        </t>
+          </t>
       </section>
-
 
     </section>
 
@@ -288,22 +293,32 @@
         </t>
         <t>
           If the query was successful, the server replies with an &lt;lp:infData&gt; element along with
-          the regular EPP &lt;resData&gt;. The &lt;lp:infData&lt; contains the following child elements:
+          the regular EPP &lt;resData&gt;. The &lt;lp:infData&gt; contains the following child elements:
           <list hangIndent="8" style="hanging">
             <t hangText="&lt;lp:applicationID&gt;">the application identifier of the returned application.</t>
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
             <t hangText="&lt;lp:status&gt;"> (optional) status of the application.</t>
-            <t hangText="&lt;lp:trademarkName&gt;">(optional) registered trademark</t>
-
-            <t hangText="&lt;lp:trademarkNumber&gt;">(optional) registration number for the given trademark</t>
-
-            <t hangText="&lt;lp:trademarkLocality&gt;">(optional) locality in which the trademark was registered</t>
-
-            <t hangText="&lt;lp:trademarkEntitlement&gt;">(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
-            <t hangText="&lt;lp:pvrc&gt;">(optional) pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.</t>
+            <t> (optional) one or more &lt;lp:claim&gt; elements.</t>
           </list>
         </t>
+ 
+        <t>
+        	If present, the &lt;lp:claim&gt; elements may contain the following child elements:
+              <list hangIndent="8" style="hanging">
+              <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code.</t>
+              <t hangText="&lt;claimIssuer&gt;:">the ID of a contact object representing the issuing authority.</t>
+              <t hangText="&lt;claimName&gt;:">the textual representation of the right.</t>
+              <t hangText="&lt;claimNumber&gt;:">the registration number.</t>
+              <t hangText="&lt;claimType&gt;:">the type of claim being made.</t>
+              <t hangText="&lt;claimEntitlement&gt;:">the entitlement.</t>
+              <t hangText="&lt;claimRegDate&gt;:">the registration date.</t>
+              <t hangText="&lt;claimExDate&gt;:">the expiry date.</t>
+              <t hangText="&lt;claimCountry&gt;:">the country.</t>
+              <t hangText="&lt;claimRegion&gt;:">the geographic region.</t>
+            </list>
+        </t>
+        
  
        <section title="Client Processing Considerations">
           <t>
@@ -342,18 +357,17 @@
           <figure>
             <preamble>An example response that corresponds to the above command.</preamble>
             <artwork><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
     <result code="1000">
       <msg>Command completed successfully</msg>
     </result>
     <resData>
-      <domain:infData
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+      <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>example.tld</domain:name>
         <domain:roid>32302393_TESTDOMAIN-TLD</domain:roid>
-        <domain:status s="pendingCreate"/>
+        <domain:status s="pendingCreate" />
         <domain:registrant>ga3000</domain:registrant>
         <domain:contact type="admin">ue312987</domain:contact>
         <domain:contact type="tech">ue312987</domain:contact>
@@ -374,12 +388,19 @@
       <lp:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
         <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
         <lp:phase>phase1</lp:phase>
-        <lp:status s="pending"/>
-        <lp:trademarkName>Hello</lp:trademarkName>
-        <lp:trademarkNumber>GE 3933232</lp:trademarkNumber>
-        <lp:trademarkLocality>AU</lp:trademarkLocality>
-        <lp:trademarkEntitlement>owner</lp:trademarkEntitlement>
-        <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
+        <lp:status s="pending" />
+        <lp:claim>
+          <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
+          <lp:claimIssuer>CONTACT-IPCLEARINGHOUSE</lp:claimIssuer>
+          <lp:claimName>Hello</lp:claimName>
+          <lp:claimNumber>GE 3933232</lp:claimNumber>
+          <lp:claimType>REG-TM-WORD</lp:claimType>
+          <lp:claimEntitlement>owner</lp:claimEntitlement>
+          <lp:claimRegDate>2011-09-09</lp:claimRegDate>
+          <lp:claimExDate>2013-09-09</lp:claimExDate>
+          <lp:claimCountry>AU</lp:claimCountry>
+          <lp:claimCountry>VIC</lp:claimCountry>
+        </lp:claim>
       </lp:infData>
     </extension>
     <trID>
@@ -899,6 +920,8 @@
       &RFC5730;
 
       &RFC5731;
+
+      &RFC5733;
 
       &RFC3688;
 

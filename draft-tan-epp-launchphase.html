@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)">
 <meta name="keywords" content="EPP, Sunrise, domain name registry, launch phase">
-<meta name="generator" content="xml2rfc v1.35 (http://xml.resource.org/)">
+<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
                 font-family: verdana, charcoal, helvetica, arial, sans-serif;
@@ -145,8 +145,8 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Experimental</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: September 2, 2011</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">March 2011</td></tr>
+<tr><td class="header">Expires: March 12, 2012</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">September 9, 2011</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-00</h1>
 
@@ -172,7 +172,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on September 2, 2011.</p>
+This Internet-Draft will expire on March 12, 2012.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -204,7 +204,7 @@ Application Object<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">2.2.1.</a>&nbsp;
 State Transition<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor7">2.3.</a>&nbsp;
-Trademark Elements<br />
+Claim Elements<br />
 <a href="#anchor8">3.</a>&nbsp;
 EPP Command Mapping<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor9">3.1.</a>&nbsp;
@@ -266,8 +266,8 @@ Introduction</h3>
       
 </p>
 <p>
-        It is typical for domain registries to operate in a special mode
-        within a certain period of time to facilitate allocation of domain names
+        It is typical for domain registries to operate in special modes
+        within certain periods of time to facilitate allocation of domain names
         for a subset of the zone namespace that becomes available. This document
         uses the term "launch phase" to refer to such a period.
       
@@ -317,12 +317,12 @@ Application Object</h3>
 <p>
         Upon receiving a request to create a domain, the server creates an application object corresponding
         to the request and assigns an identifier for the application and returns it to the client.
-        This mapping defines an "application_id" element for this purpose.
+        This mapping defines an "applicationID" element for this purpose.
       
 </p>
 <p>
         In order to facilitate correlation, all subsequent operations on the domain object MUST be qualified by the
-        previously assigned application_id.
+        previously assigned applicationID.
       
 </p>
 <p>
@@ -336,10 +336,10 @@ Application Object</h3>
 &lt;lp:phase&gt; Element</h3>
 
 <p>
-          To allow for multiple launch phases, the application object MAY also include an &lt;lp:phase&gt; element
+          To allow for multiple simultaneous launch phases, the application object MAY also include an &lt;lp:phase&gt; element
           whose content is a server-defined opaque identifier corresponding to each launch phase.
           Depending on the policy of the domain registry, the phase may be implicit (based on the time of request
-          or encoded as part of the application_id) or explicitly required.
+          or encoded as part of the applicationID) or explicitly required.
         
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -353,29 +353,29 @@ Application Object</h3>
         
 </p>
 <p>
-          The following status values are defiend:
+          The following status values are defined:
           </p>
 <blockquote class="text"><dl>
-<dt>pending</dt>
+<dt>pending:</dt>
 <dd>the initial state of a newly-created application object.
 </dd>
-<dt>validated</dt>
+<dt>validated:</dt>
 <dd>the application meets relevant registry rules.
 </dd>
-<dt>invalid</dt>
+<dt>invalid:</dt>
 <dd>the application does not validate according to registry rules
 </dd>
-<dt>allocated</dt>
+<dt>allocated:</dt>
 <dd>one of two possible end states of an application object; the object corresponding to the application has been provisioned
 </dd>
-<dt>cancelled</dt>
+<dt>rejected:</dt>
 <dd>the other possible end state; the object was not provisioned
 </dd>
 </dl></blockquote><p>
         
 </p>
 <p>
-          Certain status values MAY be combined. For example, an application can be invalid and cancelled.
+          Certain status values MAY be combined. For example, an application can be invalid and rejected.
           <a class='info' href='#comment.Q1'>[Q1]<span> (</span><span class='info'>WT: Should we allow multiples?</span><span>)</span></a><a name='Q1'></a>
         
 </p>
@@ -399,7 +399,7 @@ State Transition</h3>
        v              v                 v              v
  +-----------+   +---------+        +-------+      +-------+
  |           |   |         |       /         \    /         \
- | validated |   | invalid +-----&gt;| cancelled |  | allocated |
+ | validated |   | invalid +-----&gt;| rejected  |  | allocated |
  |           |   |         |       \         /    \         /
  +----+------+   +----+----+        +-------+      +-------+
       |               |                 ^              ^
@@ -415,24 +415,50 @@ State Transition</h3>
 <a name="anchor7"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.3"></a><h3>2.3.&nbsp;
-Trademark Elements</h3>
+Claim Elements</h3>
 
-<p>
-          Several optional trademark elements are defined:
+<p>An application may have one or more &lt;claim&gt; elements. A &lt;claim&gt; element
+          describes an applicant's prior right to a given domain name.
+</p>
+<p>The &lt;claim&gt; element has the boolean "preValidated" attribute, which indicates
+          whether a third party validation agency has already validated the claim. When this attribute has a true value,
+          the &lt;pvrc&gt; element must always be present.
+</p>
+<p>Several child elements of the &lt;claim&gt; element are defined:
           </p>
-<ul class="text">
-<li>registered trademark
-</li>
-<li>registration number for the given trademark
-</li>
-<li>locality in which the trademark was registered
-</li>
-<li>capacity of the registrant in regards to the ownership or rights to use the given trademark
-</li>
-<li>pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.
-</li>
-</ul><p>
-        
+<blockquote class="text"><dl>
+<dt>&lt;pvrc&gt;:</dt>
+<dd>The Pre-Validation Result Code, an opaque string issued by a third-party validation agent
+</dd>
+<dt>&lt;claimIssuer&gt;:</dt>
+<dd>contains the ID of a contact object (as described in <a class='info' href='#RFC5733'>RFC 5733<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733]) identifying the contact information of the authority which issued the right (for example, a trade mark office or company registration bureau)
+</dd>
+<dt>&lt;claimName&gt;:</dt>
+<dd>identifying the text string in which the applicant is claiming a prior right
+</dd>
+<dt>&lt;claimNumber&gt;:</dt>
+<dd>the registration number of the right (ie trademark number or company registration number)
+</dd>
+<dt>&lt;claimType&gt;:</dt>
+<dd>indicates the type of claim being made (eg trademark, symbol, combined mark, company name)
+</dd>
+<dt>&lt;claimEntitlement&gt;:</dt>
+<dd>indicates the applicant's entitlement to the claim (ie, owner or licensee)
+</dd>
+<dt>&lt;claimRegDate&gt;:</dt>
+<dd>the date of registration of the claim
+</dd>
+<dt>&lt;claimExDate&gt;:</dt>
+<dd>the date of expiration of the claim
+</dd>
+<dt>&lt;claimCountry&gt;:</dt>
+<dd>indicates the country in which the claim is valid
+</dd>
+<dt>&lt;claimRegion&gt;:</dt>
+<dd>indicates the name of a city, state, province or other geographic region in which the claim is valid. This may be a two-character code from [WIPO.ST3]
+</dd>
+</dl></blockquote><p>
+          
 </p>
 <a name="anchor8"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -477,7 +503,7 @@ EPP &lt;info&gt; Command</h3>
 
           </p>
 <blockquote class="text"><dl>
-<dt>&lt;lp:application_id&gt;</dt>
+<dt>&lt;lp:applicationID&gt;</dt>
 <dd>the application identifier for which the client wishes to query.
 </dd>
 <dt>&lt;lp:phase&gt;</dt>
@@ -488,10 +514,10 @@ EPP &lt;info&gt; Command</h3>
 </p>
 <p>
           If the query was successful, the server replies with an &lt;lp:infData&gt; element along with
-          the regular EPP &lt;resData&gt;. The &lt;lp:infData&lt; contains the following child elements:
+          the regular EPP &lt;resData&gt;. The &lt;lp:infData&gt; contains the following child elements:
           </p>
 <blockquote class="text"><dl>
-<dt>&lt;lp:application_id&gt;</dt>
+<dt>&lt;lp:applicationID&gt;</dt>
 <dd>the application identifier of the returned application.
 </dd>
 <dt>&lt;lp:phase&gt;</dt>
@@ -500,20 +526,45 @@ EPP &lt;info&gt; Command</h3>
 <dt>&lt;lp:status&gt;</dt>
 <dd> (optional) status of the application.
 </dd>
-<dt>&lt;lp:trademark_name&gt;</dt>
-<dd>(optional) registered trademark
+<dt></dt>
+<dd> (optional) one or more &lt;lp:claim&gt; elements.
 </dd>
-<dt>&lt;lp:trademark_number&gt;</dt>
-<dd>(optional) registration number for the given trademark
+</dl></blockquote><p>
+        
+</p>
+<p>
+        	If present, the &lt;lp:claim&gt; elements may contain the following child elements:
+              </p>
+<blockquote class="text"><dl>
+<dt>&lt;pvrc&gt;:</dt>
+<dd>The Pre-Validation Result Code.
 </dd>
-<dt>&lt;lp:trademark_locality&gt;</dt>
-<dd>(optional) locality in which the trademark was registered
+<dt>&lt;claimIssuer&gt;:</dt>
+<dd>the ID of a contact object representing the issuing authority.
 </dd>
-<dt>&lt;lp:trademark_entitlement&gt;</dt>
-<dd>(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark
+<dt>&lt;claimName&gt;:</dt>
+<dd>the textual representation of the right.
 </dd>
-<dt>&lt;lp:pvrc&gt;</dt>
-<dd>(optional) pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.
+<dt>&lt;claimNumber&gt;:</dt>
+<dd>the registration number.
+</dd>
+<dt>&lt;claimType&gt;:</dt>
+<dd>the type of claim being made.
+</dd>
+<dt>&lt;claimEntitlement&gt;:</dt>
+<dd>the entitlement.
+</dd>
+<dt>&lt;claimRegDate&gt;:</dt>
+<dd>the registration date.
+</dd>
+<dt>&lt;claimExDate&gt;:</dt>
+<dd>the expiry date.
+</dd>
+<dt>&lt;claimCountry&gt;:</dt>
+<dd>the country.
+</dd>
+<dt>&lt;claimRegion&gt;:</dt>
+<dd>the geographic region.
 </dd>
 </dl></blockquote><p>
         
@@ -548,7 +599,7 @@ Example &lt;info&gt; command</h3>
     &lt;/info&gt;
     &lt;extension&gt;
       &lt;lp:info xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
-        &lt;lp:application_id&gt;2393-9323-E08C-03B1&lt;/lp:application_id&gt;
+        &lt;lp:applicationID&gt;2393-9323-E08C-03B1&lt;/lp:applicationID&gt;
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
       &lt;/lp:info&gt;
     &lt;/extension&gt;
@@ -558,18 +609,17 @@ Example &lt;info&gt; command</h3>
 </pre></div>
 <p>An example response that corresponds to the above command.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
   &lt;response&gt;
     &lt;result code="1000"&gt;
       &lt;msg&gt;Command completed successfully&lt;/msg&gt;
     &lt;/result&gt;
     &lt;resData&gt;
-      &lt;domain:infData
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+      &lt;domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
         &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
         &lt;domain:roid&gt;32302393_TESTDOMAIN-TLD&lt;/domain:roid&gt;
-        &lt;domain:status s="pendingCreate"/&gt;
+        &lt;domain:status s="pendingCreate" /&gt;
         &lt;domain:registrant&gt;ga3000&lt;/domain:registrant&gt;
         &lt;domain:contact type="admin"&gt;ue312987&lt;/domain:contact&gt;
         &lt;domain:contact type="tech"&gt;ue312987&lt;/domain:contact&gt;
@@ -588,14 +638,21 @@ Example &lt;info&gt; command</h3>
     &lt;/resData&gt;
     &lt;extension&gt;
       &lt;lp:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
-        &lt;lp:application_id&gt;2393-9323-E08C-03B1&lt;/lp:application_id&gt;
+        &lt;lp:applicationID&gt;2393-9323-E08C-03B1&lt;/lp:applicationID&gt;
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
-        &lt;lp:status s="pending"/&gt;
-        &lt;lp:trademark_name&gt;Hello&lt;/lp:trademark_name&gt;
-        &lt;lp:trademark_number&gt;GE 3933232&lt;/lp:trademark_number&gt;
-        &lt;lp:trademark_locality&gt;AU&lt;/lp:trademark_locality&gt;
-        &lt;lp:trademark_entitlement&gt;owner&lt;/lp:trademark_entitlement&gt;
-        &lt;lp:pvrc&gt;3828590-P1F-932391651E3A2900338C12&lt;/lp:pvrc&gt;
+        &lt;lp:status s="pending" /&gt;
+        &lt;lp:claim&gt;
+          &lt;lp:pvrc&gt;3828590-P1F-932391651E3A2900338C12&lt;/lp:pvrc&gt;
+          &lt;lp:claimIssuer&gt;CONTACT-IPCLEARINGHOUSE&lt;/lp:claimIssuer&gt;
+          &lt;lp:claimName&gt;Hello&lt;/lp:claimName&gt;
+          &lt;lp:claimNumber&gt;GE 3933232&lt;/lp:claimNumber&gt;
+          &lt;lp:claimType&gt;REG-TM-WORD&lt;/lp:claimType&gt;
+          &lt;lp:claimEntitlement&gt;owner&lt;/lp:claimEntitlement&gt;
+          &lt;lp:claimRegDate&gt;2011-09-09&lt;/lp:claimRegDate&gt;
+          &lt;lp:claimExDate&gt;2013-09-09&lt;/lp:claimExDate&gt;
+          &lt;lp:claimCountry&gt;AU&lt;/lp:claimCountry&gt;
+          &lt;lp:claimCountry&gt;VIC&lt;/lp:claimCountry&gt;
+        &lt;/lp:claim&gt;
       &lt;/lp:infData&gt;
     &lt;/extension&gt;
     &lt;trID&gt;
@@ -627,16 +684,16 @@ EPP &lt;create&gt; Command</h3>
 <dt>&lt;lp:phase&gt;</dt>
 <dd>(optional) the phase during which the application was submitted or is associated with.
 </dd>
-<dt>&lt;lp:trademark_name&gt;</dt>
+<dt>&lt;lp:trademarkName&gt;</dt>
 <dd>(optional) registered trademark
 </dd>
-<dt>&lt;lp:trademark_number&gt;</dt>
+<dt>&lt;lp:trademarkNumber&gt;</dt>
 <dd>(optional) registration number for the given trademark
 </dd>
-<dt>&lt;lp:trademark_locality&gt;</dt>
+<dt>&lt;lp:trademarkLocality&gt;</dt>
 <dd>(optional) locality in which the trademark was registered
 </dd>
-<dt>&lt;lp:trademark_entitlement&gt;</dt>
+<dt>&lt;lp:trademarkEntitlement&gt;</dt>
 <dd>(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark
 </dd>
 <dt>&lt;lp:pvrc&gt;</dt>
@@ -646,10 +703,10 @@ EPP &lt;create&gt; Command</h3>
 
           Upon successful processing, the server assigns an application identifier and returns it in an
           &lt;lp:creData&gt; element together with the regular &lt;resData&gt;. The &lt;lp:creData&gt; element
-          contains a single &lt;lp:application_id&gt; element as described below:
+          contains a single &lt;lp:applicationID&gt; element as described below:
           </p>
 <blockquote class="text"><dl>
-<dt>&lt;lp:application_id&gt;</dt>
+<dt>&lt;lp:applicationID&gt;</dt>
 <dd>the application identifier assigned by the server.
 </dd>
 </dl></blockquote><p>
@@ -686,10 +743,10 @@ Example &lt;create&gt; command</h3>
     &lt;extension&gt;
       &lt;lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
-        &lt;lp:trademark_name&gt;Hello&lt;/lp:trademark_name&gt;
-        &lt;lp:trademark_number&gt;GE 3933232&lt;/lp:trademark_number&gt;
-        &lt;lp:trademark_locality&gt;AU&lt;/lp:trademark_locality&gt;
-        &lt;lp:trademark_entitlement&gt;owner&lt;/lp:trademark_entitlement&gt;
+        &lt;lp:trademarkName&gt;Hello&lt;/lp:trademarkName&gt;
+        &lt;lp:trademarkNumber&gt;GE 3933232&lt;/lp:trademarkNumber&gt;
+        &lt;lp:trademarkLocality&gt;AU&lt;/lp:trademarkLocality&gt;
+        &lt;lp:trademarkEntitlement&gt;owner&lt;/lp:trademarkEntitlement&gt;
         &lt;lp:pvrc&gt;3828590-P1F-932391651E3A2900338C12&lt;/lp:pvrc&gt;
       &lt;/lp:create&gt;
     &lt;/extension&gt;
@@ -715,7 +772,7 @@ Example &lt;create&gt; command</h3>
     &lt;/resData&gt;
     &lt;extension&gt;
       &lt;lp:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
-        &lt;lp:application_id&gt;2393-9323-E08C-03B1&lt;/lp:application_id&gt;
+        &lt;lp:applicationID&gt;2393-9323-E08C-03B1&lt;/lp:applicationID&gt;
       &lt;/lp:creData&gt;
     &lt;/extension&gt;
     &lt;trID&gt;
@@ -756,7 +813,7 @@ EPP &lt;update&gt; Command</h3>
 
           </p>
 <blockquote class="text"><dl>
-<dt>&lt;lp:application_id&gt;</dt>
+<dt>&lt;lp:applicationID&gt;</dt>
 <dd>the application identifier for which the client wishes to update.
 </dd>
 <dt>&lt;lp:phase&gt;</dt>
@@ -779,7 +836,7 @@ Server Processing Considerations</h3>
 <p>
             A server implementation that conforms to this specification MUST respect and process
             the &lt;lp:update&gt; section, if present, and MUST respond with an error if the 
-            application_id does not correspond with the domain name in the &lt;domain:name&gt; element.
+            applicationID does not correspond with the domain name in the &lt;domain:name&gt; element.
           
 </p>
 <a name="anchor18"></a><br /><hr />
@@ -813,7 +870,7 @@ Example &lt;update&gt; command</h3>
     &lt;/update&gt;
     &lt;extension&gt;
       &lt;lp:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
-        &lt;lp:application_id&gt;2393-9323-E08C-03B1&lt;/lp:application_id&gt;
+        &lt;lp:applicationID&gt;2393-9323-E08C-03B1&lt;/lp:applicationID&gt;
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
       &lt;/lp:update&gt;
     &lt;/extension&gt;
@@ -855,7 +912,7 @@ EPP &lt;delete&gt; Command</h3>
 
           </p>
 <blockquote class="text"><dl>
-<dt>&lt;lp:application_id&gt;</dt>
+<dt>&lt;lp:applicationID&gt;</dt>
 <dd>the application identifier for which the client wishes to delete.
 </dd>
 <dt>&lt;lp:phase&gt;</dt>
@@ -878,7 +935,7 @@ Server Processing Considerations</h3>
 <p>
             A server implementation that conforms to this specification MUST respect and process
             the &lt;lp:delete&gt; section, if present, and MUST respond with an error if the 
-            application_id does not correspond with the domain name in the &lt;domain:name&gt; element.
+            applicationID does not correspond with the domain name in the &lt;domain:name&gt; element.
           
 </p>
 <p>
@@ -906,7 +963,7 @@ Example &lt;delete&gt; command</h3>
     &lt;/delete&gt;
     &lt;extension&gt;
       &lt;lp:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
-        &lt;lp:application_id&gt;2393-9323-E08C-03B1&lt;/lp:application_id&gt;
+        &lt;lp:applicationID&gt;2393-9323-E08C-03B1&lt;/lp:applicationID&gt;
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
       &lt;/lp:delete&gt;
     &lt;/extension&gt;
@@ -978,13 +1035,13 @@ Formal Syntax</h3>
   &lt;complexType name="createType"&gt;
     &lt;sequence&gt;
       &lt;element name="phase" type="lp:idStringType" minOccurs="0" /&gt;
-      &lt;element name="trademark_name"
+      &lt;element name="trademarkName"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademark_number"
+      &lt;element name="trademarkNumber"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademark_locality"
+      &lt;element name="trademarkLocality"
         type="lp:ccType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademark_entitlement"
+      &lt;element name="trademarkEntitlement"
         ype="lp:entitlementType" minOccurs="0" maxOccurs="1"/&gt;
       &lt;element name="pvrc"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
@@ -993,7 +1050,7 @@ Formal Syntax</h3>
 
   &lt;complexType name="queryType"&gt;
     &lt;sequence&gt;
-      &lt;element name="application_id" type="lp:idStringType" /&gt;
+      &lt;element name="applicationID" type="lp:idStringType" /&gt;
       &lt;element name="phase" type="lp:idStringType" minOccurs="0" /&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
@@ -1042,22 +1099,22 @@ Formal Syntax</h3>
 
   &lt;complexType name="creDataType"&gt;
     &lt;sequence&gt;
-      &lt;element name="application_id" type="lp:idStringType" /&gt;
+      &lt;element name="applicationID" type="lp:idStringType" /&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
 
   &lt;complexType name="infDataType"&gt;
     &lt;sequence&gt;
-      &lt;element name="application_id" type="lp:idStringType"/&gt;
+      &lt;element name="applicationID" type="lp:idStringType"/&gt;
       &lt;element name="phase" type="lp:idStringType" minOccurs="0"/&gt;
       &lt;element name="status" type="lp:statusType"/&gt;
-      &lt;element name="trademark_name"
+      &lt;element name="trademarkName"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademark_number"
+      &lt;element name="trademarkNumber"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademark_locality"
+      &lt;element name="trademarkLocality"
         type="lp:ccType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademark_entitlement"
+      &lt;element name="trademarkEntitlement"
         type="lp:entitlementType" minOccurs="0" maxOccurs="1"/&gt;
       &lt;element name="pvrc"
         type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
@@ -1149,6 +1206,8 @@ Security Considerations</h3>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5730">Extensible Provisioning Protocol (EPP)</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5730, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5730.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5731">[RFC5731]</a></td>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5731">Extensible Provisioning Protocol (EPP) Domain Name Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5731, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5731.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5733">[RFC5733]</a></td>
+<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5733">Extensible Provisioning Protocol (EPP) Contact Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5733, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5733.txt">TXT</a>).</td></tr>
 </table>
 
 <a name="rfc.authors"></a><br /><hr />
