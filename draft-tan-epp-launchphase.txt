@@ -919,8 +919,6 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
    This document uses URNs to describe XML namespaces and XML schemas
    conforming to a registry mechanism described in [RFC3688].
 
-   Two URI assignments have been completed by the IANA.
-
    Registration request for the extension namespace:
 
    URI: urn:ietf:params:xml:ns:launchphase-1.0
@@ -945,6 +943,8 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
    Updates to, and deletion of an application object must be restricted
    to clients authorized to perform the said operation on the object.
 
+   As information contained within an application, or even the mere fact
+   that an application exists may be confidential.  Any attempt to
 
 
 
@@ -953,8 +953,6 @@ Tan & Brown               Expires March 4, 2012                [Page 17]
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
-   As information contained within an application, or even the mere fact
-   that an application exists may be confidential.  Any attempt to
    operate on an application object by an unauthorized client MUST be
    rejected with an EPP 2303 (object does not exist) or an appropriate
    auhorization error.  Server policy may allow <info> operation with
@@ -993,6 +991,8 @@ Authors' Addresses
    Phone: +61 414 710899
    Email: wil@cloudregistry.net
    URI:   http://www.cloudregistry.net
+
+
 
 
 
