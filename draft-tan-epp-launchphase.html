@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="description" content="Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)">
 <meta name="keywords" content="EPP, Sunrise, domain name registry, launch phase">
-<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
+<meta name="generator" content="xml2rfc v1.35 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
                 font-family: verdana, charcoal, helvetica, arial, sans-serif;
@@ -145,8 +145,8 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Experimental</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: March 12, 2012</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">September 9, 2011</td></tr>
+<tr><td class="header">Expires: March 4, 2012</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">September 2011</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-00</h1>
 
@@ -172,7 +172,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on March 12, 2012.</p>
+This Internet-Draft will expire on March 4, 2012.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -526,7 +526,7 @@ EPP &lt;info&gt; Command</h3>
 <dt>&lt;lp:status&gt;</dt>
 <dd> (optional) status of the application.
 </dd>
-<dt></dt>
+<dt>&lt;lp:claim&gt;</dt>
 <dd> (optional) one or more &lt;lp:claim&gt; elements.
 </dd>
 </dl></blockquote><p>
@@ -684,22 +684,12 @@ EPP &lt;create&gt; Command</h3>
 <dt>&lt;lp:phase&gt;</dt>
 <dd>(optional) the phase during which the application was submitted or is associated with.
 </dd>
-<dt>&lt;lp:trademarkName&gt;</dt>
-<dd>(optional) registered trademark
-</dd>
-<dt>&lt;lp:trademarkNumber&gt;</dt>
-<dd>(optional) registration number for the given trademark
-</dd>
-<dt>&lt;lp:trademarkLocality&gt;</dt>
-<dd>(optional) locality in which the trademark was registered
-</dd>
-<dt>&lt;lp:trademarkEntitlement&gt;</dt>
-<dd>(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark
-</dd>
-<dt>&lt;lp:pvrc&gt;</dt>
-<dd>(optional) pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.
+<dt>&lt;lp:claim&gt;</dt>
+<dd>(optional) one or more &lt;lp:claim&gt; elements.
 </dd>
 </dl></blockquote><p>
+
+	  The format of the &lt;lp:claim&gt; element is identical to that specified in the section on EPP &lt;info&gt; command.
 
           Upon successful processing, the server assigns an application identifier and returns it in an
           &lt;lp:creData&gt; element together with the regular &lt;resData&gt;. The &lt;lp:creData&gt; element
@@ -743,11 +733,18 @@ Example &lt;create&gt; command</h3>
     &lt;extension&gt;
       &lt;lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
-        &lt;lp:trademarkName&gt;Hello&lt;/lp:trademarkName&gt;
-        &lt;lp:trademarkNumber&gt;GE 3933232&lt;/lp:trademarkNumber&gt;
-        &lt;lp:trademarkLocality&gt;AU&lt;/lp:trademarkLocality&gt;
-        &lt;lp:trademarkEntitlement&gt;owner&lt;/lp:trademarkEntitlement&gt;
-        &lt;lp:pvrc&gt;3828590-P1F-932391651E3A2900338C12&lt;/lp:pvrc&gt;
+        &lt;lp:claim&gt;
+          &lt;lp:pvrc&gt;3828590-P1F-932391651E3A2900338C12&lt;/lp:pvrc&gt;
+          &lt;lp:claimIssuer&gt;CONTACT-IPCLEARINGHOUSE&lt;/lp:claimIssuer&gt;
+          &lt;lp:claimName&gt;Hello&lt;/lp:claimName&gt;
+          &lt;lp:claimNumber&gt;GE 3933232&lt;/lp:claimNumber&gt;
+          &lt;lp:claimType&gt;REG-TM-WORD&lt;/lp:claimType&gt;
+          &lt;lp:claimEntitlement&gt;owner&lt;/lp:claimEntitlement&gt;
+          &lt;lp:claimRegDate&gt;2011-09-09&lt;/lp:claimRegDate&gt;
+          &lt;lp:claimExDate&gt;2013-09-09&lt;/lp:claimExDate&gt;
+          &lt;lp:claimCountry&gt;AU&lt;/lp:claimCountry&gt;
+          &lt;lp:claimCountry&gt;VIC&lt;/lp:claimCountry&gt;
+        &lt;/lp:claim&gt;
       &lt;/lp:create&gt;
     &lt;/extension&gt;
     &lt;clTRID&gt;example:epp:239332&lt;/clTRID&gt;
@@ -1011,117 +1008,8 @@ EPP &lt;transfer&gt; Command</h3>
 <a name="rfc.section.4"></a><h3>4.&nbsp;
 Formal Syntax</h3>
 
-<p>Following is the content of "launchphase-1.0.xsd"
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;schema xmlns="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="urn:ietf:params:xml:ns:launchphase-1.0"
-    xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
-    elementFormDefault="qualified"&gt;
-
-  &lt;annotation&gt;
-    &lt;documentation&gt;
-      Extensible Provisioning Protocol v1.0
-      domain name extension schema for launch phase processing.
-    &lt;/documentation&gt;
-  &lt;/annotation&gt;
-
-  &lt;!-- Command extension elements --&gt;
-  &lt;element name="create" type="lp:createType"/&gt;
-  &lt;element name="update" type="lp:queryType"/&gt;
-  &lt;element name="info" type="lp:queryType"/&gt;
-  &lt;element name="delete" type="lp:queryType"/&gt;
-
-  &lt;complexType name="createType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="phase" type="lp:idStringType" minOccurs="0" /&gt;
-      &lt;element name="trademarkName"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademarkNumber"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademarkLocality"
-        type="lp:ccType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademarkEntitlement"
-        ype="lp:entitlementType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="pvrc"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
-
-  &lt;complexType name="queryType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="applicationID" type="lp:idStringType" /&gt;
-      &lt;element name="phase" type="lp:idStringType" minOccurs="0" /&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
-
-  &lt;simpleType name="ccType"&gt;
-    &lt;restriction base="token"&gt;
-      &lt;length value="2"/&gt;
-    &lt;/restriction&gt;
-  &lt;/simpleType&gt;
-
-  &lt;simpleType name="genericStringType"&gt;
-    &lt;restriction base="normalizedString"&gt;
-      &lt;minLength value="0"/&gt;
-      &lt;maxLength value="255"/&gt;
-    &lt;/restriction&gt;
-  &lt;/simpleType&gt;
-
-  &lt;simpleType name="idStringType"&gt;
-    &lt;restriction base="normalizedString"&gt;
-      &lt;minLength value="0"/&gt;
-      &lt;maxLength value="25"/&gt;
-    &lt;/restriction&gt;
-  &lt;/simpleType&gt;
-
-  &lt;simpleType name="entitlementType"&gt;
-    &lt;restriction base="normalizedString"&gt;
-      &lt;minLength value="0"/&gt;
-      &lt;maxLength value="50"/&gt;
-    &lt;/restriction&gt;
-  &lt;/simpleType&gt;
-
-  &lt;complexType name="statusType"&gt;
-    &lt;simpleContent&gt;
-      &lt;extension base="normalizedString"&gt;
-        &lt;attribute name="s" type="token" use="required"/&gt;
-        &lt;attribute name="lang" type="language" default="en"/&gt;
-      &lt;/extension&gt;
-    &lt;/simpleContent&gt;
-  &lt;/complexType&gt;
-
-  &lt;!--
-  Response extension elements
-  --&gt;
-  &lt;element name="infData" type="lp:infDataType"/&gt;
-  &lt;element name="creData" type="lp:creDataType"/&gt;
-
-  &lt;complexType name="creDataType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="applicationID" type="lp:idStringType" /&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
-
-  &lt;complexType name="infDataType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="applicationID" type="lp:idStringType"/&gt;
-      &lt;element name="phase" type="lp:idStringType" minOccurs="0"/&gt;
-      &lt;element name="status" type="lp:statusType"/&gt;
-      &lt;element name="trademarkName"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademarkNumber"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademarkLocality"
-        type="lp:ccType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="trademarkEntitlement"
-        type="lp:entitlementType" minOccurs="0" maxOccurs="1"/&gt;
-      &lt;element name="pvrc"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
-&lt;/schema&gt;
-</pre></div>
+<p>[TBD]
+</p>
 <a name="Acknowledgements"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.5"></a><h3>5.&nbsp;

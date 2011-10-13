@@ -299,7 +299,7 @@
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
             <t hangText="&lt;lp:status&gt;"> (optional) status of the application.</t>
-            <t> (optional) one or more &lt;lp:claim&gt; elements.</t>
+            <t hangText="&lt;lp:claim&gt;"> (optional) one or more &lt;lp:claim&gt; elements.</t>
           </list>
         </t>
  
@@ -429,15 +429,10 @@
           submitted. The &lt;lp:create&gt; element contains the following child elements.
           <list hangIndent="8" style="hanging">
             <t hangText="&lt;lp:phase&gt;">(optional) the phase during which the application was submitted or is associated with.</t>
-            <t hangText="&lt;lp:trademarkName&gt;">(optional) registered trademark</t>
-
-            <t hangText="&lt;lp:trademarkNumber&gt;">(optional) registration number for the given trademark</t>
-
-            <t hangText="&lt;lp:trademarkLocality&gt;">(optional) locality in which the trademark was registered</t>
-
-            <t hangText="&lt;lp:trademarkEntitlement&gt;">(optional) capacity of the registrant in regards to the ownership or rights to use the given trademark</t>
-            <t hangText="&lt;lp:pvrc&gt;">(optional) pre-verified code assigned by a third party verification service to indicate trademark information that has been previously validated.</t>
+            <t hangText="&lt;lp:claim&gt;">(optional) one or more &lt;lp:claim&gt; elements.</t>
           </list>
+
+	  The format of the &lt;lp:claim&gt; element is identical to that specified in the section on EPP &lt;info&gt; command.
 
           Upon successful processing, the server assigns an application identifier and returns it in an
           &lt;lp:creData&gt; element together with the regular &lt;resData&gt;. The &lt;lp:creData&gt; element
@@ -476,11 +471,18 @@
     <extension>
       <lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
         <lp:phase>phase1</lp:phase>
-        <lp:trademarkName>Hello</lp:trademarkName>
-        <lp:trademarkNumber>GE 3933232</lp:trademarkNumber>
-        <lp:trademarkLocality>AU</lp:trademarkLocality>
-        <lp:trademarkEntitlement>owner</lp:trademarkEntitlement>
-        <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
+        <lp:claim>
+          <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
+          <lp:claimIssuer>CONTACT-IPCLEARINGHOUSE</lp:claimIssuer>
+          <lp:claimName>Hello</lp:claimName>
+          <lp:claimNumber>GE 3933232</lp:claimNumber>
+          <lp:claimType>REG-TM-WORD</lp:claimType>
+          <lp:claimEntitlement>owner</lp:claimEntitlement>
+          <lp:claimRegDate>2011-09-09</lp:claimRegDate>
+          <lp:claimExDate>2013-09-09</lp:claimExDate>
+          <lp:claimCountry>AU</lp:claimCountry>
+          <lp:claimCountry>VIC</lp:claimCountry>
+        </lp:claim>
       </lp:create>
     </extension>
     <clTRID>example:epp:239332</clTRID>
@@ -726,119 +728,7 @@
 
 
     <section title="Formal Syntax">
-      <figure>
-        <preamble>Following is the content of "launchphase-1.0.xsd"</preamble>
-        <artwork><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema"
-    targetNamespace="urn:ietf:params:xml:ns:launchphase-1.0"
-    xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
-    elementFormDefault="qualified">
-
-  <annotation>
-    <documentation>
-      Extensible Provisioning Protocol v1.0
-      domain name extension schema for launch phase processing.
-    </documentation>
-  </annotation>
-
-  <!-- Command extension elements -->
-  <element name="create" type="lp:createType"/>
-  <element name="update" type="lp:queryType"/>
-  <element name="info" type="lp:queryType"/>
-  <element name="delete" type="lp:queryType"/>
-
-  <complexType name="createType">
-    <sequence>
-      <element name="phase" type="lp:idStringType" minOccurs="0" />
-      <element name="trademarkName" 
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademarkNumber" 
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/> 
-      <element name="trademarkLocality" 
-        type="lp:ccType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademarkEntitlement" 
-        ype="lp:entitlementType" minOccurs="0" maxOccurs="1"/>
-      <element name="pvrc"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-    </sequence>
-  </complexType>
-
-  <complexType name="queryType">
-    <sequence>
-      <element name="applicationID" type="lp:idStringType" />
-      <element name="phase" type="lp:idStringType" minOccurs="0" />
-    </sequence>
-  </complexType>
-
-  <simpleType name="ccType">
-    <restriction base="token">
-      <length value="2"/>
-    </restriction>
-  </simpleType>
-
-  <simpleType name="genericStringType">
-    <restriction base="normalizedString">
-      <minLength value="0"/>
-      <maxLength value="255"/>
-    </restriction>
-  </simpleType>
-
-  <simpleType name="idStringType">
-    <restriction base="normalizedString">
-      <minLength value="0"/>
-      <maxLength value="25"/>
-    </restriction>
-  </simpleType>
-
-  <simpleType name="entitlementType">
-    <restriction base="normalizedString">
-      <minLength value="0"/>
-      <maxLength value="50"/>
-    </restriction>
-  </simpleType>
-
-  <complexType name="statusType">
-    <simpleContent>
-      <extension base="normalizedString">
-        <attribute name="s" type="token" use="required"/>
-        <attribute name="lang" type="language" default="en"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-
-  <!--
-  Response extension elements
-  -->
-  <element name="infData" type="lp:infDataType"/>
-  <element name="creData" type="lp:creDataType"/>
-
-  <complexType name="creDataType">
-    <sequence>
-      <element name="applicationID" type="lp:idStringType" />
-    </sequence>
-  </complexType>
-
-  <complexType name="infDataType">
-    <sequence>
-      <element name="applicationID" type="lp:idStringType"/>
-      <element name="phase" type="lp:idStringType" minOccurs="0"/>
-      <element name="status" type="lp:statusType"/>
-      <element name="trademarkName"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademarkNumber"
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/> 
-      <element name="trademarkLocality" 
-        type="lp:ccType" minOccurs="0" maxOccurs="1"/>
-      <element name="trademarkEntitlement" 
-        type="lp:entitlementType" minOccurs="0" maxOccurs="1"/>
-      <element name="pvrc" 
-        type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-    </sequence>
-  </complexType>
-</schema>
-]]></artwork>
-      </figure>
+        <t>[TBD]</t>
     </section><!-- end Formal Syntax -->
 
     <section anchor="Acknowledgements" title="Acknowledgements">

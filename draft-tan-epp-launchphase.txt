@@ -4,8 +4,8 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Experimental                                   G. Brown
-Expires: March 12, 2012                                   CentralNic Ltd
-                                                       September 9, 2011
+Expires: March 4, 2012                                    CentralNic Ltd
+                                                          September 2011
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -32,7 +32,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 12, 2012.
+   This Internet-Draft will expire on March 4, 2012.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 1]
+Tan & Brown               Expires March 4, 2012                 [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -83,11 +83,11 @@ Table of Contents
      3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 16
      3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 17
    4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 17
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 19
-   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 19
-   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 20
-   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 20
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 20
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 17
+   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 17
+   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 17
+   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 18
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 18
 
 
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 2]
+Tan & Brown               Expires March 4, 2012                 [Page 2]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -164,7 +164,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 3]
+Tan & Brown               Expires March 4, 2012                 [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -220,7 +220,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 4]
+Tan & Brown               Expires March 4, 2012                 [Page 4]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -276,7 +276,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 5]
+Tan & Brown               Expires March 4, 2012                 [Page 5]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -332,7 +332,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 6]
+Tan & Brown               Expires March 4, 2012                 [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -360,7 +360,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
    <lp:status>  (optional) status of the application.
 
-           (optional) one or more <lp:claim> elements.
+   <lp:claim>  (optional) one or more <lp:claim> elements.
 
    If present, the <lp:claim> elements may contain the following child
    elements:
@@ -388,7 +388,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 7]
+Tan & Brown               Expires March 4, 2012                 [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -444,7 +444,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 8]
+Tan & Brown               Expires March 4, 2012                 [Page 8]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -500,7 +500,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                 [Page 9]
+Tan & Brown               Expires March 4, 2012                 [Page 9]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -518,25 +518,14 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
    <lp:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
-   <lp:trademarkName>  (optional) registered trademark
+   <lp:claim>  (optional) one or more <lp:claim> elements.
 
-   <lp:trademarkNumber>  (optional) registration number for the given
-           trademark
-
-   <lp:trademarkLocality>  (optional) locality in which the trademark
-           was registered
-
-   <lp:trademarkEntitlement>  (optional) capacity of the registrant in
-           regards to the ownership or rights to use the given trademark
-
-   <lp:pvrc>  (optional) pre-verified code assigned by a third party
-           verification service to indicate trademark information that
-           has been previously validated.
-
-   Upon successful processing, the server assigns an application
-   identifier and returns it in an <lp:creData> element together with
-   the regular <resData>.  The <lp:creData> element contains a single
-   <lp:applicationID> element as described below:
+   The format of the <lp:claim> element is identical to that specified
+   in the section on EPP <info> command.  Upon successful processing,
+   the server assigns an application identifier and returns it in an
+   <lp:creData> element together with the regular <resData>.  The <lp:
+   creData> element contains a single <lp:applicationID> element as
+   described below:
 
    <lp:applicationID>  the application identifier assigned by the
            server.
@@ -556,7 +545,18 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+Tan & Brown               Expires March 4, 2012                [Page 10]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -590,11 +590,18 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
        <extension>
          <lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
            <lp:phase>phase1</lp:phase>
-           <lp:trademarkName>Hello</lp:trademarkName>
-           <lp:trademarkNumber>GE 3933232</lp:trademarkNumber>
-           <lp:trademarkLocality>AU</lp:trademarkLocality>
-           <lp:trademarkEntitlement>owner</lp:trademarkEntitlement>
-           <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
+           <lp:claim>
+             <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
+             <lp:claimIssuer>CONTACT-IPCLEARINGHOUSE</lp:claimIssuer>
+             <lp:claimName>Hello</lp:claimName>
+             <lp:claimNumber>GE 3933232</lp:claimNumber>
+             <lp:claimType>REG-TM-WORD</lp:claimType>
+             <lp:claimEntitlement>owner</lp:claimEntitlement>
+             <lp:claimRegDate>2011-09-09</lp:claimRegDate>
+             <lp:claimExDate>2013-09-09</lp:claimExDate>
+             <lp:claimCountry>AU</lp:claimCountry>
+             <lp:claimCountry>VIC</lp:claimCountry>
+           </lp:claim>
          </lp:create>
        </extension>
        <clTRID>example:epp:239332</clTRID>
@@ -605,14 +612,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-
-
-
-
-
-
-
-Tan & Brown              Expires March 12, 2012                [Page 11]
+Tan & Brown               Expires March 4, 2012                [Page 11]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -668,7 +668,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                [Page 12]
+Tan & Brown               Expires March 4, 2012                [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -724,7 +724,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                [Page 13]
+Tan & Brown               Expires March 4, 2012                [Page 13]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -780,7 +780,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                [Page 14]
+Tan & Brown               Expires March 4, 2012                [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -836,7 +836,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                [Page 15]
+Tan & Brown               Expires March 4, 2012                [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -892,7 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown              Expires March 12, 2012                [Page 16]
+Tan & Brown               Expires March 4, 2012                [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
@@ -906,132 +906,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 4.  Formal Syntax
 
-   Following is the content of "launchphase-1.0.xsd"
-
-   <?xml version="1.0" encoding="UTF-8"?>
-   <schema xmlns="http://www.w3.org/2001/XMLSchema"
-       targetNamespace="urn:ietf:params:xml:ns:launchphase-1.0"
-       xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
-       elementFormDefault="qualified">
-
-     <annotation>
-       <documentation>
-         Extensible Provisioning Protocol v1.0
-         domain name extension schema for launch phase processing.
-       </documentation>
-     </annotation>
-
-     <!-- Command extension elements -->
-     <element name="create" type="lp:createType"/>
-     <element name="update" type="lp:queryType"/>
-     <element name="info" type="lp:queryType"/>
-     <element name="delete" type="lp:queryType"/>
-
-     <complexType name="createType">
-       <sequence>
-         <element name="phase" type="lp:idStringType" minOccurs="0" />
-         <element name="trademarkName"
-           type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-         <element name="trademarkNumber"
-           type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-         <element name="trademarkLocality"
-           type="lp:ccType" minOccurs="0" maxOccurs="1"/>
-         <element name="trademarkEntitlement"
-           ype="lp:entitlementType" minOccurs="0" maxOccurs="1"/>
-         <element name="pvrc"
-           type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-       </sequence>
-     </complexType>
-
-     <complexType name="queryType">
-       <sequence>
-
-
-
-Tan & Brown              Expires March 12, 2012                [Page 17]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
-
-
-         <element name="applicationID" type="lp:idStringType" />
-         <element name="phase" type="lp:idStringType" minOccurs="0" />
-       </sequence>
-     </complexType>
-
-     <simpleType name="ccType">
-       <restriction base="token">
-         <length value="2"/>
-       </restriction>
-     </simpleType>
-
-     <simpleType name="genericStringType">
-       <restriction base="normalizedString">
-         <minLength value="0"/>
-         <maxLength value="255"/>
-       </restriction>
-     </simpleType>
-
-     <simpleType name="idStringType">
-       <restriction base="normalizedString">
-         <minLength value="0"/>
-         <maxLength value="25"/>
-       </restriction>
-     </simpleType>
-
-     <simpleType name="entitlementType">
-       <restriction base="normalizedString">
-         <minLength value="0"/>
-         <maxLength value="50"/>
-       </restriction>
-     </simpleType>
-
-     <complexType name="statusType">
-       <simpleContent>
-         <extension base="normalizedString">
-           <attribute name="s" type="token" use="required"/>
-           <attribute name="lang" type="language" default="en"/>
-         </extension>
-       </simpleContent>
-     </complexType>
-
-     <!--
-     Response extension elements
-     -->
-     <element name="infData" type="lp:infDataType"/>
-     <element name="creData" type="lp:creDataType"/>
-
-     <complexType name="creDataType">
-
-
-
-Tan & Brown              Expires March 12, 2012                [Page 18]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
-
-
-       <sequence>
-         <element name="applicationID" type="lp:idStringType" />
-       </sequence>
-     </complexType>
-
-     <complexType name="infDataType">
-       <sequence>
-         <element name="applicationID" type="lp:idStringType"/>
-         <element name="phase" type="lp:idStringType" minOccurs="0"/>
-         <element name="status" type="lp:statusType"/>
-         <element name="trademarkName"
-           type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-         <element name="trademarkNumber"
-           type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-         <element name="trademarkLocality"
-           type="lp:ccType" minOccurs="0" maxOccurs="1"/>
-         <element name="trademarkEntitlement"
-           type="lp:entitlementType" minOccurs="0" maxOccurs="1"/>
-         <element name="pvrc"
-           type="lp:genericStringType" minOccurs="0" maxOccurs="1"/>
-       </sequence>
-     </complexType>
-   </schema>
+   [TBD]
 
 
 5.  Acknowledgements
@@ -1059,12 +934,6 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
    URI: urn:ietf:params:xml:schema:launchphase-1.0
 
 
-
-Tan & Brown              Expires March 12, 2012                [Page 19]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
-
-
 7.  Security Considerations
 
    The mapping extensions described in this document do not provide any
@@ -1075,6 +944,14 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
    Updates to, and deletion of an application object must be restricted
    to clients authorized to perform the said operation on the object.
+
+
+
+
+Tan & Brown               Expires March 4, 2012                [Page 17]
+
+Internet-Draft        Launch Phase Mapping for EPP        September 2011
+
 
    As information contained within an application, or even the mere fact
    that an application exists may be confidential.  Any attempt to
@@ -1104,23 +981,6 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
               Contact Mapping", STD 69, RFC 5733, August 2009.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Tan & Brown              Expires March 12, 2012                [Page 20]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
-
-
 Authors' Addresses
 
    Wil Tan
@@ -1133,6 +993,20 @@ Authors' Addresses
    Phone: +61 414 710899
    Email: wil@cloudregistry.net
    URI:   http://www.cloudregistry.net
+
+
+
+
+
+
+
+
+
+
+
+Tan & Brown               Expires March 4, 2012                [Page 18]
+
+Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
    Gavin Brown
@@ -1172,5 +1046,19 @@ Authors' Addresses
 
 
 
-Tan & Brown              Expires March 12, 2012                [Page 21]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan & Brown               Expires March 4, 2012                [Page 19]
 
