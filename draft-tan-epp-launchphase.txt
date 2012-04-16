@@ -4,12 +4,12 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Experimental                                   G. Brown
-Expires: March 4, 2012                                    CentralNic Ltd
-                                                          September 2011
+Expires: April 16, 2012                                   CentralNic Ltd
+                                                        October 14, 2011
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
-                      draft-tan-epp-launchphase-00
+                      draft-tan-epp-launchphase-01
 
 Abstract
 
@@ -32,7 +32,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 4, 2012.
+   This Internet-Draft will expire on April 16, 2012.
 
 Copyright Notice
 
@@ -52,9 +52,9 @@ Copyright Notice
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 1]
+Tan & Brown              Expires April 16, 2012                 [Page 1]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 Table of Contents
@@ -108,9 +108,9 @@ Table of Contents
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 2]
+Tan & Brown              Expires April 16, 2012                 [Page 2]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 1.  Introduction
@@ -164,9 +164,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 3]
+Tan & Brown              Expires April 16, 2012                 [Page 3]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    domain object MUST be qualified by the previously assigned
@@ -220,9 +220,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 4]
+Tan & Brown              Expires April 16, 2012                 [Page 4]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 2.2.1.  State Transition
@@ -276,9 +276,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 5]
+Tan & Brown              Expires April 16, 2012                 [Page 5]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    <claimName>:  identifying the text string in which the applicant is
@@ -332,9 +332,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 6]
+Tan & Brown              Expires April 16, 2012                 [Page 6]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    In order to indicate that the query is meant for an application
@@ -388,9 +388,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 7]
+Tan & Brown              Expires April 16, 2012                 [Page 7]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    <claimCountry>:  the country.
@@ -444,9 +444,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 8]
+Tan & Brown              Expires April 16, 2012                 [Page 8]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
          <domain:status s="pendingCreate" />
@@ -500,9 +500,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                 [Page 9]
+Tan & Brown              Expires April 16, 2012                 [Page 9]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    The EPP <create> command is used to create an application.  Typically
@@ -521,11 +521,12 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
    <lp:claim>  (optional) one or more <lp:claim> elements.
 
    The format of the <lp:claim> element is identical to that specified
-   in the section on EPP <info> command.  Upon successful processing,
-   the server assigns an application identifier and returns it in an
-   <lp:creData> element together with the regular <resData>.  The <lp:
-   creData> element contains a single <lp:applicationID> element as
-   described below:
+   in the section on EPP <info> command.
+
+   Upon successful processing, the server assigns an application
+   identifier and returns it in an <lp:creData> element together with
+   the regular <resData>.  The <lp:creData> element contains a single
+   <lp:applicationID> element as described below:
 
    <lp:applicationID>  the application identifier assigned by the
            server.
@@ -555,10 +556,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-
-Tan & Brown               Expires March 4, 2012                [Page 10]
+Tan & Brown              Expires April 16, 2012                [Page 10]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 3.3.1.  Example <create> command
@@ -612,9 +612,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 11]
+Tan & Brown              Expires April 16, 2012                [Page 11]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    An example response that corresponds to the above command.
@@ -668,9 +668,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 12]
+Tan & Brown              Expires April 16, 2012                [Page 12]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    <lp:applicationID>  the application identifier for which the client
@@ -724,9 +724,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 13]
+Tan & Brown              Expires April 16, 2012                [Page 13]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 3.4.2.  Example <update> command
@@ -780,9 +780,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 14]
+Tan & Brown              Expires April 16, 2012                [Page 14]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    An example response that corresponds to the above command.
@@ -836,9 +836,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 15]
+Tan & Brown              Expires April 16, 2012                [Page 15]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    to indicate that the object will be purged at a later date.
@@ -892,9 +892,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 16]
+Tan & Brown              Expires April 16, 2012                [Page 16]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 3.7.  EPP <transfer> Command
@@ -948,9 +948,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 17]
+Tan & Brown              Expires April 16, 2012                [Page 17]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    operate on an application object by an unauthorized client MUST be
@@ -1004,9 +1004,9 @@ Authors' Addresses
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 18]
+Tan & Brown              Expires April 16, 2012                [Page 18]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2011
+Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
    Gavin Brown
@@ -1060,5 +1060,5 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2011
 
 
 
-Tan & Brown               Expires March 4, 2012                [Page 19]
+Tan & Brown              Expires April 16, 2012                [Page 19]
 

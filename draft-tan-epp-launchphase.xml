@@ -40,7 +40,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="exp" docName="draft-tan-epp-launchphase-00" ipr="trust200902">
+<rfc category="exp" docName="draft-tan-epp-launchphase-01" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -88,7 +88,7 @@
       </address>
     </author>
 
-    <date month="September" year="2011" />
+    <date day="14" month="October" year="2011" />
 
 
     <!-- Meta-data Declarations -->
@@ -431,9 +431,13 @@
             <t hangText="&lt;lp:phase&gt;">(optional) the phase during which the application was submitted or is associated with.</t>
             <t hangText="&lt;lp:claim&gt;">(optional) one or more &lt;lp:claim&gt; elements.</t>
           </list>
+        </t>
 
+        <t>
 	  The format of the &lt;lp:claim&gt; element is identical to that specified in the section on EPP &lt;info&gt; command.
+        </t>
 
+        <t>
           Upon successful processing, the server assigns an application identifier and returns it in an
           &lt;lp:creData&gt; element together with the regular &lt;resData&gt;. The &lt;lp:creData&gt; element
           contains a single &lt;lp:applicationID&gt; element as described below:
