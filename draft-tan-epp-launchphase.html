@@ -145,8 +145,8 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Experimental</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: April 16, 2012</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">October 14, 2011</td></tr>
+<tr><td class="header">Expires: October 18, 2012</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 16, 2012</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-01</h1>
 
@@ -172,11 +172,11 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on April 16, 2012.</p>
+This Internet-Draft will expire on October 18, 2012.</p>
 
 <h3>Copyright Notice</h3>
 <p>
-Copyright (c) 2011 IETF Trust and the persons identified as the
+Copyright (c) 2012 IETF Trust and the persons identified as the
 document authors.  All rights reserved.</p>
 <p>
 This document is subject to BCP 78 and the IETF Trust's Legal
@@ -417,7 +417,7 @@ State Transition</h3>
 <a name="rfc.section.2.3"></a><h3>2.3.&nbsp;
 Claim Elements</h3>
 
-<p>An application may have one or more &lt;claim&gt; elements. A &lt;claim&gt; element
+<p>An application may have zero or more &lt;claim&gt; elements. A &lt;claim&gt; element
           describes an applicant's prior right to a given domain name.
 </p>
 <p>The &lt;claim&gt; element has the boolean "preValidated" attribute, which indicates
@@ -427,37 +427,42 @@ Claim Elements</h3>
 <p>Several child elements of the &lt;claim&gt; element are defined:
           </p>
 <blockquote class="text"><dl>
+<dt>&lt;id&gt;:</dt>
+<dd>an identifier for the claim. This identifier MUST be unique among all claims associated with an application object.
+</dd>
 <dt>&lt;pvrc&gt;:</dt>
 <dd>The Pre-Validation Result Code, an opaque string issued by a third-party validation agent
 </dd>
-<dt>&lt;claimIssuer&gt;:</dt>
+<dt>&lt;issuer&gt;:</dt>
 <dd>contains the ID of a contact object (as described in <a class='info' href='#RFC5733'>RFC 5733<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733]) identifying the contact information of the authority which issued the right (for example, a trade mark office or company registration bureau)
 </dd>
-<dt>&lt;claimName&gt;:</dt>
+<dt>&lt;name&gt;:</dt>
 <dd>identifying the text string in which the applicant is claiming a prior right
 </dd>
-<dt>&lt;claimNumber&gt;:</dt>
+<dt>&lt;number&gt;:</dt>
 <dd>the registration number of the right (ie trademark number or company registration number)
 </dd>
-<dt>&lt;claimType&gt;:</dt>
+<dt>&lt;type&gt;:</dt>
 <dd>indicates the type of claim being made (eg trademark, symbol, combined mark, company name)
 </dd>
-<dt>&lt;claimEntitlement&gt;:</dt>
+<dt>&lt;entitlement&gt;:</dt>
 <dd>indicates the applicant's entitlement to the claim (ie, owner or licensee)
 </dd>
-<dt>&lt;claimRegDate&gt;:</dt>
+<dt>&lt;regDate&gt;:</dt>
 <dd>the date of registration of the claim
 </dd>
-<dt>&lt;claimExDate&gt;:</dt>
+<dt>&lt;exDate&gt;:</dt>
 <dd>the date of expiration of the claim
 </dd>
-<dt>&lt;claimCountry&gt;:</dt>
+<dt>&lt;country&gt;:</dt>
 <dd>indicates the country in which the claim is valid
 </dd>
-<dt>&lt;claimRegion&gt;:</dt>
+<dt>&lt;region&gt;:</dt>
 <dd>indicates the name of a city, state, province or other geographic region in which the claim is valid. This may be a two-character code from [WIPO.ST3]
 </dd>
 </dl></blockquote><p>
+          Apart from the mandatory &lt;id&gt; element, all other child elements are optional. Server policy may place
+          additional constraints on the format and requirements of such elements.
           
 </p>
 <a name="anchor8"></a><br /><hr />
@@ -524,10 +529,10 @@ EPP &lt;info&gt; Command</h3>
 <dd> (optional) the phase during which the application was submitted or is associated with.
 </dd>
 <dt>&lt;lp:status&gt;</dt>
-<dd> (optional) status of the application.
+<dd> status of the application.
 </dd>
 <dt>&lt;lp:claim&gt;</dt>
-<dd> (optional) one or more &lt;lp:claim&gt; elements.
+<dd> zero or more &lt;lp:claim&gt; elements.
 </dd>
 </dl></blockquote><p>
         
@@ -536,34 +541,37 @@ EPP &lt;info&gt; Command</h3>
         	If present, the &lt;lp:claim&gt; elements may contain the following child elements:
               </p>
 <blockquote class="text"><dl>
+<dt>&lt;id&gt;:</dt>
+<dd>an identifier for the claim. This identifier MUST be unique among all claims associated with an application object.
+</dd>
 <dt>&lt;pvrc&gt;:</dt>
 <dd>The Pre-Validation Result Code.
 </dd>
-<dt>&lt;claimIssuer&gt;:</dt>
+<dt>&lt;issuer&gt;:</dt>
 <dd>the ID of a contact object representing the issuing authority.
 </dd>
-<dt>&lt;claimName&gt;:</dt>
+<dt>&lt;name&gt;:</dt>
 <dd>the textual representation of the right.
 </dd>
-<dt>&lt;claimNumber&gt;:</dt>
+<dt>&lt;number&gt;:</dt>
 <dd>the registration number.
 </dd>
-<dt>&lt;claimType&gt;:</dt>
+<dt>&lt;type&gt;:</dt>
 <dd>the type of claim being made.
 </dd>
-<dt>&lt;claimEntitlement&gt;:</dt>
+<dt>&lt;entitlement&gt;:</dt>
 <dd>the entitlement.
 </dd>
-<dt>&lt;claimRegDate&gt;:</dt>
+<dt>&lt;regDate&gt;:</dt>
 <dd>the registration date.
 </dd>
-<dt>&lt;claimExDate&gt;:</dt>
+<dt>&lt;exDate&gt;:</dt>
 <dd>the expiry date.
 </dd>
-<dt>&lt;claimCountry&gt;:</dt>
+<dt>&lt;country&gt;:</dt>
 <dd>the country.
 </dd>
-<dt>&lt;claimRegion&gt;:</dt>
+<dt>&lt;region&gt;:</dt>
 <dd>the geographic region.
 </dd>
 </dl></blockquote><p>
@@ -642,16 +650,17 @@ Example &lt;info&gt; command</h3>
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
         &lt;lp:status s="pending" /&gt;
         &lt;lp:claim&gt;
+          &lt;lp:id&gt;claim-001&lt;/lp:id&gt;
           &lt;lp:pvrc&gt;3828590-P1F-932391651E3A2900338C12&lt;/lp:pvrc&gt;
-          &lt;lp:claimIssuer&gt;CONTACT-IPCLEARINGHOUSE&lt;/lp:claimIssuer&gt;
-          &lt;lp:claimName&gt;Hello&lt;/lp:claimName&gt;
-          &lt;lp:claimNumber&gt;GE 3933232&lt;/lp:claimNumber&gt;
-          &lt;lp:claimType&gt;REG-TM-WORD&lt;/lp:claimType&gt;
-          &lt;lp:claimEntitlement&gt;owner&lt;/lp:claimEntitlement&gt;
-          &lt;lp:claimRegDate&gt;2011-09-09&lt;/lp:claimRegDate&gt;
-          &lt;lp:claimExDate&gt;2013-09-09&lt;/lp:claimExDate&gt;
-          &lt;lp:claimCountry&gt;AU&lt;/lp:claimCountry&gt;
-          &lt;lp:claimCountry&gt;VIC&lt;/lp:claimCountry&gt;
+          &lt;lp:issuer&gt;CONTACT-IPCLEARINGHOUSE&lt;/lp:issuer&gt;
+          &lt;lp:name&gt;Hello&lt;/lp:name&gt;
+          &lt;lp:number&gt;GE 3933232&lt;/lp:number&gt;
+          &lt;lp:type&gt;REG-TM-WORD&lt;/lp:type&gt;
+          &lt;lp:entitlement&gt;owner&lt;/lp:entitlement&gt;
+          &lt;lp:regDate&gt;2011-09-09&lt;/lp:regDate&gt;
+          &lt;lp:exDate&gt;2013-09-09&lt;/lp:exDate&gt;
+          &lt;lp:country&gt;AU&lt;/lp:country&gt;
+          &lt;lp:region&gt;VIC&lt;/lp:region&gt;
         &lt;/lp:claim&gt;
       &lt;/lp:infData&gt;
     &lt;/extension&gt;
@@ -738,16 +747,17 @@ Example &lt;create&gt; command</h3>
       &lt;lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
         &lt;lp:phase&gt;phase1&lt;/lp:phase&gt;
         &lt;lp:claim&gt;
+          &lt;lp:id&gt;claim-001&lt;/lp:id&gt;
           &lt;lp:pvrc&gt;3828590-P1F-932391651E3A2900338C12&lt;/lp:pvrc&gt;
-          &lt;lp:claimIssuer&gt;CONTACT-IPCLEARINGHOUSE&lt;/lp:claimIssuer&gt;
-          &lt;lp:claimName&gt;Hello&lt;/lp:claimName&gt;
-          &lt;lp:claimNumber&gt;GE 3933232&lt;/lp:claimNumber&gt;
-          &lt;lp:claimType&gt;REG-TM-WORD&lt;/lp:claimType&gt;
-          &lt;lp:claimEntitlement&gt;owner&lt;/lp:claimEntitlement&gt;
-          &lt;lp:claimRegDate&gt;2011-09-09&lt;/lp:claimRegDate&gt;
-          &lt;lp:claimExDate&gt;2013-09-09&lt;/lp:claimExDate&gt;
-          &lt;lp:claimCountry&gt;AU&lt;/lp:claimCountry&gt;
-          &lt;lp:claimCountry&gt;VIC&lt;/lp:claimCountry&gt;
+          &lt;lp:issuer&gt;CONTACT-IPCLEARINGHOUSE&lt;/lp:issuer&gt;
+          &lt;lp:name&gt;Hello&lt;/lp:name&gt;
+          &lt;lp:number&gt;GE 3933232&lt;/lp:number&gt;
+          &lt;lp:type&gt;REG-TM-WORD&lt;/lp:type&gt;
+          &lt;lp:entitlement&gt;owner&lt;/lp:entitlement&gt;
+          &lt;lp:regDate&gt;2011-09-09&lt;/lp:regDate&gt;
+          &lt;lp:exDate&gt;2013-09-09&lt;/lp:exDate&gt;
+          &lt;lp:country&gt;AU&lt;/lp:country&gt;
+          &lt;lp:region&gt;VIC&lt;/lp:region&gt;
         &lt;/lp:claim&gt;
       &lt;/lp:create&gt;
     &lt;/extension&gt;

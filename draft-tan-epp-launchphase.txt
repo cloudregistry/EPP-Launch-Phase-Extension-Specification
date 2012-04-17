@@ -4,8 +4,8 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Experimental                                   G. Brown
-Expires: April 16, 2012                                   CentralNic Ltd
-                                                        October 14, 2011
+Expires: October 18, 2012                                 CentralNic Ltd
+                                                          April 16, 2012
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -32,11 +32,11 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 16, 2012.
+   This Internet-Draft will expire on October 18, 2012.
 
 Copyright Notice
 
-   Copyright (c) 2011 IETF Trust and the persons identified as the
+   Copyright (c) 2012 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -52,9 +52,9 @@ Copyright Notice
 
 
 
-Tan & Brown              Expires April 16, 2012                 [Page 1]
+Tan & Brown             Expires October 18, 2012                [Page 1]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 Table of Contents
@@ -67,27 +67,27 @@ Table of Contents
        2.2.1.  State Transition . . . . . . . . . . . . . . . . . . .  5
      2.3.  Claim Elements . . . . . . . . . . . . . . . . . . . . . .  5
    3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . .  6
-     3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . .  6
-     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . .  6
+     3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . .  7
+     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . .  7
        3.2.1.  Client Processing Considerations . . . . . . . . . . .  8
-       3.2.2.  Example <info> command . . . . . . . . . . . . . . . .  8
-     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . .  9
-       3.3.1.  Example <create> command . . . . . . . . . . . . . . . 11
-       3.3.2.  Client Processing Considerations . . . . . . . . . . . 12
-     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 12
-       3.4.1.  Server Processing Considerations . . . . . . . . . . . 13
-       3.4.2.  Example <update> command . . . . . . . . . . . . . . . 14
-     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 15
-       3.5.1.  Server Processing Considerations . . . . . . . . . . . 15
-       3.5.2.  Example <delete> command . . . . . . . . . . . . . . . 16
-     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 16
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 17
-   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 17
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 17
-   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 17
-   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 17
-   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 18
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 18
+       3.2.2.  Example <info> command . . . . . . . . . . . . . . . .  9
+     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 10
+       3.3.1.  Example <create> command . . . . . . . . . . . . . . . 12
+       3.3.2.  Client Processing Considerations . . . . . . . . . . . 13
+     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 13
+       3.4.1.  Server Processing Considerations . . . . . . . . . . . 14
+       3.4.2.  Example <update> command . . . . . . . . . . . . . . . 15
+     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 16
+       3.5.1.  Server Processing Considerations . . . . . . . . . . . 16
+       3.5.2.  Example <delete> command . . . . . . . . . . . . . . . 17
+     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 17
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 18
+   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 18
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 18
+   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 18
+   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 18
+   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 19
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 19
 
 
 
@@ -108,9 +108,9 @@ Table of Contents
 
 
 
-Tan & Brown              Expires April 16, 2012                 [Page 2]
+Tan & Brown             Expires October 18, 2012                [Page 2]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 1.  Introduction
@@ -164,9 +164,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                 [Page 3]
+Tan & Brown             Expires October 18, 2012                [Page 3]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
    domain object MUST be qualified by the previously assigned
@@ -220,9 +220,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                 [Page 4]
+Tan & Brown             Expires October 18, 2012                [Page 4]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 2.2.1.  State Transition
@@ -256,7 +256,7 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 2.3.  Claim Elements
 
-   An application may have one or more <claim> elements.  A <claim>
+   An application may have zero or more <claim> elements.  A <claim>
    element describes an applicant's prior right to a given domain name.
 
    The <claim> element has the boolean "preValidated" attribute, which
@@ -266,42 +266,51 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
    Several child elements of the <claim> element are defined:
 
+   <id>:  an identifier for the claim.  This identifier MUST be unique
+      among all claims associated with an application object.
+
    <pvrc>:  The Pre-Validation Result Code, an opaque string issued by a
       third-party validation agent
 
-   <claimIssuer>:  contains the ID of a contact object (as described in
-      RFC 5733 [RFC5733]) identifying the contact information of the
+
+
+
+
+Tan & Brown             Expires October 18, 2012                [Page 5]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
+
+
+   <issuer>:  contains the ID of a contact object (as described in RFC
+      5733 [RFC5733]) identifying the contact information of the
       authority which issued the right (for example, a trade mark office
       or company registration bureau)
 
-
-
-Tan & Brown              Expires April 16, 2012                 [Page 5]
-
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
-
-
-   <claimName>:  identifying the text string in which the applicant is
+   <name>:  identifying the text string in which the applicant is
       claiming a prior right
 
-   <claimNumber>:  the registration number of the right (ie trademark
-      number or company registration number)
+   <number>:  the registration number of the right (ie trademark number
+      or company registration number)
 
-   <claimType>:  indicates the type of claim being made (eg trademark,
+   <type>:  indicates the type of claim being made (eg trademark,
       symbol, combined mark, company name)
 
-   <claimEntitlement>:  indicates the applicant's entitlement to the
-      claim (ie, owner or licensee)
+   <entitlement>:  indicates the applicant's entitlement to the claim
+      (ie, owner or licensee)
 
-   <claimRegDate>:  the date of registration of the claim
+   <regDate>:  the date of registration of the claim
 
-   <claimExDate>:  the date of expiration of the claim
+   <exDate>:  the date of expiration of the claim
 
-   <claimCountry>:  indicates the country in which the claim is valid
+   <country>:  indicates the country in which the claim is valid
 
-   <claimRegion>:  indicates the name of a city, state, province or
-      other geographic region in which the claim is valid.  This may be
-      a two-character code from [WIPO.ST3]
+   <region>:  indicates the name of a city, state, province or other
+      geographic region in which the claim is valid.  This may be a two-
+      character code from [WIPO.ST3]
+
+   Apart from the mandatory <id> element, all other child elements are
+   optional.  Server policy may place additional constraints on the
+   format and requirements of such elements.
 
 
 3.  EPP Command Mapping
@@ -318,6 +327,16 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
    existing EPP verbs defined in the EPP domain mapping.  Registries may
    choose to support a subset of the operations.
 
+
+
+
+
+
+Tan & Brown             Expires October 18, 2012                [Page 6]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
+
+
 3.1.  EPP <check> Command
 
    This extension does not define any extension to the EPP <check>
@@ -329,13 +348,6 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
    This extension defines additional elements to extend the EPP <info>
    command and response to be used in conjunction with the domain name
    mapping.
-
-
-
-Tan & Brown              Expires April 16, 2012                 [Page 6]
-
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
-
 
    In order to indicate that the query is meant for an application
    object, an <lp:info> element is sent along with the regular <info>
@@ -358,44 +370,47 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
    <lp:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
-   <lp:status>  (optional) status of the application.
+   <lp:status>  status of the application.
 
-   <lp:claim>  (optional) one or more <lp:claim> elements.
+   <lp:claim>  zero or more <lp:claim> elements.
 
    If present, the <lp:claim> elements may contain the following child
    elements:
 
+   <id>:   an identifier for the claim.  This identifier MUST be unique
+           among all claims associated with an application object.
+
    <pvrc>: The Pre-Validation Result Code.
 
-   <claimIssuer>:  the ID of a contact object representing the issuing
+
+
+
+
+
+
+Tan & Brown             Expires October 18, 2012                [Page 7]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
+
+
+   <issuer>:  the ID of a contact object representing the issuing
            authority.
 
-   <claimName>:  the textual representation of the right.
+   <name>: the textual representation of the right.
 
-   <claimNumber>:  the registration number.
+   <number>:  the registration number.
 
-   <claimType>:  the type of claim being made.
+   <type>: the type of claim being made.
 
-   <claimEntitlement>:  the entitlement.
+   <entitlement>:  the entitlement.
 
-   <claimRegDate>:  the registration date.
+   <regDate>:  the registration date.
 
-   <claimExDate>:  the expiry date.
+   <exDate>:  the expiry date.
 
+   <country>:  the country.
 
-
-
-
-
-
-Tan & Brown              Expires April 16, 2012                 [Page 7]
-
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
-
-
-   <claimCountry>:  the country.
-
-   <claimRegion>:  the geographic region.
+   <region>:  the geographic region.
 
 3.2.1.  Client Processing Considerations
 
@@ -404,6 +419,35 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
    This serves as a cross check that the server did receive the query
    for the application (and not a domain of the same name) and processed
    it as it was intended.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan & Brown             Expires October 18, 2012                [Page 8]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
+
 
 3.2.2.  Example <info> command
 
@@ -441,14 +485,6 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
        <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
          <domain:name>example.tld</domain:name>
          <domain:roid>32302393_TESTDOMAIN-TLD</domain:roid>
-
-
-
-Tan & Brown              Expires April 16, 2012                 [Page 8]
-
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
-
-
          <domain:status s="pendingCreate" />
          <domain:registrant>ga3000</domain:registrant>
          <domain:contact type="admin">ue312987</domain:contact>
@@ -461,6 +497,14 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
          <domain:clID>client1</domain:clID>
          <domain:crID>client1</domain:crID>
          <domain:crDate>2010-09-18T06:12:39.0Z</domain:crDate>
+
+
+
+Tan & Brown             Expires October 18, 2012                [Page 9]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
+
+
          <domain:authInfo>
            <domain:pw>foo!bar#baz</domain:pw>
          </domain:authInfo>
@@ -472,16 +516,17 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
          <lp:phase>phase1</lp:phase>
          <lp:status s="pending" />
          <lp:claim>
+           <lp:id>claim-001</lp:id>
            <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-           <lp:claimIssuer>CONTACT-IPCLEARINGHOUSE</lp:claimIssuer>
-           <lp:claimName>Hello</lp:claimName>
-           <lp:claimNumber>GE 3933232</lp:claimNumber>
-           <lp:claimType>REG-TM-WORD</lp:claimType>
-           <lp:claimEntitlement>owner</lp:claimEntitlement>
-           <lp:claimRegDate>2011-09-09</lp:claimRegDate>
-           <lp:claimExDate>2013-09-09</lp:claimExDate>
-           <lp:claimCountry>AU</lp:claimCountry>
-           <lp:claimCountry>VIC</lp:claimCountry>
+           <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
+           <lp:name>Hello</lp:name>
+           <lp:number>GE 3933232</lp:number>
+           <lp:type>REG-TM-WORD</lp:type>
+           <lp:entitlement>owner</lp:entitlement>
+           <lp:regDate>2011-09-09</lp:regDate>
+           <lp:exDate>2013-09-09</lp:exDate>
+           <lp:country>AU</lp:country>
+           <lp:region>VIC</lp:region>
          </lp:claim>
        </lp:infData>
      </extension>
@@ -498,13 +543,6 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
    command and response to be used in conjunction with the domain name
    mapping.
 
-
-
-Tan & Brown              Expires April 16, 2012                 [Page 9]
-
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
-
-
    The EPP <create> command is used to create an application.  Typically
    additional information is required to submit a domain name
    application during a launch phase.  This extension introduces an <lp:
@@ -514,6 +552,14 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
    Clients may specify the <lp:phase> in which the application is meant
    to be submitted.  The <lp:create> element contains the following
    child elements.
+
+
+
+
+Tan & Brown             Expires October 18, 2012               [Page 10]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
+
 
    <lp:phase>  (optional) the phase during which the application was
            submitted or is associated with.
@@ -556,9 +602,19 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 10]
+
+
+
+
+
+
+
+
+
+
+Tan & Brown             Expires October 18, 2012               [Page 11]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 3.3.1.  Example <create> command
@@ -591,16 +647,17 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
          <lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
            <lp:phase>phase1</lp:phase>
            <lp:claim>
+             <lp:id>claim-001</lp:id>
              <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-             <lp:claimIssuer>CONTACT-IPCLEARINGHOUSE</lp:claimIssuer>
-             <lp:claimName>Hello</lp:claimName>
-             <lp:claimNumber>GE 3933232</lp:claimNumber>
-             <lp:claimType>REG-TM-WORD</lp:claimType>
-             <lp:claimEntitlement>owner</lp:claimEntitlement>
-             <lp:claimRegDate>2011-09-09</lp:claimRegDate>
-             <lp:claimExDate>2013-09-09</lp:claimExDate>
-             <lp:claimCountry>AU</lp:claimCountry>
-             <lp:claimCountry>VIC</lp:claimCountry>
+             <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
+             <lp:name>Hello</lp:name>
+             <lp:number>GE 3933232</lp:number>
+             <lp:type>REG-TM-WORD</lp:type>
+             <lp:entitlement>owner</lp:entitlement>
+             <lp:regDate>2011-09-09</lp:regDate>
+             <lp:exDate>2013-09-09</lp:exDate>
+             <lp:country>AU</lp:country>
+             <lp:region>VIC</lp:region>
            </lp:claim>
          </lp:create>
        </extension>
@@ -611,10 +668,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-
-Tan & Brown              Expires April 16, 2012                [Page 11]
+Tan & Brown             Expires October 18, 2012               [Page 12]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
    An example response that corresponds to the above command.
@@ -668,9 +724,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 12]
+Tan & Brown             Expires October 18, 2012               [Page 13]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
    <lp:applicationID>  the application identifier for which the client
@@ -724,9 +780,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 13]
+Tan & Brown             Expires October 18, 2012               [Page 14]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 3.4.2.  Example <update> command
@@ -780,9 +836,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 14]
+Tan & Brown             Expires October 18, 2012               [Page 15]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
    An example response that corresponds to the above command.
@@ -836,9 +892,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 15]
+Tan & Brown             Expires October 18, 2012               [Page 16]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
    to indicate that the object will be purged at a later date.
@@ -892,9 +948,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 16]
+Tan & Brown             Expires October 18, 2012               [Page 17]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 3.7.  EPP <transfer> Command
@@ -948,9 +1004,9 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 17]
+Tan & Brown             Expires October 18, 2012               [Page 18]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
    operate on an application object by an unauthorized client MUST be
@@ -1004,9 +1060,9 @@ Authors' Addresses
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 18]
+Tan & Brown             Expires October 18, 2012               [Page 19]
 
-Internet-Draft        Launch Phase Mapping for EPP          October 2011
+Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
    Gavin Brown
@@ -1060,5 +1116,5 @@ Internet-Draft        Launch Phase Mapping for EPP          October 2011
 
 
 
-Tan & Brown              Expires April 16, 2012                [Page 19]
+Tan & Brown             Expires October 18, 2012               [Page 20]
 

@@ -88,7 +88,7 @@
       </address>
     </author>
 
-    <date day="14" month="October" year="2011" />
+    <date day="16" month="April" year="2012" />
 
 
     <!-- Meta-data Declarations -->
@@ -170,6 +170,7 @@
         <t>
           To allow for multiple simultaneous launch phases, the application object MAY also include an &lt;lp:phase&gt; element
           whose content is a server-defined opaque identifier corresponding to each launch phase.
+          Examples values are: "sunrise" and "2char-release".
           Depending on the policy of the domain registry, the phase may be implicit (based on the time of request
           or encoded as part of the applicationID) or explicitly required.
         </t>
@@ -233,7 +234,7 @@
       </section>
 
       <section title="Claim Elements">
-          <t>An application may have one or more &lt;claim&gt; elements. A &lt;claim&gt; element
+          <t>An application may have zero or more &lt;claim&gt; elements. A &lt;claim&gt; element
           describes an applicant's prior right to a given domain name.</t>
           <t>The &lt;claim&gt; element has the boolean "preValidated" attribute, which indicates
           whether a third party validation agency has already validated the claim. When this attribute has a true value,
@@ -241,17 +242,20 @@
 
           <t>Several child elements of the &lt;claim&gt; element are defined:
           <list style="hanging">
+            <t hangText="&lt;id&gt;:">an identifier for the claim. This identifier MUST be unique among all claims associated with an application object.</t>
             <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code, an opaque string issued by a third-party validation agent</t>
-            <t hangText="&lt;claimIssuer&gt;:">contains the ID of a contact object (as described in <xref target="RFC5733">RFC 5733</xref>) identifying the contact information of the authority which issued the right (for example, a trade mark office or company registration bureau)</t>
-            <t hangText="&lt;claimName&gt;:">identifying the text string in which the applicant is claiming a prior right</t>
-            <t hangText="&lt;claimNumber&gt;:">the registration number of the right (ie trademark number or company registration number)</t>
-            <t hangText="&lt;claimType&gt;:">indicates the type of claim being made (eg trademark, symbol, combined mark, company name)</t>
-            <t hangText="&lt;claimEntitlement&gt;:">indicates the applicant's entitlement to the claim (ie, owner or licensee)</t>
-            <t hangText="&lt;claimRegDate&gt;:">the date of registration of the claim</t>
-            <t hangText="&lt;claimExDate&gt;:">the date of expiration of the claim</t>
-            <t hangText="&lt;claimCountry&gt;:">indicates the country in which the claim is valid</t>
-            <t hangText="&lt;claimRegion&gt;:">indicates the name of a city, state, province or other geographic region in which the claim is valid. This may be a two-character code from [WIPO.ST3]</t>
+            <t hangText="&lt;issuer&gt;:">contains the ID of a contact object (as described in <xref target="RFC5733">RFC 5733</xref>) identifying the contact information of the authority which issued the right (for example, a trade mark office or company registration bureau)</t>
+            <t hangText="&lt;name&gt;:">identifying the text string in which the applicant is claiming a prior right</t>
+            <t hangText="&lt;number&gt;:">the registration number of the right (ie trademark number or company registration number)</t>
+            <t hangText="&lt;type&gt;:">indicates the type of claim being made (eg trademark, symbol, combined mark, company name)</t>
+            <t hangText="&lt;entitlement&gt;:">indicates the applicant's entitlement to the claim (ie, owner or licensee)</t>
+            <t hangText="&lt;regDate&gt;:">the date of registration of the claim</t>
+            <t hangText="&lt;exDate&gt;:">the date of expiration of the claim</t>
+            <t hangText="&lt;country&gt;:">indicates the country in which the claim is valid</t>
+            <t hangText="&lt;region&gt;:">indicates the name of a city, state, province or other geographic region in which the claim is valid. This may be a two-character code from [WIPO.ST3]</t>
           </list>
+          Apart from the mandatory &lt;id&gt; element, all other child elements are optional. Server policy may place
+          additional constraints on the format and requirements of such elements.
           </t>
       </section>
 
@@ -298,25 +302,28 @@
             <t hangText="&lt;lp:applicationID&gt;">the application identifier of the returned application.</t>
 
             <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
-            <t hangText="&lt;lp:status&gt;"> (optional) status of the application.</t>
-            <t hangText="&lt;lp:claim&gt;"> (optional) one or more &lt;lp:claim&gt; elements.</t>
+            <t hangText="&lt;lp:status&gt;"> status of the application.</t>
+            <t hangText="&lt;lp:claim&gt;"> zero or more &lt;lp:claim&gt; elements.</t>
           </list>
         </t>
  
         <t>
         	If present, the &lt;lp:claim&gt; elements may contain the following child elements:
               <list hangIndent="8" style="hanging">
+              <t hangText="&lt;id&gt;:">an identifier for the claim. This identifier MUST be unique among all claims associated with an application object.</t>
               <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code.</t>
-              <t hangText="&lt;claimIssuer&gt;:">the ID of a contact object representing the issuing authority.</t>
-              <t hangText="&lt;claimName&gt;:">the textual representation of the right.</t>
-              <t hangText="&lt;claimNumber&gt;:">the registration number.</t>
-              <t hangText="&lt;claimType&gt;:">the type of claim being made.</t>
-              <t hangText="&lt;claimEntitlement&gt;:">the entitlement.</t>
-              <t hangText="&lt;claimRegDate&gt;:">the registration date.</t>
-              <t hangText="&lt;claimExDate&gt;:">the expiry date.</t>
-              <t hangText="&lt;claimCountry&gt;:">the country.</t>
-              <t hangText="&lt;claimRegion&gt;:">the geographic region.</t>
+              <t hangText="&lt;issuer&gt;:">the ID of a contact object representing the issuing authority.</t>
+              <t hangText="&lt;name&gt;:">the textual representation of the right.</t>
+              <t hangText="&lt;number&gt;:">the registration number.</t>
+              <t hangText="&lt;type&gt;:">the type of claim being made.</t>
+              <t hangText="&lt;entitlement&gt;:">the entitlement.</t>
+              <t hangText="&lt;regDate&gt;:">the registration date.</t>
+              <t hangText="&lt;exDate&gt;:">the expiry date.</t>
+              <t hangText="&lt;country&gt;:">the country.</t>
+              <t hangText="&lt;region&gt;:">the geographic region.</t>
             </list>
+          Apart from the mandatory &lt;id&gt; element, all other child elements are optional. Server policy may place
+          additional constraints on the format and requirements of such elements.
         </t>
         
  
@@ -390,16 +397,17 @@
         <lp:phase>phase1</lp:phase>
         <lp:status s="pending" />
         <lp:claim>
+          <lp:id>claim-001</lp:id>
           <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-          <lp:claimIssuer>CONTACT-IPCLEARINGHOUSE</lp:claimIssuer>
-          <lp:claimName>Hello</lp:claimName>
-          <lp:claimNumber>GE 3933232</lp:claimNumber>
-          <lp:claimType>REG-TM-WORD</lp:claimType>
-          <lp:claimEntitlement>owner</lp:claimEntitlement>
-          <lp:claimRegDate>2011-09-09</lp:claimRegDate>
-          <lp:claimExDate>2013-09-09</lp:claimExDate>
-          <lp:claimCountry>AU</lp:claimCountry>
-          <lp:claimCountry>VIC</lp:claimCountry>
+          <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
+          <lp:name>Hello</lp:name>
+          <lp:number>GE 3933232</lp:number>
+          <lp:type>REG-TM-WORD</lp:type>
+          <lp:entitlement>owner</lp:entitlement>
+          <lp:regDate>2011-09-09</lp:regDate>
+          <lp:exDate>2013-09-09</lp:exDate>
+          <lp:country>AU</lp:country>
+          <lp:region>VIC</lp:region>
         </lp:claim>
       </lp:infData>
     </extension>
@@ -476,16 +484,17 @@
       <lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
         <lp:phase>phase1</lp:phase>
         <lp:claim>
+          <lp:id>claim-001</lp:id>
           <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-          <lp:claimIssuer>CONTACT-IPCLEARINGHOUSE</lp:claimIssuer>
-          <lp:claimName>Hello</lp:claimName>
-          <lp:claimNumber>GE 3933232</lp:claimNumber>
-          <lp:claimType>REG-TM-WORD</lp:claimType>
-          <lp:claimEntitlement>owner</lp:claimEntitlement>
-          <lp:claimRegDate>2011-09-09</lp:claimRegDate>
-          <lp:claimExDate>2013-09-09</lp:claimExDate>
-          <lp:claimCountry>AU</lp:claimCountry>
-          <lp:claimCountry>VIC</lp:claimCountry>
+          <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
+          <lp:name>Hello</lp:name>
+          <lp:number>GE 3933232</lp:number>
+          <lp:type>REG-TM-WORD</lp:type>
+          <lp:entitlement>owner</lp:entitlement>
+          <lp:regDate>2011-09-09</lp:regDate>
+          <lp:exDate>2013-09-09</lp:exDate>
+          <lp:country>AU</lp:country>
+          <lp:region>VIC</lp:region>
         </lp:claim>
       </lp:create>
     </extension>
