@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema 
-	targetNamespace="urn:ietf:params:xml:ns:launch-1.0" 
-	xmlns:launch="urn:ietf:params:xml:ns:launch-1.0" 
+	targetNamespace="urn:ietf:params:xml:ns:launchphase-1.0" 
+	xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0" 
    xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
 	xmlns="http://www.w3.org/2001/XMLSchema" 
 	elementFormDefault="qualified">
@@ -16,25 +16,24 @@ Import common element types.
 		<documentation> 
 			Extensible Provisioning Protocol v1.0 
 			domain name extension schema 
-			for the launch of domain name gTLD's.  
-			This includes both the Sunrise and the 
-			Trademark Claims (Claims) periods.  
+			for the launch phase processing.  
 		</documentation>
 	</annotation>
 	
 	<!-- 
 	Child elements found in EPP commands.  
 	-->
-	<element name="create" type="launch:createType"/>
-	<element name="info" type="launch:infType"/>
-	<element name="delete" type="launch:idContainerType"/>
+	<element name="create" type="lp:createType"/>
+  	<element name="update" type="lp:idContainerType"/>
+	<element name="info" type="lp:infType"/>
+	<element name="delete" type="lp:idContainerType"/>
 	
 	<!-- 
 	Common container of id (identifier) element
 	-->
 	<complexType name="idContainerType">
 		<sequence>
-			<!-- Sunrise application identitier -->
+			<element name="phase" type="lp:phaseType" minOccurs="0"/>
 			<element name="applicationID" type="token"/>
 		</sequence>
 	</complexType>
@@ -72,13 +71,19 @@ Import common element types.
 		</restriction>
 	</simpleType>
 	
+  <simpleType name="ccType">
+    <restriction base="token">
+      <length value="2"/>
+    </restriction>
+  </simpleType>
+	
 	<!-- 
 	Definition of the IP address taken from host-1.0.
 	--> 
    <complexType name="addrType">
      <simpleContent>
-       <extension base="launch:addrStringType">
-         <attribute name="ip" type="launch:ipType"
+       <extension base="lp:addrStringType">
+         <attribute name="ip" type="lp:ipType"
           default="v4"/>
        </extension>
      </simpleContent>
@@ -112,7 +117,7 @@ Import common element types.
   <complexType name="statusType">
     <simpleContent>
       <extension base="normalizedString">
-        <attribute name="s" type="launch:statusValueType" use="required"/>
+        <attribute name="s" type="lp:statusValueType" use="required"/>
         <attribute name="lang" type="language" default="en"/>
       </extension>
     </simpleContent>
@@ -124,9 +129,14 @@ Import common element types.
 	-->
 	<complexType name="createType">
 		<sequence>
-			<element name="phase" type="launch:phaseType"/>
-			<element name="code" type="launch:codeType" minOccurs="0"/>			
-			<element name="notice" type="launch:createNoticeType" minOccurs="0"/>
+			<element name="phase" type="lp:phaseType"/>
+			<choice>
+				<sequence>
+					<element name="code" type="lp:codeType" minOccurs="0"/>	
+					<element name="claim" type="lp:claimType" minOccurs="0"/>
+				</sequence>
+				<element name="notice" type="lp:createNoticeType" minOccurs="0"/>
+			</choice>
 		</sequence>
 	</complexType>
 	
@@ -135,9 +145,9 @@ Import common element types.
 	-->
 	<complexType name="createNoticeType">
 		<sequence>
-			<element name="noticeID" type="launch:noticeIDType"/>
+			<element name="noticeID" type="lp:noticeIDType"/>
 			<element name="timestamp" type="dateTime"/>
-			<element name="clientAddr" type="launch:addrType"/>
+			<element name="clientAddr" type="lp:addrType"/>
 		</sequence>
 	</complexType>
 
@@ -146,8 +156,8 @@ Import common element types.
 	-->
 	<complexType name="infType">
 		<sequence>
-			<element name="phase" type="launch:phaseType"/>
-			<element name="applicationID" type="launch:applicationIDType" 
+			<element name="phase" type="lp:phaseType"/>
+			<element name="applicationID" type="lp:applicationIDType" 
 				minOccurs="0"/>
 		</sequence>
 	</complexType>
@@ -155,19 +165,24 @@ Import common element types.
 	<!-- 
 	Child response elements.  
 	-->
-	<element name="creData" type="launch:idContainerType"/>
+	<element name="creData" type="lp:idContainerType"/>
 	
-	<element name="infData" type="launch:infDataType"/>
+	<element name="infData" type="lp:infDataType"/>
 	
 	<complexType name="infDataType">
 		<sequence>
-			<element name="phase" type="launch:phaseType"/>
-			<element name="applicationID" type="launch:applicationIDType" 
-				minOccurs="0"/>
-			<element name="status" type="launch:statusType" 
-				minOccurs="0"/>
-			<element name="code" type="launch:codeType" minOccurs="0"/>
-			<element name="notice" type="launch:claimsNoticeType" minOccurs="0"/>
+			<element name="phase" type="lp:phaseType"/>
+			<choice>
+				<sequence>
+					<element name="applicationID" type="lp:applicationIDType" 
+						minOccurs="0"/>
+					<element name="status" type="lp:statusType" 
+						minOccurs="0"/>
+					<element name="code" type="lp:codeType" minOccurs="0"/>
+					<element name="claim" type="lp:claimType" minOccurs="0"/>
+				</sequence>
+				<element name="notice" type="lp:claimsNoticeType" minOccurs="0"/>
+			</choice>
 		</sequence>
 	</complexType>
 	
@@ -180,8 +195,8 @@ Import common element types.
 			<choice>
 				<element name="none"/>
 				<sequence>
-					<element name="noticeID" type="launch:noticeIDType"/>
-					<element name="claim" type="launch:claimType" maxOccurs="unbounded"/>
+					<element name="noticeID" type="lp:noticeIDType"/>
+					<element name="claim" type="lp:claimType" maxOccurs="unbounded"/>
 				</sequence>
 			</choice> 
 		</sequence>
@@ -192,12 +207,17 @@ Import common element types.
 	-->
 	<complexType name="claimType">
 			<sequence>
-				<element name="mark" type="token"/>
-      		<element name="owner" type="token"/>
-      		<element name="contact" type="token"/>
-      		<element name="class" type="token"/>
-      		<element name="jurisdiction" type="token"/>
-      		<element name="goods" type="token"/>
+				<element name="name" type="token"/>
+				<element name="issuer" type="token" minOccurs="0"/>
+				<element name="number" type="token" minOccurs="0"/>
+				<element name="type" type="token" minOccurs="0"/>
+				<element name="entitlement" type="token" minOccurs="0"/>
+				<element name="regDate" type="date" minOccurs="0"/>
+				<element name="exDate" type="date" minOccurs="0"/>
+				<element name="country" type="lp:ccType" minOccurs="0"/>
+				<element name="region" type="token" minOccurs="0"/>
+				<element name="owner" type="token" minOccurs="0"/>
+				<element name="contact" type="token" minOccurs="0"/>
 		</sequence>
 	</complexType>
 

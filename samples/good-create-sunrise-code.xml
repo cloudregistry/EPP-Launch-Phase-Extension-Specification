@@ -19,17 +19,13 @@
       </domain:create>
     </create>
     <extension>
-      <launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
-       launch-1.0.xsd">
-        <launch:phase>claims</launch:phase>
-        <launch:notice>
-          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-          <launch:timestamp>2012-06-19T09:00:00.0Z</launch:timestamp>
-          <launch:clientAddr ip="v4">192.0.2.29</launch:clientAddr>
-        </launch:notice>
-      </launch:create>
+      <lp:create
+       xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:launchphase-1.0
+       launchphase-1.0.xsd">
+        <lp:phase>sunrise</lp:phase>
+        <lp:code>49FD46E6C4B45C55D4AC</lp:code>
+      </lp:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>

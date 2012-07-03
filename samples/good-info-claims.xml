@@ -13,12 +13,12 @@
 		</domain:info>
 	 </info>
 	 <extension>
-		<launch:info
-		 xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-		 xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
-		 launch-1.0.xsd">
-			<launch:phase>claims</launch:phase>
-		</launch:info>
+		<lp:info
+		 xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
+		 xsi:schemaLocation="urn:ietf:params:xml:ns:launchphase-1.0
+		 launchphase-1.0.xsd">
+			<lp:phase>claims</lp:phase>
+		</lp:info>
 	 </extension>
 	 <clTRID>ABC-12345</clTRID>
   </command>

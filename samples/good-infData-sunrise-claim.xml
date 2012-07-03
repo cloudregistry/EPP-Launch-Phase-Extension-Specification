@@ -35,6 +35,19 @@
         	<lp:applicationID>abc123</lp:applicationID>
         	<lp:status s="pending"/>
          <lp:code>49FD46E6C4B45C55D4AC</lp:code>
+        	<lp:claim>
+        		<lp:name>Hello</lp:name>
+        		<lp:issuer>IP Clearinghouse</lp:issuer>
+        		<lp:number>GE 3933232</lp:number>
+        		<lp:type>REG-TM-WORD</lp:type>
+        		<lp:entitlement>owner</lp:entitlement>
+        		<lp:regDate>2011-09-09</lp:regDate>
+        		<lp:exDate>2013-09-09</lp:exDate>
+        		<lp:country>AU</lp:country>
+        		<lp:region>VIC</lp:region>
+        		<lp:owner>Acme Inc.</lp:owner>
+        		<lp:contact>John Smith</lp:contact>
+        	</lp:claim>
        </lp:infData>
      </extension>
      <trID>

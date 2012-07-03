@@ -8,32 +8,42 @@
 		 <msg>Command completed successfully</msg>
 	  </result>
 	  <resData>
-		 <launch:infData
-			xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-			xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
-			launch-1.0.xsd">
-			<launch:phase>claims</launch:phase>
-			<launch:notice>
-				<launch:name>example.com</launch:name>
-          	<launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-				<launch:claim>
-					<launch:mark>EXAMPLE</launch:mark>
-					<launch:owner>OWNER1</launch:owner>
-					<launch:contact>CONTACT1</launch:contact>
-					<launch:class>CLASS</launch:class>
-					<launch:jurisdiction>JURISDICTION1</launch:jurisdiction>
-					<launch:goods>GOODS</launch:goods>
-				</launch:claim>
-				<launch:claim>
-					<launch:mark>EXAMPLE</launch:mark>
-					<launch:owner>OWNER2</launch:owner>
-					<launch:contact>CONTACT2</launch:contact>
-					<launch:class>CLASS</launch:class>
-					<launch:jurisdiction>JURISDICTION2</launch:jurisdiction>
-					<launch:goods>GOODS</launch:goods>
-				</launch:claim>
-			</launch:notice>
-		 </launch:infData>
+		 <lp:infData
+			xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
+			xsi:schemaLocation="urn:ietf:params:xml:ns:launchphase-1.0
+			launchphase-1.0.xsd">
+			<lp:phase>claims</lp:phase>
+			<lp:notice>
+				<lp:name>example.com</lp:name>
+          	<lp:noticeID>49FD46E6C4B45C55D4AC</lp:noticeID>
+        		<lp:claim>
+        			<lp:name>Hello</lp:name>
+        			<lp:issuer>IP Clearinghouse</lp:issuer>
+        			<lp:number>GE 3933232</lp:number>
+        			<lp:type>REG-TM-WORD</lp:type>
+        			<lp:entitlement>owner</lp:entitlement>
+        			<lp:regDate>2011-09-09</lp:regDate>
+        			<lp:exDate>2013-09-09</lp:exDate>
+        			<lp:country>AU</lp:country>
+        			<lp:region>VIC</lp:region>
+        			<lp:owner>Acme Inc.</lp:owner>
+        			<lp:contact>John Smith</lp:contact>
+        		</lp:claim>
+        		<lp:claim>
+        			<lp:name>World</lp:name>
+        			<lp:issuer>IP Clearinghouse</lp:issuer>
+        			<lp:number>GE 1234567</lp:number>
+        			<lp:type>REG-TM-WORD</lp:type>
+        			<lp:entitlement>owner</lp:entitlement>
+        			<lp:regDate>2011-09-09</lp:regDate>
+        			<lp:exDate>2013-09-09</lp:exDate>
+        			<lp:country>AU</lp:country>
+        			<lp:region>VIC</lp:region>
+        			<lp:owner>Acme Inc.</lp:owner>
+        			<lp:contact>Jane Smith</lp:contact>
+        		</lp:claim>
+			</lp:notice>
+		 </lp:infData>
 	  </resData>
 	  <trID>
 		 <clTRID>ABC-12345</clTRID>
