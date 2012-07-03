@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+ <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+		epp-1.0.xsd">
+	<response>
+	  <result code="1000">
+		 <msg>Command completed successfully</msg>
+	  </result>
+	  <resData>
+		 <launch:infData
+			xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+			xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+			launch-1.0.xsd">
+			<launch:phase>claims</launch:phase>
+			<launch:notice>
+				<launch:name>example.com</launch:name>
+          	<launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+				<launch:claim>
+					<launch:mark>EXAMPLE</launch:mark>
+					<launch:owner>OWNER1</launch:owner>
+					<launch:contact>CONTACT1</launch:contact>
+					<launch:class>CLASS</launch:class>
+					<launch:jurisdiction>JURISDICTION1</launch:jurisdiction>
+					<launch:goods>GOODS</launch:goods>
+				</launch:claim>
+				<launch:claim>
+					<launch:mark>EXAMPLE</launch:mark>
+					<launch:owner>OWNER2</launch:owner>
+					<launch:contact>CONTACT2</launch:contact>
+					<launch:class>CLASS</launch:class>
+					<launch:jurisdiction>JURISDICTION2</launch:jurisdiction>
+					<launch:goods>GOODS</launch:goods>
+				</launch:claim>
+			</launch:notice>
+		 </launch:infData>
+	  </resData>
+	  <trID>
+		 <clTRID>ABC-12345</clTRID>
+		 <svTRID>54322-XYZ</svTRID>
+	  </trID>
+	</response>
+ </epp>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+	targetNamespace="urn:ietf:params:xml:ns:launch-1.0" 
+	xmlns:launch="urn:ietf:params:xml:ns:launch-1.0" 
+   xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+	xmlns="http://www.w3.org/2001/XMLSchema" 
+	elementFormDefault="qualified">
+	
+<!--
+Import common element types.
+-->
+  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
+          schemaLocation="eppcom-1.0.xsd"/>	
+	
+	<annotation>
+		<documentation> 
+			Extensible Provisioning Protocol v1.0 
+			domain name extension schema 
+			for the launch of domain name gTLD's.  
+			This includes both the Sunrise and the 
+			Trademark Claims (Claims) periods.  
+		</documentation>
+	</annotation>
+	
+	<!-- 
+	Child elements found in EPP commands.  
+	-->
+	<element name="create" type="launch:createType"/>
+	<element name="info" type="launch:infType"/>
+	<element name="delete" type="launch:idContainerType"/>
+	
+	<!-- 
+	Common container of id (identifier) element
+	-->
+	<complexType name="idContainerType">
+		<sequence>
+			<!-- Sunrise application identitier -->
+			<element name="applicationID" type="token"/>
+		</sequence>
+	</complexType>
+	
+	<!-- 
+	Definition for application identifier
+	-->
+	<simpleType name="applicationIDType">
+		<restriction base="token"/>
+	</simpleType>
+	
+	<!-- 
+	Definition for launch phase 
+	-->
+	<simpleType name="phaseType">
+		<restriction base="token"/>
+	</simpleType>
+	
+	
+	<!-- 
+	Definition for the sunrise code   
+	-->
+	<simpleType name="codeType">
+		<restriction base="base64Binary">
+			<minLength value="1"/>
+		</restriction>
+	</simpleType>
+	
+	<!-- 
+	Definition for the claims identifier   
+	-->
+	<simpleType name="noticeIDType">
+		<restriction base="base64Binary">
+			<minLength value="1"/>
+		</restriction>
+	</simpleType>
+	
+	<!-- 
+	Definition of the IP address taken from host-1.0.
+	--> 
+   <complexType name="addrType">
+     <simpleContent>
+       <extension base="launch:addrStringType">
+         <attribute name="ip" type="launch:ipType"
+          default="v4"/>
+       </extension>
+     </simpleContent>
+   </complexType>
+
+   <simpleType name="addrStringType">
+     <restriction base="token">
+       <minLength value="3"/>
+       <maxLength value="45"/>
+     </restriction>
+   </simpleType>
+
+   <simpleType name="ipType">
+     <restriction base="token">
+       <enumeration value="v4"/>
+       <enumeration value="v6"/>
+     </restriction>
+   </simpleType>
+	
+	<!-- Possible status values for sunrise application -->
+  	<simpleType name="statusValueType">
+   	<restriction base="token">
+      	<enumeration value="pending"/>
+      	<enumeration value="validated"/>
+      	<enumeration value="invalid"/>
+      	<enumeration value="allocated"/>
+      	<enumeration value="rejected"/>
+    	</restriction>
+  	</simpleType>
+	
+  <complexType name="statusType">
+    <simpleContent>
+      <extension base="normalizedString">
+        <attribute name="s" type="launch:statusValueType" use="required"/>
+        <attribute name="lang" type="language" default="en"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+	
+
+	<!-- 
+	Child elements of create for both Sunrise and Claims periods
+	-->
+	<complexType name="createType">
+		<sequence>
+			<element name="phase" type="launch:phaseType"/>
+			<element name="code" type="launch:codeType" minOccurs="0"/>			
+			<element name="notice" type="launch:createNoticeType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	
+	<!-- 
+	Child elements of the create notice element. 
+	-->
+	<complexType name="createNoticeType">
+		<sequence>
+			<element name="noticeID" type="launch:noticeIDType"/>
+			<element name="timestamp" type="dateTime"/>
+			<element name="clientAddr" type="launch:addrType"/>
+		</sequence>
+	</complexType>
+
+	<!-- 
+	Child elements of info for both Sunrise and Claims periods.  
+	-->
+	<complexType name="infType">
+		<sequence>
+			<element name="phase" type="launch:phaseType"/>
+			<element name="applicationID" type="launch:applicationIDType" 
+				minOccurs="0"/>
+		</sequence>
+	</complexType>
+
+	<!-- 
+	Child response elements.  
+	-->
+	<element name="creData" type="launch:idContainerType"/>
+	
+	<element name="infData" type="launch:infDataType"/>
+	
+	<complexType name="infDataType">
+		<sequence>
+			<element name="phase" type="launch:phaseType"/>
+			<element name="applicationID" type="launch:applicationIDType" 
+				minOccurs="0"/>
+			<element name="status" type="launch:statusType" 
+				minOccurs="0"/>
+			<element name="code" type="launch:codeType" minOccurs="0"/>
+			<element name="notice" type="launch:claimsNoticeType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	
+	<!--
+	Child elements of the info (inf) notice response element. 	
+	-->
+	<complexType name="claimsNoticeType">
+		<sequence>
+			<element name="name" type="eppcom:labelType"/>
+			<choice>
+				<element name="none"/>
+				<sequence>
+					<element name="noticeID" type="launch:noticeIDType"/>
+					<element name="claim" type="launch:claimType" maxOccurs="unbounded"/>
+				</sequence>
+			</choice> 
+		</sequence>
+	</complexType>
+	
+	<!--
+	Child elements of claim element. 	
+	-->
+	<complexType name="claimType">
+			<sequence>
+				<element name="mark" type="token"/>
+      		<element name="owner" type="token"/>
+      		<element name="contact" type="token"/>
+      		<element name="class" type="token"/>
+      		<element name="jurisdiction" type="token"/>
+      		<element name="goods" type="token"/>
+		</sequence>
+	</complexType>
+
+</schema>
