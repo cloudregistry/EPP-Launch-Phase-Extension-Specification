@@ -19,26 +19,26 @@
       </domain:create>
     </create>
     <extension>
-      <lp:create
-       xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:launchphase-1.0
-       launchphase-1.0.xsd">
-        	<lp:phase name="test">custom</lp:phase>
-        	<lp:code>49FD46E6C4B45C55D4AC</lp:code>
-        	<lp:claim>
-        		<lp:name>Hello</lp:name>
-        		<lp:issuer>IP Clearinghouse</lp:issuer>
-        		<lp:number>GE 3933232</lp:number>
-        		<lp:type>REG-TM-WORD</lp:type>
-        		<lp:entitlement>owner</lp:entitlement>
-        		<lp:regDate>2011-09-09</lp:regDate>
-        		<lp:exDate>2013-09-09</lp:exDate>
-        		<lp:country>AU</lp:country>
-        		<lp:region>VIC</lp:region>
-        		<lp:owner>Acme Inc.</lp:owner>
-        		<lp:contact>John Smith</lp:contact>
-        	</lp:claim>
-      </lp:create>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+       launch-1.0.xsd">
+        	<launch:phase name="test">custom</launch:phase>
+        	<launch:code>49FD46E6C4B45C55D4AC</launch:code>
+        	<launch:claim>
+        		<launch:name>Hello</launch:name>
+        		<launch:issuer>IP Clearinghouse</launch:issuer>
+        		<launch:number>GE 3933232</launch:number>
+        		<launch:type>REG-TM-WORD</launch:type>
+        		<launch:entitlement>owner</launch:entitlement>
+        		<launch:regDate>2011-09-09</launch:regDate>
+        		<launch:exDate>2013-09-09</launch:exDate>
+        		<launch:country>AU</launch:country>
+        		<launch:region>VIC</launch:region>
+        		<launch:owner>Acme Inc.</launch:owner>
+        		<launch:contact>John Smith</launch:contact>
+        	</launch:claim>
+      </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>

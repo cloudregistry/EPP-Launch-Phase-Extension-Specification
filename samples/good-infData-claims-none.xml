@@ -8,16 +8,16 @@
 		 <msg>Command completed successfully</msg>
 	  </result>
 	  <resData>
-		 <lp:infData
-			xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
-			xsi:schemaLocation="urn:ietf:params:xml:ns:launchphase-1.0
-			launchphase-1.0.xsd">
-			<lp:phase>claims</lp:phase>
-			<lp:notice>
-				<lp:name>example.com</lp:name>
-				<lp:none/>
-			</lp:notice>
-		 </lp:infData>
+		 <launch:infData
+			xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+			xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+			launch-1.0.xsd">
+			<launch:phase>claims</launch:phase>
+			<launch:notice>
+				<launch:name>example.com</launch:name>
+				<launch:none/>
+			</launch:notice>
+		 </launch:infData>
 	  </resData>
 	  <trID>
 		 <clTRID>ABC-12345</clTRID>

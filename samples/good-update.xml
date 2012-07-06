@@ -23,13 +23,13 @@
       </domain:update>
     </update>
     <extension>
-		<lp:update
-		 xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"
-		 xsi:schemaLocation="urn:ietf:params:xml:ns:launchphase-1.0
-		 launchphase-1.0.xsd">
-		 	<lp:phase>sunrise</lp:phase>
-			<lp:applicationID>abc123</lp:applicationID>
-		</lp:update>
+		<launch:update
+		 xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+		 xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+		 launch-1.0.xsd">
+		 	<launch:phase>sunrise</launch:phase>
+			<launch:applicationID>abc123</launch:applicationID>
+		</launch:update>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>

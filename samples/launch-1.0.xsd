@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema 
-	targetNamespace="urn:ietf:params:xml:ns:launchphase-1.0" 
-	xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0" 
+	targetNamespace="urn:ietf:params:xml:ns:launch-1.0" 
+	xmlns:launch="urn:ietf:params:xml:ns:launch-1.0" 
    xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
 	xmlns="http://www.w3.org/2001/XMLSchema" 
 	elementFormDefault="qualified">
@@ -23,17 +23,17 @@ Import common element types.
 	<!-- 
 	Child elements found in EPP commands.  
 	-->
-	<element name="create" type="lp:createType"/>
-  	<element name="update" type="lp:idContainerType"/>
-	<element name="info" type="lp:infType"/>
-	<element name="delete" type="lp:idContainerType"/>
+	<element name="create" type="launch:createType"/>
+  	<element name="update" type="launch:idContainerType"/>
+	<element name="info" type="launch:infType"/>
+	<element name="delete" type="launch:idContainerType"/>
 	
 	<!-- 
 	Common container of id (identifier) element
 	-->
 	<complexType name="idContainerType">
 		<sequence>
-			<element name="phase" type="lp:phaseType" minOccurs="0"/>
+			<element name="phase" type="launch:phaseType" minOccurs="0"/>
 			<element name="applicationID" type="token"/>
 		</sequence>
 	</complexType>
@@ -53,7 +53,7 @@ Import common element types.
 	-->
 	<complexType name="phaseType">
 		<simpleContent>
-			<extension base="lp:phaseTypeValue">
+			<extension base="launch:phaseTypeValue">
 				<attribute name="name" type="token"/>
 			</extension>
 		</simpleContent>
@@ -65,7 +65,8 @@ Import common element types.
 	<simpleType name="phaseTypeValue">
   		<restriction base="token">
      		<enumeration value="sunrise"/>
-     		<enumeration value="rights"/>
+     		<enumeration value="landrush"/>
+     		<enumeration value="claims"/>
      		<enumeration value="open"/>
      		<enumeration value="custom"/>
    	</restriction>
@@ -101,8 +102,8 @@ Import common element types.
 	--> 
    <complexType name="addrType">
      <simpleContent>
-       <extension base="lp:addrStringType">
-         <attribute name="ip" type="lp:ipType"
+       <extension base="launch:addrStringType">
+         <attribute name="ip" type="launch:ipType"
           default="v4"/>
        </extension>
      </simpleContent>
@@ -136,7 +137,7 @@ Import common element types.
   <complexType name="statusType">
     <simpleContent>
       <extension base="normalizedString">
-        <attribute name="s" type="lp:statusValueType" use="required"/>
+        <attribute name="s" type="launch:statusValueType" use="required"/>
         <attribute name="lang" type="language" default="en"/>
       </extension>
     </simpleContent>
@@ -148,13 +149,13 @@ Import common element types.
 	-->
 	<complexType name="createType">
 		<sequence>
-			<element name="phase" type="lp:phaseType"/>
+			<element name="phase" type="launch:phaseType"/>
 			<choice>
 				<sequence>
-					<element name="code" type="lp:codeType" minOccurs="0"/>	
-					<element name="claim" type="lp:claimType" minOccurs="0"/>
+					<element name="code" type="launch:codeType" minOccurs="0"/>	
+					<element name="claim" type="launch:claimType" minOccurs="0"/>
 				</sequence>
-				<element name="notice" type="lp:createNoticeType" minOccurs="0"/>
+				<element name="notice" type="launch:createNoticeType" minOccurs="0"/>
 			</choice>
 		</sequence>
 	</complexType>
@@ -164,9 +165,9 @@ Import common element types.
 	-->
 	<complexType name="createNoticeType">
 		<sequence>
-			<element name="noticeID" type="lp:noticeIDType"/>
+			<element name="noticeID" type="launch:noticeIDType"/>
 			<element name="timestamp" type="dateTime"/>
-			<element name="clientAddr" type="lp:addrType"/>
+			<element name="clientAddr" type="launch:addrType"/>
 		</sequence>
 	</complexType>
 
@@ -175,8 +176,8 @@ Import common element types.
 	-->
 	<complexType name="infType">
 		<sequence>
-			<element name="phase" type="lp:phaseType"/>
-			<element name="applicationID" type="lp:applicationIDType" 
+			<element name="phase" type="launch:phaseType"/>
+			<element name="applicationID" type="launch:applicationIDType" 
 				minOccurs="0"/>
 		</sequence>
 	</complexType>
@@ -184,23 +185,23 @@ Import common element types.
 	<!-- 
 	Child response elements.  
 	-->
-	<element name="creData" type="lp:idContainerType"/>
+	<element name="creData" type="launch:idContainerType"/>
 	
-	<element name="infData" type="lp:infDataType"/>
+	<element name="infData" type="launch:infDataType"/>
 	
 	<complexType name="infDataType">
 		<sequence>
-			<element name="phase" type="lp:phaseType"/>
+			<element name="phase" type="launch:phaseType"/>
 			<choice>
 				<sequence>
-					<element name="applicationID" type="lp:applicationIDType" 
+					<element name="applicationID" type="launch:applicationIDType" 
 						minOccurs="0"/>
-					<element name="status" type="lp:statusType" 
+					<element name="status" type="launch:statusType" 
 						minOccurs="0"/>
-					<element name="code" type="lp:codeType" minOccurs="0"/>
-					<element name="claim" type="lp:claimType" minOccurs="0"/>
+					<element name="code" type="launch:codeType" minOccurs="0"/>
+					<element name="claim" type="launch:claimType" minOccurs="0"/>
 				</sequence>
-				<element name="notice" type="lp:claimsNoticeType" minOccurs="0"/>
+				<element name="notice" type="launch:claimsNoticeType" minOccurs="0"/>
 			</choice>
 		</sequence>
 	</complexType>
@@ -214,8 +215,8 @@ Import common element types.
 			<choice>
 				<element name="none"/>
 				<sequence>
-					<element name="noticeID" type="lp:noticeIDType"/>
-					<element name="claim" type="lp:claimType" maxOccurs="unbounded"/>
+					<element name="noticeID" type="launch:noticeIDType"/>
+					<element name="claim" type="launch:claimType" maxOccurs="unbounded"/>
 				</sequence>
 			</choice> 
 		</sequence>
@@ -233,7 +234,7 @@ Import common element types.
 				<element name="entitlement" type="token" minOccurs="0"/>
 				<element name="regDate" type="date" minOccurs="0"/>
 				<element name="exDate" type="date" minOccurs="0"/>
-				<element name="country" type="lp:ccType" minOccurs="0"/>
+				<element name="country" type="launch:ccType" minOccurs="0"/>
 				<element name="region" type="token" minOccurs="0"/>
 				<element name="owner" type="token" minOccurs="0"/>
 				<element name="contact" type="token" minOccurs="0"/>
