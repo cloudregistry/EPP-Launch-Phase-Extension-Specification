@@ -3,6 +3,7 @@
 	targetNamespace="urn:ietf:params:xml:ns:launch-1.0" 
 	xmlns:launch="urn:ietf:params:xml:ns:launch-1.0" 
    xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
 	xmlns="http://www.w3.org/2001/XMLSchema" 
 	elementFormDefault="qualified">
 	
@@ -11,6 +12,10 @@ Import common element types.
 -->
   <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
           schemaLocation="eppcom-1.0.xsd"/>	
+	
+  <import namespace="http://www.w3.org/2000/09/xmldsig#"
+          schemaLocation="xmldig-core-schema.xsd"/>	
+	
 	
 	<annotation>
 		<documentation> 
@@ -143,6 +148,12 @@ Import common element types.
     </simpleContent>
   </complexType>
 	
+  	<complexType name="signedClaimToken">
+		<sequence>
+			<element ref="ds:Signature"/>
+			<element name="claim" type="launch:claimType"/>
+		</sequence>
+	</complexType>
 
 	<!-- 
 	Child elements of create for both Sunrise and Claims periods
@@ -155,7 +166,9 @@ Import common element types.
 					<element name="code" type="launch:codeType" minOccurs="0"/>	
 					<element name="claim" type="launch:claimType" minOccurs="0"/>
 				</sequence>
-				<element name="notice" type="launch:createNoticeType" minOccurs="0"/>
+				<element name="token" type="launch:signedClaimToken"/>
+				<element name="notice" type="launch:createNoticeType" 
+				minOccurs="0"/>
 			</choice>
 		</sequence>
 	</complexType>

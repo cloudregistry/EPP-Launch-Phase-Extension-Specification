@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+     epp-1.0.xsd">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+       domain-1.0.xsd">
+        <domain:name>example.newtld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+       launch-1.0.xsd">
+        	<launch:phase>sunrise</launch:phase>
+        	<launch:token>
+        		<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        			<SignedInfo>
+						<CanonicalizationMethod 
+						 Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+						<SignatureMethod 
+						 Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
+						<Reference Type="launch:claim">
+							<DigestMethod 
+								Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+							<DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
+						</Reference>
+					</SignedInfo>
+					<SignatureValue>
+						cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
+					</SignatureValue>
+				</Signature>
+        		<launch:claim>
+        			<launch:name>Hello</launch:name>
+        			<launch:issuer>IP Clearinghouse</launch:issuer>
+        			<launch:number>GE 3933232</launch:number>
+        			<launch:type>REG-TM-WORD</launch:type>
+        			<launch:entitlement>owner</launch:entitlement>
+        			<launch:regDate>2011-09-09</launch:regDate>
+        			<launch:exDate>2013-09-09</launch:exDate>
+        			<launch:country>AU</launch:country>
+        			<launch:region>VIC</launch:region>
+        			<launch:owner>Acme Inc.</launch:owner>
+        			<launch:contact>John Smith</launch:contact>
+        		</launch:claim>
+        	</launch:token>
+      </launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
