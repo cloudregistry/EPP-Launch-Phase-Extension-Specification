@@ -24,19 +24,37 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         	<launch:phase>sunrise</launch:phase>
-        	<launch:claim>
-        		<launch:name>Hello</launch:name>
-        		<launch:issuer>IP Clearinghouse</launch:issuer>
-        		<launch:number>GE 3933232</launch:number>
-        		<launch:type>REG-TM-WORD</launch:type>
-        		<launch:entitlement>owner</launch:entitlement>
-        		<launch:regDate>2011-09-09</launch:regDate>
-        		<launch:exDate>2013-09-09</launch:exDate>
-        		<launch:country>AU</launch:country>
-        		<launch:region>VIC</launch:region>
-        		<launch:owner>Acme Inc.</launch:owner>
-        		<launch:contact>John Smith</launch:contact>
-        	</launch:claim>
+        	<launch:codeClaim>
+				<launch:claim>
+					<launch:name>Hello</launch:name>
+					<launch:issuer>IP Clearinghouse</launch:issuer>
+					<launch:number>GE 3933232</launch:number>
+					<launch:type>REG-TM-WORD</launch:type>
+					<launch:entitlement>owner</launch:entitlement>
+					<launch:regDate>2011-09-09</launch:regDate>
+					<launch:exDate>2013-09-09</launch:exDate>
+					<launch:country>AU</launch:country>
+					<launch:region>VIC</launch:region>
+					<launch:owner>
+						<launch:org>Example Inc.</launch:org>
+					</launch:owner>
+					<launch:contact>
+						<launch:name>John Doe</launch:name>
+						<launch:org>Example Inc.</launch:org>
+						<launch:addr>
+							<launch:street>123 Example Dr.</launch:street>
+							<launch:street>Suite 100</launch:street>
+							<launch:city>Reston</launch:city>
+							<launch:sp>VA</launch:sp>
+							<launch:pc>20190</launch:pc>
+							<launch:cc>US</launch:cc>
+						</launch:addr>
+						<launch:voice x="1234">+1.7035555555</launch:voice>
+						<launch:fax>+1.7035555556</launch:fax>
+						<launch:email>jdoe@example.com</launch:email>
+					</launch:contact>
+				</launch:claim>
+			</launch:codeClaim>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>

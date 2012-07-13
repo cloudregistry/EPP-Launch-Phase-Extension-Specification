@@ -102,10 +102,17 @@ Import common element types.
     </restriction>
   </simpleType>
 	
+  <simpleType name="pcType">
+    <restriction base="token">
+      <maxLength value="16"/>
+    </restriction>
+  </simpleType>
+	
+	
 	<!-- 
 	Definition of the IP address taken from host-1.0.
 	--> 
-   <complexType name="addrType">
+   <complexType name="ipAddrType">
      <simpleContent>
        <extension base="launch:addrStringType">
          <attribute name="ip" type="launch:ipType"
@@ -148,10 +155,20 @@ Import common element types.
     </simpleContent>
   </complexType>
 	
-  	<complexType name="signedClaimToken">
+  	<complexType name="signedClaimType">
 		<sequence>
-			<element ref="ds:Signature"/>
+			<element name="serial" type="token"/>
+			<element name="tld" type="eppcom:labelType"/>
+			<element name="label" type="eppcom:labelType" maxOccurs="unbounded"/>
 			<element name="claim" type="launch:claimType"/>
+			<element ref="ds:Signature"/>
+		</sequence>
+	</complexType>
+
+	<complexType name="codeClaimType">
+		<sequence>
+			<element name="code" type="launch:codeType" minOccurs="0"/>	
+			<element name="claim" type="launch:claimType" minOccurs="0"/>
 		</sequence>
 	</complexType>
 
@@ -162,13 +179,11 @@ Import common element types.
 		<sequence>
 			<element name="phase" type="launch:phaseType"/>
 			<choice>
-				<sequence>
-					<element name="code" type="launch:codeType" minOccurs="0"/>	
-					<element name="claim" type="launch:claimType" minOccurs="0"/>
-				</sequence>
-				<element name="token" type="launch:signedClaimToken"/>
-				<element name="notice" type="launch:createNoticeType" 
-				minOccurs="0"/>
+				<element name="codeClaim" type="launch:codeClaimType" 
+					maxOccurs="unbounded"/>
+				<element name="signedClaim" type="launch:signedClaimType" 
+					maxOccurs="unbounded"/>
+				<element name="notice" type="launch:createNoticeType"/> 
 			</choice>
 		</sequence>
 	</complexType>
@@ -180,7 +195,7 @@ Import common element types.
 		<sequence>
 			<element name="noticeID" type="launch:noticeIDType"/>
 			<element name="timestamp" type="dateTime"/>
-			<element name="clientAddr" type="launch:addrType"/>
+			<element name="clientAddr" type="launch:ipAddrType"/>
 		</sequence>
 	</complexType>
 
@@ -235,11 +250,52 @@ Import common element types.
 		</sequence>
 	</complexType>
 	
+  <complexType name="e164Type">
+    <simpleContent>
+      <extension base="launch:e164StringType">
+        <attribute name="x" type="token"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <simpleType name="e164StringType">
+    <restriction base="token">
+      <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
+      <maxLength value="17"/>
+    </restriction>
+  </simpleType>
+		
+  <complexType name="addrType">
+    <sequence>
+      <element name="street" type="token"
+       minOccurs="0" maxOccurs="3"/>
+      <element name="city" type="token"/>
+      <element name="sp" type="token"
+       minOccurs="0"/>
+      <element name="pc" type="launch:pcType"
+       minOccurs="0"/>
+      <element name="cc" type="launch:ccType"/>
+    </sequence>
+  </complexType>
+	
+	<complexType name="contactType">
+		<sequence>
+			<element name="name" type="token" minOccurs="0"/>
+			<element name="org" type="token" minOccurs="0"/>
+			<element name="addr" type="launch:addrType" minOccurs="0"/>
+			<element name="voice" type="launch:e164Type" minOccurs="0"/>
+			<element name="fax" type="launch:e164Type" minOccurs="0"/>
+			<element name="email" type="eppcom:minTokenType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+		
+	
 	<!--
 	Child elements of claim element. 	
 	-->
 	<complexType name="claimType">
 			<sequence>
+				<element name="id" type="token" minOccurs="0"/>
 				<element name="name" type="token"/>
 				<element name="issuer" type="token" minOccurs="0"/>
 				<element name="number" type="token" minOccurs="0"/>
@@ -249,8 +305,8 @@ Import common element types.
 				<element name="exDate" type="date" minOccurs="0"/>
 				<element name="country" type="launch:ccType" minOccurs="0"/>
 				<element name="region" type="token" minOccurs="0"/>
-				<element name="owner" type="token" minOccurs="0"/>
-				<element name="contact" type="token" minOccurs="0"/>
+				<element name="owner" type="launch:contactType" minOccurs="0"/>
+				<element name="contact" type="launch:contactType" minOccurs="0"/>
 		</sequence>
 	</complexType>
 
