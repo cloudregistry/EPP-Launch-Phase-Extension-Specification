@@ -4,8 +4,10 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Experimental                                   G. Brown
-Expires: October 18, 2012                                 CentralNic Ltd
-                                                          April 16, 2012
+Expires: January 10, 2013                                 CentralNic Ltd
+                                                                J. Gould
+                                                          VeriSign, Inc.
+                                                            July 9, 2012
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -19,20 +21,26 @@ Abstract
 
 Status of this Memo
 
-   This Internet-Draft is submitted in full conformance with the
+   This Internet-Draft is submitted to IETF in full conformance with the
    provisions of BCP 78 and BCP 79.
 
    Internet-Drafts are working documents of the Internet Engineering
-   Task Force (IETF).  Note that other groups may also distribute
-   working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Task Force (IETF), its areas, and its working groups.  Note that
+   other groups may also distribute working documents as Internet-
+   Drafts.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 18, 2012.
+   The list of current Internet-Drafts can be accessed at
+   http://www.ietf.org/ietf/1id-abstracts.txt.
+
+   The list of Internet-Draft Shadow Directories can be accessed at
+   http://www.ietf.org/shadow.html.
+
+   This Internet-Draft will expire on January 10, 2013.
 
 Copyright Notice
 
@@ -40,54 +48,52 @@ Copyright Notice
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
-   carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the Simplified BSD License.
+   Provisions Relating to IETF Documents in effect on the date of
 
 
 
-
-Tan & Brown             Expires October 18, 2012                [Page 1]
+Tan, et al.             Expires January 10, 2013                [Page 1]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+   publication of this document (http://trustee.ietf.org/license-info).
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.
 
 
 Table of Contents
 
-   1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  3
-     1.1.  Conventions Used in This Document  . . . . . . . . . . . .  3
-   2.  Application Object . . . . . . . . . . . . . . . . . . . . . .  3
-     2.1.  <lp:phase> Element . . . . . . . . . . . . . . . . . . . .  4
-     2.2.  <lp:status> Element  . . . . . . . . . . . . . . . . . . .  4
-       2.2.1.  State Transition . . . . . . . . . . . . . . . . . . .  5
-     2.3.  Claim Elements . . . . . . . . . . . . . . . . . . . . . .  5
-   3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . .  6
-     3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . .  7
-     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . .  7
-       3.2.1.  Client Processing Considerations . . . . . . . . . . .  8
-       3.2.2.  Example <info> command . . . . . . . . . . . . . . . .  9
-     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 10
-       3.3.1.  Example <create> command . . . . . . . . . . . . . . . 12
-       3.3.2.  Client Processing Considerations . . . . . . . . . . . 13
-     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 13
-       3.4.1.  Server Processing Considerations . . . . . . . . . . . 14
-       3.4.2.  Example <update> command . . . . . . . . . . . . . . . 15
-     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 16
-       3.5.1.  Server Processing Considerations . . . . . . . . . . . 16
-       3.5.2.  Example <delete> command . . . . . . . . . . . . . . . 17
-     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 17
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 18
-   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 18
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 18
-   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 18
-   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 18
-   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 19
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 19
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . ancho
+     1.1.  Conventions Used in This Document . . . . . . . . . . . ancho
+   2.  Object Attributes . . . . . . . . . . . . . . . . . . . . . attrs
+     2.1.  Application Identifiers . . . . . . . . . . . . . . . . appli
+     2.2.  Launch Phases . . . . . . . . . . . . . . . . . . . . . phase
+     2.3.  Status Values . . . . . . . . . . . . . . . . . . . . . statu
+       2.3.1.  State Transition  . . . . . . . . . . . . . . . . . ancho
+     2.4.  Claim Elements  . . . . . . . . . . . . . . . . . . . . ancho
+   3.  EPP Command Mapping . . . . . . . . . . . . . . . . . . . . ancho
+     3.1.  EPP <check> Command . . . . . . . . . . . . . . . . . . ancho
+     3.2.  EPP <info> Command  . . . . . . . . . . . . . . . . . . ancho
+       3.2.1.  Client Processing Considerations  . . . . . . . . . ancho
+       3.2.2.  Example <info> command  . . . . . . . . . . . . . . ancho
+     3.3.  EPP <create> Command  . . . . . . . . . . . . . . . . . ancho
+       3.3.1.  Example <create> command  . . . . . . . . . . . . . ancho
+       3.3.2.  Client Processing Considerations  . . . . . . . . . ancho
+     3.4.  EPP <update> Command  . . . . . . . . . . . . . . . . . ancho
+       3.4.1.  Server Processing Considerations  . . . . . . . . . ancho
+       3.4.2.  Example <update> command  . . . . . . . . . . . . . ancho
+     3.5.  EPP <delete> Command  . . . . . . . . . . . . . . . . . ancho
+       3.5.1.  Server Processing Considerations  . . . . . . . . . ancho
+       3.5.2.  Example <delete> command  . . . . . . . . . . . . . ancho
+     3.6.  EPP <renew> Command . . . . . . . . . . . . . . . . . . ancho
+     3.7.  EPP <transfer> Command  . . . . . . . . . . . . . . . . ancho
+   4.  Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . synta
+   5.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . Ackno
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . .  IANA
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . Secur
+   8.  Normative References  . . . . . . . . . . . . . . . . . . . ancho
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . .     0
 
 
 
@@ -102,15 +108,9 @@ Table of Contents
 
 
 
-
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012                [Page 2]
+Tan, et al.             Expires January 10, 2013                [Page 2]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 1.  Introduction
@@ -124,13 +124,20 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
    It is typical for domain registries to operate in special modes
    within certain periods of time to facilitate allocation of domain
    names for a subset of the zone namespace that becomes available.
-   This document uses the term "launch phase" to refer to such a period.
+   This document uses the term "launch phase" and the shorter form
+   "launch" to refer to such a period.
 
    The EPP domain name mapping [RFC5731] is designed for the steady
-   state operation of a registry.  During a launch phase, however,
-   registries typically accept multiple applications for a given domain
-   name.  This document proposes an extension to the domain name
-   extension in order to unambiguously manage the received applications.
+   state operation of a registry.  During the launch, the interface used
+   at each phase of the launch could be different from what is defined
+   in EPP domain name mapping [RFC5731]. for example, registries
+   typically accept multiple applications for a given domain name during
+   the "sunrise" launch phase.  In addition, the Trademark Clearinghouse
+   Draft Implementation Model [1] defines a registry interface for the
+   Trademark Claims or "claims" launch phase that includes support for
+   presenting a Trademark Claims Notice to the Registrant.  This
+   document proposes an extension to the domain name extension in order
+   to unambiguously manage the various launch phases known.
 
 1.1.  Conventions Used in This Document
 
@@ -143,53 +150,80 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
    character case presented in order to develop a conforming
    implementation.
 
-   "launchphase-1.0" is used as an abbreviation for
-   "urn:ietf:params:xml:ns:launchphase-1.0".  The XML namespace prefix
-   "lp" is used, but implementations MUST NOT depend on it and instead
-   employ a proper namespace-aware XML parser and serializer to
+   "launch-1.0" is used as an abbreviation for
+   "urn:ietf:params:xml:ns:launch-1.0".  The XML namespace prefix
+   "launch" is used, but implementations MUST NOT depend on it and
+   instead employ a proper namespace-aware XML parser and serializer to
    interpret and output the XML documents.
 
 
-2.  Application Object
+2.  Object Attributes
 
-   It is common for domain registries to allow multiple applications of
-   a given domain name during its launch phase operations.
-
-   Upon receiving a request to create a domain, the server creates an
-   application object corresponding to the request and assigns an
-   identifier for the application and returns it to the client.  This
-   mapping defines an "applicationID" element for this purpose.
-
-   In order to facilitate correlation, all subsequent operations on the
+   This extension adds additional elements to the EPP domain name
+   mapping [RFC5731].  Only those new elements are described here.
 
 
 
-Tan & Brown             Expires October 18, 2012                [Page 3]
+Tan, et al.             Expires January 10, 2013                [Page 3]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   domain object MUST be qualified by the previously assigned
-   applicationID.
+2.1.  Application Identifiers
 
-   To support common use cases of launch phase operations, this mapping
-   also defines several other elements that may be used in
-   implementations.
+   Domain registries MAY allow multiple applications of a given domain
+   name during its launch phase operations.  Upon receiving a request to
+   create a domain name, the server creates an application object
+   corresponding to the request and assigns an Application Identifier
+   the application and returns it to the client with the <launch:
+   applicationID> element.  In order to facilitate correlation, all
+   subsequent launch operations on the application object MUST be
+   qualified by the previously assigned application identifier using the
+   <launch:applicationID> element.
 
-2.1.  <lp:phase> Element
+2.2.  Launch Phases
 
-   To allow for multiple simultaneous launch phases, the application
-   object MAY also include an <lp:phase> element whose content is a
-   server-defined opaque identifier corresponding to each launch phase.
-   Depending on the policy of the domain registry, the phase may be
-   implicit (based on the time of request or encoded as part of the
-   applicationID) or explicitly required.
+   The server MAY support multiple launch phases sequentially or
+   simultaneously.  The <launch:phase> element MUST be included by the
+   client to define the target launch phase of the command.
 
-2.2.  <lp:status> Element
+   The following Launch Phase values are defined:
 
-   The <status> element is used to convey extended status(es) pertaining
-   to the application object, beyond what is specified in the object
-   mapping to which this application object represents.
+   sunrise  Phase when trademark holders can submit registration
+      applications with trademark information that can be validated by
+      the server.
+
+   landrush  Post sunrise phase when non-trademark holders are allowed
+      to register domain names.
+
+   claims  Trademark claims phase as defined by Trademark Clearinghouse
+      Draft Implementation Model [1].
+
+   open  Post launch phase that is also referred to as "steady state".
+      Servers might require additional trademark protection with this
+      phase.
+
+   custom  A custom server launch phase that is defined using the "name"
+      attribute.
+
+   For extensibility the <launch:phase> element includes an OPTIONAL
+   "name" attribute that can define a sub-phase or the full name of the
+   phase when the <launch:phase> element has the "custom" value.
+
+2.3.  Status Values
+
+   A launch application object MAY have a status value.  The <status>
+   element is used to convey extended status(es) pertaining to the
+   application object, beyond what is specified in the object mapping to
+   which this application object represents.
+
+
+
+
+Tan, et al.             Expires January 10, 2013                [Page 4]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
 
    The following status values are defined:
 
@@ -207,25 +241,14 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
       provisioned
 
    Certain status values MAY be combined.  For example, an application
-   can be invalid and rejected.  [[Q1: Should we allow multiples? --WT]]
+   can be invalid and rejected.  Additionally certain statuses MAY be
+   skipped.  For example, an application can immediately start at the
+   allocated status.  If a <domain:create> processes a request
+   synchronously without the use of an intermediate application, than an
+   Application Identifier (Section 2.1) is not needed along with the
+   application status.
 
-
-
-
-
-
-
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012                [Page 4]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
-
-
-2.2.1.  State Transition
+2.3.1.  State Transition
 
 
                                | request
@@ -252,9 +275,15 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
          +------------------------------------------------+
 
 
+
+Tan, et al.             Expires January 10, 2013                [Page 5]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
                                  Figure 1
 
-2.3.  Claim Elements
+2.4.  Claim Elements
 
    An application may have zero or more <claim> elements.  A <claim>
    element describes an applicant's prior right to a given domain name.
@@ -271,15 +300,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
    <pvrc>:  The Pre-Validation Result Code, an opaque string issued by a
       third-party validation agent
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012                [Page 5]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
-
 
    <issuer>:  contains the ID of a contact object (as described in RFC
       5733 [RFC5733]) identifying the contact information of the
@@ -309,6 +329,14 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
       character code from [WIPO.ST3]
 
    Apart from the mandatory <id> element, all other child elements are
+
+
+
+Tan, et al.             Expires January 10, 2013                [Page 6]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
    optional.  Server policy may place additional constraints on the
    format and requirements of such elements.
 
@@ -327,16 +355,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
    existing EPP verbs defined in the EPP domain mapping.  Registries may
    choose to support a subset of the operations.
 
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012                [Page 6]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
-
-
 3.1.  EPP <check> Command
 
    This extension does not define any extension to the EPP <check>
@@ -350,48 +368,48 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
    mapping.
 
    In order to indicate that the query is meant for an application
-   object, an <lp:info> element is sent along with the regular <info>
-   domain command.  The <lp:info> element contains the following child
-   elements:
+   object, an <launch:info> element is sent along with the regular
+   <info> domain command.  The <launch:info> element contains the
+   following child elements:
 
-   <lp:applicationID>  the application identifier for which the client
-           wishes to query.
+   <launch:applicationID>  the application identifier for which the
+           client wishes to query.
 
-   <lp:phase>  (optional) the phase during which the application was
+   <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
-   If the query was successful, the server replies with an <lp:infData>
-   element along with the regular EPP <resData>.  The <lp:infData>
-   contains the following child elements:
+   If the query was successful, the server replies with an <launch:
+   infData> element along with the regular EPP <resData>.  The <launch:
+   infData> contains the following child elements:
 
-   <lp:applicationID>  the application identifier of the returned
+
+
+
+
+
+
+Tan, et al.             Expires January 10, 2013                [Page 7]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+   <launch:applicationID>  the application identifier of the returned
            application.
 
-   <lp:phase>  (optional) the phase during which the application was
+   <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
-   <lp:status>  status of the application.
+   <launch:status>  status of the application.
 
-   <lp:claim>  zero or more <lp:claim> elements.
+   <launch:claim>  zero or more <launch:claim> elements.
 
-   If present, the <lp:claim> elements may contain the following child
-   elements:
+   If present, the <launch:claim> elements may contain the following
+   child elements:
 
    <id>:   an identifier for the claim.  This identifier MUST be unique
            among all claims associated with an application object.
 
    <pvrc>: The Pre-Validation Result Code.
-
-
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012                [Page 7]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
-
 
    <issuer>:  the ID of a contact object representing the issuing
            authority.
@@ -412,130 +430,112 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
    <region>:  the geographic region.
 
+   Apart from the mandatory <id> element, all other child elements are
+   optional.  Server policy may place additional constraints on the
+   format and requirements of such elements.
+
 3.2.1.  Client Processing Considerations
 
    The client MUST ensure that any successful <info> command results in
-   a response that an <lp:infData> element is returned in the response.
-   This serves as a cross check that the server did receive the query
-   for the application (and not a domain of the same name) and processed
-   it as it was intended.
+   a response that an <launch:infData> element is returned in the
+   response.  This serves as a cross check that the server did receive
+   the query for the application (and not a domain of the same name) and
+   processed it as it was intended.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012                [Page 8]
+Tan, et al.             Expires January 10, 2013                [Page 8]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 3.2.2.  Example <info> command
 
-   Following is an example <info> domain command with the <lp:info>
+   Following is an example <info> domain command with the <launch:info>
    extension.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <info>
-         <domain:info
-             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-         </domain:info>
-       </info>
-       <extension>
-         <lp:info xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-           <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-           <lp:phase>phase1</lp:phase>
-         </lp:info>
-       </extension>
-       <clTRID>example:epp:239331</clTRID>
-     </command>
-   </epp>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <info>
+      <domain:info
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+      </domain:info>
+    </info>
+    <extension>
+      <launch:info xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+      </launch:info>
+    </extension>
+    <clTRID>example:epp:239331</clTRID>
+  </command>
+</epp>
 
    An example response that corresponds to the above command.
 
- <?xml version="1.0" encoding="utf-8"?>
- <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-   <response>
-     <result code="1000">
-       <msg>Command completed successfully</msg>
-     </result>
-     <resData>
-       <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.tld</domain:name>
-         <domain:roid>32302393_TESTDOMAIN-TLD</domain:roid>
-         <domain:status s="pendingCreate" />
-         <domain:registrant>ga3000</domain:registrant>
-         <domain:contact type="admin">ue312987</domain:contact>
-         <domain:contact type="tech">ue312987</domain:contact>
-         <domain:contact type="billing">ue312987</domain:contact>
-         <domain:ns>
-           <domain:hostObj>ns1.example.com</domain:hostObj>
-           <domain:hostObj>ns2.example.net</domain:hostObj>
-         </domain:ns>
-         <domain:clID>client1</domain:clID>
-         <domain:crID>client1</domain:crID>
-         <domain:crDate>2010-09-18T06:12:39.0Z</domain:crDate>
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+        <domain:roid>32302393_TESTDOMAIN-TLD</domain:roid>
+        <domain:status s="pendingCreate" />
+        <domain:registrant>ga3000</domain:registrant>
+        <domain:contact type="admin">ue312987</domain:contact>
+        <domain:contact type="tech">ue312987</domain:contact>
+        <domain:contact type="billing">ue312987</domain:contact>
+        <domain:ns>
+          <domain:hostObj>ns1.example.com</domain:hostObj>
+          <domain:hostObj>ns2.example.net</domain:hostObj>
+        </domain:ns>
+        <domain:clID>client1</domain:clID>
+        <domain:crID>client1</domain:crID>
+        <domain:crDate>2010-09-18T06:12:39.0Z</domain:crDate>
 
 
 
-Tan & Brown             Expires October 18, 2012                [Page 9]
+Tan, et al.             Expires January 10, 2013                [Page 9]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-         <domain:authInfo>
-           <domain:pw>foo!bar#baz</domain:pw>
-         </domain:authInfo>
-       </domain:infData>
-     </resData>
-     <extension>
-       <lp:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-         <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-         <lp:phase>phase1</lp:phase>
-         <lp:status s="pending" />
-         <lp:claim>
-           <lp:id>claim-001</lp:id>
-           <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-           <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
-           <lp:name>Hello</lp:name>
-           <lp:number>GE 3933232</lp:number>
-           <lp:type>REG-TM-WORD</lp:type>
-           <lp:entitlement>owner</lp:entitlement>
-           <lp:regDate>2011-09-09</lp:regDate>
-           <lp:exDate>2013-09-09</lp:exDate>
-           <lp:country>AU</lp:country>
-           <lp:region>VIC</lp:region>
-         </lp:claim>
-       </lp:infData>
-     </extension>
-     <trID>
-       <clTRID>example:epp:239331</clTRID>
-       <svTRID>server-8551292e23a</svTRID>
-     </trID>
-   </response>
- </epp>
+        <domain:authInfo>
+          <domain:pw>foo!bar#baz</domain:pw>
+        </domain:authInfo>
+      </domain:infData>
+    </resData>
+    <extension>
+      <launch:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+        <launch:status s="pending" />
+        <launch:claim>
+          <launch:id>claim-001</launch:id>
+          <launch:pvrc>3828590-P1F-932391651E3A2900338C12</launch:pvrc>
+          <launch:issuer>CONTACT-IPCLEARINGHOUSE</launch:issuer>
+          <launch:name>Hello</launch:name>
+          <launch:number>GE 3933232</launch:number>
+          <launch:type>REG-TM-WORD</launch:type>
+          <launch:entitlement>owner</launch:entitlement>
+          <launch:regDate>2011-09-09</launch:regDate>
+          <launch:exDate>2013-09-09</launch:exDate>
+          <launch:country>AU</launch:country>
+          <launch:region>VIC</launch:region>
+        </launch:claim>
+      </launch:infData>
+    </extension>
+    <trID>
+      <clTRID>example:epp:239331</clTRID>
+      <svTRID>server-8551292e23a</svTRID>
+    </trID>
+  </response>
+</epp>
 
 3.3.  EPP <create> Command
 
@@ -545,36 +545,36 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
    The EPP <create> command is used to create an application.  Typically
    additional information is required to submit a domain name
-   application during a launch phase.  This extension introduces an <lp:
-   create> to encapsulate commonly used fields.  Another use case that
-   extension addresses is the plausible need for a registry to
+   application during a launch phase.  This extension introduces an
+   <launch:create> to encapsulate commonly used fields.  Another use
+   case that extension addresses is the plausible need for a registry to
    distinguish between multiple (possibly concurrent) launch phases.
-   Clients may specify the <lp:phase> in which the application is meant
-   to be submitted.  The <lp:create> element contains the following
-   child elements.
+   Clients may specify the <launch:phase> in which the application is
+   meant to be submitted.  The <launch:create> element contains the
+   following child elements.
 
 
 
 
-Tan & Brown             Expires October 18, 2012               [Page 10]
+Tan, et al.             Expires January 10, 2013               [Page 10]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   <lp:phase>  (optional) the phase during which the application was
+   <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
-   <lp:claim>  (optional) one or more <lp:claim> elements.
+   <launch:claim>  (optional) one or more <launch:claim> elements.
 
-   The format of the <lp:claim> element is identical to that specified
-   in the section on EPP <info> command.
+   The format of the <launch:claim> element is identical to that
+   specified in the section on EPP <info> command.
 
    Upon successful processing, the server assigns an application
-   identifier and returns it in an <lp:creData> element together with
-   the regular <resData>.  The <lp:creData> element contains a single
-   <lp:applicationID> element as described below:
+   identifier and returns it in an <launch:creData> element together
+   with the regular <resData>.  The <launch:creData> element contains a
+   single <launch:applicationID> element as described below:
 
-   <lp:applicationID>  the application identifier assigned by the
+   <launch:applicationID>  the application identifier assigned by the
            server.
 
 
@@ -612,102 +612,102 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 
-Tan & Brown             Expires October 18, 2012               [Page 11]
+Tan, et al.             Expires January 10, 2013               [Page 11]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 3.3.1.  Example <create> command
 
-   Following is an example <create> domain command with the <lp:create>
-   extension.
+   Following is an example <create> domain command with the <launch:
+   create> extension.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:period unit="y">2</domain:period>
-           <domain:ns>
-             <domain:hostObj>ns1.example.com</domain:hostObj>
-             <domain:hostObj>ns2.example.net</domain:hostObj>
-           </domain:ns>
-           <domain:registrant>ga3000</domain:registrant>
-           <domain:contact type="admin">ue312987</domain:contact>
-           <domain:contact type="tech">ue312987</domain:contact>
-           <domain:contact type="billing">ue312987</domain:contact>
-           <domain:authInfo>
-             <domain:pw>foo!bar#baz</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-           <lp:phase>phase1</lp:phase>
-           <lp:claim>
-             <lp:id>claim-001</lp:id>
-             <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-             <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
-             <lp:name>Hello</lp:name>
-             <lp:number>GE 3933232</lp:number>
-             <lp:type>REG-TM-WORD</lp:type>
-             <lp:entitlement>owner</lp:entitlement>
-             <lp:regDate>2011-09-09</lp:regDate>
-             <lp:exDate>2013-09-09</lp:exDate>
-             <lp:country>AU</lp:country>
-             <lp:region>VIC</lp:region>
-           </lp:claim>
-         </lp:create>
-       </extension>
-       <clTRID>example:epp:239332</clTRID>
-     </command>
-   </epp>
-
-
+ <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+ <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   <command>
+     <create>
+       <domain:create
+           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+         <domain:name>example.tld</domain:name>
+         <domain:period unit="y">2</domain:period>
+         <domain:ns>
+           <domain:hostObj>ns1.example.com</domain:hostObj>
+           <domain:hostObj>ns2.example.net</domain:hostObj>
+         </domain:ns>
+         <domain:registrant>ga3000</domain:registrant>
+         <domain:contact type="admin">ue312987</domain:contact>
+         <domain:contact type="tech">ue312987</domain:contact>
+         <domain:contact type="billing">ue312987</domain:contact>
+         <domain:authInfo>
+           <domain:pw>foo!bar#baz</domain:pw>
+         </domain:authInfo>
+       </domain:create>
+     </create>
+     <extension>
+       <launch:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+         <launch:phase>phase1</launch:phase>
+         <launch:claim>
+           <launch:id>claim-001</launch:id>
+           <launch:pvrc>3828590-P1F-932391651E3A2900338C12</launch:pvrc>
+           <launch:issuer>CONTACT-IPCLEARINGHOUSE</launch:issuer>
+           <launch:name>Hello</launch:name>
+           <launch:number>GE 3933232</launch:number>
+           <launch:type>REG-TM-WORD</launch:type>
+           <launch:entitlement>owner</launch:entitlement>
+           <launch:regDate>2011-09-09</launch:regDate>
+           <launch:exDate>2013-09-09</launch:exDate>
+           <launch:country>AU</launch:country>
+           <launch:region>VIC</launch:region>
+         </launch:claim>
+       </launch:create>
+     </extension>
+     <clTRID>example:epp:239332</clTRID>
+   </command>
+ </epp>
 
 
-Tan & Brown             Expires October 18, 2012               [Page 12]
+
+
+Tan, et al.             Expires January 10, 2013               [Page 12]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
    An example response that corresponds to the above command.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1000">
-         <msg>Command completed successfully</msg>
-       </result>
-       <resData>
-         <domain:creData
-            xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-          <domain:name>example.tld</domain:name>
-          <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
-          <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
-         </domain:creData>
-       </resData>
-       <extension>
-         <lp:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-           <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-         </lp:creData>
-       </extension>
-       <trID>
-         <clTRID>example:epp:239332</clTRID>
-         <svTRID>server-8551292e23b</svTRID>
-       </trID>
-     </response>
-   </epp>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:creData
+         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+       <domain:name>example.tld</domain:name>
+       <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
+       <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
+      </domain:creData>
+    </resData>
+    <extension>
+      <launch:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+      </launch:creData>
+    </extension>
+    <trID>
+      <clTRID>example:epp:239332</clTRID>
+      <svTRID>server-8551292e23b</svTRID>
+    </trID>
+  </response>
+</epp>
 
 3.3.2.  Client Processing Considerations
 
    The client MUST ensure that any successful <info> command results in
-   a response that an <lp:infData> element is returned in the response.
-   This serves as a cross check that the server did receive the query
-   for the application (and not a domain of the same name) and processed
-   it as it was intended.
+   a response that an <launch:infData> element is returned in the
+   response.  This serves as a cross check that the server did receive
+   the query for the application (and not a domain of the same name) and
+   processed it as it was intended.
 
 3.4.  EPP <update> Command
 
@@ -715,24 +715,24 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
    command to be used in conjunction with the domain name mapping.
 
    Registry policies permitting, clients may update an application
-   object by submitting an EPP <update> command along with an <lp:
+   object by submitting an EPP <update> command along with an <launch:
    update> element to indicate the application object to be updated.
-   The <lp:update> element contains the following child elements:
+   The <launch:update> element contains the following child elements:
 
 
 
 
 
 
-Tan & Brown             Expires October 18, 2012               [Page 13]
+Tan, et al.             Expires January 10, 2013               [Page 13]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   <lp:applicationID>  the application identifier for which the client
-           wishes to update.
+   <launch:applicationID>  the application identifier for which the
+           client wishes to update.
 
-   <lp:phase>  (optional) the phase during which the application was
+   <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
    This extension does not define any extension to the response of an
@@ -743,7 +743,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 3.4.1.  Server Processing Considerations
 
    A server implementation that conforms to this specification MUST
-   respect and process the <lp:update> section, if present, and MUST
+   respect and process the <launch:update> section, if present, and MUST
    respond with an error if the applicationID does not correspond with
    the domain name in the <domain:name> element.
 
@@ -780,49 +780,47 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 
-Tan & Brown             Expires October 18, 2012               [Page 14]
+Tan, et al.             Expires January 10, 2013               [Page 14]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 3.4.2.  Example <update> command
 
-   Following is an example <update> domain command with the <lp:update>
-   extension.
+   Following is an example <update> domain command with the <launch:
+   update> extension.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <update>
-         <domain:update
-             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:add>
-             <domain:ns>
-               <domain:hostObj>ns3.example.org</domain:hostObj>
-             </domain:ns>
-           </domain:add>
-           <domain:rem>
-             <domain:ns>
-               <domain:hostObj>ns2.example.net</domain:hostObj>
-             </domain:ns>
-           </domain:rem>
-           <domain:chg>
-             <domain:registrant>n3o2999</domain:registrant>
-           </domain:chg>
-         </domain:update>
-       </update>
-       <extension>
-         <lp:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-           <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-           <lp:phase>phase1</lp:phase>
-         </lp:update>
-       </extension>
-       <clTRID>example:epp:239333</clTRID>
-     </command>
-   </epp>
-
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+        <domain:add>
+          <domain:ns>
+            <domain:hostObj>ns3.example.org</domain:hostObj>
+          </domain:ns>
+        </domain:add>
+        <domain:rem>
+          <domain:ns>
+            <domain:hostObj>ns2.example.net</domain:hostObj>
+          </domain:ns>
+        </domain:rem>
+        <domain:chg>
+          <domain:registrant>n3o2999</domain:registrant>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <extension>
+      <launch:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+      </launch:update>
+    </extension>
+    <clTRID>example:epp:239333</clTRID>
+  </command>
+</epp>
 
 
 
@@ -836,9 +834,11 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 
-Tan & Brown             Expires October 18, 2012               [Page 15]
+
+
+Tan, et al.             Expires January 10, 2013               [Page 15]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
    An example response that corresponds to the above command.
@@ -862,14 +862,14 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
    command to be used in conjunction with the domain name mapping.
 
    Registry policies permitting, clients may withdraw an application by
-   submitting an EPP <delete> command along with an <lp:delete> element
-   to indicate the application object to be deleted.  The <lp:delete>
-   element contains the following child elements:
+   submitting an EPP <delete> command along with an <launch:delete>
+   element to indicate the application object to be deleted.  The
+   <launch:delete> element contains the following child elements:
 
-   <lp:applicationID>  the application identifier for which the client
-           wishes to delete.
+   <launch:applicationID>  the application identifier for which the
+           client wishes to delete.
 
-   <lp:phase>  (optional) the phase during which the application was
+   <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
    This extension does not define any extension to the response of an
@@ -880,7 +880,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 3.5.1.  Server Processing Considerations
 
    A server implementation that conforms to this specification MUST
-   respect and process the <lp:delete> section, if present, and MUST
+   respect and process the <launch:delete> section, if present, and MUST
    respond with an error if the applicationID does not correspond with
    the domain name in the <domain:name> element.
 
@@ -892,36 +892,36 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 
-Tan & Brown             Expires October 18, 2012               [Page 16]
+Tan, et al.             Expires January 10, 2013               [Page 16]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
    to indicate that the object will be purged at a later date.
 
 3.5.2.  Example <delete> command
 
-   Following is an example <delete> domain command with the <lp:delete>
-   extension.
+   Following is an example <delete> domain command with the <launch:
+   delete> extension.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <delete>
-         <domain:delete
-             xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-         </domain:delete>
-       </delete>
-       <extension>
-         <lp:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-           <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-           <lp:phase>phase1</lp:phase>
-         </lp:delete>
-       </extension>
-       <clTRID>example:epp:239334</clTRID>
-     </command>
-   </epp>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <delete>
+      <domain:delete
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+      </domain:delete>
+    </delete>
+    <extension>
+      <launch:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+      </launch:delete>
+    </extension>
+    <clTRID>example:epp:239334</clTRID>
+  </command>
+</epp>
 
    An example response that corresponds to the above command.
 
@@ -948,9 +948,9 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 
 
-Tan & Brown             Expires October 18, 2012               [Page 17]
+Tan, et al.             Expires January 10, 2013               [Page 17]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 3.7.  EPP <transfer> Command
@@ -962,159 +962,248 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2012
 
 4.  Formal Syntax
 
-   [TBD]
+   An EPP object mapping is specified in XML Schema notation.  The
+   formal syntax presented here is a complete schema representation of
+   the object mapping suitable for automated validation of EPP XML
+   instances.  The BEGIN and END tags are not part of the schema; they
+   are used to note the beginning and ending of the schema for URI
+   registration purposes.
+
+   Copyright (c) 2009 IETF Trust and the persons identified as authors
+   of the code.  All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+   o  Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+
+   o  Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+
+   o  Neither the name of Internet Society, IETF or IETF Trust, nor the
+      names of specific contributors, may be used to endorse or promote
+      products derived from this software without specific prior written
+      permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-5.  Acknowledgements
-
-   [to be filled in]
 
 
-6.  IANA Considerations
-
-   This document uses URNs to describe XML namespaces and XML schemas
-   conforming to a registry mechanism described in [RFC3688].
-
-   Registration request for the extension namespace:
-
-   URI: urn:ietf:params:xml:ns:launchphase-1.0
-
-   Registrant Contact: IESG
-
-   XML: None.  Namespace URIs do not represent an XML specification.
-
-   Registration request for the extension XML schema:
-
-   URI: urn:ietf:params:xml:schema:launchphase-1.0
-
-
-7.  Security Considerations
-
-   The mapping extensions described in this document do not provide any
-   security services beyond those described by EPP [RFC5730], the EPP
-   domain name mapping [RFC5731], and protocol layers used by EPP.  The
-   security considerations described in these other specifications apply
-   to this specification as well.
-
-   Updates to, and deletion of an application object must be restricted
-   to clients authorized to perform the said operation on the object.
-
-   As information contained within an application, or even the mere fact
-   that an application exists may be confidential.  Any attempt to
-
-
-
-Tan & Brown             Expires October 18, 2012               [Page 18]
+Tan, et al.             Expires January 10, 2013               [Page 18]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   operate on an application object by an unauthorized client MUST be
-   rejected with an EPP 2303 (object does not exist) or an appropriate
-   auhorization error.  Server policy may allow <info> operation with
-   filtered output by clients other than the sponsoring client, in which
-   case the <domain:infData> and <lp:infData> response SHOULD be
-   filtered to include only fields that are publicly accessible.
+   BEGIN
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema
+           targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
+           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+      xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+      xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+           xmlns="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+   <!--
+   Import common element types.
+   -->
+     <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
+             schemaLocation="eppcom-1.0.xsd"/>
+
+     <import namespace="http://www.w3.org/2000/09/xmldsig#"
+             schemaLocation="xmldig-core-schema.xsd"/>
 
 
-8.  Normative References
+           <annotation>
+                   <documentation>
+                           Extensible Provisioning Protocol v1.0
+                           domain name extension schema
+                           for the launch phase processing.
+                   </documentation>
+           </annotation>
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
+           <!--
+           Child elements found in EPP commands.
+           -->
+           <element name="create" type="launch:createType"/>
+           <element name="update" type="launch:idContainerType"/>
+           <element name="info" type="launch:infType"/>
+           <element name="delete" type="launch:idContainerType"/>
 
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              January 2004.
+           <!--
+           Common container of id (identifier) element
+           -->
+           <complexType name="idContainerType">
+                   <sequence>
+                           <element name="phase" type="launch:phaseType"
+                                   minOccurs="0"/>
+                           <element name="applicationID" type="token"/>
+                   </sequence>
+           </complexType>
 
-   [RFC5730]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)",
-              STD 69, RFC 5730, August 2009.
-
-   [RFC5731]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)
-              Domain Name Mapping", STD 69, RFC 5731, August 2009.
-
-   [RFC5733]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)
-              Contact Mapping", STD 69, RFC 5733, August 2009.
-
-
-Authors' Addresses
-
-   Wil Tan
-   Cloud Registry
-   Suite 32 Seabridge House
-   377 Kent St
-   Sydney, NSW  2000
-   AU
-
-   Phone: +61 414 710899
-   Email: wil@cloudregistry.net
-   URI:   http://www.cloudregistry.net
+           <!--
 
 
 
-
-
-
-
-
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012               [Page 19]
+Tan, et al.             Expires January 10, 2013               [Page 19]
 
-Internet-Draft        Launch Phase Mapping for EPP            April 2012
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   Gavin Brown
-   CentralNic Ltd
-   35-39 Mooregate
-   London, England  EC2R 6AR
-   GB
+           Definition for application identifier
+           -->
+           <simpleType name="applicationIDType">
+                   <restriction base="token"/>
+           </simpleType>
 
-   Phone: +44 8700 170 900
-   Email: gavin.brown@centralnic.com
-   URI:   http://www.centralnic.com
+           <!--
+           Definition for launch phase.  Name is an optional attribute
+           used to extend the phase type.  For example, when
+           using the phase type value of <custom>, the name
+           can be used to specify the custom phase.
+           -->
+           <complexType name="phaseType">
+                   <simpleContent>
+                           <extension base="launch:phaseTypeValue">
+                                   <attribute name="name" type="token"/>
+                           </extension>
+                   </simpleContent>
+           </complexType>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+           <!--
+           Enumeration of for launch phase values.
+           -->
+           <simpleType name="phaseTypeValue">
+                   <restriction base="token">
+                   <enumeration value="sunrise"/>
+                   <enumeration value="landrush"/>
+                   <enumeration value="claims"/>
+                   <enumeration value="open"/>
+                   <enumeration value="custom"/>
+           </restriction>
+           </simpleType>
 
 
+           <!--
+           Definition for the sunrise code
+           -->
+           <simpleType name="codeType">
+                   <restriction base="base64Binary">
+                           <minLength value="1"/>
+                   </restriction>
+           </simpleType>
+
+           <!--
+           Definition for the claims identifier
+           -->
+           <simpleType name="noticeIDType">
+                   <restriction base="base64Binary">
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Tan & Brown             Expires October 18, 2012               [Page 20]
+Tan, et al.             Expires January 10, 2013               [Page 20]
 
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+                           <minLength value="1"/>
+                   </restriction>
+           </simpleType>
+
+     <simpleType name="ccType">
+       <restriction base="token">
+         <length value="2"/>
+       </restriction>
+     </simpleType>
+
+           <!--
+           Definition of the IP address taken from host-1.0.
+           -->
+      <complexType name="addrType">
+        <simpleContent>
+          <extension base="launch:addrStringType">
+            <attribute name="ip" type="launch:ipType"
+             default="v4"/>
+          </extension>
+        </simpleContent>
+      </complexType>
+
+      <simpleType name="addrStringType">
+        <restriction base="token">
+          <minLength value="3"/>
+          <maxLength value="45"/>
+        </restriction>
+      </simpleType>
+
+      <simpleType name="ipType">
+        <restriction base="token">
+          <enumeration value="v4"/>
+          <enumeration value="v6"/>
+        </restriction>
+      </simpleType>
+
+           <!-- Possible status values for sunrise application -->
+           <simpleType name="statusValueType">
+           <restriction base="token">
+           <enumeration value="pending"/>
+           <enumeration value="validated"/>
+           <enumeration value="invalid"/>
+           <enumeration value="allocated"/>
+           <enumeration value="rejected"/>
+           </restriction>
+           </simpleType>
+
+     <complexType name="statusType">
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 21]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+       <simpleContent>
+         <extension base="normalizedString">
+           <attribute name="s"
+                   type="launch:statusValueType"
+                   use="required"/>
+           <attribute name="lang"
+                   type="language" default="en"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+
+           <complexType name="signedClaimToken">
+                   <sequence>
+                           <element ref="ds:Signature"/>
+                           <element name="claim"
+                                   type="launch:claimType"/>
+                   </sequence>
+           </complexType>
+
+           <!--
+           Child elements of create for both Sunrise and Claims periods
+           -->
+           <complexType name="createType">
+                   <sequence>
+                           <element name="phase"
+                                   type="launch:phaseType"/>
+                           <choice>
+                                   <sequence>
+                                           <element name="code"
+                                                   type="launch:codeType"

@@ -3,7 +3,6 @@
 <!-- One method to get references from the online citation libraries.
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
-
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC5730 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5730.xml">
 <!ENTITY RFC5733 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5733.xml">
@@ -33,14 +32,14 @@
      (using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
 <!-- do not start each main section on a new page -->
-<?rfc subcompact="no" ?>
+<?rfc subcompact="yes"?>
 <!-- keep one blank line between list items -->
 <?rfc comments="yes" ?>
 <!-- show cref output -->
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="exp" docName="draft-tan-epp-launchphase-01" ipr="trust200902">
+<rfc category="std" docName="draft-tan-epp-launchphase-02" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -49,7 +48,8 @@
   <!-- ***** FRONT MATTER ***** -->
 
   <front>
-    <title abbrev="Launch Phase Mapping for EPP">Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)</title>
+    <title abbrev="Launch Phase Mapping for EPP">Launch Phase Mapping for the
+    Extensible Provisioning Protocol (EPP)</title>
 
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
@@ -57,148 +57,221 @@
 
     <author fullname="Wil Tan" initials="W.T." surname="Tan">
       <organization>Cloud Registry</organization>
+
       <address>
         <postal>
           <street>Suite 32 Seabridge House</street>
+
           <street>377 Kent St</street>
+
           <city>Sydney</city>
+
           <region>NSW</region>
+
           <code>2000</code>
+
           <country>AU</country>
         </postal>
+
         <phone>+61 414 710899</phone>
+
         <email>wil@cloudregistry.net</email>
+
         <uri>http://www.cloudregistry.net</uri>
       </address>
     </author>
 
     <author fullname="Gavin Brown" initials="G.B." surname="Brown">
       <organization>CentralNic Ltd</organization>
+
       <address>
         <postal>
           <street>35-39 Mooregate</street>
+
           <city>London</city>
+
           <region>England</region>
+
           <code>EC2R 6AR</code>
+
           <country>GB</country>
         </postal>
+
         <phone>+44 8700 170 900</phone>
+
         <email>gavin.brown@centralnic.com</email>
+
         <uri>http://www.centralnic.com</uri>
       </address>
     </author>
 
-    <date day="16" month="April" year="2012" />
+    <author fullname="James Gould" initials="J.G" surname="Gould">
+      <organization>VeriSign, Inc.</organization>
 
+      <address>
+        <postal>
+          <street>12061 Bluemont Way</street>
+
+          <city>Reston</city>
+
+          <region>VA</region>
+
+          <code>20190</code>
+
+          <country>US</country>
+        </postal>
+
+        <email>jgould@verisign.com</email>
+
+        <uri>http://www.verisigninc.com</uri>
+      </address>
+    </author>
+
+    <date day="9" month="July" year="2012"/>
 
     <!-- Meta-data Declarations -->
+
     <area>Applications</area>
+
     <workgroup>Internet Engineering Task Force</workgroup>
-    <keyword>EPP, Sunrise, domain name registry, launch phase</keyword>
+
+    <keyword>EPP, Sunrise, Landrush, Trademark Clearinghouse, Trademark
+    Claims, domain name registry, launch phase</keyword>
 
     <abstract>
       <t>This document describes an Extensible Provisioning Protocol (EPP)
-	      extension mapping for the provisioning and management of domain
-	      names during the launch phase of a domain name registry.
-      </t>
+      extension mapping for the provisioning and management of domain names
+      during the launch phase of a domain name registry.</t>
     </abstract>
   </front>
 
   <middle>
     <section title="Introduction">
-      <t>
-        This document describes an extension mapping for version 1.0 of the
-        <xref target="RFC5730">Extensible Provisioning Protocol (EPP)</xref>.
-        This EPP mapping specifies a flexible schema that can be used to implement
-        several common use cases related to the provisioning and management of
-        launch phase extension in a domain name registry.
-      </t>
-      <t>
-        It is typical for domain registries to operate in special modes
-        within certain periods of time to facilitate allocation of domain names
-        for a subset of the zone namespace that becomes available. This document
-        uses the term "launch phase" to refer to such a period.
-      </t>
-      <t>
-        The <xref target="RFC5731">EPP domain name mapping</xref> is designed
-        for the steady state operation of a registry. During a launch phase,
-        however, registries typically accept multiple applications for a 
-        given domain name. This document proposes an extension to the domain
-        name extension in order to unambiguously manage the received applications.
-      </t>
+      <t>This document describes an extension mapping for version 1.0 of the
+      <xref target="RFC5730">Extensible Provisioning Protocol (EPP)</xref>.
+      This EPP mapping specifies a flexible schema that can be used to
+      implement several common use cases related to the provisioning and
+      management of launch phase extension in a domain name registry.</t>
+
+      <t>It is typical for domain registries to operate in special modes
+      within certain periods of time to facilitate allocation of domain names
+      for a subset of the zone namespace that becomes available. This document
+      uses the term "launch phase" and the shorter form "launch" to refer to
+      such a period.</t>
+
+      <t>The <xref target="RFC5731">EPP domain name mapping</xref> is designed
+      for the steady state operation of a registry. During the launch, the
+      interface used at each phase of the launch could be different from what
+      is defined in <xref target="RFC5731">EPP domain name mapping</xref>. for
+      example, registries typically accept multiple applications for a given
+      domain name during the "sunrise" launch phase. In addition, the <eref
+      target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf">Trademark
+      Clearinghouse Draft Implementation Model</eref> defines a registry
+      interface for the Trademark Claims or "claims" launch phase that
+      includes support for presenting a Trademark Claims Notice to the
+      Registrant. This document proposes an extension to the domain name
+      extension in order to unambiguously manage the various launch phases
+      known.</t>
 
       <section title="Conventions Used in This Document">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
         "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-        document are to be interpreted as described in
-        <xref target="RFC2119">RFC 2119</xref>.</t>
-        <t>
-          XML is case sensitive.  Unless stated otherwise, XML specifications
-          and examples provided in this document MUST be interpreted in the
-          character case presented in order to develop a conforming
-          implementation.
-        </t>
-        <t>
-          "launchphase-1.0" is used as an abbreviation for "urn:ietf:params:xml:ns:launchphase-1.0".
-          The XML namespace prefix "lp" is used, but implementations MUST NOT depend on it and
-          instead employ a proper namespace-aware XML parser and serializer to interpret and output
-          the XML documents.
-        </t>
+        document are to be interpreted as described in <xref
+        target="RFC2119">RFC 2119</xref>.</t>
+
+        <t>XML is case sensitive. Unless stated otherwise, XML specifications
+        and examples provided in this document MUST be interpreted in the
+        character case presented in order to develop a conforming
+        implementation.</t>
+
+        <t>"launch-1.0" is used as an abbreviation for
+        "urn:ietf:params:xml:ns:launch-1.0". The XML namespace prefix "launch"
+        is used, but implementations MUST NOT depend on it and instead employ
+        a proper namespace-aware XML parser and serializer to interpret and
+        output the XML documents.</t>
       </section>
     </section>
 
-    <section title="Application Object">
-      <t>
-        It is common for domain registries to allow multiple applications of a given domain name during its
-        launch phase operations.
-      </t>
-      <t>
-        Upon receiving a request to create a domain, the server creates an application object corresponding
-        to the request and assigns an identifier for the application and returns it to the client.
-        This mapping defines an "applicationID" element for this purpose.
-      </t>
-      <t>
-        In order to facilitate correlation, all subsequent operations on the domain object MUST be qualified by the
-        previously assigned applicationID.
-      </t>
-      <t>
-        To support common use cases of launch phase operations, this mapping also defines several other elements
-        that may be used in implementations.
-      </t>
+    <section anchor="attrs" title="Object Attributes">
+      <t>This extension adds additional elements to the <xref
+      target="RFC5731">EPP domain name mapping</xref>. Only those new elements
+      are described here.</t>
 
-      <section title="&lt;lp:phase&gt; Element">
-        <t>
-          To allow for multiple simultaneous launch phases, the application object MAY also include an &lt;lp:phase&gt; element
-          whose content is a server-defined opaque identifier corresponding to each launch phase.
-          Examples values are: "sunrise" and "2char-release".
-          Depending on the policy of the domain registry, the phase may be implicit (based on the time of request
-          or encoded as part of the applicationID) or explicitly required.
-        </t>
+      <section anchor="applicationID" title="Application Identifiers">
+        <t>Domain registries MAY allow multiple applications of a given domain
+        name during its launch phase operations. Upon receiving a request to
+        create a domain name, the server creates an application object
+        corresponding to the request and assigns an Application Identifier the
+        application and returns it to the client with the
+        &lt;launch:applicationID&gt; element. In order to facilitate
+        correlation, all subsequent launch operations on the application
+        object MUST be qualified by the previously assigned application
+        identifier using the &lt;launch:applicationID&gt; element.</t>
       </section>
 
-      <section title="&lt;lp:status&gt; Element">
-        <t>
-          The &lt;status&gt; element is used to convey extended status(es) pertaining to the application object,
-          beyond what is specified in the object mapping to which this application object represents.
-        </t>
-        <t>
-          The following status values are defined:
-          <list style="hanging">
-            <t hangText="pending:">the initial state of a newly-created application object.</t>
+      <section anchor="phase" title="Launch Phases">
+        <t>The server MAY support multiple launch phases sequentially or
+        simultaneously. The &lt;launch:phase&gt; element MUST be included by
+        the client to define the target launch phase of the command.</t>
 
-            <t hangText="validated:">the application meets relevant registry rules.</t>
+        <t>The following Launch Phase values are defined: <list
+            style="hanging">
+            <t hangText="sunrise">Phase when trademark holders can submit
+            registration applications with trademark information that can be
+            validated by the server.</t>
 
-            <t hangText="invalid:">the application does not validate according to registry rules</t>
+            <t hangText="landrush">Post sunrise phase when non-trademark
+            holders are allowed to register domain names.</t>
 
-            <t hangText="allocated:">one of two possible end states of an application object; the object corresponding to the application has been provisioned</t>
+            <t hangText="claims">Trademark claims phase as defined by <eref
+            target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf">Trademark
+            Clearinghouse Draft Implementation Model</eref>.</t>
 
-            <t hangText="rejected:">the other possible end state; the object was not provisioned</t>
-          </list>
-        </t>
-        <t>
-          Certain status values MAY be combined. For example, an application can be invalid and rejected.
-          <cref anchor="Q1" source="WT">Should we allow multiples?</cref>
-        </t>
+            <t hangText="open">Post launch phase that is also referred to as
+            "steady state". Servers might require additional trademark
+            protection with this phase.</t>
+
+            <t hangText="custom">A custom server launch phase that is defined
+            using the "name" attribute.</t>
+          </list></t>
+
+        <t>For extensibility the &lt;launch:phase&gt; element includes an
+        OPTIONAL "name" attribute that can define a sub-phase or the full name
+        of the phase when the &lt;launch:phase&gt; element has the "custom"
+        value.</t>
+      </section>
+
+      <section anchor="status" title="Status Values">
+        <t>A launch application object MAY have a status value. The
+        &lt;status&gt; element is used to convey extended status pertaining to
+        the application object, beyond what is specified in the object mapping
+        to which this application object represents.</t>
+
+        <t>The following status values are defined: <list style="hanging">
+            <t hangText="pending:">the initial state of a newly-created
+            application object.</t>
+
+            <t hangText="validated:">the application meets relevant registry
+            rules.</t>
+
+            <t hangText="invalid:">the application does not validate according
+            to registry rules</t>
+
+            <t hangText="allocated:">one of two possible end states of an
+            application object; the object corresponding to the application
+            has been provisioned</t>
+
+            <t hangText="rejected:">the other possible end state; the object
+            was not provisioned</t>
+          </list></t>
+
+        <t>Certain status values MAY be combined. For example, an application
+        can be invalid and rejected. Additionally certain statuses MAY be
+        skipped. For example, an application can immediately start at the
+        allocated status. If a &lt;domain:create&gt; processes a request
+        synchronously without the use of an intermediate application, than an
+        <xref target="applicationID">Application Identifier</xref> is not
+        needed along with the application status.</t>
 
         <section title="State Transition">
           <figure align="center" anchor="fsm">
@@ -230,115 +303,159 @@
             ]]></artwork>
           </figure>
         </section>
-
       </section>
 
       <section title="Claim Elements">
-          <t>An application may have zero or more &lt;claim&gt; elements. A &lt;claim&gt; element
-          describes an applicant's prior right to a given domain name.</t>
-          <t>The &lt;claim&gt; element has the boolean "preValidated" attribute, which indicates
-          whether a third party validation agency has already validated the claim. When this attribute has a true value,
-          the &lt;pvrc&gt; element must always be present.</t>
+        <t>An application MAY have zero or more &lt;launch:claim&gt; elements.
+        A &lt;launch:claim&gt; element describes an applicant's prior right to
+        a given domain name.</t>
 
-          <t>Several child elements of the &lt;claim&gt; element are defined:
-          <list style="hanging">
-            <t hangText="&lt;id&gt;:">an identifier for the claim. This identifier MUST be unique among all claims associated with an application object.</t>
-            <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code, an opaque string issued by a third-party validation agent</t>
-            <t hangText="&lt;issuer&gt;:">contains the ID of a contact object (as described in <xref target="RFC5733">RFC 5733</xref>) identifying the contact information of the authority which issued the right (for example, a trade mark office or company registration bureau)</t>
-            <t hangText="&lt;name&gt;:">identifying the text string in which the applicant is claiming a prior right</t>
-            <t hangText="&lt;number&gt;:">the registration number of the right (ie trademark number or company registration number)</t>
-            <t hangText="&lt;type&gt;:">indicates the type of claim being made (eg trademark, symbol, combined mark, company name)</t>
-            <t hangText="&lt;entitlement&gt;:">indicates the applicant's entitlement to the claim (ie, owner or licensee)</t>
-            <t hangText="&lt;regDate&gt;:">the date of registration of the claim</t>
-            <t hangText="&lt;exDate&gt;:">the date of expiration of the claim</t>
-            <t hangText="&lt;country&gt;:">indicates the country in which the claim is valid</t>
-            <t hangText="&lt;region&gt;:">indicates the name of a city, state, province or other geographic region in which the claim is valid. This may be a two-character code from [WIPO.ST3]</t>
-          </list>
-          Apart from the mandatory &lt;id&gt; element, all other child elements are optional. Server policy may place
-          additional constraints on the format and requirements of such elements.
-          </t>
+        <t>The &lt;launch:claim&gt; element has the boolean "preValidated"
+        attribute, which indicates whether a third party validation agency has
+        already validated the claim. When this attribute has a true value, the
+        &lt;pvrc&gt; element must always be present.</t>
+
+        <t>Several child elements of the &lt;claim&gt; element are defined:
+        <list style="hanging">
+            <t hangText="&lt;id&gt;:">an identifier for the claim. This
+            identifier MUST be unique among all claims associated with an
+            application object.</t>
+
+            <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code, an
+            opaque string issued by a third-party validation agent</t>
+
+            <t hangText="&lt;issuer&gt;:">contains the ID of a contact object
+            (as described in <xref target="RFC5733">RFC 5733</xref>)
+            identifying the contact information of the authority which issued
+            the right (for example, a trade mark office or company
+            registration bureau)</t>
+
+            <t hangText="&lt;name&gt;:">identifying the text string in which
+            the applicant is claiming a prior right</t>
+
+            <t hangText="&lt;number&gt;:">the registration number of the right
+            (ie trademark number or company registration number)</t>
+
+            <t hangText="&lt;type&gt;:">indicates the type of claim being made
+            (eg trademark, symbol, combined mark, company name)</t>
+
+            <t hangText="&lt;entitlement&gt;:">indicates the applicant's
+            entitlement to the claim (ie, owner or licensee)</t>
+
+            <t hangText="&lt;regDate&gt;:">the date of registration of the
+            claim</t>
+
+            <t hangText="&lt;exDate&gt;:">the date of expiration of the
+            claim</t>
+
+            <t hangText="&lt;country&gt;:">indicates the country in which the
+            claim is valid</t>
+
+            <t hangText="&lt;region&gt;:">indicates the name of a city, state,
+            province or other geographic region in which the claim is valid.
+            This may be a two-character code from [WIPO.ST3]</t>
+          </list> Apart from the mandatory &lt;id&gt; element, all other child
+        elements are optional. Server policy may place additional constraints
+        on the format and requirements of such elements.</t>
       </section>
-
     </section>
 
     <section title="EPP Command Mapping">
-      <t>This mapping is designed to be flexible, requiring only a minimum set of required elements.</t>
-      <t>
-        While it is meant to serve several use cases, it does not prescribe any interpretation by the client or server. Such processing is typically highly policy-dependent and therefore specific to implementations.
-      </t>
+      <t>This mapping is designed to be flexible, requiring only a minimum set
+      of required elements.</t>
 
-      <t>
-        Operations on application objects are done via one or more of the existing EPP verbs defined in the EPP
-        domain mapping. Registries may choose to support a subset of the operations.
-      </t>
+      <t>While it is meant to serve several use cases, it does not prescribe
+      any interpretation by the client or server. Such processing is typically
+      highly policy-dependent and therefore specific to implementations.</t>
+
+      <t>Operations on application objects are done via one or more of the
+      existing EPP verbs defined in the EPP domain mapping. Registries may
+      choose to support a subset of the operations.</t>
 
       <section title="EPP &lt;check&gt; Command">
-        <t>
-          This extension does not define any extension to the EPP &lt;check&gt; command or response
-          described in the <xref target="RFC5731">EPP domain name mapping</xref>.
-        </t>
-      </section><!-- end CHECK command -->
+        <t>This extension does not define any extension to the EPP
+        &lt;check&gt; command or response described in the <xref
+        target="RFC5731">EPP domain name mapping</xref>.</t>
+      </section>
+
+      <!-- end CHECK command -->
 
       <section title="EPP &lt;info&gt; Command">
-        <t>
-          This extension defines additional elements to extend the EPP &lt;info&gt; command
-          and response to be used in conjunction with the domain name mapping.
-        </t>
-        <t>
-          In order to indicate that the query is meant for an application object, an &lt;lp:info&gt; element
-          is sent along with the regular &lt;info&gt; domain command. The &lt;lp:info&gt; element contains
-          the following child elements:
+        <t>This extension defines additional elements to extend the EPP
+        &lt;info&gt; command and response to be used in conjunction with the
+        domain name mapping.</t>
 
-          <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:applicationID&gt;">the application identifier for which the client wishes to query.</t>
+        <t>In order to indicate that the query is meant for an application
+        object, an &lt;launch:info&gt; element is sent along with the regular
+        &lt;info&gt; domain command. The &lt;launch:info&gt; element contains
+        the following child elements: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:applicationID&gt;">the application
+            identifier for which the client wishes to query.</t>
 
-            <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
-          </list>
-        </t>
-        <t>
-          If the query was successful, the server replies with an &lt;lp:infData&gt; element along with
-          the regular EPP &lt;resData&gt;. The &lt;lp:infData&gt; contains the following child elements:
-          <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:applicationID&gt;">the application identifier of the returned application.</t>
+            <t hangText="&lt;launch:phase&gt;">(optional) the phase during
+            which the application was submitted or is associated with.</t>
+          </list></t>
 
-            <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
-            <t hangText="&lt;lp:status&gt;"> status of the application.</t>
-            <t hangText="&lt;lp:claim&gt;"> zero or more &lt;lp:claim&gt; elements.</t>
-          </list>
-        </t>
- 
-        <t>
-        	If present, the &lt;lp:claim&gt; elements may contain the following child elements:
-              <list hangIndent="8" style="hanging">
-              <t hangText="&lt;id&gt;:">an identifier for the claim. This identifier MUST be unique among all claims associated with an application object.</t>
-              <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code.</t>
-              <t hangText="&lt;issuer&gt;:">the ID of a contact object representing the issuing authority.</t>
-              <t hangText="&lt;name&gt;:">the textual representation of the right.</t>
-              <t hangText="&lt;number&gt;:">the registration number.</t>
-              <t hangText="&lt;type&gt;:">the type of claim being made.</t>
-              <t hangText="&lt;entitlement&gt;:">the entitlement.</t>
-              <t hangText="&lt;regDate&gt;:">the registration date.</t>
-              <t hangText="&lt;exDate&gt;:">the expiry date.</t>
-              <t hangText="&lt;country&gt;:">the country.</t>
-              <t hangText="&lt;region&gt;:">the geographic region.</t>
-            </list>
-          Apart from the mandatory &lt;id&gt; element, all other child elements are optional. Server policy may place
-          additional constraints on the format and requirements of such elements.
-        </t>
-        
- 
-       <section title="Client Processing Considerations">
-          <t>
-            The client MUST ensure that any successful &lt;info&gt; command results in a response that
-            an &lt;lp:infData&gt; element is returned in the response. This serves as a cross check that
-            the server did receive the query for the application (and not a domain of the same name)
-            and processed it as it was intended.
-          </t>
+        <t>If the query was successful, the server replies with an
+        &lt;launch:infData&gt; element along with the regular EPP
+        &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
+        child elements: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:applicationID&gt;">the application
+            identifier of the returned application.</t>
+
+            <t hangText="&lt;launch:phase&gt;">(optional) the phase during
+            which the application was submitted or is associated with.</t>
+
+            <t hangText="&lt;launch:status&gt;">status of the application.</t>
+
+            <t hangText="&lt;launch:claim&gt;">zero or more
+            &lt;launch:claim&gt; elements.</t>
+          </list></t>
+
+        <t>If present, the &lt;launch:claim&gt; elements may contain the
+        following child elements: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;id&gt;:">an identifier for the claim. This
+            identifier MUST be unique among all claims associated with an
+            application object.</t>
+
+            <t hangText="&lt;pvrc&gt;:">The Pre-Validation Result Code.</t>
+
+            <t hangText="&lt;issuer&gt;:">the ID of a contact object
+            representing the issuing authority.</t>
+
+            <t hangText="&lt;name&gt;:">the textual representation of the
+            right.</t>
+
+            <t hangText="&lt;number&gt;:">the registration number.</t>
+
+            <t hangText="&lt;type&gt;:">the type of claim being made.</t>
+
+            <t hangText="&lt;entitlement&gt;:">the entitlement.</t>
+
+            <t hangText="&lt;regDate&gt;:">the registration date.</t>
+
+            <t hangText="&lt;exDate&gt;:">the expiry date.</t>
+
+            <t hangText="&lt;country&gt;:">the country.</t>
+
+            <t hangText="&lt;region&gt;:">the geographic region.</t>
+          </list> Apart from the mandatory &lt;id&gt; element, all other child
+        elements are optional. Server policy may place additional constraints
+        on the format and requirements of such elements.</t>
+
+        <section title="Client Processing Considerations">
+          <t>The client MUST ensure that any successful &lt;info&gt; command
+          results in a response that an &lt;launch:infData&gt; element is
+          returned in the response. This serves as a cross check that the
+          server did receive the query for the application (and not a domain
+          of the same name) and processed it as it was intended.</t>
         </section>
 
         <section title="Example &lt;info&gt; command">
           <figure>
-            <preamble>Following is an example &lt;info&gt; domain command with the &lt;lp:info&gt; extension.</preamble>
+            <preamble>Following is an example &lt;info&gt; domain command with
+            the &lt;launch:info&gt; extension.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -350,10 +467,10 @@
       </domain:info>
     </info>
     <extension>
-      <lp:info xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-        <lp:phase>phase1</lp:phase>
-      </lp:info>
+      <launch:info xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+      </launch:info>
     </extension>
     <clTRID>example:epp:239331</clTRID>
   </command>
@@ -362,7 +479,9 @@
           </figure>
 
           <figure>
-            <preamble>An example response that corresponds to the above command.</preamble>
+            <preamble>An example response that corresponds to the above
+            command.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="utf-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -392,24 +511,24 @@
       </domain:infData>
     </resData>
     <extension>
-      <lp:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-        <lp:phase>phase1</lp:phase>
-        <lp:status s="pending" />
-        <lp:claim>
-          <lp:id>claim-001</lp:id>
-          <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-          <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
-          <lp:name>Hello</lp:name>
-          <lp:number>GE 3933232</lp:number>
-          <lp:type>REG-TM-WORD</lp:type>
-          <lp:entitlement>owner</lp:entitlement>
-          <lp:regDate>2011-09-09</lp:regDate>
-          <lp:exDate>2013-09-09</lp:exDate>
-          <lp:country>AU</lp:country>
-          <lp:region>VIC</lp:region>
-        </lp:claim>
-      </lp:infData>
+      <launch:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+        <launch:status s="pending" />
+        <launch:claim>
+          <launch:id>claim-001</launch:id>
+          <launch:pvrc>3828590-P1F-932391651E3A2900338C12</launch:pvrc>
+          <launch:issuer>CONTACT-IPCLEARINGHOUSE</launch:issuer>
+          <launch:name>Hello</launch:name>
+          <launch:number>GE 3933232</launch:number>
+          <launch:type>REG-TM-WORD</launch:type>
+          <launch:entitlement>owner</launch:entitlement>
+          <launch:regDate>2011-09-09</launch:regDate>
+          <launch:exDate>2013-09-09</launch:exDate>
+          <launch:country>AU</launch:country>
+          <launch:region>VIC</launch:region>
+        </launch:claim>
+      </launch:infData>
     </extension>
     <trID>
       <clTRID>example:epp:239331</clTRID>
@@ -419,45 +538,51 @@
 </epp>
     ]]></artwork>
           </figure>
-       </section><!-- example info cmd -->
+        </section>
 
-      </section><!-- end INFO command -->
+        <!-- example info cmd -->
+      </section>
+
+      <!-- end INFO command -->
 
       <section title="EPP &lt;create&gt; Command">
-        <t>
-          This extension defines additional elements to extend the EPP &lt;create&gt; command
-          and response to be used in conjunction with the domain name mapping.
-        </t>
-        <t>
-          The EPP &lt;create&gt; command is used to create an application. Typically additional information
-          is required to submit a domain name application during a launch phase. This extension introduces
-          an &lt;lp:create&gt; to encapsulate commonly used fields. Another use case that extension addresses
-          is the plausible need for a registry to distinguish between multiple (possibly concurrent)
-          launch phases. Clients may specify the &lt;lp:phase&gt; in which the application is meant to be
-          submitted. The &lt;lp:create&gt; element contains the following child elements.
-          <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:phase&gt;">(optional) the phase during which the application was submitted or is associated with.</t>
-            <t hangText="&lt;lp:claim&gt;">(optional) one or more &lt;lp:claim&gt; elements.</t>
-          </list>
-        </t>
+        <t>This extension defines additional elements to extend the EPP
+        &lt;create&gt; command and response to be used in conjunction with the
+        domain name mapping.</t>
 
-        <t>
-	  The format of the &lt;lp:claim&gt; element is identical to that specified in the section on EPP &lt;info&gt; command.
-        </t>
+        <t>The EPP &lt;create&gt; command is used to create an application.
+        Typically additional information is required to submit a domain name
+        application during a launch phase. This extension introduces an
+        &lt;launch:create&gt; to encapsulate commonly used fields. Another use
+        case that extension addresses is the plausible need for a registry to
+        distinguish between multiple (possibly concurrent) launch phases.
+        Clients may specify the &lt;launch:phase&gt; in which the application
+        is meant to be submitted. The &lt;launch:create&gt; element contains
+        the following child elements. <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:phase&gt;">(optional) the phase during
+            which the application was submitted or is associated with.</t>
 
-        <t>
-          Upon successful processing, the server assigns an application identifier and returns it in an
-          &lt;lp:creData&gt; element together with the regular &lt;resData&gt;. The &lt;lp:creData&gt; element
-          contains a single &lt;lp:applicationID&gt; element as described below:
-          <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:applicationID&gt;">the application identifier assigned by the server.</t>
+            <t hangText="&lt;launch:claim&gt;">(optional) one or more
+            &lt;launch:claim&gt; elements.</t>
+          </list></t>
 
-          </list>
-        </t>
+        <t>The format of the &lt;launch:claim&gt; element is identical to that
+        specified in the section on EPP &lt;info&gt; command.</t>
+
+        <t>Upon successful processing, the server assigns an application
+        identifier and returns it in an &lt;launch:creData&gt; element
+        together with the regular &lt;resData&gt;. The &lt;launch:creData&gt;
+        element contains a single &lt;launch:applicationID&gt; element as
+        described below: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:applicationID&gt;">the application
+            identifier assigned by the server.</t>
+          </list></t>
 
         <section title="Example &lt;create&gt; command">
           <figure>
-            <preamble>Following is an example &lt;create&gt; domain command with the &lt;lp:create&gt; extension.</preamble>
+            <preamble>Following is an example &lt;create&gt; domain command
+            with the &lt;launch:create&gt; extension.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -481,22 +606,22 @@
       </domain:create>
     </create>
     <extension>
-      <lp:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:phase>phase1</lp:phase>
-        <lp:claim>
-          <lp:id>claim-001</lp:id>
-          <lp:pvrc>3828590-P1F-932391651E3A2900338C12</lp:pvrc>
-          <lp:issuer>CONTACT-IPCLEARINGHOUSE</lp:issuer>
-          <lp:name>Hello</lp:name>
-          <lp:number>GE 3933232</lp:number>
-          <lp:type>REG-TM-WORD</lp:type>
-          <lp:entitlement>owner</lp:entitlement>
-          <lp:regDate>2011-09-09</lp:regDate>
-          <lp:exDate>2013-09-09</lp:exDate>
-          <lp:country>AU</lp:country>
-          <lp:region>VIC</lp:region>
-        </lp:claim>
-      </lp:create>
+      <launch:create xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:phase>phase1</launch:phase>
+        <launch:claim>
+          <launch:id>claim-001</launch:id>
+          <launch:pvrc>3828590-P1F-932391651E3A2900338C12</launch:pvrc>
+          <launch:issuer>CONTACT-IPCLEARINGHOUSE</launch:issuer>
+          <launch:name>Hello</launch:name>
+          <launch:number>GE 3933232</launch:number>
+          <launch:type>REG-TM-WORD</launch:type>
+          <launch:entitlement>owner</launch:entitlement>
+          <launch:regDate>2011-09-09</launch:regDate>
+          <launch:exDate>2013-09-09</launch:exDate>
+          <launch:country>AU</launch:country>
+          <launch:region>VIC</launch:region>
+        </launch:claim>
+      </launch:create>
     </extension>
     <clTRID>example:epp:239332</clTRID>
   </command>
@@ -505,7 +630,9 @@
           </figure>
 
           <figure>
-            <preamble>An example response that corresponds to the above command.</preamble>
+            <preamble>An example response that corresponds to the above
+            command.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -522,9 +649,9 @@
       </domain:creData>
     </resData>
     <extension>
-      <lp:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-      </lp:creData>
+      <launch:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+      </launch:creData>
     </extension>
     <trID>
       <clTRID>example:epp:239332</clTRID>
@@ -534,54 +661,56 @@
 </epp>
     ]]></artwork>
           </figure>
-        </section><!-- example create cmd -->
+        </section>
+
+        <!-- example create cmd -->
 
         <section title="Client Processing Considerations">
-          <t>
-            The client MUST ensure that any successful &lt;info&gt; command results in a response that
-            an &lt;lp:infData&gt; element is returned in the response. This serves as a cross check that
-            the server did receive the query for the application (and not a domain of the same name)
-            and processed it as it was intended.
-          </t>
+          <t>The client MUST ensure that any successful &lt;info&gt; command
+          results in a response that an &lt;launch:infData&gt; element is
+          returned in the response. This serves as a cross check that the
+          server did receive the query for the application (and not a domain
+          of the same name) and processed it as it was intended.</t>
         </section>
-      </section><!-- end CREATE command -->
+      </section>
 
+      <!-- end CREATE command -->
 
       <section title="EPP &lt;update&gt; Command">
-        <t>
-          This extension defines additional elements to extend the EPP &lt;update&gt; command
-          to be used in conjunction with the domain name mapping.
-        </t>
-        <t>
-          Registry policies permitting, clients may update an application object by submitting an
-          EPP &lt;update&gt; command along with an &lt;lp:update&gt; element to indicate the
-          application object to be updated.
+        <t>This extension defines additional elements to extend the EPP
+        &lt;update&gt; command to be used in conjunction with the domain name
+        mapping.</t>
 
-          The &lt;lp:update&gt; element contains the following child elements:
+        <t>Registry policies permitting, clients may update an application
+        object by submitting an EPP &lt;update&gt; command along with an
+        &lt;launch:update&gt; element to indicate the application object to be
+        updated. The &lt;launch:update&gt; element contains the following
+        child elements: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:applicationID&gt;">the application
+            identifier for which the client wishes to update.</t>
 
-          <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:applicationID&gt;">the application identifier for which the client wishes to update.</t>
+            <t hangText="&lt;launch:phase&gt;">(optional) the phase during
+            which the application was submitted or is associated with.</t>
+          </list></t>
 
-            <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
-          </list>
-        </t>
-        <t>
-          This extension does not define any extension to the response of an &lt;update&gt; domain command.
-          After processing the command, the server replies with a standard EPP response as defined in the EPP
-          domain mapping.
-        </t>
+        <t>This extension does not define any extension to the response of an
+        &lt;update&gt; domain command. After processing the command, the
+        server replies with a standard EPP response as defined in the EPP
+        domain mapping.</t>
 
         <section title="Server Processing Considerations">
-          <t>
-            A server implementation that conforms to this specification MUST respect and process
-            the &lt;lp:update&gt; section, if present, and MUST respond with an error if the 
-            applicationID does not correspond with the domain name in the &lt;domain:name&gt; element.
-          </t>
+          <t>A server implementation that conforms to this specification MUST
+          respect and process the &lt;launch:update&gt; section, if present,
+          and MUST respond with an error if the applicationID does not
+          correspond with the domain name in the &lt;domain:name&gt;
+          element.</t>
         </section>
 
         <section title="Example &lt;update&gt; command">
           <figure>
-            <preamble>Following is an example &lt;update&gt; domain command with the &lt;lp:update&gt; extension.</preamble>
+            <preamble>Following is an example &lt;update&gt; domain command
+            with the &lt;launch:update&gt; extension.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -606,10 +735,10 @@
       </domain:update>
     </update>
     <extension>
-      <lp:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-        <lp:phase>phase1</lp:phase>
-      </lp:update>
+      <launch:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+      </launch:update>
     </extension>
     <clTRID>example:epp:239333</clTRID>
   </command>
@@ -618,7 +747,9 @@
           </figure>
 
           <figure>
-            <preamble>An example response that corresponds to the above command.</preamble>
+            <preamble>An example response that corresponds to the above
+            command.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -634,51 +765,55 @@
 </epp>
     ]]></artwork>
           </figure>
-        </section><!-- example update cmd -->
+        </section>
 
-      </section><!-- end UPDATE command -->
+        <!-- example update cmd -->
+      </section>
+
+      <!-- end UPDATE command -->
 
       <section title="EPP &lt;delete&gt; Command">
-        <t>
-          This extension defines additional elements to extend the EPP &lt;delete&gt; command
-          to be used in conjunction with the domain name mapping.
-        </t>
-        <t>
-          Registry policies permitting, clients may withdraw an application by submitting an
-          EPP &lt;delete&gt; command along with an &lt;lp:delete&gt; element to indicate the
-          application object to be deleted.
+        <t>This extension defines additional elements to extend the EPP
+        &lt;delete&gt; command to be used in conjunction with the domain name
+        mapping.</t>
 
-          The &lt;lp:delete&gt; element contains the following child elements:
+        <t>Registry policies permitting, clients may withdraw an application
+        by submitting an EPP &lt;delete&gt; command along with an
+        &lt;launch:delete&gt; element to indicate the application object to be
+        deleted. The &lt;launch:delete&gt; element contains the following
+        child elements: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:applicationID&gt;">the application
+            identifier for which the client wishes to delete.</t>
 
-          <list hangIndent="8" style="hanging">
-            <t hangText="&lt;lp:applicationID&gt;">the application identifier for which the client wishes to delete.</t>
+            <t hangText="&lt;launch:phase&gt;">(optional) the phase during
+            which the application was submitted or is associated with.</t>
+          </list></t>
 
-            <t hangText="&lt;lp:phase&gt;"> (optional) the phase during which the application was submitted or is associated with.</t>
-          </list>
-        </t>
-        <t>
-          This extension does not define any extension to the response of an &lt;delete&gt; domain command.
-          After processing the command, the server replies with a standard EPP response as defined in the EPP
-          domain mapping.
-        </t>
+        <t>This extension does not define any extension to the response of an
+        &lt;delete&gt; domain command. After processing the command, the
+        server replies with a standard EPP response as defined in the EPP
+        domain mapping.</t>
 
         <section title="Server Processing Considerations">
-          <t>
-            A server implementation that conforms to this specification MUST respect and process
-            the &lt;lp:delete&gt; section, if present, and MUST respond with an error if the 
-            applicationID does not correspond with the domain name in the &lt;domain:name&gt; element.
-          </t>
-          <t>
-            Depending on the server policy, an implementation may choose to delete the application object immediately
-            if business rules allow. In that case, the server MUST respond with an EPP 1000 result code.
-            Alternatively, the server may choose to cancel the application object, in which case it SHOULD respond
-            with an EPP 1001 result code to indicate that the object will be purged at a later date.
-          </t>
+          <t>A server implementation that conforms to this specification MUST
+          respect and process the &lt;launch:delete&gt; section, if present,
+          and MUST respond with an error if the applicationID does not
+          correspond with the domain name in the &lt;domain:name&gt;
+          element.</t>
+
+          <t>Depending on the server policy, an implementation may choose to
+          delete the application object immediately if business rules allow.
+          In that case, the server MUST respond with an EPP 1000 result code.
+          Alternatively, the server may choose to cancel the application
+          object, in which case it SHOULD respond with an EPP 1001 result code
+          to indicate that the object will be purged at a later date.</t>
         </section>
 
         <section title="Example &lt;delete&gt; command">
           <figure>
-            <preamble>Following is an example &lt;delete&gt; domain command with the &lt;lp:delete&gt; extension.</preamble>
+            <preamble>Following is an example &lt;delete&gt; domain command
+            with the &lt;launch:delete&gt; extension.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -690,10 +825,10 @@
       </domain:delete>
     </delete>
     <extension>
-      <lp:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <lp:applicationID>2393-9323-E08C-03B1</lp:applicationID>
-        <lp:phase>phase1</lp:phase>
-      </lp:delete>
+      <launch:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:phase>phase1</launch:phase>
+      </launch:delete>
     </extension>
     <clTRID>example:epp:239334</clTRID>
   </command>
@@ -702,7 +837,9 @@
           </figure>
 
           <figure>
-            <preamble>An example response that corresponds to the above command.</preamble>
+            <preamble>An example response that corresponds to the above
+            command.</preamble>
+
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -718,83 +855,423 @@
 </epp>
     ]]></artwork>
           </figure>
-        </section><!-- example delete cmd -->
+        </section>
 
-      </section><!-- end DELETE command -->
+        <!-- example delete cmd -->
+      </section>
+
+      <!-- end DELETE command -->
 
       <section title="EPP &lt;renew&gt; Command">
-        <t>
-          This extension does not define any extension to the EPP &lt;renew&gt; command
-          or response described in the <xref target="RFC5731">EPP domain name mapping</xref>.
-        </t>
-      </section><!-- end RENEW command -->
+        <t>This extension does not define any extension to the EPP
+        &lt;renew&gt; command or response described in the <xref
+        target="RFC5731">EPP domain name mapping</xref>.</t>
+      </section>
 
+      <!-- end RENEW command -->
 
       <section title="EPP &lt;transfer&gt; Command">
-        <t>
-          This extension does not define any extension to the EPP &lt;transfer&gt; command
-          or response described in the <xref target="RFC5731">EPP domain name mapping</xref>.
-        </t>
-      </section><!-- end TRANSFER command -->
+        <t>This extension does not define any extension to the EPP
+        &lt;transfer&gt; command or response described in the <xref
+        target="RFC5731">EPP domain name mapping</xref>.</t>
+      </section>
 
-    </section><!-- EPP command mapping -->
+      <!-- end TRANSFER command -->
+    </section>
+
+    <!-- EPP command mapping -->
+
+    <section anchor="syntax" title="Formal Syntax">
+      <t>An EPP object mapping is specified in XML Schema notation. The formal
+      syntax presented here is a complete schema representation of the object
+      mapping suitable for automated validation of EPP XML instances. The
+      BEGIN and END tags are not part of the schema; they are used to note the
+      beginning and ending of the schema for URI registration purposes.</t>
+
+      <t>Copyright (c) 2009 IETF Trust and the persons identified as authors
+      of the code. All rights reserved.</t>
+
+      <t>Redistribution and use in source and binary forms, with or without
+      modification, are permitted provided that the following conditions are
+      met:</t>
+
+      <t><list style="symbols">
+          <t>Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.</t>
+
+          <t>Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the
+          distribution.</t>
+
+          <t>Neither the name of Internet Society, IETF or IETF Trust, nor the
+          names of specific contributors, may be used to endorse or promote
+          products derived from this software without specific prior written
+          permission.</t>
+        </list></t>
+
+      <t>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+      "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+      LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+      PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+      OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+      EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+      PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+      PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+      LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+      NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</t>
+
+      <figure>
+        <artwork><![CDATA[
+BEGIN
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+ targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
+ xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+   xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+ xmlns="http://www.w3.org/2001/XMLSchema"
+ elementFormDefault="qualified">
+
+<!--
+Import common element types.
+-->
+  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
+          schemaLocation="eppcom-1.0.xsd"/>
+
+  <import namespace="http://www.w3.org/2000/09/xmldsig#"
+          schemaLocation="xmldig-core-schema.xsd"/>
 
 
-    <section title="Formal Syntax">
-        <t>[TBD]</t>
-    </section><!-- end Formal Syntax -->
+ <annotation>
+  <documentation>
+   Extensible Provisioning Protocol v1.0
+   domain name extension schema
+   for the launch phase processing.
+  </documentation>
+ </annotation>
+
+<!--
+Child elements found in EPP commands.
+-->
+ <element name="create" type="launch:createType"/>
+   <element name="update" type="launch:idContainerType"/>
+ <element name="info" type="launch:infType"/>
+ <element name="delete" type="launch:idContainerType"/>
+
+<!--
+Common container of id (identifier) element
+-->
+<complexType name="idContainerType">
+<sequence>
+<element name="phase" type="launch:phaseType"
+minOccurs="0"/>
+<element name="applicationID" type="token"/>
+</sequence>
+</complexType>
+
+<!-- 
+Definition for application identifier
+-->
+<simpleType name="applicationIDType">
+<restriction base="token"/>
+</simpleType>
+
+<!--
+Definition for launch phase.  Name is an optional attribute
+used to extend the phase type.  For example, when
+using the phase type value of <custom>, the name
+can be used to specify the custom phase.
+-->
+<complexType name="phaseType">
+<simpleContent>
+<extension base="launch:phaseTypeValue">
+<attribute name="name" type="token"/>
+</extension>
+</simpleContent>
+</complexType>
+
+<!-- 
+Enumeration of for launch phase values.
+-->
+<simpleType name="phaseTypeValue">
+    <restriction base="token">
+       <enumeration value="sunrise"/>
+       <enumeration value="landrush"/>
+       <enumeration value="claims"/>
+       <enumeration value="open"/>
+       <enumeration value="custom"/>
+    </restriction>
+</simpleType>
+
+
+<!-- 
+Definition for the sunrise code
+-->
+<simpleType name="codeType">
+  <restriction base="base64Binary">
+   <minLength value="1"/>
+  </restriction>
+</simpleType>
+
+<!-- 
+Definition for the claims identifier
+-->
+<simpleType name="noticeIDType">
+  <restriction base="base64Binary">
+   <minLength value="1"/>
+  </restriction>
+</simpleType>
+
+  <simpleType name="ccType">
+    <restriction base="token">
+      <length value="2"/>
+    </restriction>
+  </simpleType>
+
+<!--
+Definition of the IP address taken from host-1.0.
+-->
+   <complexType name="addrType">
+     <simpleContent>
+       <extension base="launch:addrStringType">
+         <attribute name="ip" type="launch:ipType"
+          default="v4"/>
+       </extension>
+     </simpleContent>
+   </complexType>
+
+   <simpleType name="addrStringType">
+     <restriction base="token">
+       <minLength value="3"/>
+       <maxLength value="45"/>
+     </restriction>
+   </simpleType>
+
+   <simpleType name="ipType">
+     <restriction base="token">
+       <enumeration value="v4"/>
+       <enumeration value="v6"/>
+     </restriction>
+   </simpleType>
+
+<!-- Possible status values for sunrise application -->
+<simpleType name="statusValueType">
+   <restriction base="token">
+      <enumeration value="pending"/>
+      <enumeration value="validated"/>
+      <enumeration value="invalid"/>
+      <enumeration value="allocated"/>
+      <enumeration value="rejected"/>
+    </restriction>
+</simpleType>
+
+  <complexType name="statusType">
+    <simpleContent>
+      <extension base="normalizedString">
+        <attribute name="s" 
+        type="launch:statusValueType"
+        use="required"/>
+        <attribute name="lang" 
+        type="language" default="en"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+<complexType name="signedClaimToken">
+  <sequence>
+     <element ref="ds:Signature"/>
+     <element name="claim" 
+       type="launch:claimType"/>
+  </sequence>
+</complexType>
+
+<!-- 
+Child elements of create for both Sunrise and Claims periods
+-->
+<complexType name="createType">
+  <sequence>
+   <element name="phase"
+    type="launch:phaseType"/>
+    <choice>
+      <sequence>
+        <element name="code"
+          type="launch:codeType"
+          minOccurs="0"/>
+        <element name="claim"
+          type="launch:claimType"
+          minOccurs="0"/>
+      </sequence>
+      <element name="token"
+        type="launch:signedClaimToken"/>
+      <element name="notice"
+        type="launch:createNoticeType"
+        minOccurs="0"/>
+    </choice>
+  </sequence>
+</complexType>
+
+<!-- 
+Child elements of the create notice element.
+-->
+<complexType name="createNoticeType">
+  <sequence>
+    <element name="noticeID"
+      type="launch:noticeIDType"/>
+    <element name="timestamp"
+      type="dateTime"/>
+    <element name="clientAddr"
+      type="launch:addrType"/>
+  </sequence>
+</complexType>
+
+<!-- 
+Child elements of info for both Sunrise and Claims periods.
+-->
+<complexType name="infType">
+  <sequence>
+    <element name="phase"
+      type="launch:phaseType"/>
+    <element name="applicationID"
+      type="launch:applicationIDType"
+      minOccurs="0"/>
+  </sequence>
+</complexType>
+
+<!-- 
+Child response elements.
+-->
+<element name="creData"
+  type="launch:idContainerType"/>
+
+<element name="infData"
+  type="launch:infDataType"/>
+
+<complexType name="infDataType">
+  <sequence>
+    <element name="phase"
+      type="launch:phaseType"/>
+    <choice>
+      <sequence>
+        <element name="applicationID"
+          type="launch:applicationIDType"
+          minOccurs="0"/>
+        <element name="status"
+          type="launch:statusType"
+          minOccurs="0"/>
+        <element name="code"
+          type="launch:codeType"
+          minOccurs="0"/>
+        <element name="claim"
+          type="launch:claimType"
+          minOccurs="0"/>
+      </sequence>
+      <element name="notice"
+        type="launch:claimsNoticeType"
+        minOccurs="0"/>
+    </choice>
+  </sequence>
+</complexType>
+
+<!--
+Child elements of the info (inf) notice response element.
+-->
+<complexType name="claimsNoticeType">
+  <sequence>
+    <element name="name"
+      type="eppcom:labelType"/>
+    <choice>
+      <element name="none"/>
+      <sequence>
+        <element name="noticeID"
+          type="launch:noticeIDType"/>
+        <element name="claim"
+          type="launch:claimType"
+          maxOccurs="unbounded"/>
+      </sequence>
+    </choice>
+  </sequence>
+</complexType>
+
+<!--
+Child elements of claim element.
+-->
+<complexType name="claimType">
+  <sequence>
+    <element name="name" type="token"/>
+    <element name="issuer" type="token"
+      minOccurs="0"/>
+    <element name="number" type="token"
+      minOccurs="0"/>
+    <element name="type" type="token"
+      minOccurs="0"/>
+    <element name="entitlement" type="token"
+      minOccurs="0"/>
+    <element name="regDate" type="date"
+      minOccurs="0"/>
+    <element name="exDate" type="date"
+      minOccurs="0"/>
+    <element name="country" type="launch:ccType"
+      minOccurs="0"/>
+    <element name="region" type="token"
+      minOccurs="0"/>
+    <element name="owner" type="token"
+      minOccurs="0"/>
+    <element name="contact" type="token"
+      minOccurs="0"/>
+  </sequence>
+</complexType>
+
+</schema>
+END]]></artwork>
+      </figure>
+    </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>[to be filled in]</t>
     </section>
-    
 
     <section anchor="IANA" title="IANA Considerations">
-      <t>
-        This document uses URNs to describe XML namespaces and XML schemas
-        conforming to a registry mechanism described in <xref target="RFC3688"/>.
-      </t>
-      <t>
-        Registration request for the extension namespace:
-      </t>
-      <t>
-        URI: urn:ietf:params:xml:ns:launchphase-1.0
-      </t>
-      <t>
-        Registrant Contact: IESG
-      </t>
-      <t>
-        XML: None.  Namespace URIs do not represent an XML specification.
-      </t>
-      <t>
-        Registration request for the extension XML schema:
-      </t>
-      <t>
-        URI: urn:ietf:params:xml:schema:launchphase-1.0
-      </t>
+      <t>This document uses URNs to describe XML namespaces and XML schemas
+      conforming to a registry mechanism described in <xref
+      target="RFC3688"/>.</t>
+
+      <t>Registration request for the extension namespace:</t>
+
+      <t>URI: urn:ietf:params:xml:ns:launch-1.0</t>
+
+      <t>Registrant Contact: IESG</t>
+
+      <t>XML: None. Namespace URIs do not represent an XML specification.</t>
+
+      <t>Registration request for the extension XML schema:</t>
+
+      <t>URI: urn:ietf:params:xml:schema:launch-1.0</t>
     </section>
 
     <section anchor="Security" title="Security Considerations">
-      <t>
-        The mapping extensions described in this document do not provide any
-        security services beyond those described by <xref target="RFC5730">EPP</xref>,
-        the <xref target="RFC5731">EPP domain name mapping</xref>, and protocol layers used by EPP.
-        The security considerations described in these other specifications apply to this
-        specification as well.
-      </t>
-      <t>
-        Updates to, and deletion of an application object must be restricted to clients authorized to
-        perform the said operation on the object.
-      </t>
-      <t>
-        As information contained within an application, or even the mere fact that an application
-        exists may be confidential. Any attempt to operate on an application object by an unauthorized
-        client MUST be rejected with an EPP 2303 (object does not exist) or an appropriate auhorization
-        error. Server policy may allow &lt;info&gt; operation with filtered output by clients
-        other than the sponsoring client, in which case the &lt;domain:infData&gt; and &lt;lp:infData&gt;
-        response SHOULD be filtered to include only fields that are publicly accessible.
-      </t>
-    </section><!-- sec cons -->
+      <t>The mapping extensions described in this document do not provide any
+      security services beyond those described by <xref
+      target="RFC5730">EPP</xref>, the <xref target="RFC5731">EPP domain name
+      mapping</xref>, and protocol layers used by EPP. The security
+      considerations described in these other specifications apply to this
+      specification as well.</t>
+
+      <t>Updates to, and deletion of an application object must be restricted
+      to clients authorized to perform the said operation on the object.</t>
+
+      <t>As information contained within an application, or even the mere fact
+      that an application exists may be confidential. Any attempt to operate
+      on an application object by an unauthorized client MUST be rejected with
+      an EPP 2303 (object does not exist) or an appropriate auhorization
+      error. Server policy may allow &lt;info&gt; operation with filtered
+      output by clients other than the sponsoring client, in which case the
+      &lt;domain:infData&gt; and &lt;launch:infData&gt; response SHOULD be
+      filtered to include only fields that are publicly accessible.</t>
+    </section>
+
+    <!-- sec cons -->
   </middle>
 
   <!--  *****BACK MATTER ***** -->
@@ -815,6 +1292,7 @@
 
     <references title="Normative References">
       <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+
       &RFC2119;
 
       &RFC5730;
@@ -824,9 +1302,8 @@
       &RFC5733;
 
       &RFC3688;
-
     </references>
-
   </back>
+
   <!-- vim: set ts=2 sw=2 expandtab: -->
 </rfc>
