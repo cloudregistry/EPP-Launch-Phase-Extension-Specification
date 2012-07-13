@@ -184,6 +184,7 @@ Import common element types.
 				<element name="signedClaim" type="launch:signedClaimType" 
 					maxOccurs="unbounded"/>
 				<element name="notice" type="launch:createNoticeType"/> 
+				<element name="signedNotice" type="launch:signedCreateNoticeType"/> 
 			</choice>
 		</sequence>
 	</complexType>
@@ -198,6 +199,14 @@ Import common element types.
 			<element name="clientAddr" type="launch:ipAddrType"/>
 		</sequence>
 	</complexType>
+
+	<complexType name="signedCreateNoticeType">
+		<sequence>
+			<element name="noticeID" type="launch:noticeIDType"/>
+			<element ref="ds:Signature"/>
+		</sequence>
+	</complexType>
+
 
 	<!-- 
 	Child elements of info for both Sunrise and Claims periods.  
