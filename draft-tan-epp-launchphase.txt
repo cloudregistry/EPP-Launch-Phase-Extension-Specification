@@ -3,7 +3,7 @@
 
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
-Intended status: Experimental                                   G. Brown
+Intended status: Standards Track                                G. Brown
 Expires: January 10, 2013                                 CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
@@ -11,7 +11,7 @@ Expires: January 10, 2013                                 CentralNic Ltd
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
-                      draft-tan-epp-launchphase-01
+                      draft-tan-epp-launchphase-02
 
 Abstract
 
@@ -48,7 +48,7 @@ Copyright Notice
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
-   Provisions Relating to IETF Documents in effect on the date of
+   Provisions Relating to IETF Documents
 
 
 
@@ -57,50 +57,50 @@ Tan, et al.             Expires January 10, 2013                [Page 1]
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   publication of this document (http://trustee.ietf.org/license-info).
-   Please review these documents carefully, as they describe your rights
-   and restrictions with respect to this document.
+   (http://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the BSD License.
 
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . ancho
-     1.1.  Conventions Used in This Document . . . . . . . . . . . ancho
-   2.  Object Attributes . . . . . . . . . . . . . . . . . . . . . attrs
-     2.1.  Application Identifiers . . . . . . . . . . . . . . . . appli
-     2.2.  Launch Phases . . . . . . . . . . . . . . . . . . . . . phase
-     2.3.  Status Values . . . . . . . . . . . . . . . . . . . . . statu
-       2.3.1.  State Transition  . . . . . . . . . . . . . . . . . ancho
-     2.4.  Claim Elements  . . . . . . . . . . . . . . . . . . . . ancho
-   3.  EPP Command Mapping . . . . . . . . . . . . . . . . . . . . ancho
-     3.1.  EPP <check> Command . . . . . . . . . . . . . . . . . . ancho
-     3.2.  EPP <info> Command  . . . . . . . . . . . . . . . . . . ancho
-       3.2.1.  Client Processing Considerations  . . . . . . . . . ancho
-       3.2.2.  Example <info> command  . . . . . . . . . . . . . . ancho
-     3.3.  EPP <create> Command  . . . . . . . . . . . . . . . . . ancho
-       3.3.1.  Example <create> command  . . . . . . . . . . . . . ancho
-       3.3.2.  Client Processing Considerations  . . . . . . . . . ancho
-     3.4.  EPP <update> Command  . . . . . . . . . . . . . . . . . ancho
-       3.4.1.  Server Processing Considerations  . . . . . . . . . ancho
-       3.4.2.  Example <update> command  . . . . . . . . . . . . . ancho
-     3.5.  EPP <delete> Command  . . . . . . . . . . . . . . . . . ancho
-       3.5.1.  Server Processing Considerations  . . . . . . . . . ancho
-       3.5.2.  Example <delete> command  . . . . . . . . . . . . . ancho
-     3.6.  EPP <renew> Command . . . . . . . . . . . . . . . . . . ancho
-     3.7.  EPP <transfer> Command  . . . . . . . . . . . . . . . . ancho
-   4.  Formal Syntax . . . . . . . . . . . . . . . . . . . . . . . synta
-   5.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . Ackno
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . .  IANA
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . Secur
-   8.  Normative References  . . . . . . . . . . . . . . . . . . . ancho
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . .     0
-
-
-
-
-
-
-
+   1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  3
+     1.1.  Conventions Used in This Document  . . . . . . . . . . . .  3
+   2.  Object Attributes  . . . . . . . . . . . . . . . . . . . . . .  3
+     2.1.  Application Identifiers  . . . . . . . . . . . . . . . . .  4
+     2.2.  Launch Phases  . . . . . . . . . . . . . . . . . . . . . .  4
+     2.3.  Status Values  . . . . . . . . . . . . . . . . . . . . . .  4
+       2.3.1.  State Transition . . . . . . . . . . . . . . . . . . .  5
+     2.4.  Claim Validation Models  . . . . . . . . . . . . . . . . .  6
+     2.5.  Claim  . . . . . . . . . . . . . . . . . . . . . . . . . .  6
+   3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . .  7
+     3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . .  8
+     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . .  8
+       3.2.1.  Sunrise Info Form  . . . . . . . . . . . . . . . . . .  8
+         3.2.1.1.  Example Sunrise Info Form <info> command . . . . .  9
+       3.2.2.  Claims Info Form . . . . . . . . . . . . . . . . . . . 14
+         3.2.2.1.  Example Claims Info Form <info> command  . . . . . 15
+     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 18
+       3.3.1.  Example <create> command . . . . . . . . . . . . . . . 19
+       3.3.2.  Client Processing Considerations . . . . . . . . . . . 20
+     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 20
+       3.4.1.  Server Processing Considerations . . . . . . . . . . . 21
+       3.4.2.  Example <update> command . . . . . . . . . . . . . . . 22
+     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 23
+       3.5.1.  Server Processing Considerations . . . . . . . . . . . 23
+       3.5.2.  Example <delete> command . . . . . . . . . . . . . . . 24
+     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 24
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 25
+   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 25
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 33
+   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 33
+   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 34
+   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 34
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 34
 
 
 
@@ -188,21 +188,16 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    client to define the target launch phase of the command.
 
    The following Launch Phase values are defined:
-
    sunrise  Phase when trademark holders can submit registration
       applications with trademark information that can be validated by
       the server.
-
    landrush  Post sunrise phase when non-trademark holders are allowed
       to register domain names.
-
    claims  Trademark claims phase as defined by Trademark Clearinghouse
       Draft Implementation Model [1].
-
    open  Post launch phase that is also referred to as "steady state".
       Servers might require additional trademark protection with this
       phase.
-
    custom  A custom server launch phase that is defined using the "name"
       attribute.
 
@@ -213,9 +208,14 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 2.3.  Status Values
 
    A launch application object MAY have a status value.  The <status>
-   element is used to convey extended status(es) pertaining to the
+   element is used to convey extended status pertaining to the
    application object, beyond what is specified in the object mapping to
    which this application object represents.
+
+   The following status values are defined:
+
+
+
 
 
 
@@ -225,18 +225,12 @@ Tan, et al.             Expires January 10, 2013                [Page 4]
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   The following status values are defined:
-
    pending:  the initial state of a newly-created application object.
-
    validated:  the application meets relevant registry rules.
-
    invalid:  the application does not validate according to registry
       rules
-
    allocated:  one of two possible end states of an application object;
       the object corresponding to the application has been provisioned
-
    rejected:  the other possible end state; the object was not
       provisioned
 
@@ -275,60 +269,66 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
          +------------------------------------------------+
 
 
+                                 Figure 1
+
+
+
+
+
 
 Tan, et al.             Expires January 10, 2013                [Page 5]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-                                 Figure 1
+2.4.  Claim Validation Models
 
-2.4.  Claim Elements
+   A server MUST support support one of four models for validating the
+   claim information:
 
-   An application may have zero or more <claim> elements.  A <claim>
-   element describes an applicant's prior right to a given domain name.
+   code  Use of a claim code by itself to validate that the claim
+      matches domain name.  The code is the "sunrise code" as defined in
+      Trademark Clearinghouse Draft Implementation Model [1] that is
+      validated by the server using its local sunrise code data.  This
+      model is supported using the <launch:codeClaim> element with just
+      the <launch:code> element.
+   claim  The claim information is passed without any other validation
+      element.  The server will use some custom form of validation to
+      validate the claim information is authentic.  This model is
+      supported using the <launch:codeClaim> element with just the
+      <launch:claim> element.
+   code with claim:  A code is used along with the claim information by
+      the server to validate utilizing an external party like a
+      Trademark Clearinghouse.  The code represents some form of secret
+      that matches the claims information passed.  This model is
+      supported using the <launch:codeClaim> element with both the
+      <launch:code> and the <launch:claim> element.
+   signed claim:  The claim information is digitally signed via the XML
+      Signature [2] and can be directly validated by the server using
+      the public key of the external party that created the signed
+      claim.  The public key could be previously held by the server or
+      could be passed in the XML Signature [2].  It's up to server
+      policy how the public key is transferred.  This model is supported
+      using the <launch:signedClaim> element that contains the <launch:
+      claim> element with the claim information as well as the XML
+      Signature and other information validated by an external party
+      like a Trademark Clearinghouse.
 
-   The <claim> element has the boolean "preValidated" attribute, which
-   indicates whether a third party validation agency has already
-   validated the claim.  When this attribute has a true value, the
-   <pvrc> element must always be present.
+   The <launch:claim> element supporting the different Claim Validation
+   Models is defined in Claim (Section 2.5) section.  A server MAY
+   support more than one claim per domain name.  More than one <launch:
+   codeClaim> element or more than one <launch:signedClaim> element MAY
+   be specified.  The maximum number of claims per domain name is up to
+   server policy.
 
-   Several child elements of the <claim> element are defined:
+2.5.  Claim
 
-   <id>:  an identifier for the claim.  This identifier MUST be unique
-      among all claims associated with an application object.
+   A <launch:claim> element describes an applicant's prior right to a
+   given domain name.
 
-   <pvrc>:  The Pre-Validation Result Code, an opaque string issued by a
-      third-party validation agent
+   The child elements of the <launch:claim> element include:
 
-   <issuer>:  contains the ID of a contact object (as described in RFC
-      5733 [RFC5733]) identifying the contact information of the
-      authority which issued the right (for example, a trade mark office
-      or company registration bureau)
 
-   <name>:  identifying the text string in which the applicant is
-      claiming a prior right
-
-   <number>:  the registration number of the right (ie trademark number
-      or company registration number)
-
-   <type>:  indicates the type of claim being made (eg trademark,
-      symbol, combined mark, company name)
-
-   <entitlement>:  indicates the applicant's entitlement to the claim
-      (ie, owner or licensee)
-
-   <regDate>:  the date of registration of the claim
-
-   <exDate>:  the date of expiration of the claim
-
-   <country>:  indicates the country in which the claim is valid
-
-   <region>:  indicates the name of a city, state, province or other
-      geographic region in which the claim is valid.  This may be a two-
-      character code from [WIPO.ST3]
-
-   Apart from the mandatory <id> element, all other child elements are
 
 
 
@@ -337,11 +337,38 @@ Tan, et al.             Expires January 10, 2013                [Page 6]
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   optional.  Server policy may place additional constraints on the
-   format and requirements of such elements.
+   <id>:  an identifier for the claim.  This identifier MUST be unique
+      among all claims associated with an application object.
+   <name>:  identifying the text string in which the applicant is
+      claiming a prior right
+   <issuer>:  name of the authority which issued the right (for example,
+      the trademark clearinghouse, a trademark office or company
+      registration bureau)
+   <number>:  the registration number of the right (ie trademark number
+      or company registration number)
+   <type>:  indicates the type of claim being made (eg trademark,
+      symbol, combined mark, company name)
+   <entitlement>:  indicates the applicant's entitlement to the claim
+      (ie, owner or licensee)
+   <regDate>:  the date of registration of the claim
+   <exDate>:  the date of expiration of the claim
+   <country>:  indicates the country in which the claim is valid
+   <region>:  indicates the name of a city, state, province or other
+      geographic region in which the claim is valid.  This may be a two-
+      character code from [WIPO.ST3]
+   <owner>:  Owner information
+   <contact>:  Contact for the owner
+   Apart from the <name> element, all other child elements are optional.
+   Server policy may place additional constraints on the format and
+   requirements of such elements.
 
 
 3.  EPP Command Mapping
+
+   A detailed description of the EPP syntax and semantics can be found
+   in the EPP core protocol specification [RFC5730].  The command
+   mappings described here are specifically for use in the Launch Phase
+   Extension.
 
    This mapping is designed to be flexible, requiring only a minimum set
    of required elements.
@@ -352,35 +379,8 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    implementations.
 
    Operations on application objects are done via one or more of the
-   existing EPP verbs defined in the EPP domain mapping.  Registries may
-   choose to support a subset of the operations.
-
-3.1.  EPP <check> Command
-
-   This extension does not define any extension to the EPP <check>
-   command or response described in the EPP domain name mapping
-   [RFC5731].
-
-3.2.  EPP <info> Command
-
-   This extension defines additional elements to extend the EPP <info>
-   command and response to be used in conjunction with the domain name
-   mapping.
-
-   In order to indicate that the query is meant for an application
-   object, an <launch:info> element is sent along with the regular
-   <info> domain command.  The <launch:info> element contains the
-   following child elements:
-
-   <launch:applicationID>  the application identifier for which the
-           client wishes to query.
-
-   <launch:phase>  (optional) the phase during which the application was
-           submitted or is associated with.
-
-   If the query was successful, the server replies with an <launch:
-   infData> element along with the regular EPP <resData>.  The <launch:
-   infData> contains the following child elements:
+   existing EPP verbs defined in the EPP domain name mapping [RFC5731].
+   Registries may choose to support a subset of the operations.
 
 
 
@@ -393,54 +393,54 @@ Tan, et al.             Expires January 10, 2013                [Page 7]
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   <launch:applicationID>  the application identifier of the returned
-           application.
+3.1.  EPP <check> Command
 
-   <launch:phase>  (optional) the phase during which the application was
-           submitted or is associated with.
+   This extension does not define any extension to the EPP <check>
+   command or response described in the EPP domain name mapping
+   [RFC5731].
 
-   <launch:status>  status of the application.
+3.2.  EPP <info> Command
 
-   <launch:claim>  zero or more <launch:claim> elements.
+   This extension defines additional elements to extend the EPP <info>
+   command and response to be used in conjunction with the EPP domain
+   name mapping [RFC5731].
 
-   If present, the <launch:claim> elements may contain the following
-   child elements:
+   This extension defines additional elements to extend the EPP <info>
+   command and response.
 
-   <id>:   an identifier for the claim.  This identifier MUST be unique
-           among all claims associated with an application object.
+   There are two forms of the extension to the EPP <info> command that
+   are dependent on the supported launch phases (Section 2.2) as defined
+   below:
 
-   <pvrc>: The Pre-Validation Result Code.
+   sunrise  The EPP <info> command with the "sunrise" phase is used to
+      retrieve information for a specific "sunrise" application based on
+      an application identifier (Section 2.1).  This form of the EPP
+      <info> extension is referred to as the Sunrise Info Form and is
+      defined in the Sunrise Info Form (Section 3.2.1) section.
+   landrush  The EPP <info> command with the "landrush" phase is
+      undefined but the form supported is up to server policy.
+   claims  The EPP <info> command with the "claims" phase is used to
+      retrieve the trademark claims information associated with a non-
+      existing domain name that is referred to as the Claims Info
+      Command.  The response to the Claims Info Command does not extend
+      the Domain Info Response as defined in EPP domain name mapping
+      [RFC5731].  This form of the EPP <info> extension is referred to
+      as the Claims Info Form and defined in the Claims Info Form
+      (Section 3.2.2) section.
+   open  The EPP <info> command with the "open" phase is undefined but
+      the form supported is up to server policy.
+   custom  The EPP <info> command with the "custom" phase is undefined
+      but the form supported is up to server policy.
 
-   <issuer>:  the ID of a contact object representing the issuing
-           authority.
+3.2.1.  Sunrise Info Form
 
-   <name>: the textual representation of the right.
+   The Sunrise Info Form of extension to the EPP domain name mapping
+   [RFC5731] gets information on an application created with the
+   <launch:create> using the Application Identifier (Section 2.1)
+   returned in the <launch:creData>.  A <launch:info> element is sent
+   along with the regular <info> domain command.  The <launch:info>
+   element contains the following child elements:
 
-   <number>:  the registration number.
-
-   <type>: the type of claim being made.
-
-   <entitlement>:  the entitlement.
-
-   <regDate>:  the registration date.
-
-   <exDate>:  the expiry date.
-
-   <country>:  the country.
-
-   <region>:  the geographic region.
-
-   Apart from the mandatory <id> element, all other child elements are
-   optional.  Server policy may place additional constraints on the
-   format and requirements of such elements.
-
-3.2.1.  Client Processing Considerations
-
-   The client MUST ensure that any successful <info> command results in
-   a response that an <launch:infData> element is returned in the
-   response.  This serves as a cross check that the server did receive
-   the query for the application (and not a domain of the same name) and
-   processed it as it was intended.
 
 
 
@@ -449,54 +449,54 @@ Tan, et al.             Expires January 10, 2013                [Page 8]
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-3.2.2.  Example <info> command
+   <launch:phase>  The phase during which the application was submitted
+           or is associated with.  It is up to server policy what phases
+           are supported for the Sunrise Info Form.
+   <launch:applicationID>  the application identifier of the
+           application.
 
-   Following is an example <info> domain command with the <launch:info>
-   extension.
+   If the query was successful, the server replies with an <launch:
+   infData> element along with the regular EPP <resData>.  The <launch:
+   infData> contains the following child elements:
+   <launch:phase>  the phase during which the application was submitted
+           or is associated with.
+   <launch:applicationID>  the application identifier of the returned
+           application.
+   <launch:status>  status of the application using one of the supported
+           status values (Section 2.3).
+   <launch:codeClaim>  zero or more <launch:codeClaim> elements or
+   <launch:signedClaim>  zero or more <launch:signedClaim> elements.
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <info>
-      <domain:info
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
-      </domain:info>
-    </info>
-    <extension>
-      <launch:info xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
-        <launch:phase>phase1</launch:phase>
-      </launch:info>
-    </extension>
-    <clTRID>example:epp:239331</clTRID>
-  </command>
-</epp>
+   The Claim Validation Models (Section 2.4) section describes the
+   <launch:codeClaim> and <launch:signedClaim> elements.
 
-   An example response that corresponds to the above command.
+3.2.1.1.  Example Sunrise Info Form <info> command
 
-<?xml version="1.0" encoding="utf-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <resData>
-      <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
-        <domain:roid>32302393_TESTDOMAIN-TLD</domain:roid>
-        <domain:status s="pendingCreate" />
-        <domain:registrant>ga3000</domain:registrant>
-        <domain:contact type="admin">ue312987</domain:contact>
-        <domain:contact type="tech">ue312987</domain:contact>
-        <domain:contact type="billing">ue312987</domain:contact>
-        <domain:ns>
-          <domain:hostObj>ns1.example.com</domain:hostObj>
-          <domain:hostObj>ns2.example.net</domain:hostObj>
-        </domain:ns>
-        <domain:clID>client1</domain:clID>
-        <domain:crID>client1</domain:crID>
-        <domain:crDate>2010-09-18T06:12:39.0Z</domain:crDate>
+   Example <info> domain command with the Sunrise Info Form <launch:
+   info> extension.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <command>
+      <info>
+       <domain:info
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+         <domain:name>example.com</domain:name>
+       </domain:info>
+      </info>
+      <extension>
+       <launch:info
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>sunrise</launch:phase>
+         <launch:applicationID>abc123</launch:applicationID>
+       </launch:info>
+      </extension>
+      <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
+
+   Example <info> domain response using the Sunrise Info Form <launch:
 
 
 
@@ -505,21 +505,195 @@ Tan, et al.             Expires January 10, 2013                [Page 9]
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-        <domain:authInfo>
-          <domain:pw>foo!bar#baz</domain:pw>
-        </domain:authInfo>
-      </domain:infData>
-    </resData>
-    <extension>
-      <launch:infData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
-        <launch:phase>phase1</launch:phase>
-        <launch:status s="pending" />
+   infData> extension with multiple codes.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <response>
+        <result code="1000">
+          <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+          <domain:infData
+           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+            <domain:name>example.com</domain:name>
+            <domain:roid>EXAMPLE1-REP</domain:roid>
+            <domain:status s="pendingCreate"/>
+            <domain:registrant>jd1234</domain:registrant>
+            <domain:contact type="admin">sh8013</domain:contact>
+            <domain:contact type="tech">sh8013</domain:contact>
+            <domain:clID>ClientX</domain:clID>
+            <domain:crID>ClientY</domain:crID>
+            <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
+            <domain:authInfo>
+              <domain:pw>2fooBAR</domain:pw>
+            </domain:authInfo>
+          </domain:infData>
+        </resData>
+        <extension>
+          <launch:infData
+           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+            <launch:phase>sunrise</launch:phase>
+             <launch:applicationID>abc123</launch:applicationID>
+             <launch:status s="pending"/>
+            <launch:codeClaim>
+               <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+            </launch:codeClaim>
+            <launch:codeClaim>
+               <launch:code>49FD46E6C4B45C55D4AD</launch:code>
+            </launch:codeClaim>
+            <launch:codeClaim>
+               <launch:code>49FD46E6C4B45C55D4AE</launch:code>
+            </launch:codeClaim>
+          </launch:infData>
+        </extension>
+        <trID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </trID>
+      </response>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 10]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+    </epp>
+
+   Example <info> domain response using the Sunrise Info Form <launch:
+   infData> extension a a code and claim information.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      <response>
+        <result code="1000">
+          <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+          <domain:infData
+           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+            <domain:name>example.com</domain:name>
+            <domain:roid>EXAMPLE1-REP</domain:roid>
+            <domain:status s="pendingCreate"/>
+            <domain:registrant>jd1234</domain:registrant>
+            <domain:contact type="admin">sh8013</domain:contact>
+            <domain:contact type="tech">sh8013</domain:contact>
+            <domain:clID>ClientX</domain:clID>
+            <domain:crID>ClientY</domain:crID>
+            <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
+            <domain:authInfo>
+              <domain:pw>2fooBAR</domain:pw>
+            </domain:authInfo>
+          </domain:infData>
+        </resData>
+        <extension>
+          <launch:infData
+           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+            <launch:phase>sunrise</launch:phase>
+             <launch:applicationID>abc123</launch:applicationID>
+             <launch:status s="pending"/>
+             <launch:codeClaim>
+           <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+           <launch:claim>
+             <launch:name>Hello</launch:name>
+             <launch:issuer>IP Clearinghouse</launch:issuer>
+             <launch:number>GE 3933232</launch:number>
+             <launch:type>REG-TM-WORD</launch:type>
+             <launch:entitlement>owner</launch:entitlement>
+             <launch:regDate>2011-09-09</launch:regDate>
+             <launch:exDate>2013-09-09</launch:exDate>
+             <launch:country>AU</launch:country>
+             <launch:region>VIC</launch:region>
+             <launch:owner>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 11]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+               <launch:org>Example Inc.</launch:org>
+             </launch:owner>
+             <launch:contact>
+               <launch:name>John Doe</launch:name>
+               <launch:org>Example Inc.</launch:org>
+               <launch:addr>
+                 <launch:street>123 Example Dr.</launch:street>
+                 <launch:street>Suite 100</launch:street>
+                 <launch:city>Reston</launch:city>
+                 <launch:sp>VA</launch:sp>
+                 <launch:pc>20190</launch:pc>
+                 <launch:cc>US</launch:cc>
+               </launch:addr>
+               <launch:voice x="1234">+1.7035555555</launch:voice>
+               <launch:fax>+1.7035555556</launch:fax>
+               <launch:email>jdoe@example.com</launch:email>
+             </launch:contact>
+           </launch:claim>
+         </launch:codeClaim>
+          </launch:infData>
+        </extension>
+        <trID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54322-XYZ</svTRID>
+        </trID>
+      </response>
+    </epp>
+
+   Example <info> domain response using the Sunrise Info Form <launch:
+   infData> extension signed claim information.
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+ <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <response>
+     <result code="1000">
+       <msg>Command completed successfully</msg>
+     </result>
+     <resData>
+       <domain:infData
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+         <domain:name>example.com</domain:name>
+         <domain:roid>EXAMPLE1-REP</domain:roid>
+         <domain:status s="pendingCreate"/>
+         <domain:registrant>jd1234</domain:registrant>
+         <domain:contact type="admin">sh8013</domain:contact>
+         <domain:contact type="tech">sh8013</domain:contact>
+         <domain:clID>ClientX</domain:clID>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 12]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+         <domain:crID>ClientY</domain:crID>
+         <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
+         <domain:authInfo>
+           <domain:pw>2fooBAR</domain:pw>
+         </domain:authInfo>
+       </domain:infData>
+     </resData>
+     <extension>
+       <launch:infData
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>sunrise</launch:phase>
+          <launch:applicationID>abc123</launch:applicationID>
+          <launch:status s="pending"/>
+          <launch:signedClaim>
+            <launch:serial>123456</launch:serial>
+            <launch:tld>newtld</launch:tld>
+            <launch:label>example-and-example</launch:label>
+            <launch:label>example</launch:label>
         <launch:claim>
-          <launch:id>claim-001</launch:id>
-          <launch:pvrc>3828590-P1F-932391651E3A2900338C12</launch:pvrc>
-          <launch:issuer>CONTACT-IPCLEARINGHOUSE</launch:issuer>
           <launch:name>Hello</launch:name>
+          <launch:issuer>IP Clearinghouse</launch:issuer>
           <launch:number>GE 3933232</launch:number>
           <launch:type>REG-TM-WORD</launch:type>
           <launch:entitlement>owner</launch:entitlement>
@@ -527,15 +701,273 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
           <launch:exDate>2013-09-09</launch:exDate>
           <launch:country>AU</launch:country>
           <launch:region>VIC</launch:region>
+          <launch:owner>
+            <launch:org>Example Inc.</launch:org>
+          </launch:owner>
+          <launch:contact>
+            <launch:name>John Doe</launch:name>
+            <launch:org>Example Inc.</launch:org>
+            <launch:addr>
+              <launch:street>123 Example Dr.</launch:street>
+              <launch:street>Suite 100</launch:street>
+              <launch:city>Reston</launch:city>
+              <launch:sp>VA</launch:sp>
+              <launch:pc>20190</launch:pc>
+              <launch:cc>US</launch:cc>
+            </launch:addr>
+            <launch:voice x="1234">+1.7035555555</launch:voice>
+            <launch:fax>+1.7035555556</launch:fax>
+            <launch:email>jdoe@example.com</launch:email>
+          </launch:contact>
         </launch:claim>
-      </launch:infData>
-    </extension>
-    <trID>
-      <clTRID>example:epp:239331</clTRID>
-      <svTRID>server-8551292e23a</svTRID>
-    </trID>
-  </response>
-</epp>
+            <Signature xmlns=
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 13]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+              "http://www.w3.org/2000/09/xmldsig#">
+              <SignedInfo>
+            <CanonicalizationMethod
+             Algorithm=
+             "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod
+             Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
+            <Reference URI="#pointer(..)">
+              <Transforms>
+                <Transform
+                  Algorithm=
+               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+              </Transforms>
+              <DigestMethod
+                Algorithm=
+                "http://www.w3.org/2000/09/xmldsig#sha1"/>
+              <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue>
+            </Reference>
+          </SignedInfo>
+          <SignatureValue>
+            cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
+          </SignatureValue>
+        </Signature>
+          </launch:signedClaim>
+       </launch:infData>
+     </extension>
+     <trID>
+       <clTRID>ABC-12345</clTRID>
+       <svTRID>54322-XYZ</svTRID>
+     </trID>
+   </response>
+ </epp>
+
+3.2.2.  Claims Info Form
+
+   The Claims Info Form of extension to the EPP domain name mapping
+   [RFC5731] gets trademark claims information for a non-existing domain
+   name that is referred to as a Claims Info Command.  The <launch:info>
+   element contains the following child elements:
+
+   <launch:phase>  The phase with the value of "claims" to indicate that
+           this is a Claims Info Command.
+
+   If the query was successful, the server replies with an <launch:
+   infData> element containing the trademark claims information expected
+   to be used to generate the claims notice.  The <launch:infData> has
+   the following child elements:
+
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 14]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+   <launch:phase>  the phase with a value of "claims".
+   <launch:notice>  the application identifier of the returned
+           application.  The <launch:notice> element has the following
+           child element:
+
+           <launch:name>  The domain name that the claim information is
+                   associated with.
+
+3.2.2.1.  Example Claims Info Form <info> command
+
+   Example Claims Info Command using the <info> domain command and the
+   Claims Info Form <launch:info> extension.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <command>
+      <info>
+       <domain:info
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+         <domain:name>example.com</domain:name>
+       </domain:info>
+      </info>
+      <extension>
+       <launch:info
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>claims</launch:phase>
+       </launch:info>
+      </extension>
+      <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 15]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+   Example Claims Info Response when no matching trademark claims are
+   found for the domain name.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <response>
+       <result code="1000">
+        <msg>Command completed successfully</msg>
+       </result>
+       <resData>
+        <launch:infData
+         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>claims</launch:phase>
+         <launch:notice>
+           <launch:name>example.com</launch:name>
+           <launch:none/>
+         </launch:notice>
+        </launch:infData>
+       </resData>
+       <trID>
+        <clTRID>ABC-12345</clTRID>
+        <svTRID>54322-XYZ</svTRID>
+       </trID>
+     </response>
+    </epp>
+
+   Example Claims Info Response when two matching trademark claims are
+   found for the domain name.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <response>
+       <result code="1000">
+        <msg>Command completed successfully</msg>
+       </result>
+       <resData>
+        <launch:infData
+         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>claims</launch:phase>
+         <launch:notice>
+           <launch:name>example.com</launch:name>
+               <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+           <launch:claim>
+             <launch:name>Hello</launch:name>
+             <launch:issuer>IP Clearinghouse</launch:issuer>
+             <launch:number>GE 3933232</launch:number>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 16]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+             <launch:type>REG-TM-WORD</launch:type>
+             <launch:entitlement>owner</launch:entitlement>
+             <launch:regDate>2011-09-09</launch:regDate>
+             <launch:exDate>2013-09-09</launch:exDate>
+             <launch:country>AU</launch:country>
+             <launch:region>VIC</launch:region>
+             <launch:owner>
+               <launch:org>Example Inc.</launch:org>
+             </launch:owner>
+             <launch:contact>
+               <launch:name>John Doe</launch:name>
+               <launch:org>Example Inc.</launch:org>
+               <launch:addr>
+                 <launch:street>123 Example Dr.</launch:street>
+                 <launch:street>Suite 100</launch:street>
+                 <launch:city>Reston</launch:city>
+                 <launch:sp>VA</launch:sp>
+                 <launch:pc>20190</launch:pc>
+                 <launch:cc>US</launch:cc>
+               </launch:addr>
+               <launch:voice x="1234">+1.7035555555</launch:voice>
+               <launch:fax>+1.7035555556</launch:fax>
+               <launch:email>jdoe@example.com</launch:email>
+             </launch:contact>
+           </launch:claim>
+           <launch:claim>
+             <launch:name>Hello World</launch:name>
+             <launch:issuer>IP Clearinghouse</launch:issuer>
+             <launch:number>GE 3933233</launch:number>
+             <launch:type>REG-TM-WORD</launch:type>
+             <launch:entitlement>owner</launch:entitlement>
+             <launch:regDate>2011-09-09</launch:regDate>
+             <launch:exDate>2013-09-09</launch:exDate>
+             <launch:country>AU</launch:country>
+             <launch:region>VIC</launch:region>
+             <launch:owner>
+               <launch:org>Example Inc.</launch:org>
+             </launch:owner>
+             <launch:contact>
+               <launch:name>John Doe</launch:name>
+               <launch:org>Example Inc.</launch:org>
+               <launch:addr>
+                 <launch:street>123 Example Dr.</launch:street>
+                 <launch:street>Suite 100</launch:street>
+                 <launch:city>Reston</launch:city>
+                 <launch:sp>VA</launch:sp>
+                 <launch:pc>20190</launch:pc>
+                 <launch:cc>US</launch:cc>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 17]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+               </launch:addr>
+               <launch:voice x="1234">+1.7035555555</launch:voice>
+               <launch:fax>+1.7035555556</launch:fax>
+               <launch:email>jdoe@example.com</launch:email>
+             </launch:contact>
+           </launch:claim>
+         </launch:notice>
+        </launch:infData>
+       </resData>
+       <trID>
+        <clTRID>ABC-12345</clTRID>
+        <svTRID>54322-XYZ</svTRID>
+       </trID>
+     </response>
+    </epp>
 
 3.3.  EPP <create> Command
 
@@ -552,18 +984,8 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    Clients may specify the <launch:phase> in which the application is
    meant to be submitted.  The <launch:create> element contains the
    following child elements.
-
-
-
-
-Tan, et al.             Expires January 10, 2013               [Page 10]
-
-Internet-Draft        Launch Phase Mapping for EPP             July 2012
-
-
    <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
-
    <launch:claim>  (optional) one or more <launch:claim> elements.
 
    The format of the <launch:claim> element is identical to that
@@ -573,7 +995,6 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    identifier and returns it in an <launch:creData> element together
    with the regular <resData>.  The <launch:creData> element contains a
    single <launch:applicationID> element as described below:
-
    <launch:applicationID>  the application identifier assigned by the
            server.
 
@@ -583,36 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires January 10, 2013               [Page 11]
+Tan, et al.             Expires January 10, 2013               [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
@@ -668,7 +1060,7 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 12]
+Tan, et al.             Expires January 10, 2013               [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
@@ -724,14 +1116,13 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 13]
+Tan, et al.             Expires January 10, 2013               [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
    <launch:applicationID>  the application identifier for which the
            client wishes to update.
-
    <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
@@ -780,7 +1171,8 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 14]
+
+Tan, et al.             Expires January 10, 2013               [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
@@ -836,7 +1228,7 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 15]
+Tan, et al.             Expires January 10, 2013               [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
@@ -865,10 +1257,8 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    submitting an EPP <delete> command along with an <launch:delete>
    element to indicate the application object to be deleted.  The
    <launch:delete> element contains the following child elements:
-
    <launch:applicationID>  the application identifier for which the
            client wishes to delete.
-
    <launch:phase>  (optional) the phase during which the application was
            submitted or is associated with.
 
@@ -889,15 +1279,15 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    In that case, the server MUST respond with an EPP 1000 result code.
    Alternatively, the server may choose to cancel the application
    object, in which case it SHOULD respond with an EPP 1001 result code
+   to indicate that the object will be purged at a later date.
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 16]
+
+Tan, et al.             Expires January 10, 2013               [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
-
-   to indicate that the object will be purged at a later date.
 
 3.5.2.  Example <delete> command
 
@@ -948,7 +1338,9 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 17]
+
+
+Tan, et al.             Expires January 10, 2013               [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
@@ -978,12 +1370,10 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
    o  Redistributions of source code must retain the above copyright
       notice, this list of conditions and the following disclaimer.
-
    o  Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in
       the documentation and/or other materials provided with the
       distribution.
-
    o  Neither the name of Internet Society, IETF or IETF Trust, nor the
       names of specific contributors, may be used to endorse or promote
       products derived from this software without specific prior written
@@ -1001,23 +1391,23 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+   BEGIN
+   <?xml version="1.0" encoding="UTF-8"?>
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 18]
+Tan, et al.             Expires January 10, 2013               [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-   BEGIN
-   <?xml version="1.0" encoding="UTF-8"?>
    <schema
-           targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
-           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+     targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
       xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
       xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-           xmlns="http://www.w3.org/2001/XMLSchema"
-           elementFormDefault="qualified">
+     xmlns="http://www.w3.org/2001/XMLSchema"
+     elementFormDefault="qualified">
 
    <!--
    Import common element types.
@@ -1029,101 +1419,101 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
              schemaLocation="xmldig-core-schema.xsd"/>
 
 
-           <annotation>
-                   <documentation>
-                           Extensible Provisioning Protocol v1.0
-                           domain name extension schema
-                           for the launch phase processing.
-                   </documentation>
-           </annotation>
+     <annotation>
+       <documentation>
+         Extensible Provisioning Protocol v1.0
+         domain name extension schema
+         for the launch phase processing.
+       </documentation>
+     </annotation>
 
-           <!--
-           Child elements found in EPP commands.
-           -->
-           <element name="create" type="launch:createType"/>
-           <element name="update" type="launch:idContainerType"/>
-           <element name="info" type="launch:infType"/>
-           <element name="delete" type="launch:idContainerType"/>
+     <!--
+     Child elements found in EPP commands.
+     -->
+     <element name="create" type="launch:createType"/>
+       <element name="update" type="launch:idContainerType"/>
+     <element name="info" type="launch:infType"/>
+     <element name="delete" type="launch:idContainerType"/>
 
-           <!--
-           Common container of id (identifier) element
-           -->
-           <complexType name="idContainerType">
-                   <sequence>
-                           <element name="phase" type="launch:phaseType"
-                                   minOccurs="0"/>
-                           <element name="applicationID" type="token"/>
-                   </sequence>
-           </complexType>
+     <!--
+     Common container of id (identifier) element
+     -->
+     <complexType name="idContainerType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"
+           minOccurs="0"/>
+         <element name="applicationID" type="token"/>
+       </sequence>
+     </complexType>
 
-           <!--
+     <!--
+     Definition for application identifier
+     -->
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 19]
+Tan, et al.             Expires January 10, 2013               [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-           Definition for application identifier
-           -->
-           <simpleType name="applicationIDType">
-                   <restriction base="token"/>
-           </simpleType>
+     <simpleType name="applicationIDType">
+       <restriction base="token"/>
+     </simpleType>
 
-           <!--
-           Definition for launch phase.  Name is an optional attribute
-           used to extend the phase type.  For example, when
-           using the phase type value of <custom>, the name
-           can be used to specify the custom phase.
-           -->
-           <complexType name="phaseType">
-                   <simpleContent>
-                           <extension base="launch:phaseTypeValue">
-                                   <attribute name="name" type="token"/>
-                           </extension>
-                   </simpleContent>
-           </complexType>
+     <!--
+     Definition for launch phase.  Name is an optional attribute
+     used to extend the phase type.  For example, when
+     using the phase type value of &qt;custom&gt;, the name
+     can be used to specify the custom phase.
+     -->
+     <complexType name="phaseType">
+       <simpleContent>
+         <extension base="launch:phaseTypeValue">
+           <attribute name="name" type="token"/>
+         </extension>
+       </simpleContent>
+     </complexType>
 
-           <!--
-           Enumeration of for launch phase values.
-           -->
-           <simpleType name="phaseTypeValue">
-                   <restriction base="token">
-                   <enumeration value="sunrise"/>
-                   <enumeration value="landrush"/>
-                   <enumeration value="claims"/>
-                   <enumeration value="open"/>
-                   <enumeration value="custom"/>
-           </restriction>
-           </simpleType>
+     <!--
+     Enumeration of for launch phase values.
+     -->
+     <simpleType name="phaseTypeValue">
+         <restriction base="token">
+           <enumeration value="sunrise"/>
+           <enumeration value="landrush"/>
+           <enumeration value="claims"/>
+           <enumeration value="open"/>
+           <enumeration value="custom"/>
+       </restriction>
+     </simpleType>
 
 
-           <!--
-           Definition for the sunrise code
-           -->
-           <simpleType name="codeType">
-                   <restriction base="base64Binary">
-                           <minLength value="1"/>
-                   </restriction>
-           </simpleType>
+     <!--
+     Definition for the sunrise code
+     -->
+     <simpleType name="codeType">
+       <restriction base="base64Binary">
+         <minLength value="1"/>
+       </restriction>
+     </simpleType>
 
-           <!--
-           Definition for the claims identifier
-           -->
-           <simpleType name="noticeIDType">
-                   <restriction base="base64Binary">
+     <!--
+     Definition for the claims identifier
+     -->
+     <simpleType name="noticeIDType">
+       <restriction base="base64Binary">
+         <minLength value="1"/>
+       </restriction>
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 20]
+Tan, et al.             Expires January 10, 2013               [Page 27]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
-                           <minLength value="1"/>
-                   </restriction>
-           </simpleType>
+     </simpleType>
 
      <simpleType name="ccType">
        <restriction base="token">
@@ -1131,10 +1521,17 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
        </restriction>
      </simpleType>
 
-           <!--
-           Definition of the IP address taken from host-1.0.
-           -->
-      <complexType name="addrType">
+     <simpleType name="pcType">
+       <restriction base="token">
+         <maxLength value="16"/>
+       </restriction>
+     </simpleType>
+
+
+     <!--
+     Definition of the IP address taken from host-1.0.
+     -->
+      <complexType name="ipAddrType">
         <simpleContent>
           <extension base="launch:addrStringType">
             <attribute name="ip" type="launch:ipType"
@@ -1157,53 +1554,407 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
         </restriction>
       </simpleType>
 
-           <!-- Possible status values for sunrise application -->
-           <simpleType name="statusValueType">
-           <restriction base="token">
+     <!-- Possible status values for sunrise application -->
+       <simpleType name="statusValueType">
+       <restriction base="token">
            <enumeration value="pending"/>
            <enumeration value="validated"/>
            <enumeration value="invalid"/>
            <enumeration value="allocated"/>
-           <enumeration value="rejected"/>
-           </restriction>
-           </simpleType>
-
-     <complexType name="statusType">
 
 
 
-Tan, et al.             Expires January 10, 2013               [Page 21]
+Tan, et al.             Expires January 10, 2013               [Page 28]
 
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
+           <enumeration value="rejected"/>
+         </restriction>
+       </simpleType>
+
+     <complexType name="statusType">
        <simpleContent>
          <extension base="normalizedString">
-           <attribute name="s"
-                   type="launch:statusValueType"
-                   use="required"/>
-           <attribute name="lang"
-                   type="language" default="en"/>
+           <attribute name="s" type="launch:statusValueType"
+             use="required"/>
+           <attribute name="lang" type="language"
+             default="en"/>
          </extension>
        </simpleContent>
      </complexType>
 
-           <complexType name="signedClaimToken">
-                   <sequence>
-                           <element ref="ds:Signature"/>
-                           <element name="claim"
-                                   type="launch:claimType"/>
-                   </sequence>
-           </complexType>
+       <complexType name="signedClaimType">
+       <sequence>
+         <element name="serial" type="token"/>
+         <element name="tld" type="eppcom:labelType"/>
+         <element name="label" type="eppcom:labelType"
+           maxOccurs="unbounded"/>
+         <element name="claim" type="launch:claimType"/>
+         <element ref="ds:Signature"/>
+       </sequence>
+     </complexType>
 
-           <!--
-           Child elements of create for both Sunrise and Claims periods
-           -->
-           <complexType name="createType">
-                   <sequence>
-                           <element name="phase"
-                                   type="launch:phaseType"/>
-                           <choice>
-                                   <sequence>
-                                           <element name="code"
-                                                   type="launch:codeType"
+     <complexType name="codeClaimType">
+       <sequence>
+         <element name="code" type="launch:codeType"
+           minOccurs="0"/>
+         <element name="claim" type="launch:claimType"
+           minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+     <!--
+     Child elements of create for both Sunrise and Claims periods
+     -->
+     <complexType name="createType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+         <choice>
+           <element name="codeClaim"
+             type="launch:codeClaimType"
+            maxOccurs="unbounded"/>
+           <element name="signedClaim"
+             type="launch:signedClaimType"
+            maxOccurs="unbounded"/>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 29]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+           <element name="notice"
+             type="launch:createNoticeType"/>
+           <element name="signedNotice"
+             type="launch:signedCreateNoticeType"/>
+         </choice>
+       </sequence>
+     </complexType>
+
+     <!--
+     Child elements of the create notice element.
+     -->
+     <complexType name="createNoticeType">
+       <sequence>
+         <element name="noticeID" type="launch:noticeIDType"/>
+         <element name="timestamp" type="dateTime"/>
+         <element name="clientAddr" type="launch:ipAddrType"/>
+       </sequence>
+     </complexType>
+
+     <complexType name="signedCreateNoticeType">
+       <sequence>
+         <element name="noticeID" type="launch:noticeIDType"/>
+         <element ref="ds:Signature"/>
+       </sequence>
+     </complexType>
+
+
+     <!--
+     Child elements of info for both Sunrise and Claims periods.
+     -->
+     <complexType name="infType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+         <element name="applicationID"
+           type="launch:applicationIDType"
+           minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+     <!--
+     Child response elements.
+     -->
+     <element name="creData" type="launch:idContainerType"/>
+
+     <element name="infData" type="launch:infDataType"/>
+
+     <complexType name="infDataType">
+       <sequence>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 30]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+         <element name="phase" type="launch:phaseType"/>
+         <choice>
+           <sequence>
+             <element name="applicationID"
+             type="launch:applicationIDType"/>
+             <element name="status" type="launch:statusType"
+               minOccurs="0"/>
+             <choice>
+               <element name="codeClaim"
+                 type="launch:codeClaimType"
+                 maxOccurs="unbounded"/>
+               <element name="signedClaim"
+                 type="launch:signedClaimType"
+                 maxOccurs="unbounded"/>
+             </choice>
+            </sequence>
+           <element name="notice" type="launch:claimsNoticeType"
+             minOccurs="0"/>
+         </choice>
+       </sequence>
+     </complexType>
+
+     <!--
+     Child elements of the info (inf) notice response element.
+     -->
+     <complexType name="claimsNoticeType">
+       <sequence>
+         <element name="name" type="eppcom:labelType"/>
+         <choice>
+           <element name="none"/>
+           <sequence>
+             <element name="noticeID"
+               type="launch:noticeIDType"/>
+             <element name="claim"
+               type="launch:claimType"
+               maxOccurs="unbounded"/>
+           </sequence>
+         </choice>
+       </sequence>
+     </complexType>
+
+     <complexType name="e164Type">
+       <simpleContent>
+         <extension base="launch:e164StringType">
+           <attribute name="x" type="token"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 31]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+     <simpleType name="e164StringType">
+       <restriction base="token">
+         <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
+         <maxLength value="17"/>
+       </restriction>
+     </simpleType>
+
+     <complexType name="addrType">
+       <sequence>
+         <element name="street" type="token"
+          minOccurs="0" maxOccurs="3"/>
+         <element name="city" type="token"/>
+         <element name="sp" type="token"
+          minOccurs="0"/>
+         <element name="pc" type="launch:pcType"
+          minOccurs="0"/>
+         <element name="cc" type="launch:ccType"/>
+       </sequence>
+     </complexType>
+
+     <complexType name="contactType">
+       <sequence>
+         <element name="name" type="token"
+           minOccurs="0"/>
+         <element name="org" type="token"
+           minOccurs="0"/>
+         <element name="addr" type="launch:addrType"
+           minOccurs="0"/>
+         <element name="voice" type="launch:e164Type"
+           minOccurs="0"/>
+         <element name="fax" type="launch:e164Type"
+           minOccurs="0"/>
+         <element name="email" type="eppcom:minTokenType"
+           minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+
+     <!--
+     Child elements of claim element.
+     -->
+     <complexType name="claimType">
+         <sequence>
+           <element name="id" type="token"
+             minOccurs="0"/>
+           <element name="name" type="token"/>
+           <element name="issuer" type="token"
+             minOccurs="0"/>
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 32]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+           <element name="number" type="token"
+             minOccurs="0"/>
+           <element name="type" type="token"
+             minOccurs="0"/>
+           <element name="entitlement" type="token"
+             minOccurs="0"/>
+           <element name="regDate" type="date"
+             minOccurs="0"/>
+           <element name="exDate" type="date"
+             minOccurs="0"/>
+           <element name="country" type="launch:ccType"
+             minOccurs="0"/>
+           <element name="region" type="token"
+             minOccurs="0"/>
+           <element name="owner" type="launch:contactType"
+             minOccurs="0"/>
+           <element name="contact" type="launch:contactType"
+             minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+   </schema>
+   END
+
+
+5.  Acknowledgements
+
+   [to be filled in]
+
+
+6.  IANA Considerations
+
+   This document uses URNs to describe XML namespaces and XML schemas
+   conforming to a registry mechanism described in [RFC3688].
+
+   Registration request for the extension namespace:
+
+   URI: urn:ietf:params:xml:ns:launch-1.0
+
+   Registrant Contact: IESG
+
+   XML: None.  Namespace URIs do not represent an XML specification.
+
+   Registration request for the extension XML schema:
+
+   URI: urn:ietf:params:xml:schema:launch-1.0
+
+
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 33]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+7.  Security Considerations
+
+   The mapping extensions described in this document do not provide any
+   security services beyond those described by EPP [RFC5730], the EPP
+   domain name mapping [RFC5731], and protocol layers used by EPP.  The
+   security considerations described in these other specifications apply
+   to this specification as well.
+
+   Updates to, and deletion of an application object must be restricted
+   to clients authorized to perform the said operation on the object.
+
+   As information contained within an application, or even the mere fact
+   that an application exists may be confidential.  Any attempt to
+   operate on an application object by an unauthorized client MUST be
+   rejected with an EPP 2303 (object does not exist) or an appropriate
+   auhorization error.  Server policy may allow <info> operation with
+   filtered output by clients other than the sponsoring client, in which
+   case the <domain:infData> and <launch:infData> response SHOULD be
+   filtered to include only fields that are publicly accessible.
+
+
+8.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              January 2004.
+
+   [RFC5730]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)",
+              STD 69, RFC 5730, August 2009.
+
+   [RFC5731]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)
+              Domain Name Mapping", STD 69, RFC 5731, August 2009.
+
+   [1]  <http://newgtlds.icann.org/en/about/trademark-clearinghouse/
+        draft-implementation-model-13apr12.pdf>
+
+   [2]  <http://www.w3.org/TR/xmldsig-core/>
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 34]
+
+Internet-Draft        Launch Phase Mapping for EPP             July 2012
+
+
+Authors' Addresses
+
+   Wil Tan
+   Cloud Registry
+   Suite 32 Seabridge House
+   377 Kent St
+   Sydney, NSW  2000
+   AU
+
+   Phone: +61 414 710899
+   Email: wil@cloudregistry.net
+   URI:   http://www.cloudregistry.net
+
+
+   Gavin Brown
+   CentralNic Ltd
+   35-39 Mooregate
+   London, England  EC2R 6AR
+   GB
+
+   Phone: +44 8700 170 900
+   Email: gavin.brown@centralnic.com
+   URI:   http://www.centralnic.com
+
+
+   James Gould
+   VeriSign, Inc.
+   12061 Bluemont Way
+   Reston, VA  20190
+   US
+
+   Email: jgould@verisign.com
+   URI:   http://www.verisigninc.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.             Expires January 10, 2013               [Page 35]
+

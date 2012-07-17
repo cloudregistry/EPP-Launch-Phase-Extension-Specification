@@ -172,7 +172,7 @@ Import common element types.
   <complexType name="codeClaimType">
     <sequence>
       <element name="code" type="launch:codeType" 
-        inOccurs="0"/> 
+        minOccurs="0"/> 
       <element name="claim" type="launch:claimType" 
         minOccurs="0"/>
     </sequence>
@@ -242,14 +242,17 @@ Import common element types.
       <element name="phase" type="launch:phaseType"/>
       <choice>
         <sequence>
-          <element name="applicationID" type="launch:applicationIDType" 
-            minOccurs="0"/>
+          <element name="applicationID" type="launch:applicationIDType"/>
           <element name="status" type="launch:statusType" 
             minOccurs="0"/>
-          <element name="code" type="launch:codeType" 
-            minOccurs="0"/>
-          <element name="claim" type="launch:claimType" 
-            minOccurs="0"/>
+          <choice>
+        	    <element name="codeClaim" 
+                type="launch:codeClaimType" 
+                maxOccurs="unbounded"/>
+             <element name="signedClaim" 
+                type="launch:signedClaimType" 
+                maxOccurs="unbounded"/>
+          </choice>
         </sequence>
         <element name="notice" type="launch:claimsNoticeType" 
           minOccurs="0"/>
