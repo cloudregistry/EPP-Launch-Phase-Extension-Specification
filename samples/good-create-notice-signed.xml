@@ -25,27 +25,27 @@
        launch-1.0.xsd">
         <launch:phase>claims</launch:phase>
         <launch:signedNotice>
-       		<launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-        		<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-        			<SignedInfo>
-						<CanonicalizationMethod 
-						 Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-						<SignatureMethod 
-						 Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
-						<Reference URI="#pointer(..)">
-							<Transforms>
-								<Transform
-									Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-							</Transforms>
-							<DigestMethod 
-								Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-							<DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
-						</Reference>
-					</SignedInfo>
-					<SignatureValue>
-						cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-					</SignatureValue>
-				</Signature>
+          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+              <SignedInfo>
+            <CanonicalizationMethod 
+             Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod 
+             Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
+            <Reference URI="#pointer(..)">
+              <Transforms>
+                <Transform
+                  Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+              </Transforms>
+              <DigestMethod 
+                Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+              <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
+            </Reference>
+          </SignedInfo>
+          <SignatureValue>
+            cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
+          </SignatureValue>
+        </Signature>
         </launch:signedNotice>
       </launch:create>
     </extension>
