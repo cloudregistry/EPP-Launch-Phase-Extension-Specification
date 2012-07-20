@@ -786,12 +786,22 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
    <launch:phase>  the phase with a value of "claims".
-   <launch:notice>  the application identifier of the returned
-           application.  The <launch:notice> element has the following
-           child element:
+   <launch:notice>  The information used for the trademark claims
+           notice.  The <launch:notice> element has the following child
+           elements:
 
-           <launch:name>  The domain name that the claim information is
-                   associated with.
+           <launch:name>  The domain name that the claim notice
+                   information is associated with.
+           <launch:none>  Optional element included if there are no
+                   trademark claims associated with the <launch:name>
+           <launch:noticeID>  Optional element included if there is at
+                   least one trademark claim associated with <launch:
+                   name>.  Server generated identifier for the claim
+                   notice information that is passed in the <launch:
+                   create> extension of the Domain Create Command.
+           <launch:claim>  Zero or more <launch:claim> elements
+                   containing the trademark claims information as
+                   defined in the Claim (Section 2.5) section.
 
 3.2.2.1.  Example Claims Info Form <info> command
 
@@ -817,16 +827,6 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
       <clTRID>ABC-12345</clTRID>
      </command>
    </epp>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1121,10 +1121,10 @@ Tan, et al.             Expires January 10, 2013               [Page 20]
 Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
 
+   <launch:phase>  the phase during which the application was submitted
+           or is associated with.
    <launch:applicationID>  the application identifier for which the
            client wishes to update.
-   <launch:phase>  (optional) the phase during which the application was
-           submitted or is associated with.
 
    This extension does not define any extension to the response of an
    <update> domain command.  After processing the command, the server
@@ -1180,39 +1180,39 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 3.4.2.  Example <update> command
 
    Following is an example <update> domain command with the <launch:
-   update> extension.
+   update> extension to add and remove a name server of a sunrise
+   application with the application identifier "abc123".
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <update>
-      <domain:update
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <command>
+       <update>
+         <domain:update
           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
-        <domain:add>
-          <domain:ns>
-            <domain:hostObj>ns3.example.org</domain:hostObj>
-          </domain:ns>
-        </domain:add>
-        <domain:rem>
-          <domain:ns>
-            <domain:hostObj>ns2.example.net</domain:hostObj>
-          </domain:ns>
-        </domain:rem>
-        <domain:chg>
-          <domain:registrant>n3o2999</domain:registrant>
-        </domain:chg>
-      </domain:update>
-    </update>
-    <extension>
-      <launch:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
-        <launch:phase>phase1</launch:phase>
-      </launch:update>
-    </extension>
-    <clTRID>example:epp:239333</clTRID>
-  </command>
-</epp>
+           <domain:name>example.com</domain:name>
+           <domain:add>
+               <domain:ns>
+                 <domain:hostObj>ns2.example.com</domain:hostObj>
+               </domain:ns>
+             </domain:add>
+             <domain:rem>
+               <domain:ns>
+                 <domain:hostObj>ns1.example.com</domain:hostObj>
+               </domain:ns>
+             </domain:rem>
+         </domain:update>
+       </update>
+       <extension>
+       <launch:update
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>sunrise</launch:phase>
+         <launch:applicationID>abc123</launch:applicationID>
+       </launch:update>
+       </extension>
+       <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
 
 
 
@@ -1257,10 +1257,10 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    submitting an EPP <delete> command along with an <launch:delete>
    element to indicate the application object to be deleted.  The
    <launch:delete> element contains the following child elements:
+   <launch:phase>  the phase during which the application was submitted
+           or is associated with.
    <launch:applicationID>  the application identifier for which the
            client wishes to delete.
-   <launch:phase>  (optional) the phase during which the application was
-           submitted or is associated with.
 
    This extension does not define any extension to the response of an
    <delete> domain command.  After processing the command, the server
@@ -1294,24 +1294,26 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    Following is an example <delete> domain command with the <launch:
    delete> extension.
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <delete>
-      <domain:delete
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
-      </domain:delete>
-    </delete>
-    <extension>
-      <launch:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
-        <launch:phase>phase1</launch:phase>
-      </launch:delete>
-    </extension>
-    <clTRID>example:epp:239334</clTRID>
-  </command>
-</epp>
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     <command>
+      <delete>
+       <domain:delete
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+         <domain:name>example.com</domain:name>
+       </domain:delete>
+      </delete>
+      <extension>
+       <launch:delete
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>sunrise</launch:phase>
+         <launch:applicationID>abc123</launch:applicationID>
+       </launch:delete>
+      </extension>
+      <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
 
    An example response that corresponds to the above command.
 
@@ -1333,8 +1335,6 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    This extension does not define any extension to the EPP <renew>
    command or response described in the EPP domain name mapping
    [RFC5731].
-
-
 
 
 

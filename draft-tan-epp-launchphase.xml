@@ -813,16 +813,30 @@
           The &lt;launch:infData&gt; has the following
           child elements:</t>
           <t><list hangIndent="8" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">the phase with a value
+              <t hangText="&lt;launch:phase&gt;">the phase with a value 
               of "claims".</t>
 
-              <t hangText="&lt;launch:notice&gt;">the application
-              identifier of the returned application. The 
+              <t hangText="&lt;launch:notice&gt;">The information used 
+              for the trademark claims notice.  The 
               &lt;launch:notice&gt; element has the following child 
-              element:</t>
+              elements:</t>
+              
               <t> <list hangIndent="8" style="hanging">
                 <t hangText="&lt;launch:name&gt;">The domain name that 
-                the claim information is associated with.</t>
+                the claim notice information is associated with.</t>
+                <t hangText="&lt;launch:none&gt;">Optional element 
+                included if there are no trademark claims associated 
+                with the &lt;launch:name&gt;</t>
+                <t hangText="&lt;launch:noticeID&gt;">Optional element 
+                included if there is at least one trademark claim 
+                associated with &lt;launch:name&gt;.  Server generated 
+                identifier for the claim notice information that is 
+                passed in the &lt;launch:create&gt; extension of the 
+                Domain Create Command.</t>
+                <t hangText="&lt;launch:claim&gt;">Zero or more  
+                &lt;launch:claim&gt; elements containing the 
+                trademark claims information as defined in the <xref
+          target="claim">Claim</xref> section.</t>
                 </list>
               </t>
 
@@ -1129,11 +1143,11 @@
         &lt;launch:update&gt; element to indicate the application object to be
         updated. The &lt;launch:update&gt; element contains the following
         child elements: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:phase&gt;">the phase during
+            which the application was submitted or is associated with.</t>
+            
             <t hangText="&lt;launch:applicationID&gt;">the application
             identifier for which the client wishes to update.</t>
-
-            <t hangText="&lt;launch:phase&gt;">(optional) the phase during
-            which the application was submitted or is associated with.</t>
           </list></t>
 
         <t>This extension does not define any extension to the response of an
@@ -1152,41 +1166,42 @@
         <section title="Example &lt;update&gt; command">
           <figure>
             <preamble>Following is an example &lt;update&gt; domain command
-            with the &lt;launch:update&gt; extension.</preamble>
+            with the &lt;launch:update&gt; extension to add and remove 
+            a name server of a sunrise application with the application 
+            identifier "abc123".</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <command>
     <update>
       <domain:update
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.com</domain:name>
         <domain:add>
-          <domain:ns>
-            <domain:hostObj>ns3.example.org</domain:hostObj>
-          </domain:ns>
-        </domain:add>
-        <domain:rem>
-          <domain:ns>
-            <domain:hostObj>ns2.example.net</domain:hostObj>
-          </domain:ns>
-        </domain:rem>
-        <domain:chg>
-          <domain:registrant>n3o2999</domain:registrant>
-        </domain:chg>
+            <domain:ns>
+              <domain:hostObj>ns2.example.com</domain:hostObj>
+            </domain:ns>
+          </domain:add>
+          <domain:rem>
+            <domain:ns>
+              <domain:hostObj>ns1.example.com</domain:hostObj>
+            </domain:ns>
+          </domain:rem>
       </domain:update>
     </update>
     <extension>
-      <launch:update xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
-        <launch:phase>phase1</launch:phase>
-      </launch:update>
+    <launch:update
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+      <launch:phase>sunrise</launch:phase>
+      <launch:applicationID>abc123</launch:applicationID>
+    </launch:update>
     </extension>
-    <clTRID>example:epp:239333</clTRID>
+    <clTRID>ABC-12345</clTRID>
   </command>
 </epp>
-    ]]></artwork>
+]]></artwork>
           </figure>
 
           <figure>
@@ -1225,11 +1240,11 @@
         &lt;launch:delete&gt; element to indicate the application object to be
         deleted. The &lt;launch:delete&gt; element contains the following
         child elements: <list hangIndent="8" style="hanging">
+            <t hangText="&lt;launch:phase&gt;">the phase during
+            which the application was submitted or is associated with.</t>
+            
             <t hangText="&lt;launch:applicationID&gt;">the application
             identifier for which the client wishes to delete.</t>
-
-            <t hangText="&lt;launch:phase&gt;">(optional) the phase during
-            which the application was submitted or is associated with.</t>
           </list></t>
 
         <t>This extension does not define any extension to the response of an
@@ -1259,24 +1274,26 @@
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <command>
-    <delete>
-      <domain:delete
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
-      </domain:delete>
-    </delete>
-    <extension>
-      <launch:delete xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
-        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
-        <launch:phase>phase1</launch:phase>
-      </launch:delete>
-    </extension>
-    <clTRID>example:epp:239334</clTRID>
+   <delete>
+    <domain:delete
+     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+      <domain:name>example.com</domain:name>
+    </domain:delete>
+   </delete>
+   <extension>
+    <launch:delete
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+      <launch:phase>sunrise</launch:phase>
+      <launch:applicationID>abc123</launch:applicationID>
+    </launch:delete>
+   </extension>
+   <clTRID>ABC-12345</clTRID>
   </command>
-</epp>
-    ]]></artwork>
+</epp>    
+]]></artwork>
           </figure>
 
           <figure>
