@@ -127,7 +127,7 @@
       </address>
     </author>
 
-    <date day="9" month="July" year="2012"/>
+    <date day="31" month="July" year="2012"/>
 
     <!-- Meta-data Declarations -->
 
@@ -198,15 +198,15 @@
       are described here.</t>
 
       <section anchor="applicationID" title="Application Identifiers">
-        <t>Domain registries MAY allow multiple applications of a given domain
-        name during its launch phase operations. Upon receiving a request to
-        create a domain name, the server creates an application object
-        corresponding to the request and assigns an Application Identifier the
-        application and returns it to the client with the
-        &lt;launch:applicationID&gt; element. In order to facilitate
-        correlation, all subsequent launch operations on the application
-        object MUST be qualified by the previously assigned application
-        identifier using the &lt;launch:applicationID&gt; element.</t>
+        <t>Servers MAY allow multiple applications of a given domain name
+        during its launch phase operations. Upon receiving a request to create
+        a domain name, the server creates an application object corresponding
+        to the request and assigns an Application Identifier the application
+        and returns it to the client with the &lt;launch:applicationID&gt;
+        element. In order to facilitate correlation, all subsequent launch
+        operations on the application object MUST be qualified by the
+        previously assigned application identifier using the
+        &lt;launch:applicationID&gt; element.</t>
       </section>
 
       <section anchor="phases" title="Launch Phases">
@@ -306,8 +306,8 @@
       </section>
 
       <section anchor="validationModels" title="Claim Validation Models">
-        <t>A server MUST support support one of four models for validating the
-        claim information:</t>
+        <t>A server MUST support one of four models for validating the claim
+        information:</t>
 
         <t><list style="hanging">
             <t hangText="code">Use of a claim code by itself to validate that
@@ -442,7 +442,7 @@
             <t hangText="sunrise">The EPP &lt;info&gt; command with the
             "sunrise" phase is used to retrieve information for a specific
             "sunrise" application based on an <xref
-            target="applicationID">application identifier</xref>. This form of
+            target="applicationID">Application Identifier</xref>. This form of
             the EPP &lt;info&gt; extension is referred to as the Sunrise Info
             Form and is defined in the <xref target="sunriseInfoForm">Sunrise
             Info Form</xref> section.</t>
@@ -471,15 +471,16 @@
           </list></t>
 
         <section anchor="sunriseInfoForm" title="Sunrise Info Form">
-          <t>The
-          Sunrise Info Form of extension to the <xref target="RFC5731">EPP
-          domain name mapping</xref> gets information on an application
-          created with the &lt;launch:create&gt; using the <xref
-          target="applicationID">Application Identifier</xref> returned in the
-          &lt;launch:creData&gt;. A &lt;launch:info&gt; element is sent along
-          with the regular &lt;info&gt; domain command. The
-          &lt;launch:info&gt; element contains the following child elements:</t>
-          <t><list hangIndent="8" style="hanging">
+          <t>The Sunrise Info Form of the extension to the <xref
+          target="RFC5731">EPP domain name mapping</xref> gets information on
+          an application created with the &lt;launch:create&gt; using the
+          <xref target="applicationID">Application Identifier</xref> returned
+          in the &lt;launch:creData&gt; element. A &lt;launch:info&gt; element
+          is sent along with the regular &lt;info&gt; domain command. The
+          &lt;launch:info&gt; element contains the following child
+          elements:</t>
+
+          <t><list hangIndent="4" style="hanging">
               <t hangText="&lt;launch:phase&gt;">The phase during which the
               application was submitted or is associated with. It is up to
               server policy what phases are supported for the Sunrise Info
@@ -489,37 +490,11 @@
               identifier of the application.</t>
             </list></t>
 
-          <t>If the query was successful, the server replies with an
-          &lt;launch:infData&gt; element along with the regular EPP
-          &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
-          child elements: <list hangIndent="8" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">the phase during which the
-              application was submitted or is associated with.</t>
+          <figure>
+            <preamble>Example &lt;info&gt; domain command with the Sunrise
+            Info Form &lt;launch:info&gt; extension.</preamble>
 
-              <t hangText="&lt;launch:applicationID&gt;">the application
-              identifier of the returned application.</t>
-
-              <t hangText="&lt;launch:status&gt;">status of the application
-              using one of the supported <xref target="statuses">status
-              values</xref>. </t>
-
-              <t hangText="&lt;launch:codeClaim&gt;">zero or more
-              &lt;launch:codeClaim&gt; elements or </t>
-
-              <t hangText="&lt;launch:signedClaim&gt;">zero or more
-              &lt;launch:signedClaim&gt; elements. </t>
-            </list></t>
-
-          <t>The <xref target="validationModels">Claim Validation
-          Models</xref> section describes the &lt;launch:codeClaim&gt; and
-          &lt;launch:signedClaim&gt; elements. </t>
-
-          <section title="Example Sunrise Info Form &lt;info&gt; command">
-            <figure>
-              <preamble>Example &lt;info&gt; domain command
-              with the Sunrise Info Form &lt;launch:info&gt; extension.</preamble>
-
-              <artwork><![CDATA[
+            <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -527,7 +502,7 @@
    <info>
     <domain:info
      xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-      <domain:name>example.com</domain:name>
+      <domain:name>example.tld</domain:name>
     </domain:info>
    </info>
    <extension>
@@ -541,14 +516,39 @@
   </command>
 </epp>
 ]]></artwork>
-            </figure>
+          </figure>
 
-            <figure>
-              <preamble>Example &lt;info&gt; domain response using the 
-              Sunrise Info Form &lt;launch:infData&gt; extension with 
-              multiple codes.</preamble>
+          <t>If the query was successful, the server replies with an
+          &lt;launch:infData&gt; element along with the regular EPP
+          &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
+          child elements: <list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">the phase during which the
+              application was submitted or is associated with.</t>
 
-              <artwork><![CDATA[
+              <t hangText="&lt;launch:applicationID&gt;">the application
+              identifier of the returned application.</t>
+
+              <t hangText="&lt;launch:status&gt;">status of the application
+              using one of the supported <xref target="statuses">status
+              values</xref>.</t>
+
+              <t hangText="&lt;launch:codeClaim&gt;">zero or more
+              &lt;launch:codeClaim&gt; elements or</t>
+
+              <t hangText="&lt;launch:signedClaim&gt;">zero or more
+              &lt;launch:signedClaim&gt; elements.</t>
+            </list></t>
+
+          <t>The <xref target="validationModels">Claim Validation
+          Models</xref> section describes the &lt;launch:codeClaim&gt; and
+          &lt;launch:signedClaim&gt; elements.</t>
+
+          <figure>
+            <preamble>Example &lt;info&gt; domain response using the Sunrise
+            Info Form &lt;launch:infData&gt; extension with multiple
+            codes.</preamble>
+
+            <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -559,7 +559,7 @@
      <resData>
        <domain:infData
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.com</domain:name>
+         <domain:name>example.tld</domain:name>
          <domain:roid>EXAMPLE1-REP</domain:roid>
          <domain:status s="pendingCreate"/>
          <domain:registrant>jd1234</domain:registrant>
@@ -597,15 +597,14 @@
    </response>
  </epp>
  ]]></artwork>
-            </figure>
+          </figure>
 
+          <figure>
+            <preamble>Example &lt;info&gt; domain response using the Sunrise
+            Info Form &lt;launch:infData&gt; extension with a code and claim
+            information.</preamble>
 
-            <figure>
-              <preamble>Example &lt;info&gt; domain response using the 
-              Sunrise Info Form &lt;launch:infData&gt; extension with  
-              a code and claim information.</preamble>
-
-              <artwork><![CDATA[
+            <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -616,7 +615,7 @@
      <resData>
        <domain:infData
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.com</domain:name>
+         <domain:name>example.tld</domain:name>
          <domain:roid>EXAMPLE1-REP</domain:roid>
          <domain:status s="pendingCreate"/>
          <domain:registrant>jd1234</domain:registrant>
@@ -664,7 +663,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
       </launch:codeClaim>
@@ -677,15 +676,14 @@
    </response>
  </epp>
 ]]></artwork>
-            </figure>
+          </figure>
 
+          <figure>
+            <preamble>Example &lt;info&gt; domain response using the Sunrise
+            Info Form &lt;launch:infData&gt; extension signed claim
+            information.</preamble>
 
-            <figure>
-              <preamble>Example &lt;info&gt; domain response using the 
-              Sunrise Info Form &lt;launch:infData&gt; extension  
-              signed claim information.</preamble>
-
-              <artwork><![CDATA[
+            <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -696,7 +694,7 @@
      <resData>
        <domain:infData
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.com</domain:name>
+         <domain:name>example.tld</domain:name>
          <domain:roid>EXAMPLE1-REP</domain:roid>
          <domain:status s="pendingCreate"/>
          <domain:registrant>jd1234</domain:registrant>
@@ -747,7 +745,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
             <Signature xmlns=
@@ -784,69 +782,62 @@
    </response>
  </epp>
 ]]></artwork>
-            </figure>
-
-
-
-          </section>
+          </figure>
         </section>
 
         <section anchor="claimsInfoForm" title="Claims Info Form">
-        
-          <t>The
-          Claims Info Form of extension to the <xref target="RFC5731">EPP
-          domain name mapping</xref> gets trademark claims information for a 
-          non-existing domain name that is referred to as a Claims Info Command.
-          The &lt;launch:info&gt; element contains 
-          the following child elements:</t>
-          <t><list hangIndent="8" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">The phase with the value 
-              of "claims" to indicate that this is a Claims Info Command.</t>
+          <t>The Claims Info Form of the extension to the <xref
+          target="RFC5731">EPP domain name mapping</xref> gets trademark
+          claims information for a non-existing domain name that is referred
+          to as a Claims Info Command. The &lt;launch:info&gt; element
+          contains the following child elements:</t>
+
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">The phase with the value of
+              "claims" to indicate that this is a Claims Info Command.</t>
             </list></t>
 
           <t>If the query was successful, the server replies with an
-          &lt;launch:infData&gt; element containing  the trademark claims 
-          information expected to be used to generate the claims notice.
-          The &lt;launch:infData&gt; has the following
-          child elements:</t>
-          <t><list hangIndent="8" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">the phase with a value 
-              of "claims".</t>
+          &lt;launch:infData&gt; element containing the trademark claims
+          information expected to be used to generate the claims notice. The
+          &lt;launch:infData&gt; has the following child elements:</t>
 
-              <t hangText="&lt;launch:notice&gt;">The information used 
-              for the trademark claims notice.  The 
-              &lt;launch:notice&gt; element has the following child 
-              elements:</t>
-              
-              <t> <list hangIndent="8" style="hanging">
-                <t hangText="&lt;launch:name&gt;">The domain name that 
-                the claim notice information is associated with.</t>
-                <t hangText="&lt;launch:none&gt;">Optional element 
-                included if there are no trademark claims associated 
-                with the &lt;launch:name&gt;</t>
-                <t hangText="&lt;launch:noticeID&gt;">Optional element 
-                included if there is at least one trademark claim 
-                associated with &lt;launch:name&gt;.  Server generated 
-                identifier for the claim notice information that is 
-                passed in the &lt;launch:create&gt; extension of the 
-                Domain Create Command.</t>
-                <t hangText="&lt;launch:claim&gt;">Zero or more  
-                &lt;launch:claim&gt; elements containing the 
-                trademark claims information as defined in the <xref
-          target="claim">Claim</xref> section.</t>
-                </list>
-              </t>
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">the phase with a value of
+              "claims".</t>
 
-            </list>
-          </t>
+              <t hangText="&lt;launch:notice&gt;">The information used for the
+              trademark claims notice. The &lt;launch:notice&gt; element has
+              the following child elements:</t>
 
-          <section title="Example Claims Info Form &lt;info&gt; command">
-            <figure>
-              <preamble>Example Claims Info Command using 
-              the &lt;info&gt; domain command and the Claims Info Form 
-              &lt;launch:info&gt; extension.</preamble>
+              <t><list hangIndent="4" style="hanging">
+                  <t hangText="&lt;launch:name&gt;">The domain name that the
+                  claim notice information is associated with.</t>
 
-              <artwork><![CDATA[
+                  <t hangText="&lt;launch:none&gt;">Optional element included
+                  if there are no trademark claims associated with the
+                  &lt;launch:name&gt;</t>
+
+                  <t hangText="&lt;launch:noticeID&gt;">Optional element
+                  included if there is at least one trademark claim associated
+                  with &lt;launch:name&gt;. Server generated identifier for
+                  the claim notice information that is passed in the
+                  &lt;launch:create&gt; extension of the Domain Create
+                  Command.</t>
+
+                  <t hangText="&lt;launch:claim&gt;">Zero or more
+                  &lt;launch:claim&gt; elements containing the trademark
+                  claims information as defined in the <xref
+                  target="claim">Claim</xref> section.</t>
+                </list></t>
+            </list></t>
+
+          <figure>
+            <preamble>Example Claims Info Command using the &lt;info&gt;
+            domain command and the Claims Info Form &lt;launch:info&gt;
+            extension.</preamble>
+
+            <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -854,7 +845,7 @@
    <info>
     <domain:info
      xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-      <domain:name>example.com</domain:name>
+      <domain:name>example.tld</domain:name>
     </domain:info>
    </info>
    <extension>
@@ -867,13 +858,13 @@
   </command>
 </epp>
 ]]></artwork>
-            </figure>
+          </figure>
 
-            <figure>
-              <preamble>Example Claims Info Response when no matching 
-              trademark claims are found for the domain name.</preamble>
+          <figure>
+            <preamble>Example Claims Info Response when no matching trademark
+            claims are found for the domain name.</preamble>
 
-              <artwork><![CDATA[
+            <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -886,7 +877,7 @@
       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
       <launch:phase>claims</launch:phase>
       <launch:notice>
-        <launch:name>example.com</launch:name>
+        <launch:name>example.tld</launch:name>
         <launch:none/>
       </launch:notice>
      </launch:infData>
@@ -898,14 +889,13 @@
   </response>
  </epp>
  ]]></artwork>
-            </figure>
+          </figure>
 
+          <figure>
+            <preamble>Example Claims Info Response when two matching trademark
+            claims are found for the domain name.</preamble>
 
-            <figure>
-              <preamble>Example Claims Info Response when two matching 
-              trademark claims are found for the domain name.</preamble>
-
-              <artwork><![CDATA[
+            <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
  <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -918,7 +908,7 @@
       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
       <launch:phase>claims</launch:phase>
       <launch:notice>
-        <launch:name>example.com</launch:name>
+        <launch:name>example.tld</launch:name>
             <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
         <launch:claim>
           <launch:name>Hello</launch:name>
@@ -946,7 +936,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
         <launch:claim>
@@ -975,7 +965,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
       </launch:notice>
@@ -988,10 +978,7 @@
   </response>
  </epp>
  ]]></artwork>
-            </figure>
-
-          </section>
-        
+          </figure>
         </section>
 
         <!-- example info cmd -->
@@ -1000,31 +987,31 @@
       <!-- end INFO command -->
 
       <section title="EPP &lt;create&gt; Command">
-
-
         <t>There are two forms of the extension to the EPP &lt;create&gt;
         command that are dependent on the supported <xref
         target="phases">launch phases</xref> as defined below:</t>
 
         <t><list style="hanging">
             <t hangText="sunrise">The EPP &lt;create&gt; command with the
-            "sunrise" phase is used to submit an application with 
-            trademark information that can be verified by the server with 
-            the &lt;domain:name&gt; value.  Optionally, the server can 
-            support multiple overlapping applications that are chosen 
-            asynchronously with a server generated <xref
-            target="applicationID">application identifier</xref> for later 
-            reference.</t>
+            "sunrise" phase is used to submit an application with trademark
+            information that can be verified by the server with the
+            &lt;domain:name&gt; value. The <xref target="sunriseCreateForm">
+            Sunrise Create Form</xref> is used for the "sunrise" phase.
+            Optionally, the server can support multiple overlapping
+            applications that are chosen asynchronously with a server
+            generated <xref target="applicationID">Application
+            Identifier</xref> for later reference.</t>
 
             <t hangText="landrush">The EPP &lt;create&gt; command with the
             "landrush" phase is undefined but the form supported is up to
             server policy.</t>
 
             <t hangText="claims">The EPP &lt;create&gt; command with the
-            "claims" phase is used to pass the information that can be 
-            used to validate that the claims notice information was 
-            retrieved via the Claims Info Command and was accepted 
-            by the registrant.</t>
+            "claims" phase is used to pass the information that can be used to
+            validate that the claims notice information was retrieved via the
+            Claims Info Command and was accepted by the registrant. The <xref
+            target="claimsCreateForm">Claims Create Form</xref> is used for
+            the "claims" phase.</t>
 
             <t hangText="open">The EPP &lt;create&gt; command with the "open"
             phase is undefined but the form supported is up to server
@@ -1036,18 +1023,37 @@
           </list></t>
 
         <section anchor="sunriseCreateForm" title="Sunrise Create Form">
-        
-        <t>
-        Bla bla bla
-        </t>
-        
-        
-        
-        <section title="Example Sunrise Create Form &lt;create&gt; command">
+          <t>The Sunrise Create Form of the extension to the <xref
+          target="RFC5731">EPP domain name mapping</xref> includes the
+          verifiable trademark information that the server uses to match
+          against the domain name to authorize the domain create. A server
+          MUST support one of four models in <xref
+          target="validationModels">Claim Validation Models</xref> for the
+          verifiable trademark information passed by the client.</t>
+
+          <t>A &lt;launch:create&gt; element is sent along with the regular
+          &lt;create&gt; domain command. The &lt;launch:create&gt; element
+          contains the following child elements:</t>
+
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">The phase the application is
+              associated with.</t>
+
+              <t hangText="&lt;launch:codeClaim&gt;">zero or more
+              &lt;launch:codeClaim&gt; elements or</t>
+
+              <t hangText="&lt;launch:signedClaim&gt;">zero or more
+              &lt;launch:signedClaim&gt; elements.</t>
+            </list></t>
+
+          <t>The <xref target="validationModels">Claim Validation
+          Models</xref> section describes the &lt;launch:codeClaim&gt; and
+          &lt;launch:signedClaim&gt; elements.</t>
+
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with multiple 
-            sunrise codes.</preamble>
+            using the &lt;launch:create&gt; extension with multiple sunrise
+            codes.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1057,7 +1063,7 @@
     <create>
       <domain:create
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.newtld</domain:name>
+        <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -1087,11 +1093,10 @@
     ]]></artwork>
           </figure>
 
-
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with a code and 
-            claim information.</preamble>
+            using the &lt;launch:create&gt; extension with a code and claim
+            information.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1101,7 +1106,7 @@
     <create>
       <domain:create
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.newtld</domain:name>
+        <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -1115,37 +1120,37 @@
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
           <launch:phase>sunrise</launch:phase>
           <launch:codeClaim>
-        <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-        <launch:claim>
-          <launch:name>Hello</launch:name>
-          <launch:issuer>IP Clearinghouse</launch:issuer>
-          <launch:number>GE 3933232</launch:number>
-          <launch:type>REG-TM-WORD</launch:type>
-          <launch:entitlement>owner</launch:entitlement>
-          <launch:regDate>2011-09-09</launch:regDate>
-          <launch:exDate>2013-09-09</launch:exDate>
-          <launch:country>AU</launch:country>
-          <launch:region>VIC</launch:region>
-          <launch:owner>
-            <launch:org>Example Inc.</launch:org>
-          </launch:owner>
-          <launch:contact>
-            <launch:name>John Doe</launch:name>
-            <launch:org>Example Inc.</launch:org>
-            <launch:addr>
-              <launch:street>123 Example Dr.</launch:street>
-              <launch:street>Suite 100</launch:street>
-              <launch:city>Reston</launch:city>
-              <launch:sp>VA</launch:sp>
-              <launch:pc>20190</launch:pc>
-              <launch:cc>US</launch:cc>
-            </launch:addr>
-            <launch:voice x="1234">+1.7035555555</launch:voice>
-            <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
-          </launch:contact>
-        </launch:claim>
-      </launch:codeClaim>
+            <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+            <launch:claim>
+              <launch:name>Hello</launch:name>
+              <launch:issuer>IP Clearinghouse</launch:issuer>
+              <launch:number>GE 3933232</launch:number>
+              <launch:type>REG-TM-WORD</launch:type>
+              <launch:entitlement>owner</launch:entitlement>
+              <launch:regDate>2011-09-09</launch:regDate>
+              <launch:exDate>2013-09-09</launch:exDate>
+              <launch:country>AU</launch:country>
+              <launch:region>VIC</launch:region>
+              <launch:owner>
+                <launch:org>Example Inc.</launch:org>
+              </launch:owner>
+              <launch:contact>
+                <launch:name>John Doe</launch:name>
+                <launch:org>Example Inc.</launch:org>
+                <launch:addr>
+                  <launch:street>123 Example Dr.</launch:street>
+                  <launch:street>Suite 100</launch:street>
+                  <launch:city>Reston</launch:city>
+                  <launch:sp>VA</launch:sp>
+                  <launch:pc>20190</launch:pc>
+                  <launch:cc>US</launch:cc>
+                </launch:addr>
+                <launch:voice x="1234">+1.7035555555</launch:voice>
+                <launch:fax>+1.7035555556</launch:fax>
+                <launch:email>jdoe@example.tld</launch:email>
+              </launch:contact>
+            </launch:claim>
+          </launch:codeClaim>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
@@ -1154,10 +1159,9 @@
 ]]></artwork>
           </figure>
 
-
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with signed claim 
+            using the &lt;launch:create&gt; extension with signed claim
             information.</preamble>
 
             <artwork><![CDATA[
@@ -1172,7 +1176,7 @@
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
        xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
        domain-1.0.xsd">
-        <domain:name>example.newtld</domain:name>
+        <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -1218,7 +1222,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
             <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
@@ -1253,10 +1257,25 @@
 ]]></artwork>
           </figure>
 
+          <t>If the create was successful, the server MAY reply with the
+          &lt;launch:creData&gt; element along with the regular EPP
+          &lt;resData&gt; to indicate the server generated <xref
+          target="applicationID">Application Identifier</xref> when multiple
+          applications of a given domain name is supported; otherwise no
+          extension is included with the regular EPP &lt;resData&gt;. The
+          &lt;launch:creData&gt; element contains the following child
+          elements: <list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">The phase of the application
+              that mirrors the &lt;launch:phase&gt; element included in the
+              &lt;launch:create&gt;.</t>
+
+              <t hangText="&lt;launch:applicationID&gt;">the application
+              identifier of the application.</t>
+            </list></t>
 
           <figure>
-            <preamble>An example response that corresponds to the above
-            command.</preamble>
+            <preamble>An example response when multiple overlapping
+            applications are supported by the server.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1275,6 +1294,7 @@
     </resData>
     <extension>
       <launch:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0">
+        <launch:phase>sunrise</launch:phase>
         <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
       </launch:creData>
     </extension>
@@ -1286,26 +1306,88 @@
 </epp>
     ]]></artwork>
           </figure>
+
+          <!-- end example sunrise create cmd -->
         </section>
 
-        <!-- example sunrise create cmd -->
-        
-        
-        </section>
-        
-        
         <section anchor="claimsCreateForm" title="Claims Create Form">
-        
-        <t>
-        Bla bla bla
-        </t>
-        
-        
-        
-        <section title="Example Claims Create Form &lt;create&gt; command">
+          <t>The Claims Create Form of the extension to the <xref
+          target="RFC5731">EPP domain name mapping</xref> includes the
+          information related to the acceptance of the claims notice that is
+          based on the contents of the Claims Info Response defined in the
+          <xref target="claimsInfoForm">Claims Info Form</xref> section.</t>
+
+          <t>A &lt;launch:create&gt; element is sent along with the regular
+          &lt;create&gt; domain command. The &lt;launch:create&gt; element
+          contains the following child elements:</t>
+
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">Must contain the value of
+              "claims" to indicate it is the Claims Create Form</t>
+
+              <t
+              hangText="&lt;launch:notice&gt; or &lt;launch:signedNotice&gt;">
+                  <list hangIndent="4" style="hanging">
+                    <t hangText="&lt;launch:notice&gt;">Reference to claims
+                    notice information using a server generated notice
+                    identifier. The &lt;launch:notice&gt; element has the
+                    following child elements:</t>
+
+                    <t>
+                      <list hangIndent="4" style="hanging">
+                        <t hangText="&lt;launch:noticeID&gt;">Server generated
+                        identifier for the claim notice information returned
+                        in the &lt;launch:infData&gt; element. The server MUST
+                        validate the noticeID either matches the exact claims
+                        information returned in the &lt;launch:infData&gt; or
+                        the current claims information associated with the
+                        domain name. The method of validation is up to server
+                        policy. If the launchID does not pass the validation
+                        the server MUST return an EPP error result code of
+                        2202.</t>
+
+                        <t hangText="&lt;launch:timestamp&gt;">Contains the
+                        date and time that the claims notice was accepted</t>
+
+                        <t hangText="&lt;launch:clientAddr&gt;">Contains the
+                        client IP address of the client that accepted the
+                        claims notice.</t>
+                      </list>
+                    </t>
+
+                    <t hangText="&lt;launch:signedNotice&gt;">Signed claims
+                    reference information generated by a trusted third party
+                    like the Trademark Clearinghouse (TMCH). The signature can
+                    be verified by the server using the trusted third party public
+                    key.  The &lt;launch:signedNotice&gt; element has the 
+                    following child elements:</t>
+                    
+                    <t>
+                       <list hangIndent="4" style="hanging">
+                        <t hangText="&lt;launch:noticeID&gt;">Notice 
+                        identifier generated by the trusted third party that
+                        can be used for traceability from the third party to 
+                        the client to the server.</t>
+                        <t hangText="&lt;Signature&gt;">Digital Signature 
+                        over the &lt;launch:signedNotice&gt; based on the 
+                        <eref
+            target="http://www.w3.org/TR/xmldsig-core/">XML Signature</eref> 
+            				standard.  The &lt;Transform&gt; Algorithm is set to 
+            				"http://www.w3.org/2000/09/xmldsig#enveloped-signature" 
+            				along with the &lt;Reference&gt; URI is set to 
+            				"#pointer(..)" to have the signature apply across the 
+            				entire &lt;launch:signedNotice&gt; element.  The 
+            				digital signature can be verified by the server using 
+            				the trusted third party public key.</t>  
+                       </list>
+                    </t>
+                  </list>
+                </t>
+            </list></t>
+
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with the trademark 
+            using the &lt;launch:create&gt; extension with the trademark
             claims notice reference information.</preamble>
 
             <artwork><![CDATA[
@@ -1316,7 +1398,7 @@
     <create>
       <domain:create
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.newtld</domain:name>
+        <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -1331,8 +1413,8 @@
         <launch:phase>claims</launch:phase>
         <launch:notice>
           <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-            <launch:timestamp>2012-06-19T09:00:00.0Z</launch:timestamp>
-            <launch:clientAddr ip="v4">192.0.2.29</launch:clientAddr>
+          <launch:timestamp>2012-06-19T09:00:00.0Z</launch:timestamp>
+          <launch:clientAddr ip="v4">192.0.2.29</launch:clientAddr>
         </launch:notice>
       </launch:create>
     </extension>
@@ -1342,11 +1424,10 @@
     ]]></artwork>
           </figure>
 
-
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with the signed 
-            notice reference information.</preamble>
+            using the &lt;launch:create&gt; extension with the signed notice
+            reference information.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1360,7 +1441,7 @@
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
        xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
        domain-1.0.xsd">
-        <domain:name>example.newtld</domain:name>
+        <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -1408,18 +1489,7 @@
 ]]></artwork>
           </figure>
 
-        </section>
-
-        <!-- example claims create cmd -->
-        
-        </section>
-        
-        <section title="Client Processing Considerations">
-          <t>The client MUST ensure that any successful &lt;info&gt; command
-          results in a response that an &lt;launch:infData&gt; element is
-          returned in the response. This serves as a cross check that the
-          server did receive the query for the application (and not a domain
-          of the same name) and processed it as it was intended.</t>
+          <!-- end example claims create cmd -->
         </section>
       </section>
 
@@ -1430,14 +1500,19 @@
         &lt;update&gt; command to be used in conjunction with the domain name
         mapping.</t>
 
+        <t>A server that does not support allow multiple applications of a
+        given domain name with a <xref target="applicationID">Application
+        Identifier</xref> during its launch phase operations MUST return an
+        EPP error result code of 2102.</t>
+
         <t>Registry policies permitting, clients may update an application
         object by submitting an EPP &lt;update&gt; command along with an
         &lt;launch:update&gt; element to indicate the application object to be
         updated. The &lt;launch:update&gt; element contains the following
-        child elements: <list hangIndent="8" style="hanging">
-            <t hangText="&lt;launch:phase&gt;">the phase during
-            which the application was submitted or is associated with.</t>
-            
+        child elements: <list hangIndent="4" style="hanging">
+            <t hangText="&lt;launch:phase&gt;">the phase during which the
+            application was submitted or is associated with.</t>
+
             <t hangText="&lt;launch:applicationID&gt;">the application
             identifier for which the client wishes to update.</t>
           </list></t>
@@ -1447,22 +1522,13 @@
         server replies with a standard EPP response as defined in the EPP
         domain mapping.</t>
 
-        <section title="Server Processing Considerations">
-          <t>A server implementation that conforms to this specification MUST
-          respect and process the &lt;launch:update&gt; section, if present,
-          and MUST respond with an error if the applicationID does not
-          correspond with the domain name in the &lt;domain:name&gt;
-          element.</t>
-        </section>
+        <figure>
+          <preamble>Following is an example &lt;update&gt; domain command with
+          the &lt;launch:update&gt; extension to add and remove a name server
+          of a sunrise application with the application identifier
+          "abc123".</preamble>
 
-        <section title="Example &lt;update&gt; command">
-          <figure>
-            <preamble>Following is an example &lt;update&gt; domain command
-            with the &lt;launch:update&gt; extension to add and remove 
-            a name server of a sunrise application with the application 
-            identifier "abc123".</preamble>
-
-            <artwork><![CDATA[
+          <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -1470,15 +1536,15 @@
     <update>
       <domain:update
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.com</domain:name>
+        <domain:name>example.tld</domain:name>
         <domain:add>
             <domain:ns>
-              <domain:hostObj>ns2.example.com</domain:hostObj>
+              <domain:hostObj>ns2.example.tld</domain:hostObj>
             </domain:ns>
           </domain:add>
           <domain:rem>
             <domain:ns>
-              <domain:hostObj>ns1.example.com</domain:hostObj>
+              <domain:hostObj>ns1.example.tld</domain:hostObj>
             </domain:ns>
           </domain:rem>
       </domain:update>
@@ -1494,13 +1560,13 @@
   </command>
 </epp>
 ]]></artwork>
-          </figure>
+        </figure>
 
-          <figure>
-            <preamble>An example response that corresponds to the above
-            command.</preamble>
+        <figure>
+          <preamble>An example response that corresponds to the above
+          command.</preamble>
 
-            <artwork><![CDATA[
+          <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
@@ -1514,8 +1580,7 @@
   </response>
 </epp>
     ]]></artwork>
-          </figure>
-        </section>
+        </figure>
 
         <!-- example update cmd -->
       </section>
@@ -1527,14 +1592,19 @@
         &lt;delete&gt; command to be used in conjunction with the domain name
         mapping.</t>
 
-        <t>Registry policies permitting, clients may withdraw an application
+        <t>A server that does not support allow multiple applications of a
+        given domain name with a <xref target="applicationID">Application
+        Identifier</xref> during its launch phase operations MUST return an
+        EPP error result code of 2102.</t>
+
+        <t>Registry policies permitting, clients MAY withdraw an application
         by submitting an EPP &lt;delete&gt; command along with an
         &lt;launch:delete&gt; element to indicate the application object to be
         deleted. The &lt;launch:delete&gt; element contains the following
-        child elements: <list hangIndent="8" style="hanging">
-            <t hangText="&lt;launch:phase&gt;">the phase during
-            which the application was submitted or is associated with.</t>
-            
+        child elements: <list hangIndent="4" style="hanging">
+            <t hangText="&lt;launch:phase&gt;">the phase during which the
+            application was submitted or is associated with.</t>
+
             <t hangText="&lt;launch:applicationID&gt;">the application
             identifier for which the client wishes to delete.</t>
           </list></t>
@@ -1544,27 +1614,11 @@
         server replies with a standard EPP response as defined in the EPP
         domain mapping.</t>
 
-        <section title="Server Processing Considerations">
-          <t>A server implementation that conforms to this specification MUST
-          respect and process the &lt;launch:delete&gt; section, if present,
-          and MUST respond with an error if the applicationID does not
-          correspond with the domain name in the &lt;domain:name&gt;
-          element.</t>
+        <figure>
+          <preamble>Following is an example &lt;delete&gt; domain command with
+          the &lt;launch:delete&gt; extension.</preamble>
 
-          <t>Depending on the server policy, an implementation may choose to
-          delete the application object immediately if business rules allow.
-          In that case, the server MUST respond with an EPP 1000 result code.
-          Alternatively, the server may choose to cancel the application
-          object, in which case it SHOULD respond with an EPP 1001 result code
-          to indicate that the object will be purged at a later date.</t>
-        </section>
-
-        <section title="Example &lt;delete&gt; command">
-          <figure>
-            <preamble>Following is an example &lt;delete&gt; domain command
-            with the &lt;launch:delete&gt; extension.</preamble>
-
-            <artwork><![CDATA[
+          <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -1572,7 +1626,7 @@
    <delete>
     <domain:delete
      xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-      <domain:name>example.com</domain:name>
+      <domain:name>example.tld</domain:name>
     </domain:delete>
    </delete>
    <extension>
@@ -1586,13 +1640,13 @@
   </command>
 </epp>    
 ]]></artwork>
-          </figure>
+        </figure>
 
-          <figure>
-            <preamble>An example response that corresponds to the above
-            command.</preamble>
+        <figure>
+          <preamble>An example response that corresponds to the above
+          command.</preamble>
 
-            <artwork><![CDATA[
+          <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <response>
@@ -1606,8 +1660,7 @@
   </response>
 </epp>
     ]]></artwork>
-          </figure>
-        </section>
+        </figure>
 
         <!-- example delete cmd -->
       </section>

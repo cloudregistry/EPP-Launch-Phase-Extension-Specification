@@ -12,7 +12,7 @@
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
         xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
         domain-1.0.xsd">
-         <domain:name>example.com</domain:name>
+         <domain:name>example.tld</domain:name>
          <domain:roid>EXAMPLE1-REP</domain:roid>
          <domain:status s="pendingCreate"/>
          <domain:registrant>jd1234</domain:registrant>

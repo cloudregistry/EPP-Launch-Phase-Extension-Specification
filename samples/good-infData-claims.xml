@@ -14,7 +14,7 @@
       launch-1.0.xsd">
       <launch:phase>claims</launch:phase>
       <launch:notice>
-        <launch:name>example.com</launch:name>
+        <launch:name>example.tld</launch:name>
         <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
         <launch:claim>
           <launch:name>Hello</launch:name>
@@ -42,7 +42,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
         <launch:claim>
@@ -71,7 +71,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
       </launch:notice>

@@ -14,7 +14,7 @@
       launch-1.0.xsd">
       <launch:phase>claims</launch:phase>
       <launch:notice>
-        <launch:name>example.com</launch:name>
+        <launch:name>example.tld</launch:name>
         <launch:none/>
       </launch:notice>
      </launch:infData>

@@ -12,7 +12,7 @@
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
         xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
         domain-1.0.xsd">
-         <domain:name>example.com</domain:name>
+         <domain:name>example.tld</domain:name>
          <domain:roid>EXAMPLE1-REP</domain:roid>
          <domain:status s="pendingCreate"/>
          <domain:registrant>jd1234</domain:registrant>
@@ -62,7 +62,7 @@
             </launch:addr>
             <launch:voice x="1234">+1.7035555555</launch:voice>
             <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.com</launch:email>
+            <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
         </launch:claim>
       </launch:codeClaim>
