@@ -165,7 +165,7 @@
       is defined in <xref target="RFC5731">EPP domain name mapping</xref>. for
       example, registries typically accept multiple applications for a given
       domain name during the "sunrise" launch phase. In addition, the <eref
-      target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf">Trademark
+      target="http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf">Trademark
       Clearinghouse Draft Implementation Model</eref> defines a registry
       interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
@@ -201,7 +201,7 @@
         <t>Servers MAY allow multiple applications of a given domain name
         during its launch phase operations. Upon receiving a request to create
         a domain name, the server creates an application object corresponding
-        to the request and assigns an Application Identifier the application
+        to the request and assigns an application identifier for the application
         and returns it to the client with the &lt;launch:applicationID&gt;
         element. In order to facilitate correlation, all subsequent launch
         operations on the application object MUST be qualified by the
@@ -214,7 +214,7 @@
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
         the client to define the target launch phase of the command.</t>
 
-        <t>The following Launch Phase values are defined: <list
+        <t>The following launch phase values are defined: <list
             style="hanging">
             <t hangText="sunrise">Phase when trademark holders can submit
             registration applications with trademark information that can be
@@ -224,7 +224,7 @@
             holders are allowed to register domain names.</t>
 
             <t hangText="claims">Trademark claims phase as defined by <eref
-            target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf">Trademark
+            target="http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf">Trademark
             Clearinghouse Draft Implementation Model</eref>.</t>
 
             <t hangText="open">Post launch phase that is also referred to as
@@ -306,14 +306,14 @@
       </section>
 
       <section anchor="validationModels" title="Claim Validation Models">
-        <t>A server MUST support one of four models for validating the claim
+        <t>A server MUST support one of four models for validating the trademark claim
         information:</t>
 
         <t><list style="hanging">
             <t hangText="code">Use of a claim code by itself to validate that
-            the claim matches domain name. The code is the "sunrise code" as
+            the claim matches the domain name. The code is the "sunrise code" as
             defined in <eref
-            target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf">Trademark
+            target="http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf">Trademark
             Clearinghouse Draft Implementation Model</eref> that is validated
             by the server using its local sunrise code data. This model is
             supported using the &lt;launch:codeClaim&gt; element with just the
@@ -321,38 +321,91 @@
 
             <t hangText="claim">The claim information is passed without any
             other validation element. The server will use some custom form of
-            validation to validate the claim information is authentic. This
+            validation to validate that the claim information is authentic. This
             model is supported using the &lt;launch:codeClaim&gt; element with
             just the &lt;launch:claim&gt; element.</t>
 
             <t hangText="code with claim:">A code is used along with the claim
-            information by the server to validate utilizing an external party
+            information by the server to validate the claim utilizing an external party
             like a Trademark Clearinghouse. The code represents some form of
             secret that matches the claims information passed. This model is
             supported using the &lt;launch:codeClaim&gt; element with both the
             &lt;launch:code&gt; and the &lt;launch:claim&gt; element.</t>
 
             <t hangText="signed claim:">The claim information is digitally
-            signed via the <eref
-            target="http://www.w3.org/TR/xmldsig-core/">XML Signature</eref>
-            and can be directly validated by the server using the public key
-            of the external party that created the signed claim. The public
-            key could be previously held by the server or could be passed in
-            the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
-            Signature</eref>. It's up to server policy how the public key is
-            transferred. This model is supported using the
-            &lt;launch:signedClaim&gt; element that contains the
-            &lt;launch:claim&gt; element with the claim information as well as
-            the XML Signature and other information validated by an external
-            party like a Trademark Clearinghouse.</t>
+            signed as described in the <xref target="digitalsignature">Digital Signature</xref>
+            section.  The digital signature can be directly validated by the 
+            server using the public key
+            of the external party that created the signed claim. This model is 
+            supported using the
+            <xref target="signedClaim">&lt;launch:signedClaim&gt;</xref> and 
+            <xref target="signedNotice">&lt;launch:signedNotice&gt;</xref> 
+            elements.</t>
           </list></t>
 
-        <t>The &lt;launch:claim&gt; element supporting the different Claim
-        Validation Models is defined in <xref target="claim">Claim</xref>
-        section. A server MAY support more than one claim per domain name.
-        More than one &lt;launch:codeClaim&gt; element or more than one
+        <t>More than one &lt;launch:codeClaim&gt; element or more than one
         &lt;launch:signedClaim&gt; element MAY be specified. The maximum
         number of claims per domain name is up to server policy.</t>
+        
+        <section anchor="codeClaim" title="&lt;launch:codeClaim&gt; element">
+           <t>The &lt;launch:codeClaim&gt; element that is used by the "code", 
+           "claim", and "code with claim" validation models has the following child 
+           elements:
+           <list style="hanging">
+              <t hangText="&lt;launch:code&gt;:">OPTIONAL claim code used to 
+              validate the &lt;launch:claim&gt; information or to directly 
+              validate the claim against the domain name.  The claim code 
+              can be a claim specific secret value that the server can verify 
+              against a third party or can be directly combined with the 
+              domain name to verify against a server code file.</t>
+              <t hangText="&lt;launch:claim&gt;:">OPTIONAL claim information 
+              with child elements defined in the <xref target="claim">Claim</xref> 
+              section.</t>
+           </list></t>
+                   <figure>
+            <preamble>The following is an example &lt;launch:codeClaim&gt;
+            element with both a &lt;launch:code&gt; and a 
+            &lt;launch:claim&gt; element.</preamble>
+
+            <artwork><![CDATA[
+<launch:codeClaim>
+  <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+  <launch:claim>
+    <launch:name>Example One</launch:name>
+    <launch:label>example-one</launch:label>
+    <launch:label>exampleone</launch:label>
+    <launch:issuer>IP Clearinghouse</launch:issuer>
+    <launch:number>GE 3933232</launch:number>
+    <launch:type>REG-TM-WORD</launch:type>
+    <launch:entitlement>owner</launch:entitlement>
+    <launch:regDate>2011-09-09</launch:regDate>
+    <launch:exDate>2013-09-09</launch:exDate>
+    <launch:country>AU</launch:country>
+    <launch:region>VIC</launch:region>
+    <launch:owner>
+      <launch:org>Example Inc.</launch:org>
+    </launch:owner>
+    <launch:contact>
+      <launch:name>John Doe</launch:name>
+      <launch:org>Example Inc.</launch:org>
+      <launch:addr>
+        <launch:street>123 Example Dr.</launch:street>
+        <launch:street>Suite 100</launch:street>
+        <launch:city>Reston</launch:city>
+        <launch:sp>VA</launch:sp>
+        <launch:pc>20190</launch:pc>
+        <launch:cc>US</launch:cc>
+      </launch:addr>
+      <launch:voice x="1234">+1.7035555555</launch:voice>
+      <launch:fax>+1.7035555556</launch:fax>
+      <launch:email>jdoe@example.tld</launch:email>
+    </launch:contact>
+  </launch:claim>
+</launch:codeClaim>
+]]></artwork>
+          </figure>
+           
+        </section>
       </section>
 
       <section anchor="claim" title="Claim">
@@ -361,46 +414,268 @@
 
         <t>The child elements of the &lt;launch:claim&gt; element include:
         <list style="hanging">
-            <t hangText="&lt;id&gt;:">an identifier for the claim. This
+            <t hangText="&lt;launch:id&gt;:">an identifier for the claim. This
             identifier MUST be unique among all claims associated with an
             application object.</t>
 
-            <t hangText="&lt;name&gt;:">identifying the text string in which
+            <t hangText="&lt;launch:name&gt;:">identifying the text string in which
             the applicant is claiming a prior right</t>
+            
+            <t hangText="&lt;launch:label&gt;:">Zero or more domain name labels that corresponds 
+            to the &lt;launch:name&gt;.  Each &lt;launch:label&gt; can match 
+            directly to the domain name after adding the top level domain.</t>            
 
-            <t hangText="&lt;issuer&gt;:">name of the authority which issued
-            the right (for example, the trademark clearinghouse, a trademark
-            office or company registration bureau)</t>
+            <t hangText="&lt;launch:issuer&gt;:">name of the authority which issued
+            the right (trademark clearinghouse, trademark office, company registration bureau, etc.)</t>
 
-            <t hangText="&lt;number&gt;:">the registration number of the right
-            (ie trademark number or company registration number)</t>
+            <t hangText="&lt;launch:number&gt;:">the registration number of the right
+            (trademark number, company registration number, etc.)</t>
 
-            <t hangText="&lt;type&gt;:">indicates the type of claim being made
-            (eg trademark, symbol, combined mark, company name)</t>
+            <t hangText="&lt;launch:type&gt;:">indicates the type of claim being made
+            (trademark, symbol, combined mark, company name, etc.)</t>
 
-            <t hangText="&lt;entitlement&gt;:">indicates the applicant's
-            entitlement to the claim (ie, owner or licensee)</t>
+            <t hangText="&lt;launch:entitlement&gt;:">indicates the applicant's
+            entitlement to the claim (owner, licensee, etc.)</t>
 
-            <t hangText="&lt;regDate&gt;:">the date of registration of the
+            <t hangText="&lt;launch:regDate&gt;:">the date of registration of the
             claim</t>
 
-            <t hangText="&lt;exDate&gt;:">the date of expiration of the
+            <t hangText="&lt;launch:exDate&gt;:">the date of expiration of the
             claim</t>
 
-            <t hangText="&lt;country&gt;:">indicates the country in which the
+            <t hangText="&lt;launch:country&gt;:">indicates the country in which the
             claim is valid</t>
 
-            <t hangText="&lt;region&gt;:">indicates the name of a city, state,
+            <t hangText="&lt;launch:region&gt;:">indicates the name of a city, state,
             province or other geographic region in which the claim is valid.
             This may be a two-character code from [WIPO.ST3]</t>
 
-            <t hangText="&lt;owner&gt;:">Owner information</t>
+            <t hangText="&lt;launch:owner&gt;:">Owner information using the <xref target="contact">Contact</xref> 
+            elements.</t>
 
-            <t hangText="&lt;contact&gt;:">Contact for the owner</t>
-          </list> Apart from the &lt;name&gt; element, all other child
-        elements are optional. Server policy may place additional constraints
+            <t hangText="&lt;launch:contact&gt;:">Contact for the owner using the 
+            <xref target="contact">Contact</xref> element.</t>
+          </list>All of the child elements are OPTIONAL. Server policy may 
+          place additional constraints on the format and requirements of such elements.</t>
+      </section>
+      
+      <section anchor="contact" title="Contact">
+        <t>The contact information contained within the <xref target="claim">Claim</xref> cannot 
+        be defined via a contact identifier as defined in the <xref target="RFC5733">EPP contact mapping</xref> since 
+        it is contact information defined outside of the server.  Some of the contact elements defined in 
+        <xref target="RFC5733">EPP contact mapping</xref> are replicated in this extension.</t>  
+
+        <t>The child elements of a contact using either the &lt;launch:owner&gt; or 
+        &lt;launch:contact&gt; elements include:
+        <list hangIndent="4" style="hanging">
+            <t hangText="&lt;launch:id&gt;:">identifier of contact that MUST be unique among all contacts of the external third party.</t>
+
+            <t hangText="&lt;launch:name&gt;:">name of the individual or role represented by the contact.</t>
+
+            <t hangText="&lt;launch:org&gt;:">name of the organization with which the contact is affiliated.</t>
+
+            <t hangText="&lt;launch:addr&gt;:">address information assocated with the contact.  the &lt;launch:addr&gt; element contains 
+            the following child elements:</t>
+
+              <t><list hangIndent="4" style="hanging">
+                  <t hangText="&lt;launch:street&gt;">one, two, or three &lt;launch:street&gt; elements that contain 
+                  the contact's street address.</t>
+
+                  <t hangText="&lt;launch:city&gt;">contact's city</t>
+
+                  <t hangText="&lt;launch:sp&gt;">contact's state or province</t>
+
+                  <t hangText="&lt;launch:cc&gt;">contact's country code</t>
+                </list></t>
+
+
+            <t hangText="&lt;launch:voice&gt;:">contact's voice telephone number</t>
+
+            <t hangText="&lt;launch:fax&gt;:">contact's facsimile telephone number</t>
+
+            <t hangText="&lt;launch:email&gt;:">contact's email address</t>
+
+          </list> All of the child elements are OPTIONAL.  Server policy may place additional constraints
         on the format and requirements of such elements.</t>
       </section>
+      
+      <section anchor="digitalsignature" title="Digital Signature">
+        <t>Digital signatures can be used by the server to validate either 
+        the claims information, when using the signed claim model with the 
+        &lt;launch:signedClaim&gt; element, or the claims notice with the 
+        &lt;launch:signedNotice&gt; element.  The digital signatures are   
+        handled using the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
+            Signature</eref> standard around the entire &lt;launch:signedClaim&gt; 
+         or &lt;launch:signedNotice&gt; elements.  Once the digital signature 
+         is validated using the appropriate public key, the server can trust 
+         all of the information included in the &lt;launch:signedClaim&gt; 
+         or &lt;launch:signedNotice&gt; elements.  It's up to server policy how 
+         the public key is transferred.</t>  
+         <t>To have the digital signature cover all of the elements of the 
+         &lt;launch:signedClaim&gt; and &lt;launch:signedNotice&gt; elements, 
+         the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
+            Signature</eref> Reference URI is set to "#pointer(..)" and the 
+            Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is 
+            used.  Both of these has the digital signature cover the parent 
+            element of the Signature and to specify that the Signature 
+            is embedded in the element.
+        </t>
+
+     <section anchor="signedClaim" title="&lt;launch:signedClaim&gt; element">
+        <t>The child elements of the &lt;launch:signedClaim&gt; element include:
+        <list style="hanging">
+            <t hangText="&lt;launch:serial&gt;:">Signature serial number that 
+            that can be compared with a revocation list by the server.</t>
+
+            <t hangText="&lt;launch:tld&gt;:">Zero or more top level domain names 
+            the &lt;launch:signedClaim&gt; can be used with.  No &lt;launch:tld&gt; 
+            element indicates that the &lt;launch:signedClaim&gt; can be used with all 
+            top level domain names.</t>
+            
+            <t hangText="&lt;launch:exDate&gt;:">OPTIONAL date and time that the 
+            &lt;launch:signedClaim&gt; expires.  The server MUST NOT accept 
+            a &lt;launch:signedClaim&gt; that has expired.  No &lt;launch:exDate&gt; 
+            element indicates that there is no expiry.</t>            
+
+            <t hangText="&lt;launch:claim&gt;:">Claim information as defined in the  
+            <xref target="claim">Claim</xref> section.</t>
+
+            <t hangText="&lt;Signature&gt;:">
+            <eref target="http://www.w3.org/TR/xmldsig-core/">XML
+            Signature</eref> for the &lt;launch:signedClaim&gt;</t>
+
+          </list></t>
+          
+                   <figure>
+            <preamble>The following is an example &lt;launch:signedClaim&gt;
+            using the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
+            Signature</eref> to sign all of the elements of 
+            &lt;launch:signedClaim&gt; element.</preamble>
+
+            <artwork><![CDATA[
+<launch:signedClaim>
+  <launch:serial>123456</launch:serial>
+  <launch:tld>newtld</launch:tld>
+  <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
+  <launch:claim>
+    <launch:name>Example One</launch:name>
+    <launch:label>example-one</launch:label>
+    <launch:label>exampleone</launch:label>
+    <launch:issuer>IP Clearinghouse</launch:issuer>
+    <launch:number>GE 3933232</launch:number>
+    <launch:type>REG-TM-WORD</launch:type>
+    <launch:entitlement>owner</launch:entitlement>
+    <launch:regDate>2011-09-09</launch:regDate>
+    <launch:exDate>2013-09-09</launch:exDate>
+    <launch:country>AU</launch:country>
+    <launch:region>VIC</launch:region>
+    <launch:owner>
+      <launch:org>Example Inc.</launch:org>
+    </launch:owner>
+    <launch:contact>
+      <launch:name>John Doe</launch:name>
+      <launch:org>Example Inc.</launch:org>
+      <launch:addr>
+        <launch:street>123 Example Dr.</launch:street>
+        <launch:street>Suite 100</launch:street>
+        <launch:city>Reston</launch:city>
+        <launch:sp>VA</launch:sp>
+        <launch:pc>20190</launch:pc>
+        <launch:cc>US</launch:cc>
+      </launch:addr>
+      <launch:voice x="1234">+1.7035555555</launch:voice>
+      <launch:fax>+1.7035555556</launch:fax>
+      <launch:email>jdoe@example.tld</launch:email>
+    </launch:contact>
+  </launch:claim>
+  <Signature xmlns=
+    "http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod 
+        Algorithm=
+        "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <SignatureMethod 
+        Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
+      <Reference URI="#pointer(..)">
+        <Transforms>
+          <Transform
+            Algorithm=
+            "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+          </Transforms>
+        <DigestMethod 
+          Algorithm=
+          "http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>
+      cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
+    </SignatureValue>
+  </Signature>
+</launch:signedClaim>
+]]></artwork>
+          </figure>
+
+        </section>
+         
+     <section anchor="signedNotice" title="&lt;launch:signedNotice&gt; element">
+        <t>The child elements of the &lt;launch:signedNotice&gt; element include:
+        <list style="hanging">
+            <t hangText="&lt;launch:noticeID&gt;:">Unique notice identifier 
+            generated by the third party.  The &lt;launch:noticeID&gt; can be 
+            compared with a revocation list by the server.</t>
+
+            <t hangText="&lt;launch:exDate&gt;:">OPTIONAL date and time that the 
+            &lt;launch:signedNotice&gt; expires.  The server MUST NOT accept 
+            a &lt;launch:signedNotice&gt; that has expired.  No &lt;launch:exDate&gt; 
+            element indicates that there is no expiry.</t>            
+            
+            <t hangText="&lt;Signature&gt;:">
+            <eref target="http://www.w3.org/TR/xmldsig-core/">XML
+            Signature</eref> for the &lt;launch:signedNotice&gt;</t>
+
+          </list></t>      
+         
+         <figure>
+            <preamble>The following is an example &lt;launch:signedNotice&gt;
+            using the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
+            Signature</eref> to sign all of the elements of 
+            &lt;launch:signedNotice&gt; element.</preamble>
+
+            <artwork><![CDATA[
+<launch:signedNotice>
+ <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+ <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
+ <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+   <SignedInfo>
+     <CanonicalizationMethod 
+       Algorithm=
+       "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+     <SignatureMethod 
+       Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
+     <Reference URI="#pointer(..)">
+       <Transforms>
+         <Transform
+           Algorithm=
+           "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+       </Transforms>
+       <DigestMethod 
+         Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+       <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
+     </Reference>
+   </SignedInfo>
+   <SignatureValue>
+    cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
+    </SignatureValue>
+  </Signature>
+</launch:signedNotice>
+]]></artwork>
+          </figure>
+
+        </section>
+
+      </section>
+      
     </section>
 
     <section anchor="commands" title="EPP Command Mapping">
@@ -421,7 +696,7 @@
       mapping</xref>. Registries may choose to support a subset of the
       operations.</t>
 
-      <section title="EPP &lt;check&gt; Command">
+      <section anchor="checkCommand" title="EPP &lt;check&gt; Command">
         <t>This extension does not define any extension to the EPP
         &lt;check&gt; command or response described in the <xref
         target="RFC5731">EPP domain name mapping</xref>.</t>
@@ -475,7 +750,8 @@
           target="RFC5731">EPP domain name mapping</xref> gets information on
           an application created with the &lt;launch:create&gt; using the
           <xref target="applicationID">Application Identifier</xref> returned
-          in the &lt;launch:creData&gt; element. A &lt;launch:info&gt; element
+          in the &lt;launch:creData&gt; element of the 
+          <xref target="createCommand">Create Response</xref>. A &lt;launch:info&gt; element
           is sent along with the regular &lt;info&gt; domain command. The
           &lt;launch:info&gt; element contains the following child
           elements:</t>
@@ -532,16 +808,24 @@
               using one of the supported <xref target="statuses">status
               values</xref>.</t>
 
+              <t
+              hangText="&lt;launch:codeClaim&gt; or &lt;launch:signedClaim&gt;">
+                  <list hangIndent="4" style="hanging">
+
               <t hangText="&lt;launch:codeClaim&gt;">zero or more
-              &lt;launch:codeClaim&gt; elements or</t>
+              &lt;launch:codeClaim&gt; elements.  The &lt;launch:codeClaim&gt;
+              child elements are defined in the 
+              <xref target="codeClaim">&lt;launch:codeClaim&gt; element</xref> 
+              section.</t>
 
               <t hangText="&lt;launch:signedClaim&gt;">zero or more
-              &lt;launch:signedClaim&gt; elements.</t>
+              &lt;launch:signedClaim&gt; elements.  The &lt;launch:signedClaim&gt; 
+              child elements are defined in 
+              the <xref target="signedClaim">&lt;launch:signedClaim&gt; element</xref> 
+              section.</t>
+              
+              </list></t>
             </list></t>
-
-          <t>The <xref target="validationModels">Claim Validation
-          Models</xref> section describes the &lt;launch:codeClaim&gt; and
-          &lt;launch:signedClaim&gt; elements.</t>
 
           <figure>
             <preamble>Example &lt;info&gt; domain response using the Sunrise
@@ -601,7 +885,7 @@
 
           <figure>
             <preamble>Example &lt;info&gt; domain response using the Sunrise
-            Info Form &lt;launch:infData&gt; extension with a code and claim
+            Info Form &lt;launch:infData&gt; extension with code and claim
             information.</preamble>
 
             <artwork><![CDATA[
@@ -615,7 +899,7 @@
      <resData>
        <domain:infData
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.tld</domain:name>
+         <domain:name>exampleone.tld</domain:name>
          <domain:roid>EXAMPLE1-REP</domain:roid>
          <domain:status s="pendingCreate"/>
          <domain:registrant>jd1234</domain:registrant>
@@ -638,7 +922,9 @@
           <launch:codeClaim>
         <launch:code>49FD46E6C4B45C55D4AC</launch:code>
         <launch:claim>
-          <launch:name>Hello</launch:name>
+          <launch:name>Example One</launch:name>
+          <launch:label>example-one</launch:label>
+          <launch:label>exampleone</launch:label>
           <launch:issuer>IP Clearinghouse</launch:issuer>
           <launch:number>GE 3933232</launch:number>
           <launch:type>REG-TM-WORD</launch:type>
@@ -694,7 +980,7 @@
      <resData>
        <domain:infData
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.tld</domain:name>
+         <domain:name>exampleone.tld</domain:name>
          <domain:roid>EXAMPLE1-REP</domain:roid>
          <domain:status s="pendingCreate"/>
          <domain:registrant>jd1234</domain:registrant>
@@ -717,61 +1003,62 @@
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
             <launch:tld>newtld</launch:tld>
-            <launch:label>example-and-example</launch:label>
-            <launch:label>example</launch:label>
-        <launch:claim>
-          <launch:name>Hello</launch:name>
-          <launch:issuer>IP Clearinghouse</launch:issuer>
-          <launch:number>GE 3933232</launch:number>
-          <launch:type>REG-TM-WORD</launch:type>
-          <launch:entitlement>owner</launch:entitlement>
-          <launch:regDate>2011-09-09</launch:regDate>
-          <launch:exDate>2013-09-09</launch:exDate>
-          <launch:country>AU</launch:country>
-          <launch:region>VIC</launch:region>
-          <launch:owner>
-            <launch:org>Example Inc.</launch:org>
-          </launch:owner>
-          <launch:contact>
-            <launch:name>John Doe</launch:name>
-            <launch:org>Example Inc.</launch:org>
-            <launch:addr>
-              <launch:street>123 Example Dr.</launch:street>
-              <launch:street>Suite 100</launch:street>
-              <launch:city>Reston</launch:city>
-              <launch:sp>VA</launch:sp>
-              <launch:pc>20190</launch:pc>
-              <launch:cc>US</launch:cc>
-            </launch:addr>
-            <launch:voice x="1234">+1.7035555555</launch:voice>
-            <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.tld</launch:email>
-          </launch:contact>
-        </launch:claim>
+            <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
+            <launch:claim>
+              <launch:name>Example One</launch:name>
+              <launch:label>example-one</launch:label>
+              <launch:label>exampleone</launch:label>
+              <launch:issuer>IP Clearinghouse</launch:issuer>
+              <launch:number>GE 3933232</launch:number>
+              <launch:type>REG-TM-WORD</launch:type>
+              <launch:entitlement>owner</launch:entitlement>
+              <launch:regDate>2011-09-09</launch:regDate>
+              <launch:exDate>2013-09-09</launch:exDate>
+              <launch:country>AU</launch:country>
+              <launch:region>VIC</launch:region>
+              <launch:owner>
+                <launch:org>Example Inc.</launch:org>
+              </launch:owner>
+              <launch:contact>
+                <launch:name>John Doe</launch:name>
+                <launch:org>Example Inc.</launch:org>
+                <launch:addr>
+                  <launch:street>123 Example Dr.</launch:street>
+                  <launch:street>Suite 100</launch:street>
+                  <launch:city>Reston</launch:city>
+                  <launch:sp>VA</launch:sp>
+                  <launch:pc>20190</launch:pc>
+                  <launch:cc>US</launch:cc>
+                </launch:addr>
+                <launch:voice x="1234">+1.7035555555</launch:voice>
+                <launch:fax>+1.7035555556</launch:fax>
+                <launch:email>jdoe@example.tld</launch:email>
+              </launch:contact>
+            </launch:claim>
             <Signature xmlns=
               "http://www.w3.org/2000/09/xmldsig#">
               <SignedInfo>
-            <CanonicalizationMethod 
-             Algorithm=
-             "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-            <SignatureMethod 
-             Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
-            <Reference URI="#pointer(..)">
-              <Transforms>
-                <Transform
+                <CanonicalizationMethod 
                   Algorithm=
+                  "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                 <SignatureMethod 
+               Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
+                <Reference URI="#pointer(..)">
+                  <Transforms>
+                    <Transform
+                      Algorithm=
                "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-              </Transforms>
-              <DigestMethod 
-                Algorithm=
+                  </Transforms>
+                  <DigestMethod 
+                    Algorithm=
                 "http://www.w3.org/2000/09/xmldsig#sha1"/>
-              <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
-            </Reference>
-          </SignedInfo>
-          <SignatureValue>
+                <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
+                </Reference>
+              </SignedInfo>
+              <SignatureValue>
             cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-          </SignatureValue>
-        </Signature>
+              </SignatureValue>
+            </Signature>
           </launch:signedClaim>
        </launch:infData>
      </extension>
@@ -796,42 +1083,6 @@
               <t hangText="&lt;launch:phase&gt;">The phase with the value of
               "claims" to indicate that this is a Claims Info Command.</t>
             </list></t>
-
-          <t>If the query was successful, the server replies with an
-          &lt;launch:infData&gt; element containing the trademark claims
-          information expected to be used to generate the claims notice. The
-          &lt;launch:infData&gt; has the following child elements:</t>
-
-          <t><list hangIndent="4" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">the phase with a value of
-              "claims".</t>
-
-              <t hangText="&lt;launch:notice&gt;">The information used for the
-              trademark claims notice. The &lt;launch:notice&gt; element has
-              the following child elements:</t>
-
-              <t><list hangIndent="4" style="hanging">
-                  <t hangText="&lt;launch:name&gt;">The domain name that the
-                  claim notice information is associated with.</t>
-
-                  <t hangText="&lt;launch:none&gt;">Optional element included
-                  if there are no trademark claims associated with the
-                  &lt;launch:name&gt;</t>
-
-                  <t hangText="&lt;launch:noticeID&gt;">Optional element
-                  included if there is at least one trademark claim associated
-                  with &lt;launch:name&gt;. Server generated identifier for
-                  the claim notice information that is passed in the
-                  &lt;launch:create&gt; extension of the Domain Create
-                  Command.</t>
-
-                  <t hangText="&lt;launch:claim&gt;">Zero or more
-                  &lt;launch:claim&gt; elements containing the trademark
-                  claims information as defined in the <xref
-                  target="claim">Claim</xref> section.</t>
-                </list></t>
-            </list></t>
-
           <figure>
             <preamble>Example Claims Info Command using the &lt;info&gt;
             domain command and the Claims Info Form &lt;launch:info&gt;
@@ -860,9 +1111,44 @@
 ]]></artwork>
           </figure>
 
+          <t>If the query was successful, the server replies with an
+          &lt;launch:infData&gt; element containing the trademark claims
+          information expected to be used by the client to generate the claims notice. The
+          &lt;launch:infData&gt; has the following child elements:</t>
+
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">the phase with a value of
+              "claims".</t>
+
+              <t hangText="&lt;launch:notice&gt;">The information used for the
+              trademark claims notice. The &lt;launch:notice&gt; element has
+              the following child elements:</t>
+
+              <t><list hangIndent="4" style="hanging">
+                  <t hangText="&lt;launch:name&gt;">The domain name that the
+                  claim notice information is associated with.</t>
+
+                  <t hangText="&lt;launch:none&gt;">OPTIONAL element included
+                  if there are no trademark claims associated with the
+                  &lt;launch:name&gt;</t>
+
+                  <t hangText="&lt;launch:noticeID&gt;">OPTIONAL server generated 
+                  identifier for the claims notice that is passed in 
+                  the &lt;launch:create&gt; extension of the <xref target="createCommand">Create Command</xref>.   
+                  This MUST be included if there is at least one trademark claim 
+                  associated with the &lt;launch:notice&gt; &lt;launch:name&gt; element. 
+                  </t>
+
+                  <t hangText="&lt;launch:claim&gt;">Zero or more
+                  &lt;launch:claim&gt; elements containing the trademark
+                  claims information as defined in the <xref
+                  target="claim">Claim</xref> section.</t>
+                </list></t>
+            </list></t>
+
           <figure>
             <preamble>Example Claims Info Response when no matching trademark
-            claims are found for the domain name.</preamble>
+            claims are found for the domain name example.tld.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -893,7 +1179,7 @@
 
           <figure>
             <preamble>Example Claims Info Response when two matching trademark
-            claims are found for the domain name.</preamble>
+            claims are found for the domain name exampleone.tld.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -908,10 +1194,12 @@
       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
       <launch:phase>claims</launch:phase>
       <launch:notice>
-        <launch:name>example.tld</launch:name>
+        <launch:name>exampleone.tld</launch:name>
             <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
         <launch:claim>
-          <launch:name>Hello</launch:name>
+          <launch:name>Example One</launch:name>
+          <launch:label>example-one</launch:label>
+          <launch:label>exampleone</launch:label>
           <launch:issuer>IP Clearinghouse</launch:issuer>
           <launch:number>GE 3933232</launch:number>
           <launch:type>REG-TM-WORD</launch:type>
@@ -940,7 +1228,9 @@
           </launch:contact>
         </launch:claim>
         <launch:claim>
-          <launch:name>Hello World</launch:name>
+          <launch:name>Example Two</launch:name>
+          <launch:label>example-two</launch:label>
+          <launch:label>exampletwo</launch:label>
           <launch:issuer>IP Clearinghouse</launch:issuer>
           <launch:number>GE 3933233</launch:number>
           <launch:type>REG-TM-WORD</launch:type>
@@ -986,7 +1276,7 @@
 
       <!-- end INFO command -->
 
-      <section title="EPP &lt;create&gt; Command">
+      <section anchor="createCommand" title="EPP &lt;create&gt; Command">
         <t>There are two forms of the extension to the EPP &lt;create&gt;
         command that are dependent on the supported <xref
         target="phases">launch phases</xref> as defined below:</t>
@@ -1039,16 +1329,24 @@
               <t hangText="&lt;launch:phase&gt;">The phase the application is
               associated with.</t>
 
+              <t
+              hangText="&lt;launch:codeClaim&gt; or &lt;launch:signedClaim&gt;">
+                  <list hangIndent="4" style="hanging">
+
               <t hangText="&lt;launch:codeClaim&gt;">zero or more
-              &lt;launch:codeClaim&gt; elements or</t>
+              &lt;launch:codeClaim&gt; elements.  The &lt;launch:codeClaim&gt;
+              child elements are defined in the 
+              <xref target="codeClaim">&lt;launch:codeClaim&gt; element</xref> 
+              section.</t>
 
               <t hangText="&lt;launch:signedClaim&gt;">zero or more
-              &lt;launch:signedClaim&gt; elements.</t>
+              &lt;launch:signedClaim&gt; elements.  The &lt;launch:signedClaim&gt; 
+              child elements are defined in 
+              the <xref target="signedClaim">&lt;launch:signedClaim&gt; element</xref> 
+              section.</t>
+              
+              </list></t>
             </list></t>
-
-          <t>The <xref target="validationModels">Claim Validation
-          Models</xref> section describes the &lt;launch:codeClaim&gt; and
-          &lt;launch:signedClaim&gt; elements.</t>
 
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
@@ -1106,7 +1404,7 @@
     <create>
       <domain:create
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
+        <domain:name>exampleone.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -1122,7 +1420,9 @@
           <launch:codeClaim>
             <launch:code>49FD46E6C4B45C55D4AC</launch:code>
             <launch:claim>
-              <launch:name>Hello</launch:name>
+              <launch:name>Example One</launch:name>
+              <launch:label>example-one</launch:label>
+              <launch:label>exampleone</launch:label>
               <launch:issuer>IP Clearinghouse</launch:issuer>
               <launch:number>GE 3933232</launch:number>
               <launch:type>REG-TM-WORD</launch:type>
@@ -1315,7 +1615,8 @@
           target="RFC5731">EPP domain name mapping</xref> includes the
           information related to the acceptance of the claims notice that is
           based on the contents of the Claims Info Response defined in the
-          <xref target="claimsInfoForm">Claims Info Form</xref> section.</t>
+          <xref target="claimsInfoForm">Claims Info Form</xref> section or is based 
+          on a signed notice by a trusted third party like the Trademark Clearinghouse (TMCH).</t>
 
           <t>A &lt;launch:create&gt; element is sent along with the regular
           &lt;create&gt; domain command. The &lt;launch:create&gt; element
@@ -1356,31 +1657,11 @@
                     </t>
 
                     <t hangText="&lt;launch:signedNotice&gt;">Signed claims
-                    reference information generated by a trusted third party
-                    like the Trademark Clearinghouse (TMCH). The signature can
-                    be verified by the server using the trusted third party public
-                    key.  The &lt;launch:signedNotice&gt; element has the 
-                    following child elements:</t>
-                    
-                    <t>
-                       <list hangIndent="4" style="hanging">
-                        <t hangText="&lt;launch:noticeID&gt;">Notice 
-                        identifier generated by the trusted third party that
-                        can be used for traceability from the third party to 
-                        the client to the server.</t>
-                        <t hangText="&lt;Signature&gt;">Digital Signature 
-                        over the &lt;launch:signedNotice&gt; based on the 
-                        <eref
-            target="http://www.w3.org/TR/xmldsig-core/">XML Signature</eref> 
-            				standard.  The &lt;Transform&gt; Algorithm is set to 
-            				"http://www.w3.org/2000/09/xmldsig#enveloped-signature" 
-            				along with the &lt;Reference&gt; URI is set to 
-            				"#pointer(..)" to have the signature apply across the 
-            				entire &lt;launch:signedNotice&gt; element.  The 
-            				digital signature can be verified by the server using 
-            				the trusted third party public key.</t>  
-                       </list>
-                    </t>
+                    notice reference information generated by a trusted third party
+                    like the Trademark Clearinghouse (TMCH). The child elements 
+                    of &lt;signedNotice&gt; are defined in the 
+                    <xref target="signedNotice">&lt;launch:signedNotice&gt; element</xref> 
+                    section.</t>
                   </list>
                 </t>
             </list></t>
@@ -1495,7 +1776,7 @@
 
       <!-- end CREATE command -->
 
-      <section title="EPP &lt;update&gt; Command">
+      <section anchor="updateCommand" title="EPP &lt;update&gt; Command">
         <t>This extension defines additional elements to extend the EPP
         &lt;update&gt; command to be used in conjunction with the domain name
         mapping.</t>
@@ -1587,7 +1868,7 @@
 
       <!-- end UPDATE command -->
 
-      <section title="EPP &lt;delete&gt; Command">
+      <section anchor="deleteCommand" title="EPP &lt;delete&gt; Command">
         <t>This extension defines additional elements to extend the EPP
         &lt;delete&gt; command to be used in conjunction with the domain name
         mapping.</t>
@@ -1667,7 +1948,7 @@
 
       <!-- end DELETE command -->
 
-      <section title="EPP &lt;renew&gt; Command">
+      <section anchor="renewCommand" title="EPP &lt;renew&gt; Command">
         <t>This extension does not define any extension to the EPP
         &lt;renew&gt; command or response described in the <xref
         target="RFC5731">EPP domain name mapping</xref>.</t>
@@ -1675,7 +1956,7 @@
 
       <!-- end RENEW command -->
 
-      <section title="EPP &lt;transfer&gt; Command">
+      <section anchor="transferCommand" title="EPP &lt;transfer&gt; Command">
         <t>This extension does not define any extension to the EPP
         &lt;transfer&gt; command or response described in the <xref
         target="RFC5731">EPP domain name mapping</xref>.</t>
@@ -1770,8 +2051,7 @@ Import common element types.
   -->
   <complexType name="idContainerType">
     <sequence>
-      <element name="phase" type="launch:phaseType" 
-        minOccurs="0"/>
+      <element name="phase" type="launch:phaseType"/>
       <element name="applicationID" type="token"/>
     </sequence>
   </complexType>
@@ -1893,9 +2173,10 @@ Import common element types.
     <complexType name="signedClaimType">
     <sequence>
       <element name="serial" type="token"/>
-      <element name="tld" type="eppcom:labelType"/>
-      <element name="label" type="eppcom:labelType" 
-        maxOccurs="unbounded"/>
+      <element name="tld" type="eppcom:labelType"
+      minOccurs="0" maxOccurs="unbounded"/>
+      <element name="exDate" type="dateTime" 
+      minOccurs="0"/>
       <element name="claim" type="launch:claimType"/>
       <element ref="ds:Signature"/>
     </sequence>
@@ -1945,6 +2226,8 @@ Import common element types.
   <complexType name="signedCreateNoticeType">
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
+      <element name="exDate" type="dateTime" 
+      minOccurs="0"/>
       <element ref="ds:Signature"/>
     </sequence>
   </complexType>
@@ -1976,18 +2259,20 @@ Import common element types.
         <sequence>
           <element name="applicationID" 
           type="launch:applicationIDType"/>
-          <element name="status" type="launch:statusType" 
+          <element name="status" 
+          type="launch:statusType" 
             minOccurs="0"/>
           <choice>
-            <element name="codeClaim" 
-              type="launch:codeClaimType" 
-              maxOccurs="unbounded"/>
-            <element name="signedClaim" 
-              type="launch:signedClaimType" 
-              maxOccurs="unbounded"/>
-          </choice>   
-         </sequence>
-        <element name="notice" type="launch:claimsNoticeType" 
+              <element name="codeClaim" 
+                type="launch:codeClaimType" 
+                maxOccurs="unbounded"/>
+             <element name="signedClaim" 
+                type="launch:signedClaimType" 
+                maxOccurs="unbounded"/>
+          </choice>
+        </sequence>
+        <element name="notice" 
+        type="launch:claimsNoticeType" 
           minOccurs="0"/>
       </choice>
     </sequence>
@@ -2065,7 +2350,10 @@ Import common element types.
       <sequence>
         <element name="id" type="token" 
           minOccurs="0"/>
-        <element name="name" type="token"/>
+        <element name="name" type="token"
+           minOccurs="0"/>
+        <element name="label" type="eppcom:labelType"
+           minOccurs="0" maxOccurs="unbounded"/>
         <element name="issuer" type="token" 
           minOccurs="0"/>
         <element name="number" type="token" 
@@ -2164,6 +2452,8 @@ END]]></artwork>
       &RFC5730;
 
       &RFC5731;
+
+      &RFC5733;
 
       &RFC3688;
     </references>

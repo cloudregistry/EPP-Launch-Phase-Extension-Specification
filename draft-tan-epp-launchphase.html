@@ -214,11 +214,21 @@ Status Values<br />
 State Transition<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#validationModels">2.4.</a>&nbsp;
 Claim Validation Models<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#codeClaim">2.4.1.</a>&nbsp;
+&lt;launch:codeClaim&gt; element<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#claim">2.5.</a>&nbsp;
 Claim<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#contact">2.6.</a>&nbsp;
+Contact<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.7.</a>&nbsp;
+Digital Signature<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedClaim">2.7.1.</a>&nbsp;
+&lt;launch:signedClaim&gt; element<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedNotice">2.7.2.</a>&nbsp;
+&lt;launch:signedNotice&gt; element<br />
 <a href="#commands">3.</a>&nbsp;
 EPP Command Mapping<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor4">3.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#checkCommand">3.1.</a>&nbsp;
 EPP &lt;check&gt; Command<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#infoCommand">3.2.</a>&nbsp;
 EPP &lt;info&gt; Command<br />
@@ -226,19 +236,19 @@ EPP &lt;info&gt; Command<br />
 Sunrise Info Form<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#claimsInfoForm">3.2.2.</a>&nbsp;
 Claims Info Form<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">3.3.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#createCommand">3.3.</a>&nbsp;
 EPP &lt;create&gt; Command<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#sunriseCreateForm">3.3.1.</a>&nbsp;
 Sunrise Create Form<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#claimsCreateForm">3.3.2.</a>&nbsp;
 Claims Create Form<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">3.4.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#updateCommand">3.4.</a>&nbsp;
 EPP &lt;update&gt; Command<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor7">3.5.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#deleteCommand">3.5.</a>&nbsp;
 EPP &lt;delete&gt; Command<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor8">3.6.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#renewCommand">3.6.</a>&nbsp;
 EPP &lt;renew&gt; Command<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor9">3.7.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#transferCommand">3.7.</a>&nbsp;
 EPP &lt;transfer&gt; Command<br />
 <a href="#syntax">4.</a>&nbsp;
 Formal Syntax<br />
@@ -277,7 +287,7 @@ Introduction</h3>
       interface used at each phase of the launch could be different from what
       is defined in <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. for
       example, registries typically accept multiple applications for a given
-      domain name during the "sunrise" launch phase. In addition, the <a href='http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf'>Trademark
+      domain name during the "sunrise" launch phase. In addition, the <a href='http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf'>Trademark
       Clearinghouse Draft Implementation Model</a> defines a registry
       interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
@@ -321,7 +331,7 @@ Application Identifiers</h3>
 <p>Servers MAY allow multiple applications of a given domain name
         during its launch phase operations. Upon receiving a request to create
         a domain name, the server creates an application object corresponding
-        to the request and assigns an Application Identifier the application
+        to the request and assigns an application identifier for the application
         and returns it to the client with the &lt;launch:applicationID&gt;
         element. In order to facilitate correlation, all subsequent launch
         operations on the application object MUST be qualified by the
@@ -337,7 +347,7 @@ Launch Phases</h3>
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
         the client to define the target launch phase of the command.
 </p>
-<p>The following Launch Phase values are defined: </p>
+<p>The following launch phase values are defined: </p>
 <blockquote class="text"><dl>
 <dt>sunrise</dt>
 <dd>Phase when trademark holders can submit
@@ -349,7 +359,7 @@ Launch Phases</h3>
             holders are allowed to register domain names.
 </dd>
 <dt>claims</dt>
-<dd>Trademark claims phase as defined by <a href='http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf'>Trademark
+<dd>Trademark claims phase as defined by <a href='http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf'>Trademark
             Clearinghouse Draft Implementation Model</a>.
 </dd>
 <dt>open</dt>
@@ -449,15 +459,15 @@ State Transition</h3>
 <a name="rfc.section.2.4"></a><h3>2.4.&nbsp;
 Claim Validation Models</h3>
 
-<p>A server MUST support one of four models for validating the claim
+<p>A server MUST support one of four models for validating the trademark claim
         information:
 </p>
 <p></p>
 <blockquote class="text"><dl>
 <dt>code</dt>
 <dd>Use of a claim code by itself to validate that
-            the claim matches domain name. The code is the "sunrise code" as
-            defined in <a href='http://newgtlds.icann.org/en/about/trademark-clearinghouse/draft-implementation-model-13apr12.pdf'>Trademark
+            the claim matches the domain name. The code is the "sunrise code" as
+            defined in <a href='http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf'>Trademark
             Clearinghouse Draft Implementation Model</a> that is validated
             by the server using its local sunrise code data. This model is
             supported using the &lt;launch:codeClaim&gt; element with just the
@@ -466,13 +476,13 @@ Claim Validation Models</h3>
 <dt>claim</dt>
 <dd>The claim information is passed without any
             other validation element. The server will use some custom form of
-            validation to validate the claim information is authentic. This
+            validation to validate that the claim information is authentic. This
             model is supported using the &lt;launch:codeClaim&gt; element with
             just the &lt;launch:claim&gt; element.
 </dd>
 <dt>code with claim:</dt>
 <dd>A code is used along with the claim
-            information by the server to validate utilizing an external party
+            information by the server to validate the claim utilizing an external party
             like a Trademark Clearinghouse. The code represents some form of
             secret that matches the claims information passed. This model is
             supported using the &lt;launch:codeClaim&gt; element with both the
@@ -480,27 +490,85 @@ Claim Validation Models</h3>
 </dd>
 <dt>signed claim:</dt>
 <dd>The claim information is digitally
-            signed via the <a href='http://www.w3.org/TR/xmldsig-core/'>XML Signature</a>
-            and can be directly validated by the server using the public key
-            of the external party that created the signed claim. The public
-            key could be previously held by the server or could be passed in
-            the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
-            Signature</a>. It's up to server policy how the public key is
-            transferred. This model is supported using the
-            &lt;launch:signedClaim&gt; element that contains the
-            &lt;launch:claim&gt; element with the claim information as well as
-            the XML Signature and other information validated by an external
-            party like a Trademark Clearinghouse.
+            signed as described in the <a class='info' href='#digitalsignature'>Digital Signature<span> (</span><span class='info'>Digital Signature</span><span>)</span></a>
+            section.  The digital signature can be directly validated by the 
+            server using the public key
+            of the external party that created the signed claim. This model is 
+            supported using the
+            <a class='info' href='#signedClaim'>&lt;launch:signedClaim&gt;<span> (</span><span class='info'>&lt;launch:signedClaim&gt; element</span><span>)</span></a> and 
+            <a class='info' href='#signedNotice'>&lt;launch:signedNotice&gt;<span> (</span><span class='info'>&lt;launch:signedNotice&gt; element</span><span>)</span></a> 
+            elements.
 </dd>
 </dl></blockquote>
 
-<p>The &lt;launch:claim&gt; element supporting the different Claim
-        Validation Models is defined in <a class='info' href='#claim'>Claim<span> (</span><span class='info'>Claim</span><span>)</span></a>
-        section. A server MAY support more than one claim per domain name.
-        More than one &lt;launch:codeClaim&gt; element or more than one
+<p>More than one &lt;launch:codeClaim&gt; element or more than one
         &lt;launch:signedClaim&gt; element MAY be specified. The maximum
         number of claims per domain name is up to server policy.
 </p>
+<a name="codeClaim"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.4.1"></a><h3>2.4.1.&nbsp;
+&lt;launch:codeClaim&gt; element</h3>
+
+<p>The &lt;launch:codeClaim&gt; element that is used by the "code", 
+           "claim", and "code with claim" validation models has the following child 
+           elements:
+           </p>
+<blockquote class="text"><dl>
+<dt>&lt;launch:code&gt;:</dt>
+<dd>OPTIONAL claim code used to 
+              validate the &lt;launch:claim&gt; information or to directly 
+              validate the claim against the domain name.  The claim code 
+              can be a claim specific secret value that the server can verify 
+              against a third party or can be directly combined with the 
+              domain name to verify against a server code file.
+</dd>
+<dt>&lt;launch:claim&gt;:</dt>
+<dd>OPTIONAL claim information 
+              with child elements defined in the <a class='info' href='#claim'>Claim<span> (</span><span class='info'>Claim</span><span>)</span></a> 
+              section.
+</dd>
+</dl></blockquote>
+
+<p>The following is an example &lt;launch:codeClaim&gt;
+            element with both a &lt;launch:code&gt; and a 
+            &lt;launch:claim&gt; element.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;launch:codeClaim&gt;
+  &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+  &lt;launch:claim&gt;
+    &lt;launch:name&gt;Example One&lt;/launch:name&gt;
+    &lt;launch:label&gt;example-one&lt;/launch:label&gt;
+    &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
+    &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
+    &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
+    &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
+    &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
+    &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
+    &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
+    &lt;launch:country&gt;AU&lt;/launch:country&gt;
+    &lt;launch:region&gt;VIC&lt;/launch:region&gt;
+    &lt;launch:owner&gt;
+      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+    &lt;/launch:owner&gt;
+    &lt;launch:contact&gt;
+      &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
+      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+      &lt;launch:addr&gt;
+        &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
+        &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
+        &lt;launch:city&gt;Reston&lt;/launch:city&gt;
+        &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
+        &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
+        &lt;launch:cc&gt;US&lt;/launch:cc&gt;
+      &lt;/launch:addr&gt;
+      &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
+      &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
+      &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
+    &lt;/launch:contact&gt;
+  &lt;/launch:claim&gt;
+&lt;/launch:codeClaim&gt;
+</pre></div>
 <a name="claim"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.5"></a><h3>2.5.&nbsp;
@@ -512,59 +580,307 @@ Claim</h3>
 <p>The child elements of the &lt;launch:claim&gt; element include:
         </p>
 <blockquote class="text"><dl>
-<dt>&lt;id&gt;:</dt>
+<dt>&lt;launch:id&gt;:</dt>
 <dd>an identifier for the claim. This
             identifier MUST be unique among all claims associated with an
             application object.
 </dd>
-<dt>&lt;name&gt;:</dt>
+<dt>&lt;launch:name&gt;:</dt>
 <dd>identifying the text string in which
             the applicant is claiming a prior right
 </dd>
-<dt>&lt;issuer&gt;:</dt>
+<dt>&lt;launch:label&gt;:</dt>
+<dd>Zero or more domain name labels that corresponds 
+            to the &lt;launch:name&gt;.  Each &lt;launch:label&gt; can match 
+            directly to the domain name after adding the top level domain.
+</dd>
+<dt>&lt;launch:issuer&gt;:</dt>
 <dd>name of the authority which issued
-            the right (for example, the trademark clearinghouse, a trademark
-            office or company registration bureau)
+            the right (trademark clearinghouse, trademark office, company registration bureau, etc.)
 </dd>
-<dt>&lt;number&gt;:</dt>
+<dt>&lt;launch:number&gt;:</dt>
 <dd>the registration number of the right
-            (ie trademark number or company registration number)
+            (trademark number, company registration number, etc.)
 </dd>
-<dt>&lt;type&gt;:</dt>
+<dt>&lt;launch:type&gt;:</dt>
 <dd>indicates the type of claim being made
-            (eg trademark, symbol, combined mark, company name)
+            (trademark, symbol, combined mark, company name, etc.)
 </dd>
-<dt>&lt;entitlement&gt;:</dt>
+<dt>&lt;launch:entitlement&gt;:</dt>
 <dd>indicates the applicant's
-            entitlement to the claim (ie, owner or licensee)
+            entitlement to the claim (owner, licensee, etc.)
 </dd>
-<dt>&lt;regDate&gt;:</dt>
+<dt>&lt;launch:regDate&gt;:</dt>
 <dd>the date of registration of the
             claim
 </dd>
-<dt>&lt;exDate&gt;:</dt>
+<dt>&lt;launch:exDate&gt;:</dt>
 <dd>the date of expiration of the
             claim
 </dd>
-<dt>&lt;country&gt;:</dt>
+<dt>&lt;launch:country&gt;:</dt>
 <dd>indicates the country in which the
             claim is valid
 </dd>
-<dt>&lt;region&gt;:</dt>
+<dt>&lt;launch:region&gt;:</dt>
 <dd>indicates the name of a city, state,
             province or other geographic region in which the claim is valid.
             This may be a two-character code from [WIPO.ST3]
 </dd>
-<dt>&lt;owner&gt;:</dt>
-<dd>Owner information
+<dt>&lt;launch:owner&gt;:</dt>
+<dd>Owner information using the <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> 
+            elements.
 </dd>
-<dt>&lt;contact&gt;:</dt>
-<dd>Contact for the owner
+<dt>&lt;launch:contact&gt;:</dt>
+<dd>Contact for the owner using the 
+            <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> element.
 </dd>
-</dl></blockquote><p> Apart from the &lt;name&gt; element, all other child
-        elements are optional. Server policy may place additional constraints
+</dl></blockquote><p>All of the child elements are OPTIONAL. Server policy may 
+          place additional constraints on the format and requirements of such elements.
+</p>
+<a name="contact"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.6"></a><h3>2.6.&nbsp;
+Contact</h3>
+
+<p>The contact information contained within the <a class='info' href='#claim'>Claim<span> (</span><span class='info'>Claim</span><span>)</span></a> cannot 
+        be defined via a contact identifier as defined in the <a class='info' href='#RFC5733'>EPP contact mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733] since 
+        it is contact information defined outside of the server.  Some of the contact elements defined in 
+        <a class='info' href='#RFC5733'>EPP contact mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733] are replicated in this extension.
+</p>
+<p>The child elements of a contact using either the &lt;launch:owner&gt; or 
+        &lt;launch:contact&gt; elements include:
+        </p>
+<blockquote class="text"><dl>
+<dt>&lt;launch:id&gt;:</dt>
+<dd>identifier of contact that MUST be unique among all contacts of the external third party.
+</dd>
+<dt>&lt;launch:name&gt;:</dt>
+<dd>name of the individual or role represented by the contact.
+</dd>
+<dt>&lt;launch:org&gt;:</dt>
+<dd>name of the organization with which the contact is affiliated.
+</dd>
+<dt>&lt;launch:addr&gt;:</dt>
+<dd>address information assocated with the contact.  the &lt;launch:addr&gt; element contains 
+            the following child elements:
+</dd>
+<dt></dt>
+<dd>
+<blockquote class="text"><dl>
+<dt>&lt;launch:street&gt;</dt>
+<dd>one, two, or three &lt;launch:street&gt; elements that contain 
+                  the contact's street address.
+</dd>
+<dt>&lt;launch:city&gt;</dt>
+<dd>contact's city
+</dd>
+<dt>&lt;launch:sp&gt;</dt>
+<dd>contact's state or province
+</dd>
+<dt>&lt;launch:cc&gt;</dt>
+<dd>contact's country code
+</dd>
+</dl></blockquote>
+</dd>
+<dt>&lt;launch:voice&gt;:</dt>
+<dd>contact's voice telephone number
+</dd>
+<dt>&lt;launch:fax&gt;:</dt>
+<dd>contact's facsimile telephone number
+</dd>
+<dt>&lt;launch:email&gt;:</dt>
+<dd>contact's email address
+</dd>
+</dl></blockquote><p> All of the child elements are OPTIONAL.  Server policy may place additional constraints
         on the format and requirements of such elements.
 </p>
+<a name="digitalsignature"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.7"></a><h3>2.7.&nbsp;
+Digital Signature</h3>
+
+<p>Digital signatures can be used by the server to validate either 
+        the claims information, when using the signed claim model with the 
+        &lt;launch:signedClaim&gt; element, or the claims notice with the 
+        &lt;launch:signedNotice&gt; element.  The digital signatures are   
+        handled using the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a> standard around the entire &lt;launch:signedClaim&gt; 
+         or &lt;launch:signedNotice&gt; elements.  Once the digital signature 
+         is validated using the appropriate public key, the server can trust 
+         all of the information included in the &lt;launch:signedClaim&gt; 
+         or &lt;launch:signedNotice&gt; elements.  It's up to server policy how 
+         the public key is transferred.
+</p>
+<p>To have the digital signature cover all of the elements of the 
+         &lt;launch:signedClaim&gt; and &lt;launch:signedNotice&gt; elements, 
+         the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a> Reference URI is set to "#pointer(..)" and the 
+            Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is 
+            used.  Both of these has the digital signature cover the parent 
+            element of the Signature and to specify that the Signature 
+            is embedded in the element.
+        
+</p>
+<a name="signedClaim"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.7.1"></a><h3>2.7.1.&nbsp;
+&lt;launch:signedClaim&gt; element</h3>
+
+<p>The child elements of the &lt;launch:signedClaim&gt; element include:
+        </p>
+<blockquote class="text"><dl>
+<dt>&lt;launch:serial&gt;:</dt>
+<dd>Signature serial number that 
+            that can be compared with a revocation list by the server.
+</dd>
+<dt>&lt;launch:tld&gt;:</dt>
+<dd>Zero or more top level domain names 
+            the &lt;launch:signedClaim&gt; can be used with.  No &lt;launch:tld&gt; 
+            element indicates that the &lt;launch:signedClaim&gt; can be used with all 
+            top level domain names.
+</dd>
+<dt>&lt;launch:exDate&gt;:</dt>
+<dd>OPTIONAL date and time that the 
+            &lt;launch:signedClaim&gt; expires.  The server MUST NOT accept 
+            a &lt;launch:signedClaim&gt; that has expired.  No &lt;launch:exDate&gt; 
+            element indicates that there is no expiry.
+</dd>
+<dt>&lt;launch:claim&gt;:</dt>
+<dd>Claim information as defined in the  
+            <a class='info' href='#claim'>Claim<span> (</span><span class='info'>Claim</span><span>)</span></a> section.
+</dd>
+<dt>&lt;Signature&gt;:</dt>
+<dd>
+            <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a> for the &lt;launch:signedClaim&gt;
+</dd>
+</dl></blockquote>
+
+<p>The following is an example &lt;launch:signedClaim&gt;
+            using the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a> to sign all of the elements of 
+            &lt;launch:signedClaim&gt; element.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;launch:signedClaim&gt;
+  &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
+  &lt;launch:tld&gt;newtld&lt;/launch:tld&gt;
+  &lt;launch:exDate&gt;2012-08-16T09:00:00.0Z&lt;/launch:exDate&gt;
+  &lt;launch:claim&gt;
+    &lt;launch:name&gt;Example One&lt;/launch:name&gt;
+    &lt;launch:label&gt;example-one&lt;/launch:label&gt;
+    &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
+    &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
+    &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
+    &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
+    &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
+    &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
+    &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
+    &lt;launch:country&gt;AU&lt;/launch:country&gt;
+    &lt;launch:region&gt;VIC&lt;/launch:region&gt;
+    &lt;launch:owner&gt;
+      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+    &lt;/launch:owner&gt;
+    &lt;launch:contact&gt;
+      &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
+      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+      &lt;launch:addr&gt;
+        &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
+        &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
+        &lt;launch:city&gt;Reston&lt;/launch:city&gt;
+        &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
+        &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
+        &lt;launch:cc&gt;US&lt;/launch:cc&gt;
+      &lt;/launch:addr&gt;
+      &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
+      &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
+      &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
+    &lt;/launch:contact&gt;
+  &lt;/launch:claim&gt;
+  &lt;Signature xmlns=
+    "http://www.w3.org/2000/09/xmldsig#"&gt;
+    &lt;SignedInfo&gt;
+      &lt;CanonicalizationMethod
+        Algorithm=
+        "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
+      &lt;SignatureMethod
+        Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
+      &lt;Reference URI="#pointer(..)"&gt;
+        &lt;Transforms&gt;
+          &lt;Transform
+            Algorithm=
+            "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
+          &lt;/Transforms&gt;
+        &lt;DigestMethod
+          Algorithm=
+          "http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
+        &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
+      &lt;/Reference&gt;
+    &lt;/SignedInfo&gt;
+    &lt;SignatureValue&gt;
+      cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
+    &lt;/SignatureValue&gt;
+  &lt;/Signature&gt;
+&lt;/launch:signedClaim&gt;
+</pre></div>
+<a name="signedNotice"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.7.2"></a><h3>2.7.2.&nbsp;
+&lt;launch:signedNotice&gt; element</h3>
+
+<p>The child elements of the &lt;launch:signedNotice&gt; element include:
+        </p>
+<blockquote class="text"><dl>
+<dt>&lt;launch:noticeID&gt;:</dt>
+<dd>Unique notice identifier 
+            generated by the third party.  The &lt;launch:noticeID&gt; can be 
+            compared with a revocation list by the server.
+</dd>
+<dt>&lt;launch:exDate&gt;:</dt>
+<dd>OPTIONAL date and time that the 
+            &lt;launch:signedNotice&gt; expires.  The server MUST NOT accept 
+            a &lt;launch:signedNotice&gt; that has expired.  No &lt;launch:exDate&gt; 
+            element indicates that there is no expiry.
+</dd>
+<dt>&lt;Signature&gt;:</dt>
+<dd>
+            <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a> for the &lt;launch:signedNotice&gt;
+</dd>
+</dl></blockquote>
+
+<p>The following is an example &lt;launch:signedNotice&gt;
+            using the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a> to sign all of the elements of 
+            &lt;launch:signedNotice&gt; element.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;launch:signedNotice&gt;
+ &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
+ &lt;launch:exDate&gt;2012-08-16T09:00:00.0Z&lt;/launch:exDate&gt;
+ &lt;Signature xmlns="http://www.w3.org/2000/09/xmldsig#"&gt;
+   &lt;SignedInfo&gt;
+     &lt;CanonicalizationMethod
+       Algorithm=
+       "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
+     &lt;SignatureMethod
+       Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
+     &lt;Reference URI="#pointer(..)"&gt;
+       &lt;Transforms&gt;
+         &lt;Transform
+           Algorithm=
+           "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
+       &lt;/Transforms&gt;
+       &lt;DigestMethod
+         Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
+       &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
+     &lt;/Reference&gt;
+   &lt;/SignedInfo&gt;
+   &lt;SignatureValue&gt;
+    cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
+    &lt;/SignatureValue&gt;
+  &lt;/Signature&gt;
+&lt;/launch:signedNotice&gt;
+</pre></div>
 <a name="commands"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3"></a><h3>3.&nbsp;
@@ -587,7 +903,7 @@ EPP Command Mapping</h3>
       mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. Registries may choose to support a subset of the
       operations.
 </p>
-<a name="anchor4"></a><br /><hr />
+<a name="checkCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
 EPP &lt;check&gt; Command</h3>
@@ -652,7 +968,8 @@ Sunrise Info Form</h3>
 <p>The Sunrise Info Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] gets information on
           an application created with the &lt;launch:create&gt; using the
           <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> returned
-          in the &lt;launch:creData&gt; element. A &lt;launch:info&gt; element
+          in the &lt;launch:creData&gt; element of the 
+          <a class='info' href='#createCommand'>Create Response<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a>. A &lt;launch:info&gt; element
           is sent along with the regular &lt;info&gt; domain command. The
           &lt;launch:info&gt; element contains the following child
           elements:
@@ -713,20 +1030,28 @@ Sunrise Info Form</h3>
               using one of the supported <a class='info' href='#statuses'>status
               values<span> (</span><span class='info'>Status Values</span><span>)</span></a>.
 </dd>
+<dt>&lt;launch:codeClaim&gt; or &lt;launch:signedClaim&gt;</dt>
+<dd>
+                  
+<blockquote class="text"><dl>
 <dt>&lt;launch:codeClaim&gt;</dt>
 <dd>zero or more
-              &lt;launch:codeClaim&gt; elements or
+              &lt;launch:codeClaim&gt; elements.  The &lt;launch:codeClaim&gt;
+              child elements are defined in the 
+              <a class='info' href='#codeClaim'>&lt;launch:codeClaim&gt; element<span> (</span><span class='info'>&lt;launch:codeClaim&gt; element</span><span>)</span></a> 
+              section.
 </dd>
 <dt>&lt;launch:signedClaim&gt;</dt>
 <dd>zero or more
-              &lt;launch:signedClaim&gt; elements.
+              &lt;launch:signedClaim&gt; elements.  The &lt;launch:signedClaim&gt; 
+              child elements are defined in 
+              the <a class='info' href='#signedClaim'>&lt;launch:signedClaim&gt; element<span> (</span><span class='info'>&lt;launch:signedClaim&gt; element</span><span>)</span></a> 
+              section.
+</dd>
+</dl></blockquote>
 </dd>
 </dl></blockquote>
 
-<p>The <a class='info' href='#validationModels'>Claim Validation
-          Models<span> (</span><span class='info'>Claim Validation Models</span><span>)</span></a> section describes the &lt;launch:codeClaim&gt; and
-          &lt;launch:signedClaim&gt; elements.
-</p>
 <p>Example &lt;info&gt; domain response using the Sunrise
             Info Form &lt;launch:infData&gt; extension with multiple
             codes.
@@ -780,7 +1105,7 @@ Sunrise Info Form</h3>
  &lt;/epp&gt;
 </pre></div>
 <p>Example &lt;info&gt; domain response using the Sunrise
-            Info Form &lt;launch:infData&gt; extension with a code and claim
+            Info Form &lt;launch:infData&gt; extension with code and claim
             information.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
@@ -793,7 +1118,7 @@ Sunrise Info Form</h3>
      &lt;resData&gt;
        &lt;domain:infData
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-         &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+         &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
          &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
          &lt;domain:status s="pendingCreate"/&gt;
          &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
@@ -816,7 +1141,9 @@ Sunrise Info Form</h3>
           &lt;launch:codeClaim&gt;
         &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
         &lt;launch:claim&gt;
-          &lt;launch:name&gt;Hello&lt;/launch:name&gt;
+          &lt;launch:name&gt;Example One&lt;/launch:name&gt;
+          &lt;launch:label&gt;example-one&lt;/launch:label&gt;
+          &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
           &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
           &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
           &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
@@ -868,7 +1195,7 @@ Sunrise Info Form</h3>
      &lt;resData&gt;
        &lt;domain:infData
         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-         &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+         &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
          &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
          &lt;domain:status s="pendingCreate"/&gt;
          &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
@@ -891,61 +1218,62 @@ Sunrise Info Form</h3>
           &lt;launch:signedClaim&gt;
             &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
             &lt;launch:tld&gt;newtld&lt;/launch:tld&gt;
-            &lt;launch:label&gt;example-and-example&lt;/launch:label&gt;
-            &lt;launch:label&gt;example&lt;/launch:label&gt;
-        &lt;launch:claim&gt;
-          &lt;launch:name&gt;Hello&lt;/launch:name&gt;
-          &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-          &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-          &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-          &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-          &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-          &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-          &lt;launch:country&gt;AU&lt;/launch:country&gt;
-          &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-          &lt;launch:owner&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-          &lt;/launch:owner&gt;
-          &lt;launch:contact&gt;
-            &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-            &lt;launch:addr&gt;
-              &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-              &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-              &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-              &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-              &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-              &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-            &lt;/launch:addr&gt;
-            &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-            &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-            &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-          &lt;/launch:contact&gt;
-        &lt;/launch:claim&gt;
+            &lt;launch:exDate&gt;2012-08-16T09:00:00.0Z&lt;/launch:exDate&gt;
+            &lt;launch:claim&gt;
+              &lt;launch:name&gt;Example One&lt;/launch:name&gt;
+              &lt;launch:label&gt;example-one&lt;/launch:label&gt;
+              &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
+              &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
+              &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
+              &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
+              &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
+              &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
+              &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
+              &lt;launch:country&gt;AU&lt;/launch:country&gt;
+              &lt;launch:region&gt;VIC&lt;/launch:region&gt;
+              &lt;launch:owner&gt;
+                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+              &lt;/launch:owner&gt;
+              &lt;launch:contact&gt;
+                &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
+                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+                &lt;launch:addr&gt;
+                  &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
+                  &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
+                  &lt;launch:city&gt;Reston&lt;/launch:city&gt;
+                  &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
+                  &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
+                  &lt;launch:cc&gt;US&lt;/launch:cc&gt;
+                &lt;/launch:addr&gt;
+                &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
+                &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
+                &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
+              &lt;/launch:contact&gt;
+            &lt;/launch:claim&gt;
             &lt;Signature xmlns=
               "http://www.w3.org/2000/09/xmldsig#"&gt;
               &lt;SignedInfo&gt;
-            &lt;CanonicalizationMethod
-             Algorithm=
-             "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
-            &lt;SignatureMethod
-             Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
-            &lt;Reference URI="#pointer(..)"&gt;
-              &lt;Transforms&gt;
-                &lt;Transform
+                &lt;CanonicalizationMethod
                   Algorithm=
+                  "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
+                 &lt;SignatureMethod
+               Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
+                &lt;Reference URI="#pointer(..)"&gt;
+                  &lt;Transforms&gt;
+                    &lt;Transform
+                      Algorithm=
                "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
-              &lt;/Transforms&gt;
-              &lt;DigestMethod
-                Algorithm=
+                  &lt;/Transforms&gt;
+                  &lt;DigestMethod
+                    Algorithm=
                 "http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-              &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
-            &lt;/Reference&gt;
-          &lt;/SignedInfo&gt;
-          &lt;SignatureValue&gt;
+                &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
+                &lt;/Reference&gt;
+              &lt;/SignedInfo&gt;
+              &lt;SignatureValue&gt;
             cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-          &lt;/SignatureValue&gt;
-        &lt;/Signature&gt;
+              &lt;/SignatureValue&gt;
+            &lt;/Signature&gt;
           &lt;/launch:signedClaim&gt;
        &lt;/launch:infData&gt;
      &lt;/extension&gt;
@@ -974,51 +1302,6 @@ Claims Info Form</h3>
 </dd>
 </dl></blockquote>
 
-<p>If the query was successful, the server replies with an
-          &lt;launch:infData&gt; element containing the trademark claims
-          information expected to be used to generate the claims notice. The
-          &lt;launch:infData&gt; has the following child elements:
-</p>
-<p></p>
-<blockquote class="text"><dl>
-<dt>&lt;launch:phase&gt;</dt>
-<dd>the phase with a value of
-              "claims".
-</dd>
-<dt>&lt;launch:notice&gt;</dt>
-<dd>The information used for the
-              trademark claims notice. The &lt;launch:notice&gt; element has
-              the following child elements:
-</dd>
-<dt></dt>
-<dd>
-<blockquote class="text"><dl>
-<dt>&lt;launch:name&gt;</dt>
-<dd>The domain name that the
-                  claim notice information is associated with.
-</dd>
-<dt>&lt;launch:none&gt;</dt>
-<dd>Optional element included
-                  if there are no trademark claims associated with the
-                  &lt;launch:name&gt;
-</dd>
-<dt>&lt;launch:noticeID&gt;</dt>
-<dd>Optional element
-                  included if there is at least one trademark claim associated
-                  with &lt;launch:name&gt;. Server generated identifier for
-                  the claim notice information that is passed in the
-                  &lt;launch:create&gt; extension of the Domain Create
-                  Command.
-</dd>
-<dt>&lt;launch:claim&gt;</dt>
-<dd>Zero or more
-                  &lt;launch:claim&gt; elements containing the trademark
-                  claims information as defined in the <a class='info' href='#claim'>Claim<span> (</span><span class='info'>Claim</span><span>)</span></a> section.
-</dd>
-</dl></blockquote>
-</dd>
-</dl></blockquote>
-
 <p>Example Claims Info Command using the &lt;info&gt;
             domain command and the Claims Info Form &lt;launch:info&gt;
             extension.
@@ -1043,8 +1326,53 @@ Claims Info Form</h3>
   &lt;/command&gt;
 &lt;/epp&gt;
 </pre></div>
+<p>If the query was successful, the server replies with an
+          &lt;launch:infData&gt; element containing the trademark claims
+          information expected to be used by the client to generate the claims notice. The
+          &lt;launch:infData&gt; has the following child elements:
+</p>
+<p></p>
+<blockquote class="text"><dl>
+<dt>&lt;launch:phase&gt;</dt>
+<dd>the phase with a value of
+              "claims".
+</dd>
+<dt>&lt;launch:notice&gt;</dt>
+<dd>The information used for the
+              trademark claims notice. The &lt;launch:notice&gt; element has
+              the following child elements:
+</dd>
+<dt></dt>
+<dd>
+<blockquote class="text"><dl>
+<dt>&lt;launch:name&gt;</dt>
+<dd>The domain name that the
+                  claim notice information is associated with.
+</dd>
+<dt>&lt;launch:none&gt;</dt>
+<dd>OPTIONAL element included
+                  if there are no trademark claims associated with the
+                  &lt;launch:name&gt;
+</dd>
+<dt>&lt;launch:noticeID&gt;</dt>
+<dd>OPTIONAL server generated 
+                  identifier for the claims notice that is passed in 
+                  the &lt;launch:create&gt; extension of the <a class='info' href='#createCommand'>Create Command<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a>.   
+                  This MUST be included if there is at least one trademark claim 
+                  associated with the &lt;launch:notice&gt; &lt;launch:name&gt; element. 
+                  
+</dd>
+<dt>&lt;launch:claim&gt;</dt>
+<dd>Zero or more
+                  &lt;launch:claim&gt; elements containing the trademark
+                  claims information as defined in the <a class='info' href='#claim'>Claim<span> (</span><span class='info'>Claim</span><span>)</span></a> section.
+</dd>
+</dl></blockquote>
+</dd>
+</dl></blockquote>
+
 <p>Example Claims Info Response when no matching trademark
-            claims are found for the domain name.
+            claims are found for the domain name example.tld.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
  &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
@@ -1071,7 +1399,7 @@ Claims Info Form</h3>
  &lt;/epp&gt;
 </pre></div>
 <p>Example Claims Info Response when two matching trademark
-            claims are found for the domain name.
+            claims are found for the domain name exampleone.tld.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
  &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
@@ -1085,10 +1413,12 @@ Claims Info Form</h3>
       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
       &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
       &lt;launch:notice&gt;
-        &lt;launch:name&gt;example.tld&lt;/launch:name&gt;
+        &lt;launch:name&gt;exampleone.tld&lt;/launch:name&gt;
             &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
         &lt;launch:claim&gt;
-          &lt;launch:name&gt;Hello&lt;/launch:name&gt;
+          &lt;launch:name&gt;Example One&lt;/launch:name&gt;
+          &lt;launch:label&gt;example-one&lt;/launch:label&gt;
+          &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
           &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
           &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
           &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
@@ -1117,7 +1447,9 @@ Claims Info Form</h3>
           &lt;/launch:contact&gt;
         &lt;/launch:claim&gt;
         &lt;launch:claim&gt;
-          &lt;launch:name&gt;Hello World&lt;/launch:name&gt;
+          &lt;launch:name&gt;Example Two&lt;/launch:name&gt;
+          &lt;launch:label&gt;example-two&lt;/launch:label&gt;
+          &lt;launch:label&gt;exampletwo&lt;/launch:label&gt;
           &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
           &lt;launch:number&gt;GE 3933233&lt;/launch:number&gt;
           &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
@@ -1155,7 +1487,7 @@ Claims Info Form</h3>
   &lt;/response&gt;
  &lt;/epp&gt;
 </pre></div>
-<a name="anchor5"></a><br /><hr />
+<a name="createCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
 EPP &lt;create&gt; Command</h3>
@@ -1220,20 +1552,28 @@ Sunrise Create Form</h3>
 <dd>The phase the application is
               associated with.
 </dd>
+<dt>&lt;launch:codeClaim&gt; or &lt;launch:signedClaim&gt;</dt>
+<dd>
+                  
+<blockquote class="text"><dl>
 <dt>&lt;launch:codeClaim&gt;</dt>
 <dd>zero or more
-              &lt;launch:codeClaim&gt; elements or
+              &lt;launch:codeClaim&gt; elements.  The &lt;launch:codeClaim&gt;
+              child elements are defined in the 
+              <a class='info' href='#codeClaim'>&lt;launch:codeClaim&gt; element<span> (</span><span class='info'>&lt;launch:codeClaim&gt; element</span><span>)</span></a> 
+              section.
 </dd>
 <dt>&lt;launch:signedClaim&gt;</dt>
 <dd>zero or more
-              &lt;launch:signedClaim&gt; elements.
+              &lt;launch:signedClaim&gt; elements.  The &lt;launch:signedClaim&gt; 
+              child elements are defined in 
+              the <a class='info' href='#signedClaim'>&lt;launch:signedClaim&gt; element<span> (</span><span class='info'>&lt;launch:signedClaim&gt; element</span><span>)</span></a> 
+              section.
+</dd>
+</dl></blockquote>
 </dd>
 </dl></blockquote>
 
-<p>The <a class='info' href='#validationModels'>Claim Validation
-          Models<span> (</span><span class='info'>Claim Validation Models</span><span>)</span></a> section describes the &lt;launch:codeClaim&gt; and
-          &lt;launch:signedClaim&gt; elements.
-</p>
 <p>Following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension with multiple sunrise
             codes.
@@ -1284,7 +1624,7 @@ Sunrise Create Form</h3>
     &lt;create&gt;
       &lt;domain:create
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
         &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
@@ -1300,7 +1640,9 @@ Sunrise Create Form</h3>
           &lt;launch:codeClaim&gt;
             &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
             &lt;launch:claim&gt;
-              &lt;launch:name&gt;Hello&lt;/launch:name&gt;
+              &lt;launch:name&gt;Example One&lt;/launch:name&gt;
+              &lt;launch:label&gt;example-one&lt;/launch:label&gt;
+              &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
               &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
               &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
               &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
@@ -1486,7 +1828,8 @@ Claims Create Form</h3>
 <p>The Claims Create Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] includes the
           information related to the acceptance of the claims notice that is
           based on the contents of the Claims Info Response defined in the
-          <a class='info' href='#claimsInfoForm'>Claims Info Form<span> (</span><span class='info'>Claims Info Form</span><span>)</span></a> section.
+          <a class='info' href='#claimsInfoForm'>Claims Info Form<span> (</span><span class='info'>Claims Info Form</span><span>)</span></a> section or is based 
+          on a signed notice by a trusted third party like the Trademark Clearinghouse (TMCH).
 </p>
 <p>A &lt;launch:create&gt; element is sent along with the regular
           &lt;create&gt; domain command. The &lt;launch:create&gt; element
@@ -1538,36 +1881,11 @@ Claims Create Form</h3>
 </dd>
 <dt>&lt;launch:signedNotice&gt;</dt>
 <dd>Signed claims
-                    reference information generated by a trusted third party
-                    like the Trademark Clearinghouse (TMCH). The signature can
-                    be verified by the server using the trusted third party public
-                    key.  The &lt;launch:signedNotice&gt; element has the 
-                    following child elements:
-</dd>
-<dt></dt>
-<dd>
-                       
-<blockquote class="text"><dl>
-<dt>&lt;launch:noticeID&gt;</dt>
-<dd>Notice 
-                        identifier generated by the trusted third party that
-                        can be used for traceability from the third party to 
-                        the client to the server.
-</dd>
-<dt>&lt;Signature&gt;</dt>
-<dd>Digital Signature 
-                        over the &lt;launch:signedNotice&gt; based on the 
-                        <a href='http://www.w3.org/TR/xmldsig-core/'>XML Signature</a> 
-            				standard.  The &lt;Transform&gt; Algorithm is set to 
-            				"http://www.w3.org/2000/09/xmldsig#enveloped-signature" 
-            				along with the &lt;Reference&gt; URI is set to 
-            				"#pointer(..)" to have the signature apply across the 
-            				entire &lt;launch:signedNotice&gt; element.  The 
-            				digital signature can be verified by the server using 
-            				the trusted third party public key.
-</dd>
-</dl></blockquote>
-                    
+                    notice reference information generated by a trusted third party
+                    like the Trademark Clearinghouse (TMCH). The child elements 
+                    of &lt;signedNotice&gt; are defined in the 
+                    <a class='info' href='#signedNotice'>&lt;launch:signedNotice&gt; element<span> (</span><span class='info'>&lt;launch:signedNotice&gt; element</span><span>)</span></a> 
+                    section.
 </dd>
 </dl></blockquote>
                 
@@ -1670,7 +1988,7 @@ Claims Create Form</h3>
   &lt;/command&gt;
 &lt;/epp&gt;
 </pre></div>
-<a name="anchor6"></a><br /><hr />
+<a name="updateCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4"></a><h3>3.4.&nbsp;
 EPP &lt;update&gt; Command</h3>
@@ -1757,7 +2075,7 @@ EPP &lt;update&gt; Command</h3>
   &lt;/response&gt;
 &lt;/epp&gt;
 </pre></div>
-<a name="anchor7"></a><br /><hr />
+<a name="deleteCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.5"></a><h3>3.5.&nbsp;
 EPP &lt;delete&gt; Command</h3>
@@ -1832,7 +2150,7 @@ EPP &lt;delete&gt; Command</h3>
   &lt;/response&gt;
 &lt;/epp&gt;
 </pre></div>
-<a name="anchor8"></a><br /><hr />
+<a name="renewCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.6"></a><h3>3.6.&nbsp;
 EPP &lt;renew&gt; Command</h3>
@@ -1840,7 +2158,7 @@ EPP &lt;renew&gt; Command</h3>
 <p>This extension does not define any extension to the EPP
         &lt;renew&gt; command or response described in the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
 </p>
-<a name="anchor9"></a><br /><hr />
+<a name="transferCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.7"></a><h3>3.7.&nbsp;
 EPP &lt;transfer&gt; Command</h3>
@@ -1936,8 +2254,7 @@ Import common element types.
   --&gt;
   &lt;complexType name="idContainerType"&gt;
     &lt;sequence&gt;
-      &lt;element name="phase" type="launch:phaseType"
-        minOccurs="0"/&gt;
+      &lt;element name="phase" type="launch:phaseType"/&gt;
       &lt;element name="applicationID" type="token"/&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
@@ -2059,9 +2376,10 @@ Import common element types.
     &lt;complexType name="signedClaimType"&gt;
     &lt;sequence&gt;
       &lt;element name="serial" type="token"/&gt;
-      &lt;element name="tld" type="eppcom:labelType"/&gt;
-      &lt;element name="label" type="eppcom:labelType"
-        maxOccurs="unbounded"/&gt;
+      &lt;element name="tld" type="eppcom:labelType"
+      minOccurs="0" maxOccurs="unbounded"/&gt;
+      &lt;element name="exDate" type="dateTime"
+      minOccurs="0"/&gt;
       &lt;element name="claim" type="launch:claimType"/&gt;
       &lt;element ref="ds:Signature"/&gt;
     &lt;/sequence&gt;
@@ -2111,6 +2429,8 @@ Import common element types.
   &lt;complexType name="signedCreateNoticeType"&gt;
     &lt;sequence&gt;
       &lt;element name="noticeID" type="launch:noticeIDType"/&gt;
+      &lt;element name="exDate" type="dateTime"
+      minOccurs="0"/&gt;
       &lt;element ref="ds:Signature"/&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
@@ -2142,18 +2462,20 @@ Import common element types.
         &lt;sequence&gt;
           &lt;element name="applicationID"
           type="launch:applicationIDType"/&gt;
-          &lt;element name="status" type="launch:statusType"
+          &lt;element name="status"
+          type="launch:statusType"
             minOccurs="0"/&gt;
           &lt;choice&gt;
-            &lt;element name="codeClaim"
-              type="launch:codeClaimType"
-              maxOccurs="unbounded"/&gt;
-            &lt;element name="signedClaim"
-              type="launch:signedClaimType"
-              maxOccurs="unbounded"/&gt;
+              &lt;element name="codeClaim"
+                type="launch:codeClaimType"
+                maxOccurs="unbounded"/&gt;
+             &lt;element name="signedClaim"
+                type="launch:signedClaimType"
+                maxOccurs="unbounded"/&gt;
           &lt;/choice&gt;
-         &lt;/sequence&gt;
-        &lt;element name="notice" type="launch:claimsNoticeType"
+        &lt;/sequence&gt;
+        &lt;element name="notice"
+        type="launch:claimsNoticeType"
           minOccurs="0"/&gt;
       &lt;/choice&gt;
     &lt;/sequence&gt;
@@ -2231,7 +2553,10 @@ Import common element types.
       &lt;sequence&gt;
         &lt;element name="id" type="token"
           minOccurs="0"/&gt;
-        &lt;element name="name" type="token"/&gt;
+        &lt;element name="name" type="token"
+           minOccurs="0"/&gt;
+        &lt;element name="label" type="eppcom:labelType"
+           minOccurs="0" maxOccurs="unbounded"/&gt;
         &lt;element name="issuer" type="token"
           minOccurs="0"/&gt;
         &lt;element name="number" type="token"
@@ -2319,6 +2644,8 @@ Security Considerations</h3>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5730">Extensible Provisioning Protocol (EPP)</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5730, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5730.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5731">[RFC5731]</a></td>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5731">Extensible Provisioning Protocol (EPP) Domain Name Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5731, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5731.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5733">[RFC5733]</a></td>
+<td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5733">Extensible Provisioning Protocol (EPP) Contact Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5733, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5733.txt">TXT</a>).</td></tr>
 </table>
 
 <a name="rfc.authors"></a><br /><hr />

@@ -160,9 +160,10 @@ Import common element types.
     <complexType name="signedClaimType">
     <sequence>
       <element name="serial" type="token"/>
-      <element name="tld" type="eppcom:labelType"/>
-      <element name="label" type="eppcom:labelType" 
-        maxOccurs="unbounded"/>
+      <element name="tld" type="eppcom:labelType"
+      minOccurs="0" maxOccurs="unbounded"/>
+      <element name="exDate" type="dateTime" 
+      minOccurs="0"/>
       <element name="claim" type="launch:claimType"/>
       <element ref="ds:Signature"/>
     </sequence>
@@ -212,6 +213,8 @@ Import common element types.
   <complexType name="signedCreateNoticeType">
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
+      <element name="exDate" type="dateTime" 
+      minOccurs="0"/>
       <element ref="ds:Signature"/>
     </sequence>
   </complexType>
@@ -245,7 +248,7 @@ Import common element types.
           <element name="status" type="launch:statusType" 
             minOccurs="0"/>
           <choice>
-        	    <element name="codeClaim" 
+              <element name="codeClaim" 
                 type="launch:codeClaimType" 
                 maxOccurs="unbounded"/>
              <element name="signedClaim" 
@@ -331,7 +334,10 @@ Import common element types.
       <sequence>
         <element name="id" type="token" 
           minOccurs="0"/>
-        <element name="name" type="token"/>
+        <element name="name" type="token"
+           minOccurs="0"/>
+        <element name="label" type="eppcom:labelType"
+           minOccurs="0" maxOccurs="unbounded"/>
         <element name="issuer" type="token" 
           minOccurs="0"/>
         <element name="number" type="token" 

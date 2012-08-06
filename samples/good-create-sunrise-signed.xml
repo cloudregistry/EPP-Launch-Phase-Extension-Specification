@@ -9,7 +9,7 @@
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
        xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
        domain-1.0.xsd">
-        <domain:name>example.tld</domain:name>
+        <domain:name>exampleone.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -27,38 +27,39 @@
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
             <launch:tld>newtld</launch:tld>
-            <launch:label>example-and-example</launch:label>
-            <launch:label>example</launch:label>
-        <launch:claim>
-          <launch:name>Hello</launch:name>
-          <launch:issuer>IP Clearinghouse</launch:issuer>
-          <launch:number>GE 3933232</launch:number>
-          <launch:type>REG-TM-WORD</launch:type>
-          <launch:entitlement>owner</launch:entitlement>
-          <launch:regDate>2011-09-09</launch:regDate>
-          <launch:exDate>2013-09-09</launch:exDate>
-          <launch:country>AU</launch:country>
-          <launch:region>VIC</launch:region>
-          <launch:owner>
-            <launch:org>Example Inc.</launch:org>
-          </launch:owner>
-          <launch:contact>
-            <launch:name>John Doe</launch:name>
-            <launch:org>Example Inc.</launch:org>
-            <launch:addr>
-              <launch:street>123 Example Dr.</launch:street>
-              <launch:street>Suite 100</launch:street>
-              <launch:city>Reston</launch:city>
-              <launch:sp>VA</launch:sp>
-              <launch:pc>20190</launch:pc>
-              <launch:cc>US</launch:cc>
-            </launch:addr>
-            <launch:voice x="1234">+1.7035555555</launch:voice>
-            <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.tld</launch:email>
-          </launch:contact>
-        </launch:claim>
-            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
+          <launch:claim>
+            <launch:name>Example One</launch:name>
+            <launch:label>example-one</launch:label>
+            <launch:label>exampleone</launch:label>
+            <launch:issuer>IP Clearinghouse</launch:issuer>
+            <launch:number>GE 3933232</launch:number>
+            <launch:type>REG-TM-WORD</launch:type>
+            <launch:entitlement>owner</launch:entitlement>
+            <launch:regDate>2011-09-09</launch:regDate>
+            <launch:exDate>2013-09-09</launch:exDate>
+            <launch:country>AU</launch:country>
+            <launch:region>VIC</launch:region>
+            <launch:owner>
+              <launch:org>Example Inc.</launch:org>
+            </launch:owner>
+            <launch:contact>
+              <launch:name>John Doe</launch:name>
+              <launch:org>Example Inc.</launch:org>
+              <launch:addr>
+                <launch:street>123 Example Dr.</launch:street>
+                <launch:street>Suite 100</launch:street>
+                <launch:city>Reston</launch:city>
+                <launch:sp>VA</launch:sp>
+                <launch:pc>20190</launch:pc>
+                <launch:cc>US</launch:cc>
+              </launch:addr>
+              <launch:voice x="1234">+1.7035555555</launch:voice>
+              <launch:fax>+1.7035555556</launch:fax>
+              <launch:email>jdoe@example.tld</launch:email>
+            </launch:contact>
+          </launch:claim>
+          <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
               <SignedInfo>
             <CanonicalizationMethod 
              Algorithm=

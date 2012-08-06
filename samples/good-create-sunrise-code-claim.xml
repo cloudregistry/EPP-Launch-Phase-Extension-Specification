@@ -9,7 +9,7 @@
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
        xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
        domain-1.0.xsd">
-        <domain:name>example.tld</domain:name>
+        <domain:name>exampleone.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
@@ -27,7 +27,9 @@
           <launch:codeClaim>
         <launch:code>49FD46E6C4B45C55D4AC</launch:code>
         <launch:claim>
-          <launch:name>Hello</launch:name>
+          <launch:name>Example One</launch:name>
+          <launch:label>example-one</launch:label>
+          <launch:label>exampleone</launch:label>
           <launch:issuer>IP Clearinghouse</launch:issuer>
           <launch:number>GE 3933232</launch:number>
           <launch:type>REG-TM-WORD</launch:type>

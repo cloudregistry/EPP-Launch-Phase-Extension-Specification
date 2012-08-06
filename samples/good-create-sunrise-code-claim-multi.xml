@@ -27,7 +27,9 @@
         	<launch:codeClaim>
 				<launch:code>49FD46E6C4B45C55D4AC</launch:code>
 				<launch:claim>
-					<launch:name>Hello</launch:name>
+               <launch:name>Example One</launch:name>
+               <launch:label>example-one</launch:label>
+               <launch:label>exampleone</launch:label>
 					<launch:issuer>IP Clearinghouse</launch:issuer>
 					<launch:number>GE 3933232</launch:number>
 					<launch:type>REG-TM-WORD</launch:type>
@@ -59,7 +61,9 @@
         	<launch:codeClaim>
 				<launch:code>49FD46E6C4B45C55D4AD</launch:code>
 				<launch:claim>
-					<launch:name>Hello World</launch:name>
+               <launch:name>Example Two</launch:name>
+               <launch:label>example-two</launch:label>
+               <launch:label>exampletwo</launch:label>
 					<launch:issuer>IP Clearinghouse</launch:issuer>
 					<launch:number>GE 3933233</launch:number>
 					<launch:type>REG-TM-WORD</launch:type>
