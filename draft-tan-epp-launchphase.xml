@@ -127,7 +127,7 @@
       </address>
     </author>
 
-    <date day="31" month="July" year="2012"/>
+    <date day="7" month="August" year="2012"/>
 
     <!-- Meta-data Declarations -->
 
@@ -228,7 +228,7 @@
             Clearinghouse Draft Implementation Model</eref>.</t>
 
             <t hangText="open">Post launch phase that is also referred to as
-            "steady state". Servers might require additional trademark
+            "steady state". Servers MAY require additional trademark
             protection with this phase.</t>
 
             <t hangText="custom">A custom server launch phase that is defined
@@ -245,7 +245,7 @@
         <t>A launch application object MAY have a status value. The
         &lt;status&gt; element is used to convey extended status pertaining to
         the application object, beyond what is specified in the object mapping
-        to which this application object represents.</t>
+        for this application object.</t>
 
         <t>The following status values are defined: <list style="hanging">
             <t hangText="pending:">the initial state of a newly-created
@@ -350,8 +350,8 @@
         <section anchor="codeClaim" title="&lt;launch:codeClaim&gt; element">
            <t>The &lt;launch:codeClaim&gt; element that is used by the "code", 
            "claim", and "code with claim" validation models has the following child 
-           elements:
-           <list style="hanging">
+           elements:</t>
+           <t><list style="hanging">
               <t hangText="&lt;launch:code&gt;:">OPTIONAL claim code used to 
               validate the &lt;launch:claim&gt; information or to directly 
               validate the claim against the domain name.  The claim code 
@@ -412,18 +412,18 @@
         <t>A &lt;launch:claim&gt; element describes an applicant's prior right
         to a given domain name.</t>
 
-        <t>The child elements of the &lt;launch:claim&gt; element include:
-        <list style="hanging">
+        <t>The child elements of the &lt;launch:claim&gt; element include:</t>
+        <t><list style="hanging">
             <t hangText="&lt;launch:id&gt;:">an identifier for the claim. This
             identifier MUST be unique among all claims associated with an
             application object.</t>
 
-            <t hangText="&lt;launch:name&gt;:">identifying the text string in which
-            the applicant is claiming a prior right</t>
+            <t hangText="&lt;launch:name&gt;:">The registered trademark text string.  This 
+            value is free-form text that MAY be mapped to one or more &lt;launch:label&gt; values.</t>
             
             <t hangText="&lt;launch:label&gt;:">Zero or more domain name labels that corresponds 
             to the &lt;launch:name&gt;.  Each &lt;launch:label&gt; can match 
-            directly to the domain name after adding the top level domain.</t>            
+            directly to the domain name after adding the parent zone.</t>            
 
             <t hangText="&lt;launch:issuer&gt;:">name of the authority which issued
             the right (trademark clearinghouse, trademark office, company registration bureau, etc.)</t>
@@ -455,7 +455,8 @@
 
             <t hangText="&lt;launch:contact&gt;:">Contact for the owner using the 
             <xref target="contact">Contact</xref> element.</t>
-          </list>All of the child elements are OPTIONAL. Server policy may 
+          </list></t>
+          <t>All of the child elements are OPTIONAL. Server policy may 
           place additional constraints on the format and requirements of such elements.</t>
       </section>
       
@@ -474,7 +475,7 @@
 
             <t hangText="&lt;launch:org&gt;:">name of the organization with which the contact is affiliated.</t>
 
-            <t hangText="&lt;launch:addr&gt;:">address information assocated with the contact.  the &lt;launch:addr&gt; element contains 
+            <t hangText="&lt;launch:addr&gt;:">address information associated with the contact.  the &lt;launch:addr&gt; element contains 
             the following child elements:</t>
 
               <t><list hangIndent="4" style="hanging">
@@ -495,7 +496,8 @@
 
             <t hangText="&lt;launch:email&gt;:">contact's email address</t>
 
-          </list> All of the child elements are OPTIONAL.  Server policy may place additional constraints
+          </list></t>
+          <t>All of the child elements are OPTIONAL.  Server policy may place additional constraints
         on the format and requirements of such elements.</t>
       </section>
       
@@ -522,8 +524,8 @@
         </t>
 
      <section anchor="signedClaim" title="&lt;launch:signedClaim&gt; element">
-        <t>The child elements of the &lt;launch:signedClaim&gt; element include:
-        <list style="hanging">
+        <t>The child elements of the &lt;launch:signedClaim&gt; element include:</t>
+        <t><list style="hanging">
             <t hangText="&lt;launch:serial&gt;:">Signature serial number that 
             that can be compared with a revocation list by the server.</t>
 
@@ -619,8 +621,8 @@
         </section>
          
      <section anchor="signedNotice" title="&lt;launch:signedNotice&gt; element">
-        <t>The child elements of the &lt;launch:signedNotice&gt; element include:
-        <list style="hanging">
+        <t>The child elements of the &lt;launch:signedNotice&gt; element include:</t>
+        <t><list style="hanging">
             <t hangText="&lt;launch:noticeID&gt;:">Unique notice identifier 
             generated by the third party.  The &lt;launch:noticeID&gt; can be 
             compared with a revocation list by the server.</t>
@@ -758,8 +760,8 @@
 
           <t><list hangIndent="4" style="hanging">
               <t hangText="&lt;launch:phase&gt;">The phase during which the
-              application was submitted or is associated with. It is up to
-              server policy what phases are supported for the Sunrise Info
+              application was submitted or is associated with. Server policy 
+              defines what phases that are supported for the Sunrise Info
               Form.</t>
 
               <t hangText="&lt;launch:applicationID&gt;">the application
@@ -797,7 +799,8 @@
           <t>If the query was successful, the server replies with an
           &lt;launch:infData&gt; element along with the regular EPP
           &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
-          child elements: <list hangIndent="4" style="hanging">
+          child elements:</t>
+          <t><list hangIndent="4" style="hanging">
               <t hangText="&lt;launch:phase&gt;">the phase during which the
               application was submitted or is associated with.</t>
 
@@ -1564,7 +1567,8 @@
           applications of a given domain name is supported; otherwise no
           extension is included with the regular EPP &lt;resData&gt;. The
           &lt;launch:creData&gt; element contains the following child
-          elements: <list hangIndent="4" style="hanging">
+          elements:</t>
+          <t><list hangIndent="4" style="hanging">
               <t hangText="&lt;launch:phase&gt;">The phase of the application
               that mirrors the &lt;launch:phase&gt; element included in the
               &lt;launch:create&gt;.</t>
@@ -1648,7 +1652,7 @@
                         2202.</t>
 
                         <t hangText="&lt;launch:timestamp&gt;">Contains the
-                        date and time that the claims notice was accepted</t>
+                        date and time that the claims notice was accepted.</t>
 
                         <t hangText="&lt;launch:clientAddr&gt;">Contains the
                         client IP address of the client that accepted the
@@ -1790,7 +1794,8 @@
         object by submitting an EPP &lt;update&gt; command along with an
         &lt;launch:update&gt; element to indicate the application object to be
         updated. The &lt;launch:update&gt; element contains the following
-        child elements: <list hangIndent="4" style="hanging">
+        child elements:</t>
+        <t><list hangIndent="4" style="hanging">
             <t hangText="&lt;launch:phase&gt;">the phase during which the
             application was submitted or is associated with.</t>
 
@@ -1882,7 +1887,8 @@
         by submitting an EPP &lt;delete&gt; command along with an
         &lt;launch:delete&gt; element to indicate the application object to be
         deleted. The &lt;launch:delete&gt; element contains the following
-        child elements: <list hangIndent="4" style="hanging">
+        child elements:</t>
+        <t><list hangIndent="4" style="hanging">
             <t hangText="&lt;launch:phase&gt;">the phase during which the
             application was submitted or is associated with.</t>
 
@@ -1974,7 +1980,7 @@
       BEGIN and END tags are not part of the schema; they are used to note the
       beginning and ending of the schema for URI registration purposes.</t>
 
-      <t>Copyright (c) 2009 IETF Trust and the persons identified as authors
+      <t>Copyright (c) 2012 IETF Trust and the persons identified as authors
       of the code. All rights reserved.</t>
 
       <t>Redistribution and use in source and binary forms, with or without

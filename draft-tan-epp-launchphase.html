@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: February 1, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: February 8, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">July 31, 2012</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">August 7, 2012</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-02</h1>
@@ -183,7 +183,7 @@ The list of current Internet-Drafts can be accessed at
 The list of Internet-Draft Shadow Directories can be accessed at
 <a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
-This Internet-Draft will expire on February 1, 2013.</p>
+This Internet-Draft will expire on February 8, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -364,7 +364,7 @@ Launch Phases</h3>
 </dd>
 <dt>open</dt>
 <dd>Post launch phase that is also referred to as
-            "steady state". Servers might require additional trademark
+            "steady state". Servers MAY require additional trademark
             protection with this phase.
 </dd>
 <dt>custom</dt>
@@ -386,7 +386,7 @@ Status Values</h3>
 <p>A launch application object MAY have a status value. The
         &lt;status&gt; element is used to convey extended status pertaining to
         the application object, beyond what is specified in the object mapping
-        to which this application object represents.
+        for this application object.
 </p>
 <p>The following status values are defined: </p>
 <blockquote class="text"><dl>
@@ -513,7 +513,8 @@ Claim Validation Models</h3>
 <p>The &lt;launch:codeClaim&gt; element that is used by the "code", 
            "claim", and "code with claim" validation models has the following child 
            elements:
-           </p>
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:code&gt;:</dt>
 <dd>OPTIONAL claim code used to 
@@ -578,7 +579,8 @@ Claim</h3>
         to a given domain name.
 </p>
 <p>The child elements of the &lt;launch:claim&gt; element include:
-        </p>
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:id&gt;:</dt>
 <dd>an identifier for the claim. This
@@ -586,13 +588,13 @@ Claim</h3>
             application object.
 </dd>
 <dt>&lt;launch:name&gt;:</dt>
-<dd>identifying the text string in which
-            the applicant is claiming a prior right
+<dd>The registered trademark text string.  This 
+            value is free-form text that MAY be mapped to one or more &lt;launch:label&gt; values.
 </dd>
 <dt>&lt;launch:label&gt;:</dt>
 <dd>Zero or more domain name labels that corresponds 
             to the &lt;launch:name&gt;.  Each &lt;launch:label&gt; can match 
-            directly to the domain name after adding the top level domain.
+            directly to the domain name after adding the parent zone.
 </dd>
 <dt>&lt;launch:issuer&gt;:</dt>
 <dd>name of the authority which issued
@@ -635,7 +637,9 @@ Claim</h3>
 <dd>Contact for the owner using the 
             <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> element.
 </dd>
-</dl></blockquote><p>All of the child elements are OPTIONAL. Server policy may 
+</dl></blockquote>
+
+<p>All of the child elements are OPTIONAL. Server policy may 
           place additional constraints on the format and requirements of such elements.
 </p>
 <a name="contact"></a><br /><hr />
@@ -662,7 +666,7 @@ Contact</h3>
 <dd>name of the organization with which the contact is affiliated.
 </dd>
 <dt>&lt;launch:addr&gt;:</dt>
-<dd>address information assocated with the contact.  the &lt;launch:addr&gt; element contains 
+<dd>address information associated with the contact.  the &lt;launch:addr&gt; element contains 
             the following child elements:
 </dd>
 <dt></dt>
@@ -692,7 +696,9 @@ Contact</h3>
 <dt>&lt;launch:email&gt;:</dt>
 <dd>contact's email address
 </dd>
-</dl></blockquote><p> All of the child elements are OPTIONAL.  Server policy may place additional constraints
+</dl></blockquote>
+
+<p>All of the child elements are OPTIONAL.  Server policy may place additional constraints
         on the format and requirements of such elements.
 </p>
 <a name="digitalsignature"></a><br /><hr />
@@ -728,7 +734,8 @@ Digital Signature</h3>
 &lt;launch:signedClaim&gt; element</h3>
 
 <p>The child elements of the &lt;launch:signedClaim&gt; element include:
-        </p>
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:serial&gt;:</dt>
 <dd>Signature serial number that 
@@ -829,7 +836,8 @@ Digital Signature</h3>
 &lt;launch:signedNotice&gt; element</h3>
 
 <p>The child elements of the &lt;launch:signedNotice&gt; element include:
-        </p>
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:noticeID&gt;:</dt>
 <dd>Unique notice identifier 
@@ -978,8 +986,8 @@ Sunrise Info Form</h3>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>The phase during which the
-              application was submitted or is associated with. It is up to
-              server policy what phases are supported for the Sunrise Info
+              application was submitted or is associated with. Server policy 
+              defines what phases that are supported for the Sunrise Info
               Form.
 </dd>
 <dt>&lt;launch:applicationID&gt;</dt>
@@ -1015,7 +1023,9 @@ Sunrise Info Form</h3>
 <p>If the query was successful, the server replies with an
           &lt;launch:infData&gt; element along with the regular EPP
           &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
-          child elements: </p>
+          child elements:
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>the phase during which the
@@ -1777,7 +1787,9 @@ Sunrise Create Form</h3>
           applications of a given domain name is supported; otherwise no
           extension is included with the regular EPP &lt;resData&gt;. The
           &lt;launch:creData&gt; element contains the following child
-          elements: </p>
+          elements:
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>The phase of the application
@@ -1869,7 +1881,7 @@ Claims Create Form</h3>
 </dd>
 <dt>&lt;launch:timestamp&gt;</dt>
 <dd>Contains the
-                        date and time that the claims notice was accepted
+                        date and time that the claims notice was accepted.
 </dd>
 <dt>&lt;launch:clientAddr&gt;</dt>
 <dd>Contains the
@@ -2006,7 +2018,9 @@ EPP &lt;update&gt; Command</h3>
         object by submitting an EPP &lt;update&gt; command along with an
         &lt;launch:update&gt; element to indicate the application object to be
         updated. The &lt;launch:update&gt; element contains the following
-        child elements: </p>
+        child elements:
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>the phase during which the
@@ -2093,7 +2107,9 @@ EPP &lt;delete&gt; Command</h3>
         by submitting an EPP &lt;delete&gt; command along with an
         &lt;launch:delete&gt; element to indicate the application object to be
         deleted. The &lt;launch:delete&gt; element contains the following
-        child elements: </p>
+        child elements:
+</p>
+<p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>the phase during which the
@@ -2177,7 +2193,7 @@ Formal Syntax</h3>
       BEGIN and END tags are not part of the schema; they are used to note the
       beginning and ending of the schema for URI registration purposes.
 </p>
-<p>Copyright (c) 2009 IETF Trust and the persons identified as authors
+<p>Copyright (c) 2012 IETF Trust and the persons identified as authors
       of the code. All rights reserved.
 </p>
 <p>Redistribution and use in source and binary forms, with or without
