@@ -734,11 +734,11 @@ Digital Signature</h3>
 <dd>Signature serial number that 
             that can be compared with a revocation list by the server.
 </dd>
-<dt>&lt;launch:tld&gt;:</dt>
-<dd>Zero or more top level domain names 
-            the &lt;launch:signedClaim&gt; can be used with.  No &lt;launch:tld&gt; 
-            element indicates that the &lt;launch:signedClaim&gt; can be used with all 
-            top level domain names.
+<dt>&lt;launch:zone&gt;:</dt>
+<dd>Zero or more DNS zones 
+            the &lt;launch:signedClaim&gt; can be used with.  No &lt;launch:zone&gt; 
+            element indicates that the &lt;launch:signedClaim&gt; can be used 
+            within any DNS zone.
 </dd>
 <dt>&lt;launch:exDate&gt;:</dt>
 <dd>OPTIONAL date and time that the 
@@ -764,7 +764,7 @@ Digital Signature</h3>
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;launch:signedClaim&gt;
   &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
-  &lt;launch:tld&gt;newtld&lt;/launch:tld&gt;
+  &lt;launch:zone&gt;newtld&lt;/launch:zone&gt;
   &lt;launch:exDate&gt;2012-08-16T09:00:00.0Z&lt;/launch:exDate&gt;
   &lt;launch:claim&gt;
     &lt;launch:name&gt;Example One&lt;/launch:name&gt;
@@ -1217,7 +1217,7 @@ Sunrise Info Form</h3>
           &lt;launch:status s="pending"/&gt;
           &lt;launch:signedClaim&gt;
             &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
-            &lt;launch:tld&gt;newtld&lt;/launch:tld&gt;
+            &lt;launch:zone&gt;newtld&lt;/launch:zone&gt;
             &lt;launch:exDate&gt;2012-08-16T09:00:00.0Z&lt;/launch:exDate&gt;
             &lt;launch:claim&gt;
               &lt;launch:name&gt;Example One&lt;/launch:name&gt;
@@ -1709,7 +1709,7 @@ Sunrise Create Form</h3>
           &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
           &lt;launch:signedClaim&gt;
             &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
-            &lt;launch:tld&gt;newtld&lt;/launch:tld&gt;
+            &lt;launch:zone&gt;newtld&lt;/launch:zone&gt;
             &lt;launch:label&gt;example-and-example&lt;/launch:label&gt;
             &lt;launch:label&gt;example&lt;/launch:label&gt;
         &lt;launch:claim&gt;
@@ -2376,7 +2376,7 @@ Import common element types.
     &lt;complexType name="signedClaimType"&gt;
     &lt;sequence&gt;
       &lt;element name="serial" type="token"/&gt;
-      &lt;element name="tld" type="eppcom:labelType"
+      &lt;element name="zone" type="eppcom:labelType"
       minOccurs="0" maxOccurs="unbounded"/&gt;
       &lt;element name="exDate" type="dateTime"
       minOccurs="0"/&gt;

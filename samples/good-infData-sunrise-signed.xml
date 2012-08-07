@@ -36,7 +36,7 @@
           <launch:status s="pending"/>
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
-            <launch:tld>newtld</launch:tld>
+            <launch:zone>newtld</launch:zone>
         <launch:claim>
           <launch:name>Example One</launch:name>
           <launch:label>example-one</launch:label>

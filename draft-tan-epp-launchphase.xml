@@ -527,10 +527,10 @@
             <t hangText="&lt;launch:serial&gt;:">Signature serial number that 
             that can be compared with a revocation list by the server.</t>
 
-            <t hangText="&lt;launch:tld&gt;:">Zero or more top level domain names 
-            the &lt;launch:signedClaim&gt; can be used with.  No &lt;launch:tld&gt; 
-            element indicates that the &lt;launch:signedClaim&gt; can be used with all 
-            top level domain names.</t>
+            <t hangText="&lt;launch:zone&gt;:">Zero or more DNS zones 
+            the &lt;launch:signedClaim&gt; can be used with.  No &lt;launch:zone&gt; 
+            element indicates that the &lt;launch:signedClaim&gt; can be used 
+            within any DNS zone.</t>
             
             <t hangText="&lt;launch:exDate&gt;:">OPTIONAL date and time that the 
             &lt;launch:signedClaim&gt; expires.  The server MUST NOT accept 
@@ -555,7 +555,7 @@
             <artwork><![CDATA[
 <launch:signedClaim>
   <launch:serial>123456</launch:serial>
-  <launch:tld>newtld</launch:tld>
+  <launch:zone>newtld</launch:zone>
   <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
   <launch:claim>
     <launch:name>Example One</launch:name>
@@ -1002,7 +1002,7 @@
           <launch:status s="pending"/>
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
-            <launch:tld>newtld</launch:tld>
+            <launch:zone>newtld</launch:zone>
             <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
             <launch:claim>
               <launch:name>Example One</launch:name>
@@ -1493,7 +1493,7 @@
           <launch:phase>sunrise</launch:phase>
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
-            <launch:tld>newtld</launch:tld>
+            <launch:zone>newtld</launch:zone>
             <launch:label>example-and-example</launch:label>
             <launch:label>example</launch:label>
         <launch:claim>
@@ -2173,7 +2173,7 @@ Import common element types.
     <complexType name="signedClaimType">
     <sequence>
       <element name="serial" type="token"/>
-      <element name="tld" type="eppcom:labelType"
+      <element name="zone" type="eppcom:labelType"
       minOccurs="0" maxOccurs="unbounded"/>
       <element name="exDate" type="dateTime" 
       minOccurs="0"/>

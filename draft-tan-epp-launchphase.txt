@@ -492,10 +492,10 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
    The child elements of the <launch:signedClaim> element include:
    <launch:serial>:  Signature serial number that that can be compared
       with a revocation list by the server.
-   <launch:tld>:  Zero or more top level domain names the <launch:
-      signedClaim> can be used with.  No <launch:tld> element indicates
-      that the <launch:signedClaim> can be used with all top level
-      domain names.
+   <launch:zone>:  Zero or more DNS zones the <launch:signedClaim> can
+      be used with.  No <launch:zone> element indicates that the
+      <launch:signedClaim> can be used within any DNS zone.
+
 
 
 
@@ -519,7 +519,7 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
 
    <launch:signedClaim>
      <launch:serial>123456</launch:serial>
-     <launch:tld>newtld</launch:tld>
+     <launch:zone>newtld</launch:zone>
      <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
      <launch:claim>
        <launch:name>Example One</launch:name>
@@ -970,7 +970,7 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
           <launch:status s="pending"/>
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
-            <launch:tld>newtld</launch:tld>
+            <launch:zone>newtld</launch:zone>
             <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
             <launch:claim>
               <launch:name>Example One</launch:name>
@@ -1493,7 +1493,7 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
           <launch:phase>sunrise</launch:phase>
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
-            <launch:tld>newtld</launch:tld>
+            <launch:zone>newtld</launch:zone>
             <launch:label>example-and-example</launch:label>
             <launch:label>example</launch:label>
         <launch:claim>
@@ -2257,7 +2257,7 @@ Internet-Draft        Launch Phase Mapping for EPP             July 2012
        <complexType name="signedClaimType">
        <sequence>
          <element name="serial" type="token"/>
-         <element name="tld" type="eppcom:labelType"
+         <element name="zone" type="eppcom:labelType"
          minOccurs="0" maxOccurs="unbounded"/>
          <element name="exDate" type="dateTime"
          minOccurs="0"/>

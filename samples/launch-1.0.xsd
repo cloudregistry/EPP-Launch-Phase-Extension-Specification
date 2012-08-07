@@ -160,7 +160,7 @@ Import common element types.
     <complexType name="signedClaimType">
     <sequence>
       <element name="serial" type="token"/>
-      <element name="tld" type="eppcom:labelType"
+      <element name="zone" type="eppcom:labelType"
       minOccurs="0" maxOccurs="unbounded"/>
       <element name="exDate" type="dateTime" 
       minOccurs="0"/>
