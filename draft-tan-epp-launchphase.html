@@ -6,7 +6,7 @@
     Extensible Provisioning Protocol (EPP)">
 <meta name="keywords" content="EPP, Sunrise, Landrush, Trademark Clearinghouse, Trademark
     Claims, domain name registry, launch phase">
-<meta name="generator" content="xml2rfc v1.35 (http://xml.resource.org/)">
+<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
                 font-family: verdana, charcoal, helvetica, arial, sans-serif;
@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: February 8, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: February 11, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">August 7, 2012</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">August 10, 2012</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-02</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on February 8, 2013.</p>
+This Internet-Draft will expire on February 11, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -707,8 +707,8 @@ Digital Signature</h3>
         the claims information, when using the signed claim model with the 
         &lt;launch:signedClaim&gt; element, or the claims notice with the 
         &lt;launch:signedNotice&gt; element.  The digital signatures are   
-        handled using the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
-            Signature</a> standard around the entire &lt;launch:signedClaim&gt; 
+        handled using an <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a> around the entire &lt;launch:signedClaim&gt; 
          or &lt;launch:signedNotice&gt; elements.  Once the digital signature 
          is validated using the appropriate public key, the server can trust 
          all of the information included in the &lt;launch:signedClaim&gt; 
@@ -721,8 +721,8 @@ Digital Signature</h3>
             Signature</a> Reference URI is set to "#pointer(..)" and the 
             Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is 
             used.  Both of these has the digital signature cover the parent 
-            element of the Signature and to specify that the Signature 
-            is embedded in the element.
+            element of the Signature element and to specify that the Signature 
+            element is embedded in the parent element.
         
 </p>
 <a name="signedClaim"></a><br /><hr />

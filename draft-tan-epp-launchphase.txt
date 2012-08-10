@@ -4,10 +4,10 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Standards Track                                G. Brown
-Expires: February 8, 2013                                 CentralNic Ltd
+Expires: February 11, 2013                                CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                          August 7, 2012
+                                                         August 10, 2012
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -34,7 +34,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 8, 2013.
+   This Internet-Draft will expire on February 11, 2013.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 1]
+Tan, et al.             Expires February 11, 2013               [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 2]
+Tan, et al.             Expires February 11, 2013               [Page 2]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -164,7 +164,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 3]
+Tan, et al.             Expires February 11, 2013               [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -220,7 +220,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 4]
+Tan, et al.             Expires February 11, 2013               [Page 4]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -276,7 +276,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 5]
+Tan, et al.             Expires February 11, 2013               [Page 5]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -332,7 +332,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 6]
+Tan, et al.             Expires February 11, 2013               [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -388,7 +388,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 7]
+Tan, et al.             Expires February 11, 2013               [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -444,7 +444,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 8]
+Tan, et al.             Expires February 11, 2013               [Page 8]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -474,11 +474,11 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    Digital signatures can be used by the server to validate either the
    claims information, when using the signed claim model with the
    <launch:signedClaim> element, or the claims notice with the <launch:
-   signedNotice> element.  The digital signatures are handled using the
-   XML Signature [2] standard around the entire <launch:signedClaim> or
-   <launch:signedNotice> elements.  Once the digital signature is
-   validated using the appropriate public key, the server can trust all
-   of the information included in the <launch:signedClaim> or <launch:
+   signedNotice> element.  The digital signatures are handled using an
+   XML Signature [2] around the entire <launch:signedClaim> or <launch:
+   signedNotice> elements.  Once the digital signature is validated
+   using the appropriate public key, the server can trust all of the
+   information included in the <launch:signedClaim> or <launch:
    signedNotice> elements.  It's up to server policy how the public key
    is transferred.
 
@@ -487,8 +487,8 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    Signature [2] Reference URI is set to "#pointer(..)" and the
    Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is
    used.  Both of these has the digital signature cover the parent
-   element of the Signature and to specify that the Signature is
-   embedded in the element.
+   element of the Signature element and to specify that the Signature
+   element is embedded in the parent element.
 
 2.7.1.  <launch:signedClaim> element
 
@@ -500,7 +500,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013                [Page 9]
+Tan, et al.             Expires February 11, 2013               [Page 9]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -556,7 +556,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 10]
+Tan, et al.             Expires February 11, 2013              [Page 10]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -612,7 +612,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 11]
+Tan, et al.             Expires February 11, 2013              [Page 11]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -668,7 +668,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 12]
+Tan, et al.             Expires February 11, 2013              [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -724,7 +724,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 13]
+Tan, et al.             Expires February 11, 2013              [Page 13]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -780,7 +780,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 14]
+Tan, et al.             Expires February 11, 2013              [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -836,7 +836,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 15]
+Tan, et al.             Expires February 11, 2013              [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -892,7 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 16]
+Tan, et al.             Expires February 11, 2013              [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -948,7 +948,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 17]
+Tan, et al.             Expires February 11, 2013              [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1004,7 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 18]
+Tan, et al.             Expires February 11, 2013              [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1060,7 +1060,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 19]
+Tan, et al.             Expires February 11, 2013              [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1116,7 +1116,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 20]
+Tan, et al.             Expires February 11, 2013              [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1172,7 +1172,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 21]
+Tan, et al.             Expires February 11, 2013              [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1228,7 +1228,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 22]
+Tan, et al.             Expires February 11, 2013              [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1284,7 +1284,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 23]
+Tan, et al.             Expires February 11, 2013              [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1340,7 +1340,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 24]
+Tan, et al.             Expires February 11, 2013              [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1396,7 +1396,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 25]
+Tan, et al.             Expires February 11, 2013              [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1452,7 +1452,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 26]
+Tan, et al.             Expires February 11, 2013              [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1508,7 +1508,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 27]
+Tan, et al.             Expires February 11, 2013              [Page 27]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1564,7 +1564,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 28]
+Tan, et al.             Expires February 11, 2013              [Page 28]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1620,7 +1620,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 29]
+Tan, et al.             Expires February 11, 2013              [Page 29]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1676,7 +1676,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 30]
+Tan, et al.             Expires February 11, 2013              [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1732,7 +1732,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 31]
+Tan, et al.             Expires February 11, 2013              [Page 31]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1788,7 +1788,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 32]
+Tan, et al.             Expires February 11, 2013              [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1844,7 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 33]
+Tan, et al.             Expires February 11, 2013              [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1900,7 +1900,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 34]
+Tan, et al.             Expires February 11, 2013              [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1956,7 +1956,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 35]
+Tan, et al.             Expires February 11, 2013              [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2012,7 +2012,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 36]
+Tan, et al.             Expires February 11, 2013              [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2068,7 +2068,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 37]
+Tan, et al.             Expires February 11, 2013              [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2124,7 +2124,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 38]
+Tan, et al.             Expires February 11, 2013              [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2180,7 +2180,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 39]
+Tan, et al.             Expires February 11, 2013              [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2236,7 +2236,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 40]
+Tan, et al.             Expires February 11, 2013              [Page 40]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2292,7 +2292,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 41]
+Tan, et al.             Expires February 11, 2013              [Page 41]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2348,7 +2348,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 42]
+Tan, et al.             Expires February 11, 2013              [Page 42]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2404,7 +2404,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 43]
+Tan, et al.             Expires February 11, 2013              [Page 43]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2460,7 +2460,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 44]
+Tan, et al.             Expires February 11, 2013              [Page 44]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2516,7 +2516,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 45]
+Tan, et al.             Expires February 11, 2013              [Page 45]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2572,7 +2572,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 46]
+Tan, et al.             Expires February 11, 2013              [Page 46]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2628,7 +2628,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 47]
+Tan, et al.             Expires February 11, 2013              [Page 47]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2684,5 +2684,5 @@ Authors' Addresses
 
 
 
-Tan, et al.             Expires February 8, 2013               [Page 48]
+Tan, et al.             Expires February 11, 2013              [Page 48]
 

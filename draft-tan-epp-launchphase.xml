@@ -127,7 +127,7 @@
       </address>
     </author>
 
-    <date day="7" month="August" year="2012"/>
+    <date day="10" month="August" year="2012"/>
 
     <!-- Meta-data Declarations -->
 
@@ -505,8 +505,8 @@
         the claims information, when using the signed claim model with the 
         &lt;launch:signedClaim&gt; element, or the claims notice with the 
         &lt;launch:signedNotice&gt; element.  The digital signatures are   
-        handled using the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
-            Signature</eref> standard around the entire &lt;launch:signedClaim&gt; 
+        handled using an <eref target="http://www.w3.org/TR/xmldsig-core/">XML
+            Signature</eref> around the entire &lt;launch:signedClaim&gt; 
          or &lt;launch:signedNotice&gt; elements.  Once the digital signature 
          is validated using the appropriate public key, the server can trust 
          all of the information included in the &lt;launch:signedClaim&gt; 
@@ -518,8 +518,8 @@
             Signature</eref> Reference URI is set to "#pointer(..)" and the 
             Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is 
             used.  Both of these has the digital signature cover the parent 
-            element of the Signature and to specify that the Signature 
-            is embedded in the element.
+            element of the Signature element and to specify that the Signature 
+            element is embedded in the parent element.
         </t>
 
      <section anchor="signedClaim" title="&lt;launch:signedClaim&gt; element">
