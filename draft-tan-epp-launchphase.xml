@@ -444,11 +444,10 @@
             claim</t>
 
             <t hangText="&lt;launch:country&gt;:">indicates the country in which the
-            claim is valid</t>
+              claim is valid. This may be a two-character code from <xref target="WIPO.ST3" /></t>
 
             <t hangText="&lt;launch:region&gt;:">indicates the name of a city, state,
-            province or other geographic region in which the claim is valid.
-            This may be a two-character code from [WIPO.ST3]</t>
+            province or other geographic region in which the claim is valid.</t>
 
             <t hangText="&lt;launch:owner&gt;:">Owner information using the <xref target="contact">Contact</xref> 
             elements.</t>
@@ -2462,6 +2461,19 @@ END]]></artwork>
       &RFC5733;
 
       &RFC3688;
+
+
+      <reference anchor="WIPO.ST3">
+        <front>
+          <title abbrev='Two-Letter Codes for the Representation of States, Other Entities and Organizations'>Recommended standard on two-letter codes for the representation of states, other entities and intergovernmental organizations</title>
+          <author>
+            <organization>WIPO</organization>
+          </author>
+          <date year='2007' month='March' />
+          <keyword>WIPO</keyword>
+        </front>
+        <format type='PDF' target='http://www.wipo.int/standards/en/pdf/03-03-01.pdf' />
+      </reference>
     </references>
   </back>
 

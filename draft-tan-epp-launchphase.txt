@@ -21,24 +21,18 @@ Abstract
 
 Status of this Memo
 
-   This Internet-Draft is submitted to IETF in full conformance with the
+   This Internet-Draft is submitted in full conformance with the
    provisions of BCP 78 and BCP 79.
 
    Internet-Drafts are working documents of the Internet Engineering
-   Task Force (IETF), its areas, and its working groups.  Note that
-   other groups may also distribute working documents as Internet-
-   Drafts.
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
-
-   The list of current Internet-Drafts can be accessed at
-   http://www.ietf.org/ietf/1id-abstracts.txt.
-
-   The list of Internet-Draft Shadow Directories can be accessed at
-   http://www.ietf.org/shadow.html.
 
    This Internet-Draft will expire on February 8, 2013.
 
@@ -49,6 +43,12 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
+   (http://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
 
 
 
@@ -57,13 +57,7 @@ Tan, et al.             Expires February 8, 2013                [Page 1]
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-   (http://trustee.ietf.org/license-info) in effect on the date of
-   publication of this document.  Please review these documents
-   carefully, as they describe your rights and restrictions with respect
-   to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
-   the Trust Legal Provisions and are provided without warranty as
-   described in the BSD License.
+   described in the Simplified BSD License.
 
 
 Table of Contents
@@ -100,6 +94,12 @@ Table of Contents
    7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 47
    8.  Normative References . . . . . . . . . . . . . . . . . . . . . 47
    Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 48
+
+
+
+
+
+
 
 
 
@@ -412,10 +412,10 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
       claim (owner, licensee, etc.)
    <launch:regDate>:  the date of registration of the claim
    <launch:exDate>:  the date of expiration of the claim
-   <launch:country>:  indicates the country in which the claim is valid
+   <launch:country>:  indicates the country in which the claim is valid.
+      This may be a two-character code from [WIPO.ST3]
    <launch:region>:  indicates the name of a city, state, province or
-      other geographic region in which the claim is valid.  This may be
-      a two-character code from [WIPO.ST3]
+      other geographic region in which the claim is valid.
    <launch:owner>:  Owner information using the Contact (Section 2.6)
       elements.
    <launch:contact>:  Contact for the owner using the Contact
@@ -2622,9 +2622,9 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    [RFC5733]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)
               Contact Mapping", STD 69, RFC 5733, August 2009.
 
-   [1]  <http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/
-        92b95395/TMCH-Model-28jun2012-clean-0001.pdf>
-
+   [WIPO.ST3]
+              WIPO, "Recommended standard on two-letter codes for the
+              representation of states, other entities and
 
 
 
@@ -2632,6 +2632,11 @@ Tan, et al.             Expires February 8, 2013               [Page 47]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
+
+              intergovernmental organizations", March 2007.
+
+   [1]  <http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/
+        92b95395/TMCH-Model-28jun2012-clean-0001.pdf>
 
    [2]  <http://www.w3.org/TR/xmldsig-core/>
 
@@ -2669,11 +2674,6 @@ Authors' Addresses
 
    Email: jgould@verisign.com
    URI:   http://www.verisigninc.com
-
-
-
-
-
 
 
 

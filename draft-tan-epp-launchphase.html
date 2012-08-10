@@ -6,7 +6,7 @@
     Extensible Provisioning Protocol (EPP)">
 <meta name="keywords" content="EPP, Sunrise, Landrush, Trademark Clearinghouse, Trademark
     Claims, domain name registry, launch phase">
-<meta name="generator" content="xml2rfc v1.34 (http://xml.resource.org/)">
+<meta name="generator" content="xml2rfc v1.35 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
                 font-family: verdana, charcoal, helvetica, arial, sans-serif;
@@ -164,24 +164,18 @@
 </p>
 <h3>Status of this Memo</h3>
 <p>
-This Internet-Draft is submitted to IETF in full
+This Internet-Draft is submitted  in full
 conformance with the provisions of BCP&nbsp;78 and BCP&nbsp;79.</p>
 <p>
 Internet-Drafts are working documents of the Internet Engineering
-Task Force (IETF), its areas, and its working groups.
-Note that other groups may also distribute working documents as
-Internet-Drafts.</p>
+Task Force (IETF).  Note that other groups may also distribute
+working documents as Internet-Drafts.  The list of current
+Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>
 Internet-Drafts are draft documents valid for a maximum of six months
 and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
-<p>
-The list of current Internet-Drafts can be accessed at
-<a href='http://www.ietf.org/ietf/1id-abstracts.txt'>http://www.ietf.org/ietf/1id-abstracts.txt</a>.</p>
-<p>
-The list of Internet-Draft Shadow Directories can be accessed at
-<a href='http://www.ietf.org/shadow.html'>http://www.ietf.org/shadow.html</a>.</p>
 <p>
 This Internet-Draft will expire on February 8, 2013.</p>
 
@@ -191,10 +185,14 @@ Copyright (c) 2012 IETF Trust and the persons identified as the
 document authors.  All rights reserved.</p>
 <p>
 This document is subject to BCP 78 and the IETF Trust's Legal
-Provisions Relating to IETF Documents in effect on the date of
-publication of this document (http://trustee.ietf.org/license-info).
-Please review these documents carefully, as they describe your
-rights and restrictions with respect to this document.</p>
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document. Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
 <a name="toc"></a><br /><hr />
 <h3>Table of Contents</h3>
 <p class="toc">
@@ -622,12 +620,11 @@ Claim</h3>
 </dd>
 <dt>&lt;launch:country&gt;:</dt>
 <dd>indicates the country in which the
-            claim is valid
+              claim is valid. This may be a two-character code from <a class='info' href='#WIPO.ST3'>[WIPO.ST3]<span> (</span><span class='info'>WIPO, &ldquo;Recommended standard on two-letter codes for the representation of states, other entities and intergovernmental organizations,&rdquo; March&nbsp;2007.</span><span>)</span></a>
 </dd>
 <dt>&lt;launch:region&gt;:</dt>
 <dd>indicates the name of a city, state,
             province or other geographic region in which the claim is valid.
-            This may be a two-character code from [WIPO.ST3]
 </dd>
 <dt>&lt;launch:owner&gt;:</dt>
 <dd>Owner information using the <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> 
@@ -2662,6 +2659,8 @@ Security Considerations</h3>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5731">Extensible Provisioning Protocol (EPP) Domain Name Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5731, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5731.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5733">[RFC5733]</a></td>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5733">Extensible Provisioning Protocol (EPP) Contact Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5733, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5733.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="WIPO.ST3">[WIPO.ST3]</a></td>
+<td class="author-text">WIPO, &ldquo;<a href="http://www.wipo.int/standards/en/pdf/03-03-01.pdf">Recommended standard on two-letter codes for the representation of states, other entities and intergovernmental organizations</a>,&rdquo; March&nbsp;2007.</td></tr>
 </table>
 
 <a name="rfc.authors"></a><br /><hr />
