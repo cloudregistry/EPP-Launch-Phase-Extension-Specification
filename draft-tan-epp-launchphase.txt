@@ -11,7 +11,7 @@ Expires: February 11, 2013                                CentralNic Ltd
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
-                      draft-tan-epp-launchphase-02
+                    draft-tan-epp-launchphase-03-PRE
 
 Abstract
 
@@ -80,20 +80,20 @@ Table of Contents
      3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . . 13
      3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 13
        3.2.1.  Sunrise Info Form  . . . . . . . . . . . . . . . . . . 13
-       3.2.2.  Claims Info Form . . . . . . . . . . . . . . . . . . . 20
-     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 24
-       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 25
-       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 31
-     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 34
-     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 36
-     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 37
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 38
-   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 38
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 46
-   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 46
-   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 47
-   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 47
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 48
+       3.2.2.  Claims Info Form . . . . . . . . . . . . . . . . . . . 19
+     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 23
+       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 23
+       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 29
+     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 32
+     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 34
+     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 35
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 35
+   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 36
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 44
+   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 44
+   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 45
+   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 45
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 46
 
 
 
@@ -739,8 +739,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    info> extension.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
       <info>
        <domain:info
@@ -773,10 +772,11 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
        <launch:codeClaim>  zero or more <launch:codeClaim> elements.
            The <launch:codeClaim> child elements are defined in the
            <launch:codeClaim> element (Section 2.4.1) section.
+       <launch:signedClaim>  zero or more <launch:signedClaim> elements.
+           The <launch:signedClaim> child elements are defined in the
+           <launch:signedClaim> element (Section 2.7.1) section.
 
-
-
-
+   Example <info> domain response using the Sunrise Info Form <launch:
 
 
 
@@ -785,65 +785,10 @@ Tan, et al.             Expires February 11, 2013              [Page 14]
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-       <launch:signedClaim>  zero or more <launch:signedClaim> elements.
-           The <launch:signedClaim> child elements are defined in the
-           <launch:signedClaim> element (Section 2.7.1) section.
-
-   Example <info> domain response using the Sunrise Info Form <launch:
    infData> extension with multiple codes.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 15]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
       <response>
         <result code="1000">
           <msg>Command completed successfully</msg>
@@ -891,8 +836,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-
-Tan, et al.             Expires February 11, 2013              [Page 16]
+Tan, et al.             Expires February 11, 2013              [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -901,8 +845,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    infData> extension with code and claim information.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
       <response>
         <result code="1000">
           <msg>Command completed successfully</msg>
@@ -945,15 +888,15 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
              <launch:country>AU</launch:country>
              <launch:region>VIC</launch:region>
              <launch:owner>
+               <launch:org>Example Inc.</launch:org>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 17]
+Tan, et al.             Expires February 11, 2013              [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-               <launch:org>Example Inc.</launch:org>
              </launch:owner>
              <launch:contact>
                <launch:name>John Doe</launch:name>
@@ -985,8 +928,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    infData> extension signed claim information.
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
- <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
    <response>
      <result code="1000">
        <msg>Command completed successfully</msg>
@@ -1001,16 +943,16 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
          <domain:contact type="admin">sh8013</domain:contact>
          <domain:contact type="tech">sh8013</domain:contact>
          <domain:clID>ClientX</domain:clID>
+         <domain:crID>ClientY</domain:crID>
+         <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 18]
+Tan, et al.             Expires February 11, 2013              [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-         <domain:crID>ClientY</domain:crID>
-         <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
          <domain:authInfo>
            <domain:pw>2fooBAR</domain:pw>
          </domain:authInfo>
@@ -1057,16 +999,16 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
                 <launch:email>jdoe@example.tld</launch:email>
               </launch:contact>
             </launch:claim>
+            <Signature xmlns=
+              "http://www.w3.org/2000/09/xmldsig#">
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 19]
+Tan, et al.             Expires February 11, 2013              [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-            <Signature xmlns=
-              "http://www.w3.org/2000/09/xmldsig#">
               <SignedInfo>
                 <CanonicalizationMethod
                   Algorithm=
@@ -1116,7 +1058,9 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 20]
+
+
+Tan, et al.             Expires February 11, 2013              [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1125,8 +1069,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    Claims Info Form <launch:info> extension.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
       <info>
        <domain:info
@@ -1172,7 +1115,8 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 21]
+
+Tan, et al.             Expires February 11, 2013              [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1181,8 +1125,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    found for the domain name example.tld.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <response>
        <result code="1000">
         <msg>Command completed successfully</msg>
@@ -1202,14 +1145,13 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
         <svTRID>54322-XYZ</svTRID>
        </trID>
      </response>
-    </epp>
+   </epp>
 
    Example Claims Info Response when two matching trademark claims are
    found for the domain name exampleone.tld.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <response>
        <result code="1000">
         <msg>Command completed successfully</msg>
@@ -1225,16 +1167,16 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
              <launch:name>Example One</launch:name>
              <launch:label>example-one</launch:label>
              <launch:label>exampleone</launch:label>
+             <launch:issuer>IP Clearinghouse</launch:issuer>
+             <launch:number>GE 3933232</launch:number>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 22]
+Tan, et al.             Expires February 11, 2013              [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-             <launch:issuer>IP Clearinghouse</launch:issuer>
-             <launch:number>GE 3933232</launch:number>
              <launch:type>REG-TM-WORD</launch:type>
              <launch:entitlement>owner</launch:entitlement>
              <launch:regDate>2011-09-09</launch:regDate>
@@ -1281,16 +1223,16 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
                <launch:addr>
                  <launch:street>123 Example Dr.</launch:street>
                  <launch:street>Suite 100</launch:street>
+                 <launch:city>Reston</launch:city>
+                 <launch:sp>VA</launch:sp>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 23]
+Tan, et al.             Expires February 11, 2013              [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-                 <launch:city>Reston</launch:city>
-                 <launch:sp>VA</launch:sp>
                  <launch:pc>20190</launch:pc>
                  <launch:cc>US</launch:cc>
                </launch:addr>
@@ -1307,7 +1249,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
         <svTRID>54322-XYZ</svTRID>
        </trID>
      </response>
-    </epp>
+   </epp>
 
 3.3.  EPP <create> Command
 
@@ -1335,20 +1277,18 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    custom  The EPP <create> command with the "custom" phase is undefined
       but the form supported is up to server policy.
 
-
-
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 24]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
 3.3.1.  Sunrise Create Form
 
    The Sunrise Create Form of the extension to the EPP domain name
    mapping [RFC5731] includes the verifiable trademark information that
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 23]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
+
    the server uses to match against the domain name to authorize the
    domain create.  A server MUST support one of four models in Claim
    Validation Models (Section 2.4) for the verifiable trademark
@@ -1396,7 +1336,11 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 25]
+
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1405,8 +1349,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    create> extension with multiple sunrise codes.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
        <create>
          <domain:create
@@ -1443,22 +1386,21 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    create> extension with a code and claim information.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
        <create>
          <domain:create
           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+           <domain:name>exampleone.tld</domain:name>
+           <domain:registrant>jd1234</domain:registrant>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 26]
+Tan, et al.             Expires February 11, 2013              [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-           <domain:name>exampleone.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
            <domain:contact type="admin">sh8013</domain:contact>
            <domain:contact type="tech">sh8013</domain:contact>
            <domain:authInfo>
@@ -1505,16 +1447,16 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
                </launch:claim>
              </launch:codeClaim>
          </launch:create>
+       </extension>
+       <clTRID>ABC-12345</clTRID>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 27]
+Tan, et al.             Expires February 11, 2013              [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-       </extension>
-       <clTRID>ABC-12345</clTRID>
      </command>
    </epp>
 
@@ -1522,16 +1464,11 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    create> extension with signed claim information.
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
-     epp-1.0.xsd">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <create>
       <domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
-       domain-1.0.xsd">
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
@@ -1543,9 +1480,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
     </create>
     <extension>
       <launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
-       launch-1.0.xsd">
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
           <launch:phase>sunrise</launch:phase>
           <launch:signedClaim>
             <launch:serial>123456</launch:serial>
@@ -1561,14 +1496,6 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
           <launch:regDate>2011-09-09</launch:regDate>
           <launch:exDate>2013-09-09</launch:exDate>
           <launch:country>AU</launch:country>
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 28]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
           <launch:region>VIC</launch:region>
           <launch:owner>
             <launch:org>Example Inc.</launch:org>
@@ -1578,6 +1505,14 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
             <launch:org>Example Inc.</launch:org>
             <launch:addr>
               <launch:street>123 Example Dr.</launch:street>
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 27]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
+
               <launch:street>Suite 100</launch:street>
               <launch:city>Reston</launch:city>
               <launch:sp>VA</launch:sp>
@@ -1617,14 +1552,6 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 29]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
 </epp>
 
    If the create was successful, the server MAY reply with the <launch:
@@ -1633,6 +1560,14 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    applications of a given domain name is supported; otherwise no
    extension is included with the regular EPP <resData>.  The <launch:
    creData> element contains the following child elements:
+
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 28]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
 
    <launch:phase>  The phase of the application that mirrors the
        <launch:phase> element included in the <launch:create>.
@@ -1669,18 +1604,6 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
   </response>
 </epp>
 
-
-
-
-
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 30]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
 3.3.2.  Claims Create Form
 
    The Claims Create Form of the extension to the EPP domain name
@@ -1693,6 +1616,14 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    A <launch:create> element is sent along with the regular <create>
    domain command.  The <launch:create> element contains the following
    child elements:
+
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 29]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
 
    <launch:phase>  Must contain the value of "claims" to indicate it is
        the Claims Create Form
@@ -1732,7 +1663,20 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 31]
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -1742,8 +1686,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    information.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
        <create>
          <domain:create
@@ -1776,38 +1719,31 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    create> extension with the signed notice reference information.
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
-     epp-1.0.xsd">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
   <command>
     <create>
       <domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 32]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
-       domain-1.0.xsd">
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
         <domain:authInfo>
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 31]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
+
           <domain:pw>2fooBAR</domain:pw>
         </domain:authInfo>
       </domain:create>
     </create>
     <extension>
       <launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
-       launch-1.0.xsd">
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
         <launch:phase>claims</launch:phase>
         <launch:signedNotice>
           <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
@@ -1840,15 +1776,6 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
   </command>
 </epp>
 
-
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 33]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
 3.4.  EPP <update> Command
 
    This extension defines additional elements to extend the EPP <update>
@@ -1857,6 +1784,14 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    A server that does not support allow multiple applications of a given
    domain name with a Application Identifier (Section 2.1) during its
    launch phase operations MUST return an EPP error result code of 2102.
+
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 32]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
 
    Registry policies permitting, clients may update an application
    object by submitting an EPP <update> command along with an <launch:
@@ -1873,45 +1808,12 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    replies with a standard EPP response as defined in the EPP domain
    mapping.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 34]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
    Following is an example <update> domain command with the <launch:
    update> extension to add and remove a name server of a sunrise
    application with the application identifier "abc123".
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
        <update>
          <domain:update
@@ -1942,21 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 35]
+Tan, et al.             Expires February 11, 2013              [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2012,7 +1900,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 36]
+Tan, et al.             Expires February 11, 2013              [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
@@ -2021,8 +1909,7 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    delete> extension.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
       <delete>
        <domain:delete
@@ -2062,21 +1949,18 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    command or response described in the EPP domain name mapping
    [RFC5731].
 
-
-
-
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 37]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
 3.7.  EPP <transfer> Command
 
    This extension does not define any extension to the EPP <transfer>
    command or response described in the EPP domain name mapping
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 35]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
+
    [RFC5731].
 
 
@@ -2121,18 +2005,18 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
    BEGIN
    <?xml version="1.0" encoding="UTF-8"?>
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 38]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
    <schema
      targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
       xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 36]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
+
       xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
      xmlns="http://www.w3.org/2001/XMLSchema"
      elementFormDefault="qualified">
@@ -2177,18 +2061,18 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
      Definition for application identifier
      -->
      <simpleType name="applicationIDType">
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 39]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
        <restriction base="token"/>
      </simpleType>
 
      <!--
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 37]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
+
      Definition for launch phase.  Name is an optional attribute
      used to extend the phase type.  For example, when
      using the phase type value of &qt;custom&gt;, the name
@@ -2234,16 +2118,17 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
        </restriction>
      </simpleType>
 
+     <simpleType name="ccType">
+       <restriction base="token">
+         <length value="2"/>
 
 
-Tan, et al.             Expires February 11, 2013              [Page 40]
+
+Tan, et al.             Expires February 11, 2013              [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-     <simpleType name="ccType">
-       <restriction base="token">
-         <length value="2"/>
        </restriction>
      </simpleType>
 
@@ -2289,17 +2174,17 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
            <enumeration value="allocated"/>
            <enumeration value="rejected"/>
          </restriction>
+       </simpleType>
+
+     <complexType name="statusType">
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 41]
+Tan, et al.             Expires February 11, 2013              [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-       </simpleType>
-
-     <complexType name="statusType">
        <simpleContent>
          <extension base="normalizedString">
            <attribute name="s" type="launch:statusValueType"
@@ -2345,17 +2230,17 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
              type="launch:signedClaimType"
             maxOccurs="unbounded"/>
            <element name="notice"
+             type="launch:createNoticeType"/>
+           <element name="signedNotice"
+             type="launch:signedCreateNoticeType"/>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 42]
+Tan, et al.             Expires February 11, 2013              [Page 40]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-             type="launch:createNoticeType"/>
-           <element name="signedNotice"
-             type="launch:signedCreateNoticeType"/>
          </choice>
        </sequence>
      </complexType>
@@ -2401,17 +2286,17 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
      <element name="infData" type="launch:infDataType"/>
 
      <complexType name="infDataType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+         <choice>
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 43]
+Tan, et al.             Expires February 11, 2013              [Page 41]
 
 Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
 
-       <sequence>
-         <element name="phase" type="launch:phaseType"/>
-         <choice>
            <sequence>
              <element name="applicationID"
              type="launch:applicationIDType"/>
@@ -2457,17 +2342,16 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
        <simpleContent>
          <extension base="launch:e164StringType">
            <attribute name="x" type="token"/>
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 44]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
          </extension>
        </simpleContent>
      </complexType>
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 42]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
 
      <simpleType name="e164StringType">
        <restriction base="token">
@@ -2513,18 +2397,18 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
      <complexType name="claimType">
          <sequence>
            <element name="id" type="token"
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 45]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
              minOccurs="0"/>
            <element name="name" type="token"
               minOccurs="0"/>
            <element name="label" type="eppcom:labelType"
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 43]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
+
               minOccurs="0" maxOccurs="unbounded"/>
            <element name="issuer" type="token"
              minOccurs="0"/>
@@ -2569,17 +2453,17 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
 
    Registrant Contact: IESG
 
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 46]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
    XML: None.  Namespace URIs do not represent an XML specification.
 
    Registration request for the extension XML schema:
+
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 44]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
 
    URI: urn:ietf:params:xml:schema:launch-1.0
 
@@ -2625,18 +2509,17 @@ Internet-Draft        Launch Phase Mapping for EPP           August 2012
    [WIPO.ST3]
               WIPO, "Recommended standard on two-letter codes for the
               representation of states, other entities and
-
-
-
-Tan, et al.             Expires February 11, 2013              [Page 47]
-
-Internet-Draft        Launch Phase Mapping for EPP           August 2012
-
-
               intergovernmental organizations", March 2007.
 
    [1]  <http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/
         92b95395/TMCH-Model-28jun2012-clean-0001.pdf>
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 45]
+
+Internet-Draft        Launch Phase Mapping for EPP           August 2012
+
 
    [2]  <http://www.w3.org/TR/xmldsig-core/>
 
@@ -2684,5 +2567,10 @@ Authors' Addresses
 
 
 
-Tan, et al.             Expires February 11, 2013              [Page 48]
+
+
+
+
+
+Tan, et al.             Expires February 11, 2013              [Page 46]
 
