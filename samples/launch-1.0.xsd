@@ -141,8 +141,10 @@ Import common element types.
         <enumeration value="pending"/>
         <enumeration value="validated"/>
         <enumeration value="invalid"/>
+        <enumeration value="pendingAuction"/>
         <enumeration value="allocated"/>
         <enumeration value="rejected"/>
+        <enumeration value="custom"/>
       </restriction>
     </simpleType>
   
@@ -153,6 +155,7 @@ Import common element types.
           use="required"/>
         <attribute name="lang" type="language" 
           default="en"/>
+        <attribute name="name" type="token"/>
       </extension>
     </simpleContent>
   </complexType>

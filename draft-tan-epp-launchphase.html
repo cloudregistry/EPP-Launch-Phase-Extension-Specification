@@ -6,7 +6,7 @@
     Extensible Provisioning Protocol (EPP)">
 <meta name="keywords" content="EPP, Sunrise, Landrush, Trademark Clearinghouse, Trademark
     Claims, domain name registry, launch phase">
-<meta name="generator" content="xml2rfc v1.35 (http://xml.resource.org/)">
+<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
 <style type='text/css'><!--
         body {
                 font-family: verdana, charcoal, helvetica, arial, sans-serif;
@@ -382,11 +382,12 @@ Launch Phases</h3>
 Status Values</h3>
 
 <p>A launch application object MAY have a status value. The
-        &lt;status&gt; element is used to convey extended status pertaining to
+        &lt;launch:status&gt; element is used to convey extended status pertaining to
         the application object, beyond what is specified in the object mapping
         for this application object.
 </p>
-<p>The following status values are defined: </p>
+<p>The following status values are defined using the 
+        required "s" attribute: </p>
 <blockquote class="text"><dl>
 <dt>pending:</dt>
 <dd>the initial state of a newly-created
@@ -398,23 +399,43 @@ Status Values</h3>
 </dd>
 <dt>invalid:</dt>
 <dd>the application does not validate according
-            to registry rules
+            to registry rules.
+</dd>
+<dt>pendingAuction:</dt>
+<dd>the application is pending based on 
+            results of an auction.
 </dd>
 <dt>allocated:</dt>
 <dd>one of two possible end states of an
             application object; the object corresponding to the application
-            has been provisioned
+            has been provisioned.
 </dd>
 <dt>rejected:</dt>
 <dd>the other possible end state; the object
-            was not provisioned
+            was not provisioned.
+</dd>
+<dt>custom:</dt>
+<dd>A custom status that is defined using the 
+            the "name" attribute.
 </dd>
 </dl></blockquote>
 
+<p>Each status value MAY be accompanied by a string of human-readable 
+        text that describes the rationale for the status applied to the object.
+        The OPTIONAL "lang" attribute MAY be present to identify the language 
+        if the negotiated value is something other than the default value of 
+        "en" (English).
+</p>
+<p>For extensibility the &lt;launch:status&gt; element includes an
+        OPTIONAL "name" attribute that can define a sub-status or the full name
+        of the status when the status value is "custom".  The server SHOULD 
+        NOT use of the "custom" status value.
+</p>
 <p>Certain status values MAY be combined. For example, an application
         can be invalid and rejected. Additionally certain statuses MAY be
-        skipped. For example, an application can immediately start at the
-        allocated status. If a &lt;domain:create&gt; processes a request
+        skipped. For example, an application MAY immediately start at the
+        allocated status or an application MAY skip the pendingAuction status
+        if server does not support an auction. If a &lt;domain:create&gt; processes a request
         synchronously without the use of an intermediate application, than an
         <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> is not
         needed along with the application status.
@@ -447,8 +468,13 @@ State Transition</h3>
       |               +-----------------+              |
       |                                 |              |
       +---------------------------------+              |
-      |                                                |
-      +------------------------------------------------+
+      |                                 ^              |
+      |                                 |              |
+      |                        +--------+-------+      |
+      |                        |                |      |
+      +-----------------------&gt;| pendingAuction +------+
+                               |                |
+                               +----------------+
 
 </pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;1&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
 
@@ -1141,41 +1167,43 @@ Sunrise Info Form</h3>
         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
          &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
           &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="pending"/&gt;
+          &lt;launch:status s="rejected" name="rejectedAuction" lang="en"&gt;
+            Application rejected due to result of auction.
+          &lt;/launch:status&gt;
           &lt;launch:codeClaim&gt;
-        &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-        &lt;launch:claim&gt;
-          &lt;launch:name&gt;Example One&lt;/launch:name&gt;
-          &lt;launch:label&gt;example-one&lt;/launch:label&gt;
-          &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
-          &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-          &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-          &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-          &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-          &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-          &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-          &lt;launch:country&gt;AU&lt;/launch:country&gt;
-          &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-          &lt;launch:owner&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-          &lt;/launch:owner&gt;
-          &lt;launch:contact&gt;
-            &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-            &lt;launch:addr&gt;
-              &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-              &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-              &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-              &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-              &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-              &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-            &lt;/launch:addr&gt;
-            &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-            &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-            &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-          &lt;/launch:contact&gt;
-        &lt;/launch:claim&gt;
-      &lt;/launch:codeClaim&gt;
+            &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+            &lt;launch:claim&gt;
+              &lt;launch:name&gt;Example One&lt;/launch:name&gt;
+              &lt;launch:label&gt;example-one&lt;/launch:label&gt;
+              &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
+              &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
+              &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
+              &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
+              &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
+              &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
+              &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
+              &lt;launch:country&gt;AU&lt;/launch:country&gt;
+              &lt;launch:region&gt;VIC&lt;/launch:region&gt;
+              &lt;launch:owner&gt;
+                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+              &lt;/launch:owner&gt;
+              &lt;launch:contact&gt;
+                &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
+                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
+                &lt;launch:addr&gt;
+                  &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
+                  &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
+                  &lt;launch:city&gt;Reston&lt;/launch:city&gt;
+                  &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
+                  &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
+                  &lt;launch:cc&gt;US&lt;/launch:cc&gt;
+                &lt;/launch:addr&gt;
+                &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
+                &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
+                &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
+              &lt;/launch:contact&gt;
+            &lt;/launch:claim&gt;
+          &lt;/launch:codeClaim&gt;
        &lt;/launch:infData&gt;
      &lt;/extension&gt;
      &lt;trID&gt;
@@ -2344,8 +2372,10 @@ Import common element types.
         &lt;enumeration value="pending"/&gt;
         &lt;enumeration value="validated"/&gt;
         &lt;enumeration value="invalid"/&gt;
+        &lt;enumeration value="pendingAuction"/&gt;
         &lt;enumeration value="allocated"/&gt;
         &lt;enumeration value="rejected"/&gt;
+        &lt;enumeration value="custom"/&gt;
       &lt;/restriction&gt;
     &lt;/simpleType&gt;
 
@@ -2356,6 +2386,7 @@ Import common element types.
           use="required"/&gt;
         &lt;attribute name="lang" type="language"
           default="en"/&gt;
+        &lt;attribute name="name" type="token"/&gt;
       &lt;/extension&gt;
     &lt;/simpleContent&gt;
   &lt;/complexType&gt;
