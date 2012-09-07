@@ -24,8 +24,8 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         	<launch:phase>sunrise</launch:phase>
-        	<launch:codeClaim>
-				<launch:claim>
+        	<launch:codeMark>
+				<launch:mark>
                <launch:name>Example One</launch:name>
                <launch:label>example-one</launch:label>
                <launch:label>exampleone</launch:label>
@@ -55,8 +55,8 @@
 						<launch:fax>+1.7035555556</launch:fax>
 						<launch:email>jdoe@example.tld</launch:email>
 					</launch:contact>
-				</launch:claim>
-			</launch:codeClaim>
+				</launch:mark>
+			</launch:codeMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>

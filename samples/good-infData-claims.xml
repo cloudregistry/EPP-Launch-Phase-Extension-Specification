@@ -16,7 +16,7 @@
       <launch:notice>
         <launch:name>example.tld</launch:name>
         <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-        <launch:claim>
+        <launch:mark>
           <launch:name>Hello</launch:name>
           <launch:issuer>IP Clearinghouse</launch:issuer>
           <launch:number>GE 3933232</launch:number>
@@ -44,8 +44,8 @@
             <launch:fax>+1.7035555556</launch:fax>
             <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
-        </launch:claim>
-        <launch:claim>
+        </launch:mark>
+        <launch:mark>
           <launch:name>Hello World</launch:name>
           <launch:issuer>IP Clearinghouse</launch:issuer>
           <launch:number>GE 3933233</launch:number>
@@ -73,7 +73,7 @@
             <launch:fax>+1.7035555556</launch:fax>
             <launch:email>jdoe@example.tld</launch:email>
           </launch:contact>
-        </launch:claim>
+        </launch:mark>
       </launch:notice>
      </launch:infData>
     </resData>

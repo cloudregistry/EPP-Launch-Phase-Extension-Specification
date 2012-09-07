@@ -28,10 +28,9 @@ Import common element types.
   <!-- 
   Child elements found in EPP commands.  
   -->
-  <element name="check" type="launch:checkType"/>
-  <element name="info" type="launch:infoType"/>
   <element name="create" type="launch:createType"/>
-  <element name="update" type="launch:idContainerType"/>
+    <element name="update" type="launch:idContainerType"/>
+  <element name="info" type="launch:infType"/>
   <element name="delete" type="launch:idContainerType"/>
   
   <!-- 
@@ -89,7 +88,7 @@ Import common element types.
   </simpleType>
   
   <!-- 
-  Definition for the notice identifier   
+  Definition for the claims identifier   
   -->
   <simpleType name="noticeIDType">
     <restriction base="base64Binary">
@@ -161,23 +160,23 @@ Import common element types.
     </simpleContent>
   </complexType>
   
-    <complexType name="signedMarkType">
+    <complexType name="signedClaimType">
     <sequence>
       <element name="serial" type="token"/>
       <element name="zone" type="eppcom:labelType"
       minOccurs="0" maxOccurs="unbounded"/>
       <element name="exDate" type="dateTime" 
       minOccurs="0"/>
-      <element name="mark" type="launch:markType"/>
+      <element name="claim" type="launch:claimType"/>
       <element ref="ds:Signature"/>
     </sequence>
   </complexType>
 
-  <complexType name="codeMarkType">
+  <complexType name="codeClaimType">
     <sequence>
       <element name="code" type="launch:codeType" 
         minOccurs="0"/> 
-      <element name="mark" type="launch:markType" 
+      <element name="claim" type="launch:claimType" 
         minOccurs="0"/>
     </sequence>
   </complexType>
@@ -189,14 +188,16 @@ Import common element types.
     <sequence>
       <element name="phase" type="launch:phaseType"/>
       <choice>
-        <element name="codeMark" 
-          type="launch:codeMarkType" 
+        <element name="codeClaim" 
+          type="launch:codeClaimType" 
          maxOccurs="unbounded"/>
-        <element name="signedMark" 
-          type="launch:signedMarkType" 
+        <element name="signedClaim" 
+          type="launch:signedClaimType" 
          maxOccurs="unbounded"/>
         <element name="notice" 
           type="launch:createNoticeType"/> 
+        <element name="signedNotice" 
+          type="launch:signedCreateNoticeType"/> 
       </choice>
     </sequence>
   </complexType>
@@ -206,21 +207,15 @@ Import common element types.
   -->
   <complexType name="createNoticeType">
     <sequence>
+      <element name="noticeID" type="launch:noticeIDType"/>
       <element name="timestamp" type="dateTime"/>
       <element name="clientAddr" type="launch:ipAddrType"/>
-      <choice>
-        <element name="noticeID" type="launch:noticeIDType"/>
-         <element name="signedNotice" 
-          type="launch:signedNoticeType"/> 
-      </choice>
     </sequence>
   </complexType>
 
-  <complexType name="signedNoticeType">
+  <complexType name="signedCreateNoticeType">
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
-      <element name="name" type="eppcom:labelType"/>
-      <element name="crDate" type="dateTime"/>
       <element name="exDate" type="dateTime" 
       minOccurs="0"/>
       <element ref="ds:Signature"/>
@@ -229,19 +224,9 @@ Import common element types.
 
 
   <!-- 
-  Child elements of check (Claims Info Command).  
-  -->
-  <complexType name="checkType">
-    <sequence>
-      <element name="phase" type="launch:phaseType"/>
-    </sequence>
-  </complexType>
-
-
-  <!-- 
   Child elements of info for both Sunrise and Claims periods.  
   -->
-  <complexType name="infoType">
+  <complexType name="infType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
       <element name="applicationID" 
@@ -253,54 +238,24 @@ Import common element types.
   <!-- 
   Child response elements.  
   -->
-  <element name="chkData" type="launch:chkDataType"/>    
   <element name="creData" type="launch:idContainerType"/>
+  
   <element name="infData" type="launch:infDataType"/>
-  
-<!--
-<check> response elements.
--->
-  <complexType name="chkDataType">
-    <sequence>
-      <element name="phase" type="launch:phaseType"/>
-      <element name="cd" type="launch:cdType"
-       maxOccurs="unbounded"/>
-    </sequence>
-  </complexType>
-
-  <complexType name="cdType">
-    <sequence>
-      <element name="name" type="launch:cdNameType"/>
-      <element name="claimKey" type="token"
-       minOccurs="0"/>
-    </sequence>
-  </complexType>
-
-  <complexType name="cdNameType">
-    <simpleContent>
-      <extension base="eppcom:labelType">
-        <attribute name="exists" type="boolean"
-         use="required"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-  
   
   <complexType name="infDataType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
       <choice>
         <sequence>
-          <element name="applicationID" 
-            type="launch:applicationIDType"/>
+          <element name="applicationID" type="launch:applicationIDType"/>
           <element name="status" type="launch:statusType" 
             minOccurs="0"/>
           <choice>
-              <element name="codeMark" 
-                type="launch:codeMarkType" 
+              <element name="codeClaim" 
+                type="launch:codeClaimType" 
                 maxOccurs="unbounded"/>
-             <element name="signedMark" 
-                type="launch:signedMarkType" 
+             <element name="signedClaim" 
+                type="launch:signedClaimType" 
                 maxOccurs="unbounded"/>
           </choice>
         </sequence>
@@ -321,8 +276,8 @@ Import common element types.
         <sequence>
           <element name="noticeID" 
             type="launch:noticeIDType"/>
-          <element name="mark" 
-            type="launch:markType" 
+          <element name="claim" 
+            type="launch:claimType" 
             maxOccurs="unbounded"/>
         </sequence>
       </choice> 
@@ -376,9 +331,9 @@ Import common element types.
     
   
   <!--
-  Child elements of mark element.  
+  Child elements of claim element.  
   -->
-  <complexType name="markType">
+  <complexType name="claimType">
       <sequence>
         <element name="id" type="token" 
           minOccurs="0"/>

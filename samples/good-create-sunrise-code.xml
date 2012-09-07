@@ -24,9 +24,9 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         <launch:phase>sunrise</launch:phase>
-        <launch:codeClaim>
+        <launch:codeMark>
         		<launch:code>49FD46E6C4B45C55D4AC</launch:code>
-        </launch:codeClaim>
+        </launch:codeMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>

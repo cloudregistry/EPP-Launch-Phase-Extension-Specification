@@ -34,8 +34,8 @@
          <launch:phase>sunrise</launch:phase>
         	<launch:applicationID>abc123</launch:applicationID>
         	<launch:status s="pending"/>
-        	<launch:codeClaim>
-				<launch:claim>
+        	<launch:codeMark>
+				<launch:mark>
 					<launch:name>Hello</launch:name>
 					<launch:issuer>IP Clearinghouse</launch:issuer>
 					<launch:number>GE 3933232</launch:number>
@@ -63,8 +63,8 @@
 						<launch:fax>+1.7035555556</launch:fax>
 						<launch:email>jdoe@example.tld</launch:email>
 					</launch:contact>
-				</launch:claim>
-			</launch:codeClaim>
+				</launch:mark>
+			</launch:codeMark>
        </launch:infData>
      </extension>
      <trID>

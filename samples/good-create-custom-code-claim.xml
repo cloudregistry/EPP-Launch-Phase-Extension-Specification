@@ -24,9 +24,9 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         	<launch:phase name="test">custom</launch:phase>
-        	<launch:codeClaim>
+        	<launch:codeMark>
 				<launch:code>49FD46E6C4B45C55D4AC</launch:code>
-				<launch:claim>
+				<launch:mark>
 					<launch:name>Hello</launch:name>
 					<launch:issuer>IP Clearinghouse</launch:issuer>
 					<launch:number>GE 3933232</launch:number>
@@ -54,8 +54,8 @@
 						<launch:fax>+1.7035555556</launch:fax>
 						<launch:email>jdoe@example.tld</launch:email>
 					</launch:contact>
-				</launch:claim>
-			</launch:codeClaim>
+				</launch:mark>
+			</launch:codeMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>

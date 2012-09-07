@@ -24,42 +24,42 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
           <launch:phase>sunrise</launch:phase>
-          <launch:signedClaim>
+          <launch:signedMark>
             <launch:serial>123456</launch:serial>
             <launch:zone>newtld</launch:zone>
             <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
-          <launch:claim>
-            <launch:name>Example One</launch:name>
-            <launch:label>example-one</launch:label>
-            <launch:label>exampleone</launch:label>
-            <launch:issuer>IP Clearinghouse</launch:issuer>
-            <launch:number>GE 3933232</launch:number>
-            <launch:type>REG-TM-WORD</launch:type>
-            <launch:entitlement>owner</launch:entitlement>
-            <launch:regDate>2011-09-09</launch:regDate>
-            <launch:exDate>2013-09-09</launch:exDate>
-            <launch:country>AU</launch:country>
-            <launch:region>VIC</launch:region>
-            <launch:owner>
-              <launch:org>Example Inc.</launch:org>
-            </launch:owner>
-            <launch:contact>
-              <launch:name>John Doe</launch:name>
-              <launch:org>Example Inc.</launch:org>
-              <launch:addr>
-                <launch:street>123 Example Dr.</launch:street>
-                <launch:street>Suite 100</launch:street>
-                <launch:city>Reston</launch:city>
-                <launch:sp>VA</launch:sp>
-                <launch:pc>20190</launch:pc>
-                <launch:cc>US</launch:cc>
-              </launch:addr>
-              <launch:voice x="1234">+1.7035555555</launch:voice>
-              <launch:fax>+1.7035555556</launch:fax>
-              <launch:email>jdoe@example.tld</launch:email>
-            </launch:contact>
-          </launch:claim>
-          <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <launch:mark>
+              <launch:name>Example One</launch:name>
+              <launch:label>example-one</launch:label>
+              <launch:label>exampleone</launch:label>
+              <launch:issuer>IP Clearinghouse</launch:issuer>
+              <launch:number>GE 3933232</launch:number>
+              <launch:type>REG-TM-WORD</launch:type>
+              <launch:entitlement>owner</launch:entitlement>
+              <launch:regDate>2011-09-09</launch:regDate>
+              <launch:exDate>2013-09-09</launch:exDate>
+              <launch:country>AU</launch:country>
+              <launch:region>VIC</launch:region>
+              <launch:owner>
+                <launch:org>Example Inc.</launch:org>
+              </launch:owner>
+              <launch:contact>
+                <launch:name>John Doe</launch:name>
+                <launch:org>Example Inc.</launch:org>
+                <launch:addr>
+                  <launch:street>123 Example Dr.</launch:street>
+                  <launch:street>Suite 100</launch:street>
+                  <launch:city>Reston</launch:city>
+                  <launch:sp>VA</launch:sp>
+                  <launch:pc>20190</launch:pc>
+                  <launch:cc>US</launch:cc>
+                </launch:addr>
+                <launch:voice x="1234">+1.7035555555</launch:voice>
+                <launch:fax>+1.7035555556</launch:fax>
+                <launch:email>jdoe@example.tld</launch:email>
+              </launch:contact>
+            </launch:mark>
+            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
               <SignedInfo>
             <CanonicalizationMethod 
              Algorithm=
@@ -77,12 +77,12 @@
                 "http://www.w3.org/2000/09/xmldsig#sha1"/>
               <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
             </Reference>
-          </SignedInfo>
-          <SignatureValue>
+            </SignedInfo>
+            <SignatureValue>
             cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-          </SignatureValue>
-        </Signature>
-          </launch:signedClaim>
+            </SignatureValue>
+            </Signature>
+          </launch:signedMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
