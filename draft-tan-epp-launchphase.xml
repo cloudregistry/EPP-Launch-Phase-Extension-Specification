@@ -814,7 +814,7 @@
             for getting the information needed to generate the 
             trademark claims notice.  The &lt;claimKey&gt; is used 
             as the key for the query in place of the domain name 
-            for security querying the service without a well known 
+            to securely query the service without using a well-known 
             value like a domain name.</t>  
               </list></t>
 
