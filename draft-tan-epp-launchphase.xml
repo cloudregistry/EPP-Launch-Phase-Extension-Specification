@@ -269,7 +269,7 @@
             was not provisioned.</t>
 
             <t hangText="custom:">A custom status that is defined using the 
-            the "name" attribute.</t>
+            "name" attribute.</t>
           </list></t>
 
        <t>Each status value MAY be accompanied by a string of human-readable 
