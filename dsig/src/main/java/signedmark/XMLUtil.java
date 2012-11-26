@@ -79,26 +79,28 @@ public class XMLUtil {
 		}
 	} 
 	
-	public static void marshalToStream(Document doc, OutputStream ostream) throws Exception {
+	public static void marshalToStream(Document doc, OutputStream ostream, boolean indent) throws Exception {
 		TransformerFactory transFac = TransformerFactory.newInstance();
 		Transformer trans = transFac.newTransformer();
-//		trans.setOutputProperty(OutputKeys.INDENT, "yes");
-//		trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		if (indent) {
+			trans.setOutputProperty(OutputKeys.INDENT, "yes");
+			trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		}
 		trans.setOutputProperty(OutputKeys.STANDALONE, "no");
 		
 		trans.transform(new DOMSource(doc), new StreamResult(ostream));
 	}
 
-	public static void marshalToStream(Element elm, OutputStream ostream) throws Exception {
+	public static void marshalToStream(Element elm, OutputStream ostream, boolean indent) throws Exception {
 		TransformerFactory transFac = TransformerFactory.newInstance();
 		Transformer trans = transFac.newTransformer();
-//		trans.setOutputProperty(OutputKeys.INDENT, "yes");
-//		trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		if (indent) {
+			trans.setOutputProperty(OutputKeys.INDENT, "yes");
+			trans.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		}
 		trans.setOutputProperty(OutputKeys.STANDALONE, "no");
 		
 		trans.transform(new DOMSource(elm), new StreamResult(ostream));
-		
-		
 	}
 	
 }

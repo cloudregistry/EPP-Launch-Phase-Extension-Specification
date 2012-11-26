@@ -10,8 +10,6 @@ public class SignedMarkTest {
 
 	@Test
 	public void testToFromXML() throws Exception {
-		System.out.println("testToFromXML(): enter");
-	
 		// Create mark
 		Mark mark = new Mark();
 		mark.setName("Example One");

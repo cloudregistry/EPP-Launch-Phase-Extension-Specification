@@ -159,7 +159,7 @@ public class SignedMark {
 		// Create a DOMSignContext and specify the PrivateKey and
 		// location of the resulting XMLSignature's parent element
 		DOMSignContext signContext = new DOMSignContext(privateKey, root);
-		signContext.setDefaultNamespacePrefix("sig");
+		signContext.setDefaultNamespacePrefix("dsig");
 
 		// Create the XMLSignature (but don't sign it yet)
 		XMLSignature signature = xmlSigFactory.newXMLSignature(signedInfo, null);
@@ -210,7 +210,7 @@ public class SignedMark {
 				
 		// Output mark
 		System.out.println("Mark = [");
-		XMLUtil.marshalToStream(markRoot, System.out);
+		XMLUtil.marshalToStream(markRoot, System.out, true);
 		System.out.println("]");
 		
 		// Create signed mark DOM
@@ -223,7 +223,7 @@ public class SignedMark {
 
 		// Output Signed Mark
 		System.out.println("Signed Mark = [");
-		XMLUtil.marshalToStream(signedMarkRoot, System.out);
+		XMLUtil.marshalToStream(signedMarkRoot, System.out, true);
 		System.out.println("]");
 		
 		// Add signature to Signed Mark
@@ -234,7 +234,7 @@ public class SignedMark {
 		
 		// Output Signed Mark with Signature
 		System.out.println("Signed Mark with Signature = [");
-		XMLUtil.marshalToStream(signedMarkRoot, os);
+		XMLUtil.marshalToStream(signedMarkRoot, os, false);
 		System.out.print(os);
 		System.out.println("]");
 		
@@ -245,6 +245,8 @@ public class SignedMark {
 		ByteArrayInputStream is = new ByteArrayInputStream(xml);
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		docFactory.setNamespaceAware(true);
+//		docFactory.setIgnoringElementContentWhitespace(true);
+//		docFactory.setValidating(true);
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		Document doc = docBuilder.parse(is);
 		
