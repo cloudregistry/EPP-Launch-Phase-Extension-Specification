@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+     epp-1.0.xsd">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+       domain-1.0.xsd">
+        <domain:name>example.tld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+       launch-1.0.xsd">
+        	<launch:phase>sunrise</launch:phase>
+			<mark:mark
+			 xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+			 xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
+			  mark-1.0.xsd">
+				<mark:name>Example One</mark:name>
+				<mark:label>example-one</mark:label>
+				<mark:label>exampleone</mark:label>
+				<mark:issuer>IP Clearinghouse</mark:issuer>
+				<mark:number>GE 3933232</mark:number>
+				<mark:type>REG-TM-WORD</mark:type>
+				<mark:entitlement>owner</mark:entitlement>
+				<mark:regDate>2011-09-09</mark:regDate>
+				<mark:exDate>2013-09-09</mark:exDate>
+				<mark:country>AU</mark:country>
+				<mark:region>VIC</mark:region>
+				<mark:owner>
+					<mark:org>Example Inc.</mark:org>
+				</mark:owner>
+				<mark:contact>
+					<mark:name>John Doe</mark:name>
+					<mark:org>Example Inc.</mark:org>
+					<mark:addr>
+						<mark:street>123 Example Dr.</mark:street>
+						<mark:street>Suite 100</mark:street>
+						<mark:city>Reston</mark:city>
+						<mark:sp>VA</mark:sp>
+						<mark:pc>20190</mark:pc>
+						<mark:cc>US</mark:cc>
+					</mark:addr>
+					<mark:voice x="1234">+1.7035555555</mark:voice>
+					<mark:fax>+1.7035555556</mark:fax>
+					<mark:email>jdoe@example.tld</mark:email>
+				</mark:contact>
+			</mark:mark>
+			<mark:mark
+			 xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+			 xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
+			  mark-1.0.xsd">
+				<mark:name>Example Two</mark:name>
+				<mark:label>example-two</mark:label>
+				<mark:label>exampletwo</mark:label>
+				<mark:issuer>IP Clearinghouse</mark:issuer>
+				<mark:number>GE 3933233</mark:number>
+				<mark:type>REG-TM-WORD</mark:type>
+				<mark:entitlement>owner</mark:entitlement>
+				<mark:regDate>2011-09-09</mark:regDate>
+				<mark:exDate>2013-09-09</mark:exDate>
+				<mark:country>AU</mark:country>
+				<mark:region>VIC</mark:region>
+				<mark:owner>
+					<mark:org>Example Inc.</mark:org>
+				</mark:owner>
+				<mark:contact>
+					<mark:name>John Doe</mark:name>
+					<mark:org>Example Inc.</mark:org>
+					<mark:addr>
+						<mark:street>123 Example Dr.</mark:street>
+						<mark:street>Suite 100</mark:street>
+						<mark:city>Reston</mark:city>
+						<mark:sp>VA</mark:sp>
+						<mark:pc>20190</mark:pc>
+						<mark:cc>US</mark:cc>
+					</mark:addr>
+					<mark:voice x="1234">+1.7035555555</mark:voice>
+					<mark:fax>+1.7035555556</mark:fax>
+					<mark:email>jdoe@example.tld</mark:email>
+				</mark:contact>
+			</mark:mark>
+	</launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>

@@ -24,65 +24,66 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
           <launch:phase>sunrise</launch:phase>
-          <launch:signedMark>
-            <launch:serial>123456</launch:serial>
-            <launch:zone>newtld</launch:zone>
-            <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
-            <launch:mark>
-              <launch:name>Example One</launch:name>
-              <launch:label>example-one</launch:label>
-              <launch:label>exampleone</launch:label>
-              <launch:issuer>IP Clearinghouse</launch:issuer>
-              <launch:number>GE 3933232</launch:number>
-              <launch:type>REG-TM-WORD</launch:type>
-              <launch:entitlement>owner</launch:entitlement>
-              <launch:regDate>2011-09-09</launch:regDate>
-              <launch:exDate>2013-09-09</launch:exDate>
-              <launch:country>AU</launch:country>
-              <launch:region>VIC</launch:region>
-              <launch:owner>
-                <launch:org>Example Inc.</launch:org>
-              </launch:owner>
-              <launch:contact>
-                <launch:name>John Doe</launch:name>
-                <launch:org>Example Inc.</launch:org>
-                <launch:addr>
-                  <launch:street>123 Example Dr.</launch:street>
-                  <launch:street>Suite 100</launch:street>
-                  <launch:city>Reston</launch:city>
-                  <launch:sp>VA</launch:sp>
-                  <launch:pc>20190</launch:pc>
-                  <launch:cc>US</launch:cc>
-                </launch:addr>
-                <launch:voice x="1234">+1.7035555555</launch:voice>
-                <launch:fax>+1.7035555556</launch:fax>
-                <launch:email>jdoe@example.tld</launch:email>
-              </launch:contact>
-            </launch:mark>
-            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-              <SignedInfo>
-            <CanonicalizationMethod 
-             Algorithm=
-             "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-            <SignatureMethod 
-             Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/> 
-            <Reference URI="#pointer(..)">
-              <Transforms>
-                <Transform
-                  Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-              </Transforms>
-              <DigestMethod 
-                Algorithm=
-                "http://www.w3.org/2000/09/xmldsig#sha1"/>
-              <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue> 
-            </Reference>
-            </SignedInfo>
-            <SignatureValue>
-            cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-            </SignatureValue>
-            </Signature>
-          </launch:signedMark>
+			 <smd:signedMark id="signedMark"
+			  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+			  xsi:schemaLocation="urn:ietf:params:xml:ns:signedMark-1.0
+			  signedMark-1.0.xsd">
+            <smd:serial>123456</smd:serial>
+            <smd:zone>newtld</smd:zone>
+            <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
+				<mark:mark
+				 xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+             xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
+              mark-1.0.xsd">
+              <mark:name>Example One</mark:name>
+              <mark:label>example-one</mark:label>
+              <mark:label>exampleone</mark:label>
+              <mark:issuer>IP Clearinghouse</mark:issuer>
+              <mark:number>GE 3933232</mark:number>
+              <mark:type>REG-TM-WORD</mark:type>
+              <mark:entitlement>owner</mark:entitlement>
+              <mark:regDate>2011-09-09</mark:regDate>
+              <mark:exDate>2013-09-09</mark:exDate>
+              <mark:country>AU</mark:country>
+              <mark:region>VIC</mark:region>
+              <mark:owner>
+                <mark:org>Example Inc.</mark:org>
+              </mark:owner>
+              <mark:contact>
+                <mark:name>John Doe</mark:name>
+                <mark:org>Example Inc.</mark:org>
+                <mark:addr>
+                  <mark:street>123 Example Dr.</mark:street>
+                  <mark:street>Suite 100</mark:street>
+                  <mark:city>Reston</mark:city>
+                  <mark:sp>VA</mark:sp>
+                  <mark:pc>20190</mark:pc>
+                  <mark:cc>US</mark:cc>
+                </mark:addr>
+                <mark:voice x="1234">+1.7035555555</mark:voice>
+                <mark:fax>+1.7035555556</mark:fax>
+                <mark:email>jdoe@example.tld</mark:email>
+              </mark:contact>
+            </mark:mark>
+  				<dsig:Signature xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+    				<dsig:SignedInfo>
+      			<dsig:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"/>
+      			<dsig:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      			<dsig:Reference URI="#signedMark">
+        				<dsig:Transforms>
+          				<dsig:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+        				</dsig:Transforms>
+        				<dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        				<dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=</dsig:DigestValue>
+      			</dsig:Reference>
+    			</dsig:SignedInfo>
+    			<dsig:SignatureValue>Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
+				jmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZE2EvffMLBiL4xbCJM48ewRYRY7lVEzoNms
+				91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcjG6815IJV/9RT+MTXri7i0s82Cq
+				IS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F+Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kg
+				uE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==</dsig:SignatureValue>
+  				</dsig:Signature>
+          </smd:signedMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>

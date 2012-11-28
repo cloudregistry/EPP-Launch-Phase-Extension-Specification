@@ -2,8 +2,9 @@
 <schema 
   targetNamespace="urn:ietf:params:xml:ns:launch-1.0" 
   xmlns:launch="urn:ietf:params:xml:ns:launch-1.0" 
-   xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
-   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+  xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
   xmlns="http://www.w3.org/2001/XMLSchema" 
   elementFormDefault="qualified">
   
@@ -13,9 +14,11 @@ Import common element types.
   <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
           schemaLocation="eppcom-1.0.xsd"/> 
   
-  <import namespace="http://www.w3.org/2000/09/xmldsig#"
-          schemaLocation="xmldig-core-schema.xsd"/> 
-  
+  <import namespace="urn:ietf:params:xml:ns:mark-1.0"
+          schemaLocation="mark-1.0.xsd"/> 
+
+  <import namespace="urn:ietf:params:xml:ns:signedMark-1.0"
+          schemaLocation="signedMark-1.0.xsd"/> 
   
   <annotation>
     <documentation> 
@@ -96,20 +99,7 @@ Import common element types.
       <minLength value="1"/>
     </restriction>
   </simpleType>
-  
-  <simpleType name="ccType">
-    <restriction base="token">
-      <length value="2"/>
-    </restriction>
-  </simpleType>
-  
-  <simpleType name="pcType">
-    <restriction base="token">
-      <maxLength value="16"/>
-    </restriction>
-  </simpleType>
-  
-  
+    
   <!-- 
   Definition of the IP address taken from host-1.0.
   --> 
@@ -161,27 +151,13 @@ Import common element types.
     </simpleContent>
   </complexType>
   
-    <complexType name="signedMarkType">
-    <sequence>
-      <element name="serial" type="token"/>
-      <element name="zone" type="eppcom:labelType"
-      minOccurs="0" maxOccurs="unbounded"/>
-      <element name="exDate" type="dateTime" 
-      minOccurs="0"/>
-      <element name="mark" type="launch:markType"/>
-      <element ref="ds:Signature"/>
-    </sequence>
-  </complexType>
-
   <complexType name="codeMarkType">
-    <sequence>
-      <element name="code" type="launch:codeType" 
-        minOccurs="0"/> 
-      <element name="mark" type="launch:markType" 
-        minOccurs="0"/>
-    </sequence>
+  	<sequence>
+		<element name="code" type="launch:codeType"/>
+		<element ref="mark:mark"/>
+	</sequence>
   </complexType>
-
+  
   <!-- 
   Child elements of create for both Sunrise and Claims periods
   -->
@@ -189,11 +165,11 @@ Import common element types.
     <sequence>
       <element name="phase" type="launch:phaseType"/>
       <choice>
-        <element name="codeMark" 
-          type="launch:codeMarkType" 
-         maxOccurs="unbounded"/>
-        <element name="signedMark" 
-          type="launch:signedMarkType" 
+      	<element name="codeMark" type="launch:codeMarkType"
+      		maxOccurs="unbounded"/>
+			<element ref="mark:mark"
+				maxOccurs="unbounded"/>
+      	<element ref="smd:signedMark" 
          maxOccurs="unbounded"/>
         <element name="notice" 
           type="launch:createNoticeType"/> 
@@ -206,24 +182,9 @@ Import common element types.
   -->
   <complexType name="createNoticeType">
     <sequence>
+      <element name="noticeID" type="launch:noticeIDType"/>
       <element name="timestamp" type="dateTime"/>
       <element name="clientAddr" type="launch:ipAddrType"/>
-      <choice>
-        <element name="noticeID" type="launch:noticeIDType"/>
-         <element name="signedNotice" 
-          type="launch:signedNoticeType"/> 
-      </choice>
-    </sequence>
-  </complexType>
-
-  <complexType name="signedNoticeType">
-    <sequence>
-      <element name="noticeID" type="launch:noticeIDType"/>
-      <element name="name" type="eppcom:labelType"/>
-      <element name="crDate" type="dateTime"/>
-      <element name="exDate" type="dateTime" 
-      minOccurs="0"/>
-      <element ref="ds:Signature"/>
     </sequence>
   </complexType>
 
@@ -289,24 +250,16 @@ Import common element types.
   <complexType name="infDataType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
-      <choice>
-        <sequence>
-          <element name="applicationID" 
-            type="launch:applicationIDType"/>
-          <element name="status" type="launch:statusType" 
-            minOccurs="0"/>
-          <choice>
-              <element name="codeMark" 
-                type="launch:codeMarkType" 
-                maxOccurs="unbounded"/>
-             <element name="signedMark" 
-                type="launch:signedMarkType" 
-                maxOccurs="unbounded"/>
-          </choice>
-        </sequence>
-        <element name="notice" type="launch:claimsNoticeType" 
-          minOccurs="0"/>
-      </choice>
+		 <element name="applicationID" 
+			type="launch:applicationIDType"/>
+		 <element name="status" type="launch:statusType" 
+			minOccurs="0"/>
+		 <choice>
+			<element name="codeMark" type="launch:codeMarkType"
+				maxOccurs="unbounded"/>
+			<element ref="mark:mark"
+				maxOccurs="unbounded"/>
+		</choice>
     </sequence>
   </complexType>
   
@@ -321,92 +274,11 @@ Import common element types.
         <sequence>
           <element name="noticeID" 
             type="launch:noticeIDType"/>
-          <element name="mark" 
-            type="launch:markType" 
-            maxOccurs="unbounded"/>
+      	 <element ref="mark:mark" 
+      	 	maxOccurs="unbounded"/>
         </sequence>
       </choice> 
     </sequence>
   </complexType>
-  
-  <complexType name="e164Type">
-    <simpleContent>
-      <extension base="launch:e164StringType">
-        <attribute name="x" type="token"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-
-  <simpleType name="e164StringType">
-    <restriction base="token">
-      <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
-      <maxLength value="17"/>
-    </restriction>
-  </simpleType>
     
-  <complexType name="addrType">
-    <sequence>
-      <element name="street" type="token"
-       minOccurs="0" maxOccurs="3"/>
-      <element name="city" type="token"/>
-      <element name="sp" type="token"
-       minOccurs="0"/>
-      <element name="pc" type="launch:pcType"
-       minOccurs="0"/>
-      <element name="cc" type="launch:ccType"/>
-    </sequence>
-  </complexType>
-  
-  <complexType name="contactType">
-    <sequence>
-      <element name="name" type="token" 
-        minOccurs="0"/>
-      <element name="org" type="token" 
-        minOccurs="0"/>
-      <element name="addr" type="launch:addrType" 
-        minOccurs="0"/>
-      <element name="voice" type="launch:e164Type" 
-        minOccurs="0"/>
-      <element name="fax" type="launch:e164Type" 
-        minOccurs="0"/>
-      <element name="email" type="eppcom:minTokenType" 
-        minOccurs="0"/>
-    </sequence>
-  </complexType>
-    
-  
-  <!--
-  Child elements of mark element.  
-  -->
-  <complexType name="markType">
-      <sequence>
-        <element name="id" type="token" 
-          minOccurs="0"/>
-        <element name="name" type="token"
-           minOccurs="0"/>
-        <element name="label" type="eppcom:labelType"
-           minOccurs="0" maxOccurs="unbounded"/>
-        <element name="issuer" type="token" 
-          minOccurs="0"/>
-        <element name="number" type="token" 
-          minOccurs="0"/>
-        <element name="type" type="token" 
-          minOccurs="0"/>
-        <element name="entitlement" type="token" 
-          minOccurs="0"/>
-        <element name="regDate" type="date" 
-          minOccurs="0"/>
-        <element name="exDate" type="date" 
-          minOccurs="0"/>
-        <element name="country" type="launch:ccType" 
-          minOccurs="0"/>
-        <element name="region" type="token" 
-          minOccurs="0"/>
-        <element name="owner" type="launch:contactType" 
-          minOccurs="0"/>
-        <element name="contact" type="launch:contactType" 
-          minOccurs="0"/>
-    </sequence>
-  </complexType>
-
 </schema>

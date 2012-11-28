@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+  targetNamespace="urn:ietf:params:xml:ns:signedMark-1.0" 
+  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0" 
+  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0" 
+  xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+  xmlns="http://www.w3.org/2001/XMLSchema" 
+  elementFormDefault="qualified">
+  
+<!--
+Import common element types.
+--> 
+  <import namespace="http://www.w3.org/2000/09/xmldsig#"
+          schemaLocation="xmldig-core-schema.xsd"/> 
+          
+  <import namespace="urn:ietf:params:xml:ns:mark-1.0"
+          schemaLocation="mark-1.0.xsd"/> 
+  
+  
+  <annotation>
+    <documentation> 
+      Schema for representing a Signed Mark, also referred to 
+      as Signed Mark Data (SMD), that includes digitally 
+      signed Trademark information.  
+    </documentation>
+  </annotation>
+  
+  <element name="signedMark" type="smd:signedMarkType"/>    
+  
+  <complexType name="signedMarkType">
+    <sequence>
+      <element name="serial" type="token"/>
+      <element name="zone" type="mark:labelType"
+      minOccurs="0" maxOccurs="unbounded"/>
+      <element name="exDate" type="dateTime" 
+      minOccurs="0"/>
+      <element ref="mark:mark"/>
+      <element ref="dsig:Signature"/>
+    </sequence>
+    <attribute name="id" type="ID" use="required"/>
+  </complexType>
+
+</schema>
