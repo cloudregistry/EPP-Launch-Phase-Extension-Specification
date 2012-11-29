@@ -171,7 +171,9 @@ Import common element types.
 				maxOccurs="unbounded"/>
       	<element ref="smd:signedMark" 
          maxOccurs="unbounded"/>
-        <element name="notice" 
+      	<element ref="smd:encodedSignedMark" 
+         maxOccurs="unbounded"/>
+        	<element name="notice" 
           type="launch:createNoticeType"/> 
       </choice>
     </sequence>

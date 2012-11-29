@@ -1,5 +1,6 @@
 package signedmark;
 
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,9 +13,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
+
 
 /*******************************************************************************
  * The information in this document is proprietary to VeriSign and the VeriSign
@@ -101,6 +104,14 @@ public class XMLUtil {
 		trans.setOutputProperty(OutputKeys.STANDALONE, "no");
 		
 		trans.transform(new DOMSource(elm), new StreamResult(ostream));
+	}
+	
+	public static String encodeBase64(Element elm) throws Exception {
+		ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+		TransformerFactory transFac = TransformerFactory.newInstance();
+		Transformer trans = transFac.newTransformer();
+		trans.transform(new DOMSource(elm), new StreamResult(ostream));
+		return (Base64.encodeBase64URLSafeString(ostream.toByteArray()));
 	}
 	
 }

@@ -31,7 +31,7 @@ public class SignedMarkTest {
 		
 		// Create the XML with XMLSignature
 		byte[] xml = signedMark.toXML();
-		
+				
 		// Validate the XML with XMLSignature
 		signedMark.fromXML(xml);	
 	}

@@ -25,7 +25,10 @@ Import common element types.
     </documentation>
   </annotation>
   
-  <element name="signedMark" type="smd:signedMarkType"/>    
+  <element name="signedMark" type="smd:signedMarkType"/>  
+  
+  <element name="encodedSignedMark" 
+  	type="smd:encodedSignedMarkType"/>
   
   <complexType name="signedMarkType">
     <sequence>
@@ -39,5 +42,15 @@ Import common element types.
     </sequence>
     <attribute name="id" type="ID" use="required"/>
   </complexType>
+
+  <complexType name="encodedSignedMarkType">
+    <simpleContent>
+      <extension base="token">
+        <attribute name="encoding" type="token" 
+        	default="base64"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
 
 </schema>

@@ -24,10 +24,10 @@ import javax.xml.crypto.dsig.dom.DOMSignContext;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 import javax.xml.crypto.dsig.spec.C14NMethodParameterSpec;
 import javax.xml.crypto.dsig.spec.TransformParameterSpec;
-import javax.xml.crypto.dsig.spec.XPathFilterParameterSpec;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -235,10 +235,22 @@ public class SignedMark {
 		// Output Signed Mark with Signature
 		System.out.println("Signed Mark with Signature = [");
 		XMLUtil.marshalToStream(signedMarkRoot, os, false);
+		XMLUtil.marshalToStream(signedMarkRoot, System.out, true);
 		System.out.print(os);
 		System.out.println("]");
 		
-		return os.toByteArray();
+		// Base64 Encode the Signed Mark
+		System.out.println("Base64 Encoded Mark = [");
+		System.out.print(XMLUtil.encodeBase64(signedMarkRoot));
+		System.out.println("]");
+		
+		System.out.println("Base64 Decoded XML Mark = [");
+		System.out.print(new String(Base64.decodeBase64(XMLUtil.encodeBase64(signedMarkRoot))));
+		System.out.println("]");
+		
+		
+//		return os.toByteArray();	
+		return Base64.decodeBase64(XMLUtil.encodeBase64(signedMarkRoot));
 	}
 	
 	public void fromXML(byte[] xml) throws Exception {
