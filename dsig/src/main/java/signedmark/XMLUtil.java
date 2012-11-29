@@ -111,7 +111,7 @@ public class XMLUtil {
 		TransformerFactory transFac = TransformerFactory.newInstance();
 		Transformer trans = transFac.newTransformer();
 		trans.transform(new DOMSource(elm), new StreamResult(ostream));
-		return (Base64.encodeBase64URLSafeString(ostream.toByteArray()));
+		return (new String(Base64.encodeBase64(ostream.toByteArray(), true)));
 	}
 	
 }

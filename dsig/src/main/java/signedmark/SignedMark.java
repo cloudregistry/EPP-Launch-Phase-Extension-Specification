@@ -233,11 +233,16 @@ public class SignedMark {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		
 		// Output Signed Mark with Signature
-		System.out.println("Signed Mark with Signature = [");
+		System.out.println("Signed Mark with Signature from ByteArray = [");
 		XMLUtil.marshalToStream(signedMarkRoot, os, false);
-		XMLUtil.marshalToStream(signedMarkRoot, System.out, true);
 		System.out.print(os);
 		System.out.println("]");
+		
+		// Output Signed Mark with Signature
+		System.out.println("Signed Mark with Signature Indented = [");
+		XMLUtil.marshalToStream(signedMarkRoot, System.out, true);
+		System.out.println("]");
+		
 		
 		// Base64 Encode the Signed Mark
 		System.out.println("Base64 Encoded Mark = [");
