@@ -796,12 +796,6 @@ Digital Signature</h3>
 <dd>Signature serial number that 
             that can be compared with a revocation list by the server.
 </dd>
-<dt>&lt;smd:zone&gt;:</dt>
-<dd>Zero or more DNS zones 
-            the &lt;smd:signedMark&gt; can be used with.  No &lt;smd:zone&gt; 
-            element indicates that the &lt;smd:signedMark&gt; can be used 
-            within any DNS zone.
-</dd>
 <dt>&lt;smd:exDate&gt;:</dt>
 <dd>OPTIONAL date and time that the 
             &lt;smd:signedMark&gt; expires.  The server MUST NOT accept 
@@ -2435,8 +2429,6 @@ Import common element types.
   &lt;complexType name="signedMarkType"&gt;
     &lt;sequence&gt;
       &lt;element name="serial" type="token"/&gt;
-      &lt;element name="zone" type="mark:labelType"
-      minOccurs="0" maxOccurs="unbounded"/&gt;
       &lt;element name="exDate" type="dateTime"
       minOccurs="0"/&gt;
       &lt;element ref="mark:mark"/&gt;

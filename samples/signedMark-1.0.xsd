@@ -42,9 +42,7 @@ Import common element types.
   <complexType name="signedMarkType">
     <sequence>
       <element name="serial" type="token"/>
-      <element name="zone" type="mark:labelType"
-      minOccurs="0" maxOccurs="unbounded"/>
-      <element name="exDate" type="dateTime" 
+     <element name="exDate" type="dateTime" 
       minOccurs="0"/>
       <element ref="mark:mark"/>
       <element ref="dsig:Signature"/>

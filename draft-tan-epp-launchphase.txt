@@ -563,9 +563,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
    <smd:serial>:  Signature serial number that that can be compared with
       a revocation list by the server.
-   <smd:zone>:  Zero or more DNS zones the <smd:signedMark> can be used
-      with.  No <smd:zone> element indicates that the <smd:signedMark>
-      can be used within any DNS zone.
    <smd:exDate>:  OPTIONAL date and time that the <smd:signedMark>
       expires.  The server MUST NOT accept a <smd:signedMark> that has
       expired.  No <smd:exDate> element indicates that there is no
@@ -609,6 +606,9 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
        <mark:street>Suite 100</mark:street>
        <mark:city>Reston</mark:city>
        <mark:sp>VA</mark:sp>
+       <mark:pc>20190</mark:pc>
+       <mark:cc>US</mark:cc>
+      </mark:addr>
 
 
 
@@ -617,9 +617,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 11]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-       <mark:pc>20190</mark:pc>
-       <mark:cc>US</mark:cc>
-      </mark:addr>
       <mark:voice x="1234">+1.7035555555</mark:voice>
       <mark:fax>+1.7035555556</mark:fax>
       <mark:email>jdoe@example.tld</mark:email>
@@ -662,6 +659,9 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    with the default "encoding" value of "base64".  The "base64" encoded
    text of the <smd:encodedSignedMark> element MUST conform to
    [RFC2045].
+
+
+
 
 
 
@@ -2395,12 +2395,12 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
      <complexType name="signedMarkType">
        <sequence>
          <element name="serial" type="token"/>
-         <element name="zone" type="mark:labelType"
-         minOccurs="0" maxOccurs="unbounded"/>
          <element name="exDate" type="dateTime"
          minOccurs="0"/>
          <element ref="mark:mark"/>
          <element ref="dsig:Signature"/>
+       </sequence>
+       <attribute name="id" type="ID" use="required"/>
 
 
 
@@ -2409,8 +2409,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 43]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-       </sequence>
-       <attribute name="id" type="ID" use="required"/>
      </complexType>
 
      <!--
@@ -2457,6 +2455,8 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 
 
 
@@ -2465,8 +2465,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 44]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
    BEGIN
@@ -2513,6 +2511,8 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
            <element name="exDate" type="date"
              minOccurs="0"/>
            <element name="country" type="mark:ccType"
+             minOccurs="0"/>
+           <element name="region" type="token"
 
 
 
@@ -2521,8 +2521,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 45]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-             minOccurs="0"/>
-           <element name="region" type="token"
              minOccurs="0"/>
            <element name="owner" type="mark:contactType"
              minOccurs="0"/>
@@ -2569,6 +2567,8 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
          <extension base="mark:e164StringType">
            <attribute name="x" type="token"/>
          </extension>
+       </simpleContent>
+     </complexType>
 
 
 
@@ -2576,9 +2576,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 46]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
-
-       </simpleContent>
-     </complexType>
 
      <!--
      Phone number with extension definition
@@ -2625,6 +2622,9 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
          <element name="name" type="token"
            minOccurs="0"/>
          <element name="org" type="token"
+           minOccurs="0"/>
+         <element name="addr" type="mark:addrType"
+           minOccurs="0"/>
 
 
 
@@ -2633,9 +2633,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 47]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-           minOccurs="0"/>
-         <element name="addr" type="mark:addrType"
-           minOccurs="0"/>
          <element name="voice" type="mark:e164Type"
            minOccurs="0"/>
          <element name="fax" type="mark:e164Type"
@@ -2680,7 +2677,10 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    2.  Added extensibility to the launch:status element and added the
        pendingAuction status per Trung Tran's feedback on the provreg
        list.
-
+   3.  Added support for the Claims Check Command, updated the location
+       and contents of the signedNotice, and replaced most references of
+       Claim to Mark based on the work being done on the ARI/Neustar
+       launch model.
 
 
 
@@ -2688,11 +2688,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 48]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
-
-   3.  Added support for the Claims Check Command, updated the location
-       and contents of the signedNotice, and replaced most references of
-       Claim to Mark based on the work being done on the ARI/Neustar
-       launch model.
 
 6.4.  Change from 03 to 04
 
@@ -2735,6 +2730,11 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    Registration request for the Mark namespace:
 
       URI: urn:ietf:params:xml:ns:mark-1.0
+      Registrant Contact: See the "Author's Address" section of this
+      document.
+      XML: None.  Namespace URIs do not represent an XML specification.
+
+
 
 
 
@@ -2743,11 +2743,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 Tan, et al.               Expires June 4, 2013                 [Page 49]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
-      Registrant Contact: See the "Author's Address" section of this
-      document.
-      XML: None.  Namespace URIs do not represent an XML specification.
 
 
 8.  Security Considerations
@@ -2793,6 +2788,11 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
               Contact Mapping", STD 69, RFC 5733, August 2009.
 
    [WIPO.ST3]
+              WIPO, "Recommended standard on two-letter codes for the
+              representation of states, other entities and
+              intergovernmental organizations", March 2007.
+
+   [1]  <http://newgtlds.icann.org/en/about/trademark-clearinghouse/
 
 
 
@@ -2801,11 +2801,6 @@ Tan, et al.               Expires June 4, 2013                 [Page 50]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-              WIPO, "Recommended standard on two-letter codes for the
-              representation of states, other entities and
-              intergovernmental organizations", March 2007.
-
-   [1]  <http://newgtlds.icann.org/en/about/trademark-clearinghouse/
         claims-model-26sep12-en.pdf>
 
    [2]  <http://www.w3.org/TR/xmldsig-core/>
@@ -2844,6 +2839,11 @@ Authors' Addresses
 
    Email: jgould@verisign.com
    URI:   http://www.verisigninc.com
+
+
+
+
+
 
 
 
