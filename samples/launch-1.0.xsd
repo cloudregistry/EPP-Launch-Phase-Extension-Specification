@@ -75,7 +75,8 @@ Import common element types.
       <restriction base="token">
         <enumeration value="sunrise"/>
         <enumeration value="landrush"/>
-        <enumeration value="claims"/>
+        <enumeration value="claims1"/>
+        <enumeration value="claims2"/>
         <enumeration value="open"/>
         <enumeration value="custom"/>
     </restriction>
@@ -99,34 +100,10 @@ Import common element types.
       <minLength value="1"/>
     </restriction>
   </simpleType>
-    
+      
   <!-- 
-  Definition of the IP address taken from host-1.0.
-  --> 
-   <complexType name="ipAddrType">
-     <simpleContent>
-       <extension base="launch:addrStringType">
-         <attribute name="ip" type="launch:ipType"
-          default="v4"/>
-       </extension>
-     </simpleContent>
-   </complexType>
-
-   <simpleType name="addrStringType">
-     <restriction base="token">
-       <minLength value="3"/>
-       <maxLength value="45"/>
-     </restriction>
-   </simpleType>
-
-   <simpleType name="ipType">
-     <restriction base="token">
-       <enumeration value="v4"/>
-       <enumeration value="v6"/>
-     </restriction>
-   </simpleType>
-  
-  <!-- Possible status values for sunrise application -->
+  Possible status values for sunrise application 
+  -->
     <simpleType name="statusValueType">
     <restriction base="token">
         <enumeration value="pending"/>
@@ -139,6 +116,9 @@ Import common element types.
       </restriction>
     </simpleType>
   
+  <!-- 
+  Status type definition
+  -->
   <complexType name="statusType">
     <simpleContent>
       <extension base="normalizedString">
@@ -151,29 +131,33 @@ Import common element types.
     </simpleContent>
   </complexType>
   
+  <!--
+  codeMark Type that contains an optional code 
+  with mark information.
+  -->
   <complexType name="codeMarkType">
-  	<sequence>
-		<element name="code" type="launch:codeType"/>
-		<element ref="mark:mark"/>
-	</sequence>
+    <sequence>
+    <element name="code" type="launch:codeType"/>
+    <element ref="mark:mark"/>
+  </sequence>
   </complexType>
   
   <!-- 
-  Child elements of create for both Sunrise and Claims periods
+  Child elements for the create command
   -->
   <complexType name="createType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
       <choice>
-      	<element name="codeMark" type="launch:codeMarkType"
-      		maxOccurs="unbounded"/>
-			<element ref="mark:mark"
-				maxOccurs="unbounded"/>
-      	<element ref="smd:signedMark" 
+        <element name="codeMark" type="launch:codeMarkType"
+          maxOccurs="unbounded"/>
+      <element ref="mark:mark"
+        maxOccurs="unbounded"/>
+        <element ref="smd:signedMark" 
          maxOccurs="unbounded"/>
-      	<element ref="smd:encodedSignedMark" 
+        <element ref="smd:encodedSignedMark" 
          maxOccurs="unbounded"/>
-        	<element name="notice" 
+          <element name="notice" 
           type="launch:createNoticeType"/> 
       </choice>
     </sequence>
@@ -186,13 +170,13 @@ Import common element types.
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
       <element name="timestamp" type="dateTime"/>
-      <element name="clientAddr" type="launch:ipAddrType"/>
+      <element name="source" type="token"/>
     </sequence>
   </complexType>
 
 
   <!-- 
-  Child elements of check (Claims Info Command).  
+  Child elements of check (Claims Check Command).  
   -->
   <complexType name="checkType">
     <sequence>
@@ -202,7 +186,7 @@ Import common element types.
 
 
   <!-- 
-  Child elements of info for both Sunrise and Claims periods.  
+  Child elements of info command.  
   -->
   <complexType name="infoType">
     <sequence>
@@ -220,9 +204,9 @@ Import common element types.
   <element name="creData" type="launch:idContainerType"/>
   <element name="infData" type="launch:infDataType"/>
   
-<!--
-<check> response elements.
--->
+  <!--
+   <check> response elements.
+   -->
   <complexType name="chkDataType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
@@ -248,38 +232,19 @@ Import common element types.
     </simpleContent>
   </complexType>
   
-  
+  <!--
+  <info> response elemenets
+  -->
   <complexType name="infDataType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
-		 <element name="applicationID" 
-			type="launch:applicationIDType"/>
-		 <element name="status" type="launch:statusType" 
-			minOccurs="0"/>
-		 <choice>
-			<element name="codeMark" type="launch:codeMarkType"
-				maxOccurs="unbounded"/>
-			<element ref="mark:mark"
-				maxOccurs="unbounded"/>
-		</choice>
-    </sequence>
-  </complexType>
-  
-  <!--
-  Child elements of the info (inf) notice response element.   
-  -->
-  <complexType name="claimsNoticeType">
-    <sequence>
-      <element name="name" type="eppcom:labelType"/>
-      <choice>
-        <element name="none"/>
-        <sequence>
-          <element name="noticeID" 
-            type="launch:noticeIDType"/>
-      	 <element ref="mark:mark" 
-      	 	maxOccurs="unbounded"/>
-        </sequence>
-      </choice> 
+     <element name="applicationID" 
+      type="launch:applicationIDType" 
+      minOccurs="0"/>
+     <element name="status" type="launch:statusType" 
+      minOccurs="0"/>
+      <element ref="mark:mark"
+      minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
     

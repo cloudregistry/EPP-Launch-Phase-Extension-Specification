@@ -3,40 +3,40 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
      epp-1.0.xsd">
-  <command>
-    <create>
-      <domain:create
+  <response>
+    <result code="1000">
+      <msg>Command completed successfully</msg>
+    </result>
+    <resData>
+      <domain:infData
        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
        xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
        domain-1.0.xsd">
-        <domain:name>exampleone.tld</domain:name>
+        <domain:name>example.tld</domain:name>
+        <domain:roid>EXAMPLE1-REP</domain:roid>
+        <domain:status s="pendingCreate"/>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
         <domain:contact type="tech">sh8013</domain:contact>
+        <domain:clID>ClientX</domain:clID>
+        <domain:crID>ClientY</domain:crID>
+        <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
         <domain:authInfo>
           <domain:pw>2fooBAR</domain:pw>
         </domain:authInfo>
-      </domain:create>
-    </create>
+      </domain:infData>
+    </resData>
     <extension>
-      <launch:create
+      <launch:infData
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         <launch:phase>sunrise</launch:phase>
-        <smd:signedMark id="signedMark"
-         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
-         xsi:schemaLocation="urn:ietf:params:xml:ns:signedMark-1.0
-         signedMark-1.0.xsd">
-          <smd:serial>123456</smd:serial>
-          <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
           <mark:mark
             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
             xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
             mark-1.0.xsd">
-            <mark:name>Example One</mark:name>
-            <mark:label>example-one</mark:label>
-            <mark:label>exampleone</mark:label>
+            <mark:name>Hello</mark:name>
             <mark:issuer>IP Clearinghouse</mark:issuer>
             <mark:number>GE 3933232</mark:number>
             <mark:type>REG-TM-WORD</mark:type>
@@ -63,36 +63,12 @@
               <mark:fax>+1.7035555556</mark:fax>
               <mark:email>jdoe@example.tld</mark:email>
             </mark:contact>
-          </mark:mark>
-          <dsig:Signature xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
-            <dsig:SignedInfo>
-            <dsig:CanonicalizationMethod 
- Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-            <dsig:SignatureMethod 
- Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-            <dsig:Reference URI="#signedMark">
-                <dsig:Transforms>
-                  <dsig:Transform 
- Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                </dsig:Transforms>
-                <dsig:DigestMethod 
- Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                <dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=
-                </dsig:DigestValue>
-            </dsig:Reference>
-          </dsig:SignedInfo>
-            <dsig:SignatureValue>
-Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9a4b8nMOKdec8S3tG2hSx
-/NZa0RFHvx5zMsH/MjmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZ
-E2EvffMLBiL4xbCJM48ewRYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhh
-rhyhPjSi9Uon8FnAJaiBEfHcjG6815IJV/9RT+MTXri7i0s82CqIS4wDGbG
-pyZAs7/kDY3A3upqSOwTtrFSCFX1F+Craec72lBB/dKJHxmoVkbIO5KQhqI
-Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
-			   </dsig:SignatureValue>
-          </dsig:Signature>
-        </smd:signedMark>
-      </launch:create>
+         </mark:mark>
+      </launch:infData>
     </extension>
-    <clTRID>ABC-12345</clTRID>
-  </command>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
 </epp>

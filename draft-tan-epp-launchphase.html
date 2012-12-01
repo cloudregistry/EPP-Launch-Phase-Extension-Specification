@@ -148,13 +148,13 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: March 16, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: June 4, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">September 12, 2012</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">December 1, 2012</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
-    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-03</h1>
+    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-04</h1>
 
 <h3>Abstract</h3>
 
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on March 16, 2013.</p>
+This Internet-Draft will expire on June 4, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -221,19 +221,15 @@ Contact<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.7.</a>&nbsp;
 Digital Signature<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedMark">2.7.1.</a>&nbsp;
-&lt;launch:signedMark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedNotice">2.7.2.</a>&nbsp;
-&lt;launch:signedNotice&gt; element<br />
+&lt;smd:signedMark&gt; element<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#encodedSignedMark">2.7.2.</a>&nbsp;
+&lt;smd:encodedSignedMark&gt; element<br />
 <a href="#commands">3.</a>&nbsp;
 EPP Command Mapping<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#checkCommand">3.1.</a>&nbsp;
 EPP &lt;check&gt; Command<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#infoCommand">3.2.</a>&nbsp;
 EPP &lt;info&gt; Command<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#sunriseInfoForm">3.2.1.</a>&nbsp;
-Sunrise Info Form<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#claimsInfoForm">3.2.2.</a>&nbsp;
-Claims Info Form<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#createCommand">3.3.</a>&nbsp;
 EPP &lt;create&gt; Command<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#sunriseCreateForm">3.3.1.</a>&nbsp;
@@ -250,13 +246,29 @@ EPP &lt;renew&gt; Command<br />
 EPP &lt;transfer&gt; Command<br />
 <a href="#syntax">4.</a>&nbsp;
 Formal Syntax<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor4">4.1.</a>&nbsp;
+Launch Schema<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor5">4.2.</a>&nbsp;
+Signed Mark Schema<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor6">4.3.</a>&nbsp;
+Mark Schema<br />
 <a href="#Acknowledgements">5.</a>&nbsp;
 Acknowledgements<br />
-<a href="#IANA">6.</a>&nbsp;
+<a href="#anchor7">6.</a>&nbsp;
+Change History<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-00-to-01">6.1.</a>&nbsp;
+Change from 00 to 01<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-01-to-02">6.2.</a>&nbsp;
+Change from 01 to 02<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-02-to-03">6.3.</a>&nbsp;
+Change from 02 to 03<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-03-to-04">6.4.</a>&nbsp;
+Change from 03 to 04<br />
+<a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
-<a href="#Security">7.</a>&nbsp;
+<a href="#Security">8.</a>&nbsp;
 Security Considerations<br />
-<a href="#rfc.references1">8.</a>&nbsp;
+<a href="#rfc.references1">9.</a>&nbsp;
 Normative References<br />
 <a href="#rfc.authors">&#167;</a>&nbsp;
 Authors' Addresses<br />
@@ -275,8 +287,8 @@ Introduction</h3>
       management of launch phase extension in a domain name registry.
 </p>
 <p>It is typical for domain registries to operate in special modes
-      within certain periods of time to facilitate allocation of domain names
-      for a subset of the zone namespace that becomes available. This document
+      within certain periods of time to facilitate allocation of domain names. 
+      This document
       uses the term "launch phase" and the shorter form "launch" to refer to
       such a period.
 </p>
@@ -285,8 +297,12 @@ Introduction</h3>
       interface used at each phase of the launch could be different from what
       is defined in <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. for
       example, registries typically accept multiple applications for a given
-      domain name during the "sunrise" launch phase. In addition, the <a href='http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf'>Trademark
-      Clearinghouse Draft Implementation Model</a> defines a registry
+      domain name during the "sunrise" launch phase, referred to as a launch application.  A launch registration 
+      is used to refer to a registration made during a launch phase when the server uses 
+      a first-come-first-serve model.  Even in a first-come-first-serve model additional steps 
+      and information might be required to support a launch phase, like the passing of 
+      trademark information on a create.  In addition, the <a href='http://newgtlds.icann.org/en/about/trademark-clearinghouse/claims-model-26sep12-en.pdf'>Proposed Trademark Claims Model</a> 
+      defines a registry
       interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
@@ -313,6 +329,18 @@ Conventions Used in This Document</h3>
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.
 </p>
+<p>"signedMark-1.0" is used as an abbreviation for
+        "urn:ietf:params:xml:ns:signedMark-1.0". The XML namespace prefix "smd"
+        is used, but implementations MUST NOT depend on it and instead employ
+        a proper namespace-aware XML parser and serializer to interpret and
+        output the XML documents.
+</p>
+<p>"mark-1.0" is used as an abbreviation for
+        "urn:ietf:params:xml:ns:mark-1.0". The XML namespace prefix "mark"
+        is used, but implementations MUST NOT depend on it and instead employ
+        a proper namespace-aware XML parser and serializer to interpret and
+        output the XML documents.
+</p>
 <a name="attrs"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2"></a><h3>2.&nbsp;
@@ -326,7 +354,8 @@ Object Attributes</h3>
 <a name="rfc.section.2.1"></a><h3>2.1.&nbsp;
 Application Identifiers</h3>
 
-<p>Servers MAY allow multiple applications of a given domain name
+<p>Servers MAY allow multiple applications, referred to as a launch application, 
+        of a given domain name
         during its launch phase operations. Upon receiving a request to create
         a domain name, the server creates an application object corresponding
         to the request and assigns an application identifier for the application
@@ -354,11 +383,20 @@ Launch Phases</h3>
 </dd>
 <dt>landrush</dt>
 <dd>Post sunrise phase when non-trademark
-            holders are allowed to register domain names.
+            holders are allowed to register domain names with steps taken 
+            to address a large volume of initial registrations.
 </dd>
-<dt>claims</dt>
-<dd>Trademark claims phase as defined by <a href='http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf'>Trademark
-            Clearinghouse Draft Implementation Model</a>.
+<dt>claims1</dt>
+<dd>Trademark claims phase 1 as defined by 
+            Trademark Clearinghouse model of displaying a full, detailed 
+            claims notice to clients for domain names that match 
+            trademarks.
+</dd>
+<dt>claims2</dt>
+<dd>Trademark claims phase 2 as defined by 
+            Trademark Clearinghouse model of displaying a short, educational 
+            claims notice to clients for domain names that match 
+            trademarks that opt into the service.
 </dd>
 <dt>open</dt>
 <dd>Post launch phase that is also referred to as
@@ -374,7 +412,8 @@ Launch Phases</h3>
 <p>For extensibility the &lt;launch:phase&gt; element includes an
         OPTIONAL "name" attribute that can define a sub-phase or the full name
         of the phase when the &lt;launch:phase&gt; element has the "custom"
-        value.
+        value.  For example, the "claims1" launch phase could have two 
+        sub-phases that include "landrush" and "open".
 </p>
 <a name="statuses"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -416,7 +455,7 @@ Status Values</h3>
 </dd>
 <dt>custom:</dt>
 <dd>A custom status that is defined using the 
-            the "name" attribute.
+            "name" attribute.
 </dd>
 </dl></blockquote>
 
@@ -483,50 +522,40 @@ State Transition</h3>
 <a name="rfc.section.2.4"></a><h3>2.4.&nbsp;
 Mark Validation Models</h3>
 
-<p>A server MUST support one of four models for validating the trademark 
+<p>A server MUST support one of three models for validating the trademark 
         information:
 </p>
 <p></p>
 <blockquote class="text"><dl>
-<dt>code</dt>
-<dd>Use of a mark code by itself to validate that
-            the mark matches the domain name. The code is the "sunrise code" as
-            defined in <a href='http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/92b95395/TMCH-Model-28jun2012-clean-0001.pdf'>Trademark
-            Clearinghouse Draft Implementation Model</a> that is validated
-            by the server using its local sunrise code data. This model is
-            supported using the &lt;launch:codeMark&gt; element with just the
-            &lt;launch:code&gt; element.
-</dd>
 <dt>mark</dt>
 <dd>The mark information is passed without any
             other validation element. The server will use some custom form of
             validation to validate that the mark information is authentic. This
-            model is supported using the &lt;launch:codeMark&gt; element with
-            just the &lt;launch:mark&gt; element.
+            model is supported with the &lt;mark:mark&gt; element.
 </dd>
 <dt>code with mark:</dt>
 <dd>A code is used along with the mark
-            information by the server to validate the mark utilizing an external party
-            like a Trademark Clearinghouse. The code represents some form of
+            information by the server to validate the mark utilizing an external party. 
+            The code represents some form of
             secret that matches the mark information passed. This model is
-            supported using the &lt;launch:codeMark&gt; element with both the
-            &lt;launch:code&gt; and the &lt;launch:mark&gt; element.
+            supported using the &lt;launch:codeMark&gt; element that contains both the
+            &lt;launch:code&gt; and the &lt;mark:mark&gt; elements.
 </dd>
 <dt>signed mark:</dt>
 <dd>The mark information is digitally
             signed as described in the <a class='info' href='#digitalsignature'>Digital Signature<span> (</span><span class='info'>Digital Signature</span><span>)</span></a>
             section.  The digital signature can be directly validated by the 
             server using the public key
-            of the external party that created the signed mark. This model is 
+            of the external party that created the signed mark using it's private key. This model is 
             supported using the
-            <a class='info' href='#signedMark'>&lt;launch:signedMark&gt;<span> (</span><span class='info'>&lt;launch:signedMark&gt; element</span><span>)</span></a> and 
-            <a class='info' href='#signedNotice'>&lt;launch:signedNotice&gt;<span> (</span><span class='info'>&lt;launch:signedNotice&gt; element</span><span>)</span></a> 
+            <a class='info' href='#signedMark'>&lt;smd:signedMark&gt;<span> (</span><span class='info'>&lt;smd:signedMark&gt; element</span><span>)</span></a> and 
+            <a class='info' href='#encodedSignedMark'>&lt;smd:encodedSignedMark&gt;<span> (</span><span class='info'>&lt;smd:encodedSignedMark&gt; element</span><span>)</span></a> 
             elements.
 </dd>
 </dl></blockquote>
 
-<p>More than one &lt;launch:codeMark&gt; element or more than one
-        &lt;launch:signedMark&gt; element MAY be specified. The maximum
+<p>More than one &lt;launch:codeMark&gt;, &lt;mark:mark&gt;, &lt;smd:signedMark&gt;, 
+        or &lt;smd:encodedSignedMark&gt; element MAY be specified. The maximum
         number of marks per domain name is up to server policy.
 </p>
 <a name="codeMark"></a><br /><hr />
@@ -534,129 +563,127 @@ Mark Validation Models</h3>
 <a name="rfc.section.2.4.1"></a><h3>2.4.1.&nbsp;
 &lt;launch:codeMark&gt; element</h3>
 
-<p>The &lt;launch:codeMark&gt; element that is used by the "code", 
-           "mark", and "code with mark" validation models has the following child 
+<p>The &lt;launch:codeMark&gt; element, that is used by the 
+           "code with mark" validation model, has the following child 
            elements:
 </p>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:code&gt;:</dt>
-<dd>OPTIONAL mark code used to 
-              validate the &lt;launch:mark&gt; information or to directly 
-              validate the mark against the domain name.  The mark code 
+<dd>Mark code used to 
+              validate the &lt;launch:mark&gt; information.  The mark code 
               can be a mark specific secret value that the server can verify 
-              against a third party or can be directly combined with the 
-              domain name to verify against a server code file.
+              against a third party.
 </dd>
-<dt>&lt;launch:mark&gt;:</dt>
-<dd>OPTIONAL mark information 
+<dt>&lt;mark:mark&gt;:</dt>
+<dd>mark information 
               with child elements defined in the <a class='info' href='#mark'>Mark<span> (</span><span class='info'>Mark</span><span>)</span></a> 
               section.
 </dd>
 </dl></blockquote>
 
 <p>The following is an example &lt;launch:codeMark&gt;
-            element with both a &lt;launch:code&gt; and a 
-            &lt;launch:mark&gt; element.
+            element.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;launch:codeMark&gt;
   &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-  &lt;launch:mark&gt;
-    &lt;launch:name&gt;Example One&lt;/launch:name&gt;
-    &lt;launch:label&gt;example-one&lt;/launch:label&gt;
-    &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
-    &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-    &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-    &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-    &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-    &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-    &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-    &lt;launch:country&gt;AU&lt;/launch:country&gt;
-    &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-    &lt;launch:owner&gt;
-      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-    &lt;/launch:owner&gt;
-    &lt;launch:contact&gt;
-      &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-      &lt;launch:addr&gt;
-        &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-        &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-        &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-        &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-        &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-        &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-      &lt;/launch:addr&gt;
-      &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-      &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-      &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-    &lt;/launch:contact&gt;
-  &lt;/launch:mark&gt;
-&lt;/launch:codeMark&gt;
-</pre></div>
+  &lt;mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+    &lt;mark:name&gt;Example One&lt;/mark:name&gt;
+    &lt;mark:label&gt;example-one&lt;/mark:label&gt;
+    &lt;mark:label&gt;exampleone&lt;/mark:label&gt;
+    &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
+    &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
+    &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+    &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
+    &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+    &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
+    &lt;mark:country&gt;AU&lt;/mark:country&gt;
+    &lt;mark:region&gt;VIC&lt;/mark:region&gt;
+    &lt;mark:owner&gt;
+      &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+    &lt;/mark:owner&gt;
+    &lt;mark:contact&gt;
+      &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
+      &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+      &lt;mark:addr&gt;
+        &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
+        &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
+        &lt;mark:city&gt;Reston&lt;/mark:city&gt;
+        &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
+        &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
+        &lt;mark:cc&gt;US&lt;/mark:cc&gt;
+      &lt;/mark:addr&gt;
+      &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
+      &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
+      &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
+    &lt;/mark:contact&gt;
+  &lt;/mark:mark&gt;
+&lt;/launch:codeMark&gt;</pre></div>
 <a name="mark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.5"></a><h3>2.5.&nbsp;
 Mark</h3>
 
-<p>A &lt;launch:mark&gt; element describes an applicant's prior right
-        to a given domain name.
+<p>A &lt;mark:mark&gt; element describes an applicant's prior right
+        to a given domain name that is used directly by the "mark" validation 
+        model and indirectly by the "code with mark" validation model and the 
+        "signed mark" validation model.
 </p>
-<p>The child elements of the &lt;launch:mark&gt; element include:
+<p>The child elements of the &lt;mark:mark&gt; element include:
 </p>
 <p></p>
 <blockquote class="text"><dl>
-<dt>&lt;launch:id&gt;:</dt>
+<dt>&lt;mark:id&gt;:</dt>
 <dd>an identifier for the mark. This
             identifier MUST be unique among all marks associated with an
             application object.
 </dd>
-<dt>&lt;launch:name&gt;:</dt>
+<dt>&lt;mark:name&gt;:</dt>
 <dd>The registered trademark text string.  This 
-            value is free-form text that MAY be mapped to one or more &lt;launch:label&gt; values.
+            value is free-form text that MAY be mapped to one or more &lt;mark:label&gt; values.
 </dd>
-<dt>&lt;launch:label&gt;:</dt>
+<dt>&lt;mark:label&gt;:</dt>
 <dd>Zero or more domain name labels that corresponds 
-            to the &lt;launch:name&gt;.  Each &lt;launch:label&gt; can match 
+            to the &lt;mark:name&gt;.  Each &lt;mark:label&gt; can match 
             directly to the domain name after adding the parent zone.
 </dd>
-<dt>&lt;launch:issuer&gt;:</dt>
+<dt>&lt;mark:issuer&gt;:</dt>
 <dd>name of the authority which issued
             the right (trademark clearinghouse, trademark office, company registration bureau, etc.)
 </dd>
-<dt>&lt;launch:number&gt;:</dt>
+<dt>&lt;mark:number&gt;:</dt>
 <dd>the registration number of the right
             (trademark number, company registration number, etc.)
 </dd>
-<dt>&lt;launch:type&gt;:</dt>
+<dt>&lt;mark:type&gt;:</dt>
 <dd>indicates the type of mark being made
             (trademark, symbol, combined mark, company name, etc.)
 </dd>
-<dt>&lt;launch:entitlement&gt;:</dt>
+<dt>&lt;mark:entitlement&gt;:</dt>
 <dd>indicates the applicant's
             entitlement to the mark (owner, licensee, etc.)
 </dd>
-<dt>&lt;launch:regDate&gt;:</dt>
+<dt>&lt;mark:regDate&gt;:</dt>
 <dd>the date of registration of the
             mark
 </dd>
-<dt>&lt;launch:exDate&gt;:</dt>
+<dt>&lt;mark:exDate&gt;:</dt>
 <dd>the date of expiration of the
             mark
 </dd>
-<dt>&lt;launch:country&gt;:</dt>
+<dt>&lt;mark:country&gt;:</dt>
 <dd>indicates the country in which the
               mark is valid. This may be a two-character code from <a class='info' href='#WIPO.ST3'>[WIPO.ST3]<span> (</span><span class='info'>WIPO, &ldquo;Recommended standard on two-letter codes for the representation of states, other entities and intergovernmental organizations,&rdquo; March&nbsp;2007.</span><span>)</span></a>
 </dd>
-<dt>&lt;launch:region&gt;:</dt>
+<dt>&lt;mark:region&gt;:</dt>
 <dd>indicates the name of a city, state,
             province or other geographic region in which the mark is valid.
 </dd>
-<dt>&lt;launch:owner&gt;:</dt>
+<dt>&lt;mark:owner&gt;:</dt>
 <dd>Owner information using the <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> 
             elements.
 </dd>
-<dt>&lt;launch:contact&gt;:</dt>
+<dt>&lt;mark:contact&gt;:</dt>
 <dd>Contact for the owner using the 
             <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> element.
 </dd>
@@ -675,48 +702,45 @@ Contact</h3>
         it is contact information defined outside of the server.  Some of the contact elements defined in 
         <a class='info' href='#RFC5733'>EPP contact mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733] are replicated in this extension.
 </p>
-<p>The child elements of a contact using either the &lt;launch:owner&gt; or 
-        &lt;launch:contact&gt; elements include:
+<p>The child elements of a contact using either the &lt;mark:owner&gt; or 
+        &lt;mark:contact&gt; elements include:
         </p>
 <blockquote class="text"><dl>
-<dt>&lt;launch:id&gt;:</dt>
-<dd>identifier of contact that MUST be unique among all contacts of the external third party.
-</dd>
-<dt>&lt;launch:name&gt;:</dt>
+<dt>&lt;mark:name&gt;:</dt>
 <dd>name of the individual or role represented by the contact.
 </dd>
-<dt>&lt;launch:org&gt;:</dt>
+<dt>&lt;mark:org&gt;:</dt>
 <dd>name of the organization with which the contact is affiliated.
 </dd>
-<dt>&lt;launch:addr&gt;:</dt>
-<dd>address information associated with the contact.  the &lt;launch:addr&gt; element contains 
+<dt>&lt;mark:addr&gt;:</dt>
+<dd>address information associated with the contact.  the &lt;mark:addr&gt; element contains 
             the following child elements:
 </dd>
 <dt></dt>
 <dd>
 <blockquote class="text"><dl>
-<dt>&lt;launch:street&gt;</dt>
-<dd>one, two, or three &lt;launch:street&gt; elements that contain 
+<dt>&lt;mark:street&gt;</dt>
+<dd>zero to three &lt;mark:street&gt; elements that contain 
                   the contact's street address.
 </dd>
-<dt>&lt;launch:city&gt;</dt>
+<dt>&lt;mark:city&gt;</dt>
 <dd>contact's city
 </dd>
-<dt>&lt;launch:sp&gt;</dt>
+<dt>&lt;mark:sp&gt;</dt>
 <dd>contact's state or province
 </dd>
-<dt>&lt;launch:cc&gt;</dt>
+<dt>&lt;mark:cc&gt;</dt>
 <dd>contact's country code
 </dd>
 </dl></blockquote>
 </dd>
-<dt>&lt;launch:voice&gt;:</dt>
+<dt>&lt;mark:voice&gt;:</dt>
 <dd>contact's voice telephone number
 </dd>
-<dt>&lt;launch:fax&gt;:</dt>
+<dt>&lt;mark:fax&gt;:</dt>
 <dd>contact's facsimile telephone number
 </dd>
-<dt>&lt;launch:email&gt;:</dt>
+<dt>&lt;mark:email&gt;:</dt>
 <dd>contact's email address
 </dd>
 </dl></blockquote>
@@ -729,198 +753,200 @@ Contact</h3>
 <a name="rfc.section.2.7"></a><h3>2.7.&nbsp;
 Digital Signature</h3>
 
-<p>Digital signatures can be used by the server to validate either 
-        the mark information, when using the signed mark model with the 
-        &lt;launch:signedMark&gt; element, or the claims notice with the 
-        &lt;launch:signedNotice&gt; element.  The digital signatures are   
+<p>Digital signatures MAY be used by the server to validate either 
+        the mark information, when using the "signed mark" validation model with the 
+        &lt;smd:signedMark&gt; element or the &lt;smd:encodedSignedMark&gt; element.  
+        The digital signatures are   
         handled using an <a href='http://www.w3.org/TR/xmldsig-core/'>XML
-            Signature</a> around the entire &lt;launch:signedMark&gt; 
-         or &lt;launch:signedNotice&gt; elements.  Once the digital signature 
+            Signature</a> around the entire &lt;smd:signedMark&gt; 
+            element.  The &lt;smd:encodedSignedMark&gt; element includes an 
+            encoded form of the &lt;smd:signedMark&gt; element like the use of "base64" encoding.
+            Once the digital signature 
          is validated using the appropriate public key, the server can trust 
-         all of the information included in the &lt;launch:signedMark&gt; 
-         or &lt;launch:signedNotice&gt; elements.  It's up to server policy how 
+         all of the information included in the &lt;smd:signedMark&gt; 
+         element.  It's up to server policy how 
          the public key is transferred.
 </p>
 <p>To have the digital signature cover all of the elements of the 
-         &lt;launch:signedMark&gt; and &lt;launch:signedNotice&gt; elements, 
+         &lt;smd:signedMark&gt; element, 
          the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
-            Signature</a> Reference URI is set to "#pointer(..)" and the 
+            Signature</a> IDREF URI is set to the "id" attribute value of the 
+            &lt;smd:signedMark&gt; element and the 
             Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is 
-            used.  Both of these has the digital signature cover the parent 
-            element of the Signature element and to specify that the Signature 
-            element is embedded in the parent element.
+            used.  The digital signature covers the &lt;smd:signedMark&gt; element 
+            and the Signature 
+            element is embedded in the &lt;smd:signedMark&gt; element.
         
 </p>
 <a name="signedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.7.1"></a><h3>2.7.1.&nbsp;
-&lt;launch:signedMark&gt; element</h3>
+&lt;smd:signedMark&gt; element</h3>
 
-<p>The child elements of the &lt;launch:signedMark&gt; element include:
+<p>The &lt;smd:signedMark&gt; is the fragment of XML that is digitally 
+        signed using <a href='http://www.w3.org/TR/xmldsig-core/'>XML
+            Signature</a>.  The &lt;smd:signedMark&gt; includes a required "id" 
+            attribute of type XSD ID for 
+            use with an IDREF URI from the Signature element.  
+            The child elements of the &lt;smd:signedMark&gt; element include:
 </p>
 <p></p>
 <blockquote class="text"><dl>
-<dt>&lt;launch:serial&gt;:</dt>
+<dt>&lt;smd:serial&gt;:</dt>
 <dd>Signature serial number that 
             that can be compared with a revocation list by the server.
 </dd>
-<dt>&lt;launch:zone&gt;:</dt>
+<dt>&lt;smd:zone&gt;:</dt>
 <dd>Zero or more DNS zones 
-            the &lt;launch:signedMark&gt; can be used with.  No &lt;launch:zone&gt; 
-            element indicates that the &lt;launch:signedMark&gt; can be used 
+            the &lt;smd:signedMark&gt; can be used with.  No &lt;smd:zone&gt; 
+            element indicates that the &lt;smd:signedMark&gt; can be used 
             within any DNS zone.
 </dd>
-<dt>&lt;launch:exDate&gt;:</dt>
+<dt>&lt;smd:exDate&gt;:</dt>
 <dd>OPTIONAL date and time that the 
-            &lt;launch:signedMark&gt; expires.  The server MUST NOT accept 
-            a &lt;launch:signedMark&gt; that has expired.  No &lt;launch:exDate&gt; 
+            &lt;smd:signedMark&gt; expires.  The server MUST NOT accept 
+            a &lt;smd:signedMark&gt; that has expired.  No &lt;smd:exDate&gt; 
             element indicates that there is no expiry.
 </dd>
-<dt>&lt;launch:mark&gt;:</dt>
+<dt>&lt;mark:mark&gt;:</dt>
 <dd>Trademark information as defined in the  
             <a class='info' href='#mark'>Mark<span> (</span><span class='info'>Mark</span><span>)</span></a> section.
 </dd>
 <dt>&lt;Signature&gt;:</dt>
 <dd>
             <a href='http://www.w3.org/TR/xmldsig-core/'>XML
-            Signature</a> for the &lt;launch:signedMark&gt;
+            Signature</a> for the &lt;smd:signedMark&gt;.  Use of 
+            a namespace prefix, like "dsig", is recommended for the "http://www.w3.org/TR/xmldsig-core/" 
+            elements.
 </dd>
 </dl></blockquote>
 
-<p>The following is an example &lt;launch:signedMark&gt;
+<p>The following is an example &lt;smd:signedMark&gt;
             using the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
             Signature</a> to sign all of the elements of 
-            &lt;launch:signedMark&gt; element.
+            &lt;smd:signedMark&gt; element.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;launch:signedMark&gt;
-  &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
-  &lt;launch:zone&gt;newtld&lt;/launch:zone&gt;
-  &lt;launch:exDate&gt;2012-08-16T09:00:00.0Z&lt;/launch:exDate&gt;
-  &lt;launch:mark&gt;
-    &lt;launch:name&gt;Example One&lt;/launch:name&gt;
-    &lt;launch:label&gt;example-one&lt;/launch:label&gt;
-    &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
-    &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-    &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-    &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-    &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-    &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-    &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-    &lt;launch:country&gt;AU&lt;/launch:country&gt;
-    &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-    &lt;launch:owner&gt;
-      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-    &lt;/launch:owner&gt;
-    &lt;launch:contact&gt;
-      &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-      &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-      &lt;launch:addr&gt;
-        &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-        &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-        &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-        &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-        &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-        &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-      &lt;/launch:addr&gt;
-      &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-      &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-      &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-    &lt;/launch:contact&gt;
-  &lt;/launch:mark&gt;
-  &lt;Signature xmlns=
-    "http://www.w3.org/2000/09/xmldsig#"&gt;
-    &lt;SignedInfo&gt;
-      &lt;CanonicalizationMethod
-        Algorithm=
-        "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
-      &lt;SignatureMethod
-        Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
-      &lt;Reference URI="#pointer(..)"&gt;
-        &lt;Transforms&gt;
-          &lt;Transform
-            Algorithm=
-            "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
-          &lt;/Transforms&gt;
-        &lt;DigestMethod
-          Algorithm=
-          "http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-        &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
-      &lt;/Reference&gt;
-    &lt;/SignedInfo&gt;
-    &lt;SignatureValue&gt;
-      cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-    &lt;/SignatureValue&gt;
-  &lt;/Signature&gt;
-&lt;/launch:signedMark&gt;
-</pre></div>
-<a name="signedNotice"></a><br /><hr />
+ &lt;smd:signedMark id="signedMark"
+  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
+  &lt;smd:serial&gt;123456&lt;/smd:serial&gt;
+  &lt;smd:zone&gt;newtld&lt;/smd:zone&gt;
+  &lt;smd:exDate&gt;2012-08-16T09:00:00.0Z&lt;/smd:exDate&gt;
+  &lt;mark:mark
+   xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+    &lt;mark:name&gt;Example One&lt;/mark:name&gt;
+    &lt;mark:label&gt;example-one&lt;/mark:label&gt;
+    &lt;mark:label&gt;exampleone&lt;/mark:label&gt;
+    &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
+    &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
+    &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+    &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
+    &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+    &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
+    &lt;mark:country&gt;AU&lt;/mark:country&gt;
+    &lt;mark:region&gt;VIC&lt;/mark:region&gt;
+    &lt;mark:owner&gt;
+     &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+    &lt;/mark:owner&gt;
+    &lt;mark:contact&gt;
+     &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
+     &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+     &lt;mark:addr&gt;
+      &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
+      &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
+      &lt;mark:city&gt;Reston&lt;/mark:city&gt;
+      &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
+      &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
+      &lt;mark:cc&gt;US&lt;/mark:cc&gt;
+     &lt;/mark:addr&gt;
+     &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
+     &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
+     &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
+    &lt;/mark:contact&gt;
+  &lt;/mark:mark&gt;
+  &lt;dsig:Signature
+  	xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"&gt;
+    &lt;dsig:SignedInfo&gt;
+    &lt;dsig:CanonicalizationMethod
+Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/&gt;
+    &lt;dsig:SignatureMethod
+Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/&gt;
+    &lt;dsig:Reference URI="#signedMark"&gt;
+      &lt;dsig:Transforms&gt;
+        &lt;dsig:Transform
+Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
+      &lt;/dsig:Transforms&gt;
+      &lt;dsig:DigestMethod
+        Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
+      &lt;dsig:DigestValue&gt;6651T5s9GZgQOxifdCFmDfSIoUc=&lt;/dsig:DigestValue&gt;
+    &lt;/dsig:Reference&gt;
+  &lt;/dsig:SignedInfo&gt;
+    &lt;dsig:SignatureValue&gt;
+Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9
+a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
+jmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZE2EvffMLBiL4xbCJM48ew
+RYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcj
+G6815IJV/9RT+MTXri7i0s82CqIS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F
++Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kguE++RHKa4xoBIeyTgWqpWcLu
+MoFpM+GxwFcpSA==
+     &lt;/dsig:SignatureValue&gt;
+   &lt;/dsig:Signature&gt;
+ &lt;/smd:signedMark&gt;</pre></div>
+<a name="encodedSignedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.7.2"></a><h3>2.7.2.&nbsp;
-&lt;launch:signedNotice&gt; element</h3>
+&lt;smd:encodedSignedMark&gt; element</h3>
 
-<p>The child elements of the &lt;launch:signedNotice&gt; element include:
+<p>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
+        the digitally signed &lt;smd:signedMark&gt; element, described in <a class='info' href='#signedMark'>Section&nbsp;2.7.1<span> (</span><span class='info'>&lt;smd:signedMark&gt; element</span><span>)</span></a>, 
+        with the encoding defined by the "encoding" attribute with the default "encoding" 
+        value of "base64".  The "base64" encoded text of the &lt;smd:encodedSignedMark&gt; element 
+        MUST conform to <a class='info' href='#RFC2045'>[RFC2045]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies,&rdquo; November&nbsp;1996.</span><span>)</span></a>.
 </p>
-<p></p>
-<blockquote class="text"><dl>
-<dt>&lt;launch:noticeID&gt;:</dt>
-<dd>Unique notice identifier 
-            generated by the third party.  The &lt;launch:noticeID&gt; can be 
-            compared with a revocation list by the server.
-</dd>
-<dt>&lt;launch:name&gt;:</dt>
-<dd>Domain name that the 
-            claims notice is for.
-</dd>
-<dt>&lt;launch:crDate&gt;:</dt>
-<dd>Date and time that the 
-            &lt;launch:signedNotice&gt; was created.
-</dd>
-<dt>&lt;launch:exDate&gt;:</dt>
-<dd>OPTIONAL date and time that the 
-            &lt;launch:signedNotice&gt; expires.  The server MUST NOT accept 
-            a &lt;launch:signedNotice&gt; that has expired.  No &lt;launch:exDate&gt; 
-            element indicates that there is no expiry.
-</dd>
-<dt>&lt;Signature&gt;:</dt>
-<dd>
-            <a href='http://www.w3.org/TR/xmldsig-core/'>XML
-            Signature</a> for the &lt;launch:signedNotice&gt;
-</dd>
-</dl></blockquote>
-
-<p>The following is an example &lt;launch:signedNotice&gt;
-            using the <a href='http://www.w3.org/TR/xmldsig-core/'>XML
-            Signature</a> to sign all of the elements of 
-            &lt;launch:signedNotice&gt; element.
+<p>The following is an example an &lt;smd:encodedSignedMark&gt;
+            element that uses the default "base64" for encoding a &lt;smd:signedMark&gt; element.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;launch:signedNotice&gt;
-  &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
-  &lt;launch:name&gt;example.tld&lt;/launch:name&gt;
-  &lt;launch:crDate&gt;2012-09-07T22:00:00.0Z&lt;/launch:crDate&gt;
-  &lt;launch:exDate&gt;2012-09-08T22:00:00.0Z&lt;/launch:exDate&gt;
-  &lt;Signature xmlns="http://www.w3.org/2000/09/xmldsig#"&gt;
-    &lt;SignedInfo&gt;
-      &lt;CanonicalizationMethod
-        Algorithm=
-        "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
-      &lt;SignatureMethod
-        Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
-      &lt;Reference URI="#pointer(..)"&gt;
-        &lt;Transforms&gt;
-          &lt;Transform
-            Algorithm=
-            "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
-        &lt;/Transforms&gt;
-        &lt;DigestMethod
-          Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-        &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
-      &lt;/Reference&gt;
-    &lt;/SignedInfo&gt;
-    &lt;SignatureValue&gt;
-     cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-    &lt;/SignatureValue&gt;
-  &lt;/Signature&gt;
-&lt;/launch:signedNotice&gt;
+       &lt;smd:encodedSignedMark
+        xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
+D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnN
+pZ25lZE1hcmsgeG1sbnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zO
+nNpZ25lZE1hcmstMS4wIiBpZD0ic2lnbmVkTWFyayI-PHNtZDpzZXJpYWw
+-MTIzNDU2PC9zbWQ6c2VyaWFsPjxzbWQ6ZXhEYXRlPjIwMTItMTEtMjlUM
+Tg6MTY6NTQuMDg4MFo8L3NtZDpleERhdGU-PG1hcms6bWFyayB4bWxuczp
+tYXJrPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOm1hcmstMS4wIj48bWFya
+zpuYW1lPkV4YW1wbGUgT25lPC9tYXJrOm5hbWU-PG1hcms6bGFiZWw-ZXh
+hbXBsZS1vbmU8L21hcms6bGFiZWw-PG1hcms6bGFiZWw-ZXhhbXBsZW9uZ
+TwvbWFyazpsYWJlbD48bWFyazppc3N1ZXI-SVAgQ2xlYXJpbmdob3VzZTw
+vbWFyazppc3N1ZXI-PG1hcms6bnVtYmVyPkdFIDM5MzMyMzI8L21hcms6b
+nVtYmVyPjxtYXJrOm51bWJlcj5vd25lcjwvbWFyazpudW1iZXI-PG1hcms
+6cmVnRGF0ZT4yMDEyLTExLTI5VDE4OjE2OjU0LjA3NDZaPC9tYXJrOnJlZ
+0RhdGU-PG1hcms6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6NTQuMDc0Nlo
+8L21hcms6ZXhEYXRlPjxtYXJrOmNvdW50cnk-QVU8L21hcms6Y291bnRye
+T48bWFyazpyZWdpb24-VklDPC9tYXJrOnJlZ2lvbj48L21hcms6bWFyaz4
+8ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0cDovL3d3dy53My5vc
+mcvMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzp
+DYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3d
+y53My5vcmcvVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aEN
+vbW1lbnRzIi8-PGRzaWc6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0ia
+HR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8
+-PGRzaWc6UmVmZXJlbmNlIFVSST0iI3NpZ25lZE1hcmsiPjxkc2lnOlRyY
+W5zZm9ybXM-PGRzaWc6VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d
+3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI2VudmVsb3BlZC1zaWduYXR1c
+mUiLz48L2RzaWc6VHJhbnNmb3Jtcz48ZHNpZzpEaWdlc3RNZXRob2QgQWx
+nb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc
+2hhMSIvPjxkc2lnOkRpZ2VzdFZhbHVlPktIdVFrdFdUMnRYbXg4Y2ZWd2N
+vZ0JSUm5oRT08L2RzaWc6RGlnZXN0VmFsdWU-PC9kc2lnOlJlZmVyZW5jZ
+T48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVWYWx1ZT5RdWk
+2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16ZENhc
+WpWcXVvVDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV
+1MG1NMmt4VURyWkVCc0dpV3FuaHMzQVBxOTJBcVdGZHZnUmV6ZHcycmNVb
+Vg3dGJyeWNGM3ZDMEJmRUg4RHoKb2FIUFRQb24xTUxObzF5bGtYTDA5bWJ
+qTHVhRlJSS3Z2UCs4djQ1VFJXRmkrbVJ0akJvMGg4blFiNTNtR2lKaU1Oe
+kFDaDBtK3pFeAp2bmxEUmRpdWJFZVVWbG9LV2dMY1BiSkd4QmFWL1gvQjQ
+vRnVRbXEzclcxaXNZOUlEYzA3U3ZheEZ0a1l4emVra25GQkNCSWNibXFTC
+nlOckMvOEp4Y2RRSHN0TUZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2R
+zaWc6U2lnbmF0dXJlVmFsdWU-PC9kc2lnOlNpZ25hdHVyZT48L3NtZDpza
+WduZWRNYXJrPg
+       &lt;/smd:encodedSignedMark&gt;
 </pre></div>
 <a name="commands"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -955,19 +981,19 @@ EPP &lt;check&gt; Command</h3>
 </p>
 <p>This extension defines a new command called the Claims Check Command 
         that is used to determine whether or not there are any matching 
-        trademarks for each domain name passed in the command. Instead of 
+        trademarks, in the specified launch phase, for each domain name passed in the command. 
+        Instead of 
         returning whether the domain name is available it will return whether 
         or not at least one matching trademark exists for the domain name.  
         If there is at least one matching trademark that exists for the 
         domain name a &lt;launch:claimKey&gt; element is returned.  
         The value of that the &lt;launch:claimKey&gt; element can 
-        be used with a info service of a third party trademark provider like 
+        be used with an info service of a third party trademark provider like 
         the Trademark Clearinghouse (TMCH) for getting the information needed 
         to generate the trademark claims notice.  The third party trademark 
-        provider should also return a <a class='info' href='#signedNotice'>Signed Notice<span> (</span><span class='info'>&lt;launch:signedNotice&gt; element</span><span>)</span></a> 
-        that can be passed in the extension to the extension to the 
-        <a class='info' href='#createCommand'>Create Command<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a> for the server 
-        to validate that the correct trademark claims notice was presented.
+        provider should also return a unique notice identifier  
+        that can be passed in the &lt;launch:noticeID&gt; element of the extension to the 
+        <a class='info' href='#createCommand'>Create Command<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a>.
         
         The &lt;domain:name&gt; elements in the EPP &lt;check&gt; 
         command of <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] define 
@@ -978,14 +1004,19 @@ EPP &lt;check&gt; Command</h3>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>The phase with the value of
-              "claims" to indicate that this is a Claims Check Command.
+              "claims1" or "claims2" to indicate it as a Claims Check Command.
+              The "claims1" Claims Check Command will match the &lt;domain:name&gt;
+              against the full list of trademark labels and the "claims2" 
+              Claims Check Command will match the &lt;domain:name&gt; against 
+              the list of trademark labels that opted into the "claims2" 
+              launch phase.
 </dd>
 </dl></blockquote>
 
 <p>Example Claims Check Command using the &lt;check&gt;
             domain command and the &lt;launch:check&gt; extension to 
             determine if "example1.tld" and "example2.tld" have any 
-            matching trademarks.
+            matching trademarks during the "claims1" launch phase.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -1000,13 +1031,36 @@ EPP &lt;check&gt; Command</h3>
    &lt;extension&gt;
     &lt;launch:check
      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
+      &lt;launch:phase&gt;claims1&lt;/launch:phase&gt;
     &lt;/launch:check&gt;
    &lt;/extension&gt;
    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
+<p>Example Claims Check Command using the &lt;check&gt;
+            domain command and the &lt;launch:check&gt; extension to 
+            determine if "example3.tld" and "example4.tld" have any 
+            matching trademarks that opted into the "claims2" launch phase.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;command&gt;
+   &lt;check&gt;
+    &lt;domain:check
+     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+      &lt;domain:name&gt;example3.tld&lt;/domain:name&gt;
+      &lt;domain:name&gt;example4.tld&lt;/domain:name&gt;
+    &lt;/domain:check&gt;
+   &lt;/check&gt;
+   &lt;extension&gt;
+    &lt;launch:check
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+      &lt;launch:phase&gt;claims2&lt;/launch:phase&gt;
+    &lt;/launch:check&gt;
+   &lt;/extension&gt;
+   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+  &lt;/command&gt;
+&lt;/epp&gt;</pre></div>
 <p>If the &lt;check&gt; command has been processed successfully, the EPP 
           &lt;resData&gt; element MUST contains a child &lt;launch:chkData&gt; element 
           that identifies the launch namespace.  The &lt;launch:chkData&gt; element 
@@ -1016,7 +1070,8 @@ EPP &lt;check&gt; Command</h3>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>the phase with a value of
-              "claims".
+              "claims1" or "claims2" that matches the associated 
+              Claims Check Command &lt;launch:phase&gt;.
 </dd>
 <dt>&lt;launch:cd&gt;</dt>
 <dd>One or more &lt;launch:cd&gt; 
@@ -1031,15 +1086,16 @@ EPP &lt;check&gt; Command</h3>
             MUST contain an "exists" attribute whose value 
             indicates if a matching trademark exists for the domain 
             name.  A value of "1" or "true" means that a matching 
-            trademark does exist.  A value of "0" or "false" means that 
+            trademark does exist for the claims launch phase.  
+            A value of "0" or "false" means that 
             a matching trademark does not exist.
 </dd>
 <dt>&lt;launch:claimKey&gt;</dt>
 <dd>An OPTIONAL claim key 
-            that can be passed to a info service of a third party 
+            that MAY be passed to an info service of a third party 
             trademark provider like the Trademark Clearinghouse (TMCH) 
             for getting the information needed to generate the 
-            trademark claims notice.  The &lt;claimKey&gt; is used 
+            trademark claims notice.  The &lt;launch:claimKey&gt; is used 
             as the key for the query in place of the domain name 
             to securely query the service without using a well-known 
             value like a domain name.
@@ -1050,7 +1106,8 @@ EPP &lt;check&gt; Command</h3>
 
 <p>Example Claims Check Response when no matching trademarks
              are found for the domain name example1.tld and matching 
-             trademarks are found for the domain name example2.tld.
+             trademarks are found for the domain name example2.tld for the 
+             "claims1" launch phase.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -1061,7 +1118,7 @@ EPP &lt;check&gt; Command</h3>
     &lt;resData&gt;
      &lt;launch:chkData
       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
+      &lt;launch:phase&gt;claims1&lt;/launch:phase&gt;
       &lt;launch:cd&gt;
         &lt;launch:name exists="0"&gt;example1.tld&lt;/launch:name&gt;
       &lt;/launch:cd&gt;
@@ -1076,8 +1133,37 @@ EPP &lt;check&gt; Command</h3>
      &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
+<p>Example Claims Check Response when no matching trademarks
+             are found for the domain name example3.tld and matching 
+             trademarks are found for the domain name example4.tld for the 
+             "claims2" launch phase.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;response&gt;
+    &lt;result code="1000"&gt;
+     &lt;msg&gt;Command completed successfully&lt;/msg&gt;
+    &lt;/result&gt;
+    &lt;resData&gt;
+     &lt;launch:chkData
+      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+      &lt;launch:phase&gt;claims2&lt;/launch:phase&gt;
+      &lt;launch:cd&gt;
+        &lt;launch:name exists="0"&gt;example3.tld&lt;/launch:name&gt;
+      &lt;/launch:cd&gt;
+      &lt;launch:cd&gt;
+        &lt;launch:name exists="1"&gt;example4.tld&lt;/launch:name&gt;
+        &lt;launch:claimKey&gt;abc123&lt;/launch:claimKey&gt;
+      &lt;/launch:cd&gt;
+     &lt;/launch:chkData&gt;
+    &lt;/resData&gt;
+    &lt;trID&gt;
+     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+     &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+    &lt;/trID&gt;
+  &lt;/response&gt;
+&lt;/epp&gt;</pre></div>
 <a name="infoCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.2"></a><h3>3.2.&nbsp;
@@ -1087,76 +1173,31 @@ EPP &lt;info&gt; Command</h3>
         &lt;info&gt; command and response to be used in conjunction with the
         <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
 </p>
-<p>There are two forms of the extension to the EPP &lt;info&gt;
-        command that are dependent on the supported <a class='info' href='#phases'>launch phases<span> (</span><span class='info'>Launch Phases</span><span>)</span></a> as defined below:
-</p>
-<p></p>
-<blockquote class="text"><dl>
-<dt>sunrise</dt>
-<dd>The EPP &lt;info&gt; command with the
-            "sunrise" phase is used to retrieve information for a specific
-            "sunrise" application based on an <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a>. This form of
-            the EPP &lt;info&gt; extension is referred to as the Sunrise Info
-            Form and is defined in the <a class='info' href='#sunriseInfoForm'>Sunrise
-            Info Form<span> (</span><span class='info'>Sunrise Info Form</span><span>)</span></a> section.
-</dd>
-<dt>landrush</dt>
-<dd>The EPP &lt;info&gt; command with the
-            "landrush" phase is undefined but the form supported is up to
-            server policy.
-</dd>
-<dt>claims</dt>
-<dd>The EPP &lt;info&gt; command with the
-            "claims" phase is used to retrieve the trademark claims
-            information associated with a non-existing domain name that is
-            referred to as the Claims Info Command. The response to the Claims
-            Info Command does not extend the Domain Info Response as defined
-            in <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. This
-            form of the EPP &lt;info&gt; extension is referred to as the
-            Claims Info Form and defined in the <a class='info' href='#claimsInfoForm'>Claims Info Form<span> (</span><span class='info'>Claims Info Form</span><span>)</span></a> section.
-</dd>
-<dt>open</dt>
-<dd>The EPP &lt;info&gt; command with the "open"
-            phase is undefined but the form supported is up to server
-            policy.
-</dd>
-<dt>custom</dt>
-<dd>The EPP &lt;info&gt; command with the
-            "custom" phase is undefined but the form supported is up to server
-            policy.
-</dd>
-</dl></blockquote>
-
-<a name="sunriseInfoForm"></a><br /><hr />
-<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.3.2.1"></a><h3>3.2.1.&nbsp;
-Sunrise Info Form</h3>
-
-<p>The Sunrise Info Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] gets information on
-          an application created with the &lt;launch:create&gt; using the
-          <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> returned
-          in the &lt;launch:creData&gt; element of the 
-          <a class='info' href='#createCommand'>Create Response<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a>. A &lt;launch:info&gt; element
-          is sent along with the regular &lt;info&gt; domain command. The
-          &lt;launch:info&gt; element contains the following child
-          elements:
+<p>The EPP &lt;info&gt; command is used to retrieve information 
+        for a launch phase registration or application.  The <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> 
+        returned in the &lt;launch:creData&gt; element of the <a class='info' href='#createCommand'>Create Response<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a> 
+        is used for retrieving information for a launch application.  A &lt;launch:info&gt; element
+        is sent along with the regular &lt;info&gt; domain command. The
+        &lt;launch:info&gt; element contains the following child
+        elements:
 </p>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>The phase during which the
-              application was submitted or is associated with. Server policy 
-              defines what phases that are supported for the Sunrise Info
-              Form.
+              application or registration was submitted or is associated with. 
+              Server policy defines the phases that are supported.
 </dd>
 <dt>&lt;launch:applicationID&gt;</dt>
-<dd>the application
-              identifier of the application.
+<dd>OPTIONAL application
+              identifier of the launch application.
 </dd>
 </dl></blockquote>
 
-<p>Example &lt;info&gt; domain command with the Sunrise
-            Info Form &lt;launch:info&gt; extension.
+<p>Example &lt;info&gt; domain command with the
+            &lt;launch:info&gt; extension to retrieve information 
+            for the sunrise application for example.tld and application 
+            identifier "abc123".
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -1176,302 +1217,10 @@ Sunrise Info Form</h3>
    &lt;/extension&gt;
    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
-<p>If the query was successful, the server replies with an
-          &lt;launch:infData&gt; element along with the regular EPP
-          &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
-          child elements:
-</p>
-<p></p>
-<blockquote class="text"><dl>
-<dt>&lt;launch:phase&gt;</dt>
-<dd>the phase during which the
-              application was submitted or is associated with.
-</dd>
-<dt>&lt;launch:applicationID&gt;</dt>
-<dd>the application
-              identifier of the returned application.
-</dd>
-<dt>&lt;launch:status&gt;</dt>
-<dd>status of the application
-              using one of the supported <a class='info' href='#statuses'>status
-              values<span> (</span><span class='info'>Status Values</span><span>)</span></a>.
-</dd>
-<dt>&lt;launch:codeMark&gt; or &lt;launch:signedMark&gt;</dt>
-<dd>
-                  
-<blockquote class="text"><dl>
-<dt>&lt;launch:codeMark&gt;</dt>
-<dd>zero or more
-              &lt;launch:codeMark&gt; elements.  The &lt;launch:codeMark&gt;
-              child elements are defined in the 
-              <a class='info' href='#codeMark'>&lt;launch:codeMark&gt; element<span> (</span><span class='info'>&lt;launch:codeMark&gt; element</span><span>)</span></a> 
-              section.
-</dd>
-<dt>&lt;launch:signedMark&gt;</dt>
-<dd>zero or more
-              &lt;launch:signedMark&gt; elements.  The &lt;launch:signedMark&gt; 
-              child elements are defined in 
-              the <a class='info' href='#signedMark'>&lt;launch:signedMark&gt; element<span> (</span><span class='info'>&lt;launch:signedMark&gt; element</span><span>)</span></a> 
-              section.
-</dd>
-</dl></blockquote>
-</dd>
-</dl></blockquote>
-
-<p>Example &lt;info&gt; domain response using the Sunrise
-            Info Form &lt;launch:infData&gt; extension with multiple
-            codes.
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-   &lt;response&gt;
-     &lt;result code="1000"&gt;
-       &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-     &lt;/result&gt;
-     &lt;resData&gt;
-       &lt;domain:infData
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-         &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-         &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
-         &lt;domain:status s="pendingCreate"/&gt;
-         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-         &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-         &lt;domain:clID&gt;ClientX&lt;/domain:clID&gt;
-         &lt;domain:crID&gt;ClientY&lt;/domain:crID&gt;
-         &lt;domain:crDate&gt;2012-04-03T22:00:00.0Z&lt;/domain:crDate&gt;
-         &lt;domain:authInfo&gt;
-           &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-         &lt;/domain:authInfo&gt;
-       &lt;/domain:infData&gt;
-     &lt;/resData&gt;
-     &lt;extension&gt;
-       &lt;launch:infData
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="pending"/&gt;
-         &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-         &lt;/launch:codeMark&gt;
-         &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AD&lt;/launch:code&gt;
-         &lt;/launch:codeMark&gt;
-         &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AE&lt;/launch:code&gt;
-         &lt;/launch:codeMark&gt;
-       &lt;/launch:infData&gt;
-     &lt;/extension&gt;
-     &lt;trID&gt;
-       &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-       &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
-     &lt;/trID&gt;
-   &lt;/response&gt;
- &lt;/epp&gt;
-</pre></div>
-<p>Example &lt;info&gt; domain response using the Sunrise
-            Info Form &lt;launch:infData&gt; extension with code and mark
-            information.
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-   &lt;response&gt;
-     &lt;result code="1000"&gt;
-       &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-     &lt;/result&gt;
-     &lt;resData&gt;
-       &lt;domain:infData
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-         &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
-         &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
-         &lt;domain:status s="pendingCreate"/&gt;
-         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-         &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-         &lt;domain:clID&gt;ClientX&lt;/domain:clID&gt;
-         &lt;domain:crID&gt;ClientY&lt;/domain:crID&gt;
-         &lt;domain:crDate&gt;2012-04-03T22:00:00.0Z&lt;/domain:crDate&gt;
-         &lt;domain:authInfo&gt;
-           &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-         &lt;/domain:authInfo&gt;
-       &lt;/domain:infData&gt;
-     &lt;/resData&gt;
-     &lt;extension&gt;
-       &lt;launch:infData
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="rejected" name="rejectedAuction" lang="en"&gt;
-            Application rejected due to result of auction.
-          &lt;/launch:status&gt;
-          &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-            &lt;launch:mark&gt;
-              &lt;launch:name&gt;Example One&lt;/launch:name&gt;
-              &lt;launch:label&gt;example-one&lt;/launch:label&gt;
-              &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
-              &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-              &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-              &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-              &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-              &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-              &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-              &lt;launch:country&gt;AU&lt;/launch:country&gt;
-              &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-              &lt;launch:owner&gt;
-                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-              &lt;/launch:owner&gt;
-              &lt;launch:contact&gt;
-                &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-                &lt;launch:addr&gt;
-                  &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-                  &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-                  &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-                  &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-                  &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-                  &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-                &lt;/launch:addr&gt;
-                &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-                &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-                &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-              &lt;/launch:contact&gt;
-            &lt;/launch:mark&gt;
-          &lt;/launch:codeMark&gt;
-       &lt;/launch:infData&gt;
-     &lt;/extension&gt;
-     &lt;trID&gt;
-       &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-       &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
-     &lt;/trID&gt;
-   &lt;/response&gt;
- &lt;/epp&gt;
-</pre></div>
-<p>Example &lt;info&gt; domain response using the Sunrise
-            Info Form &lt;launch:infData&gt; extension signed mark
-            information.
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-   &lt;response&gt;
-     &lt;result code="1000"&gt;
-       &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-     &lt;/result&gt;
-     &lt;resData&gt;
-       &lt;domain:infData
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-         &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
-         &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
-         &lt;domain:status s="pendingCreate"/&gt;
-         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-         &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-         &lt;domain:clID&gt;ClientX&lt;/domain:clID&gt;
-         &lt;domain:crID&gt;ClientY&lt;/domain:crID&gt;
-         &lt;domain:crDate&gt;2012-04-03T22:00:00.0Z&lt;/domain:crDate&gt;
-         &lt;domain:authInfo&gt;
-           &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-         &lt;/domain:authInfo&gt;
-       &lt;/domain:infData&gt;
-     &lt;/resData&gt;
-     &lt;extension&gt;
-       &lt;launch:infData
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="pending"/&gt;
-          &lt;launch:signedMark&gt;
-            &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
-            &lt;launch:zone&gt;newtld&lt;/launch:zone&gt;
-            &lt;launch:exDate&gt;2012-08-16T09:00:00.0Z&lt;/launch:exDate&gt;
-            &lt;launch:mark&gt;
-              &lt;launch:name&gt;Example One&lt;/launch:name&gt;
-              &lt;launch:label&gt;example-one&lt;/launch:label&gt;
-              &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
-              &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-              &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-              &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-              &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-              &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-              &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-              &lt;launch:country&gt;AU&lt;/launch:country&gt;
-              &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-              &lt;launch:owner&gt;
-                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-              &lt;/launch:owner&gt;
-              &lt;launch:contact&gt;
-                &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-                &lt;launch:addr&gt;
-                  &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-                  &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-                  &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-                  &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-                  &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-                  &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-                &lt;/launch:addr&gt;
-                &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-                &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-                &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-              &lt;/launch:contact&gt;
-            &lt;/launch:mark&gt;
-            &lt;Signature xmlns=
-              "http://www.w3.org/2000/09/xmldsig#"&gt;
-              &lt;SignedInfo&gt;
-                &lt;CanonicalizationMethod
-                  Algorithm=
-                  "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
-                 &lt;SignatureMethod
-               Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
-                &lt;Reference URI="#pointer(..)"&gt;
-                  &lt;Transforms&gt;
-                    &lt;Transform
-                      Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
-                  &lt;/Transforms&gt;
-                  &lt;DigestMethod
-                    Algorithm=
-                "http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-                &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
-                &lt;/Reference&gt;
-              &lt;/SignedInfo&gt;
-              &lt;SignatureValue&gt;
-            cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-              &lt;/SignatureValue&gt;
-            &lt;/Signature&gt;
-          &lt;/launch:signedMark&gt;
-       &lt;/launch:infData&gt;
-     &lt;/extension&gt;
-     &lt;trID&gt;
-       &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-       &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
-     &lt;/trID&gt;
-   &lt;/response&gt;
- &lt;/epp&gt;
-</pre></div>
-<a name="claimsInfoForm"></a><br /><hr />
-<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.3.2.2"></a><h3>3.2.2.&nbsp;
-Claims Info Form</h3>
-
-<p>The Claims Info Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] gets trademark
-          claims information for a non-existing domain name that is referred
-          to as a Claims Info Command. The &lt;launch:info&gt; element
-          contains the following child elements:
-</p>
-<p></p>
-<blockquote class="text"><dl>
-<dt>&lt;launch:phase&gt;</dt>
-<dd>The phase with the value of
-              "claims" to indicate that this is a Claims Info Command.
-</dd>
-</dl></blockquote>
-
-<p>Example Claims Info Command using the &lt;info&gt;
-            domain command and the Claims Info Form &lt;launch:info&gt;
-            extension.
+&lt;/epp&gt;</pre></div>
+<p>Example &lt;info&gt; domain command with the
+            &lt;launch:info&gt; extension to retrieve information 
+            for the sunrise registration for example.tld.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -1485,172 +1234,113 @@ Claims Info Form</h3>
    &lt;extension&gt;
     &lt;launch:info
      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
+      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
     &lt;/launch:info&gt;
    &lt;/extension&gt;
    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
 <p>If the query was successful, the server replies with an
-          &lt;launch:infData&gt; element containing the trademark claims
-          information expected to be used by the client to generate the claims notice. The
-          &lt;launch:infData&gt; has the following child elements:
+          &lt;launch:infData&gt; element along with the regular EPP
+          &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
+          child elements:
 </p>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>the phase with a value of
-              "claims".
+<dd>the phase during which the
+              application was submitted or is associated with that matches the associated 
+              &lt;info&gt; command &lt;launch:phase&gt;.
 </dd>
-<dt>&lt;launch:notice&gt;</dt>
-<dd>The information used for the
-              trademark claims notice. The &lt;launch:notice&gt; element has
-              the following child elements:
+<dt>&lt;launch:applicationID&gt;</dt>
+<dd>OPTIONAL application
+              identifier of the launch application.
 </dd>
-<dt></dt>
-<dd>
-<blockquote class="text"><dl>
-<dt>&lt;launch:name&gt;</dt>
-<dd>The domain name that the
-                  claim notice information is associated with.
+<dt>&lt;launch:status&gt;</dt>
+<dd>OPTIONAL status of the launch application
+              using one of the supported <a class='info' href='#statuses'>status
+              values<span> (</span><span class='info'>Status Values</span><span>)</span></a>.
 </dd>
-<dt>&lt;launch:none&gt;</dt>
-<dd>OPTIONAL element included
-                  if there are no trademark claims associated with the
-                  &lt;launch:name&gt;
-</dd>
-<dt>&lt;launch:noticeID&gt;</dt>
-<dd>OPTIONAL server generated 
-                  identifier for the claims notice that is passed in 
-                  the &lt;launch:create&gt; extension of the <a class='info' href='#createCommand'>Create Command<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a>.   
-                  This MUST be included if there is at least one trademark claim 
-                  associated with the &lt;launch:notice&gt; &lt;launch:name&gt; element. 
-                  
-</dd>
-<dt>&lt;launch:mark&gt;</dt>
-<dd>Zero or more
-                  &lt;launch:mark&gt; elements containing the trademark
-                   information as defined in the <a class='info' href='#mark'>Mark<span> (</span><span class='info'>Mark</span><span>)</span></a> section.
-</dd>
-</dl></blockquote>
+<dt>&lt;mark:mark&gt;</dt>
+<dd>zero or more
+              &lt;mark:mark&gt; elements.  The &lt;mark:mark&gt;
+              child elements are defined in the 
+              <a class='info' href='#mark'>&lt;mark:mark&gt; element<span> (</span><span class='info'>Mark</span><span>)</span></a> 
+              section.
 </dd>
 </dl></blockquote>
 
-<p>Example Claims Info Response when no matching trademark
-            claims are found for the domain name example.tld.
+<p>Example &lt;info&gt; domain response using the 
+            &lt;launch:infData&gt; extension with the mark
+            information.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
   &lt;response&gt;
     &lt;result code="1000"&gt;
-     &lt;msg&gt;Command completed successfully&lt;/msg&gt;
+      &lt;msg&gt;Command completed successfully&lt;/msg&gt;
     &lt;/result&gt;
     &lt;resData&gt;
-     &lt;launch:infData
-      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
-      &lt;launch:notice&gt;
-        &lt;launch:name&gt;example.tld&lt;/launch:name&gt;
-        &lt;launch:none/&gt;
-      &lt;/launch:notice&gt;
-     &lt;/launch:infData&gt;
+      &lt;domain:infData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+        &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
+        &lt;domain:status s="pendingCreate"/&gt;
+        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:clID&gt;ClientX&lt;/domain:clID&gt;
+        &lt;domain:crID&gt;ClientY&lt;/domain:crID&gt;
+        &lt;domain:crDate&gt;2012-04-03T22:00:00.0Z&lt;/domain:crDate&gt;
+        &lt;domain:authInfo&gt;
+          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+        &lt;/domain:authInfo&gt;
+      &lt;/domain:infData&gt;
     &lt;/resData&gt;
+    &lt;extension&gt;
+      &lt;launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+          &lt;launch:status s="pending"/&gt;
+          &lt;mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+            &lt;mark:name&gt;Hello&lt;/mark:name&gt;
+            &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
+            &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
+            &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+            &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
+            &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+            &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
+            &lt;mark:country&gt;AU&lt;/mark:country&gt;
+            &lt;mark:region&gt;VIC&lt;/mark:region&gt;
+            &lt;mark:owner&gt;
+              &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+            &lt;/mark:owner&gt;
+            &lt;mark:contact&gt;
+              &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
+              &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+              &lt;mark:addr&gt;
+                &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
+                &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
+                &lt;mark:city&gt;Reston&lt;/mark:city&gt;
+                &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
+                &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
+                &lt;mark:cc&gt;US&lt;/mark:cc&gt;
+              &lt;/mark:addr&gt;
+              &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
+              &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
+              &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
+            &lt;/mark:contact&gt;
+         &lt;/mark:mark&gt;
+      &lt;/launch:infData&gt;
+    &lt;/extension&gt;
     &lt;trID&gt;
-     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-     &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+      &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
-&lt;/epp&gt;
-</pre></div>
-<p>Example Claims Info Response when two matching trademark
-            claims are found for the domain name exampleone.tld.
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1000"&gt;
-     &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;resData&gt;
-     &lt;launch:infData
-      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
-      &lt;launch:notice&gt;
-        &lt;launch:name&gt;exampleone.tld&lt;/launch:name&gt;
-            &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
-        &lt;launch:mark&gt;
-          &lt;launch:name&gt;Example One&lt;/launch:name&gt;
-          &lt;launch:label&gt;example-one&lt;/launch:label&gt;
-          &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
-          &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-          &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-          &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-          &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-          &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-          &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-          &lt;launch:country&gt;AU&lt;/launch:country&gt;
-          &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-          &lt;launch:owner&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-          &lt;/launch:owner&gt;
-          &lt;launch:contact&gt;
-            &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-            &lt;launch:addr&gt;
-              &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-              &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-              &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-              &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-              &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-              &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-            &lt;/launch:addr&gt;
-            &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-            &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-            &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-          &lt;/launch:contact&gt;
-        &lt;/launch:mark&gt;
-        &lt;launch:mark&gt;
-          &lt;launch:name&gt;Example Two&lt;/launch:name&gt;
-          &lt;launch:label&gt;example-two&lt;/launch:label&gt;
-          &lt;launch:label&gt;exampletwo&lt;/launch:label&gt;
-          &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-          &lt;launch:number&gt;GE 3933233&lt;/launch:number&gt;
-          &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-          &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-          &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-          &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-          &lt;launch:country&gt;AU&lt;/launch:country&gt;
-          &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-          &lt;launch:owner&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-          &lt;/launch:owner&gt;
-          &lt;launch:contact&gt;
-            &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-            &lt;launch:addr&gt;
-              &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-              &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-              &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-              &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-              &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-              &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-            &lt;/launch:addr&gt;
-            &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-            &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-            &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-          &lt;/launch:contact&gt;
-        &lt;/launch:mark&gt;
-      &lt;/launch:notice&gt;
-     &lt;/launch:infData&gt;
-    &lt;/resData&gt;
-    &lt;trID&gt;
-     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-     &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
 <a name="createCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
@@ -1663,9 +1353,9 @@ EPP &lt;create&gt; Command</h3>
 <blockquote class="text"><dl>
 <dt>sunrise</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "sunrise" phase is used to submit an application with trademark
+            "sunrise" launch phase is used to submit an registration with trademark
             information that can be verified by the server with the
-            &lt;domain:name&gt; value. The <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> is used for the "sunrise" phase.
+            &lt;domain:name&gt; value. The <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> is used for the "sunrise" launch phase.
             Optionally, the server can support multiple overlapping
             applications that are chosen asynchronously with a server
             generated <a class='info' href='#applicationID'>Application
@@ -1673,24 +1363,31 @@ EPP &lt;create&gt; Command</h3>
 </dd>
 <dt>landrush</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "landrush" phase is undefined but the form supported is up to
+            "landrush" launch phase is undefined but the form supported is up to
             server policy.
 </dd>
-<dt>claims</dt>
+<dt>claims1</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "claims" phase is used to pass the information that can be used to
-            validate that the claims notice information was retrieved via the
-            Claims Info Command and was accepted by the registrant. The <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used for
-            the "claims" phase.
+            "claims1" launch phase is used to pass the information associated 
+            with the presentation and acceptance of the "claims1" claims notice.  The 
+            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used 
+            for the "claims1" launch phase.
+</dd>
+<dt>claims2</dt>
+<dd>The EPP &lt;create&gt; command with the
+            "claims2" launch phase is used to pass the information associated 
+            with the presentation of the "claims1" claims notice.  The 
+            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used 
+            for the "claims2" launch phase.
 </dd>
 <dt>open</dt>
 <dd>The EPP &lt;create&gt; command with the "open"
-            phase is undefined but the form supported is up to server
+            launch phase is undefined but the form supported is up to server
             policy.
 </dd>
 <dt>custom</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "custom" phase is undefined but the form supported is up to server
+            "custom" launch phase is undefined but the form supported is up to server
             policy.
 </dd>
 </dl></blockquote>
@@ -1703,8 +1400,8 @@ Sunrise Create Form</h3>
 <p>The Sunrise Create Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] includes the
           verifiable trademark information that the server uses to match
           against the domain name to authorize the domain create. A server
-          MUST support one of four models in <a class='info' href='#validationModels'>Claim Validation Models<span> (</span><span class='info'>Mark Validation Models</span><span>)</span></a> for the
-          verifiable trademark information passed by the client.
+          MUST support one of three models in <a class='info' href='#validationModels'>Claim Validation Models<span> (</span><span class='info'>Mark Validation Models</span><span>)</span></a> to 
+          verify the trademark information passed by the client.
 </p>
 <p>A &lt;launch:create&gt; element is sent along with the regular
           &lt;create&gt; domain command. The &lt;launch:create&gt; element
@@ -1713,10 +1410,10 @@ Sunrise Create Form</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>The phase the application is
-              associated with.
+<dd>The launch phase for the 
+              create like the "sunrise" launch phase.
 </dd>
-<dt>&lt;launch:codeMark&gt; or &lt;launch:signedMark&gt;</dt>
+<dt>&lt;launch:codeMark&gt; or &lt;smd:signedMark&gt; or &lt;smd:encodedSignedMark&gt;</dt>
 <dd>
                   
 <blockquote class="text"><dl>
@@ -1727,11 +1424,18 @@ Sunrise Create Form</h3>
               <a class='info' href='#codeMark'>&lt;launch:codeMark&gt; element<span> (</span><span class='info'>&lt;launch:codeMark&gt; element</span><span>)</span></a> 
               section.
 </dd>
-<dt>&lt;launch:signedMark&gt;</dt>
+<dt>&lt;smd:signedMark&gt;</dt>
 <dd>zero or more
-              &lt;launch:signedMark&gt; elements.  The &lt;launch:signedMark&gt; 
+              &lt;smd:signedMark&gt; elements.  The &lt;smd:signedMark&gt; 
               child elements are defined in 
-              the <a class='info' href='#signedMark'>&lt;launch:signedMark&gt; element<span> (</span><span class='info'>&lt;launch:signedMark&gt; element</span><span>)</span></a> 
+              the <a class='info' href='#signedMark'>&lt;smd:signedMark&gt; element<span> (</span><span class='info'>&lt;smd:signedMark&gt; element</span><span>)</span></a> 
+              section.
+</dd>
+<dt>&lt;smd:encodedSignedMark&gt;</dt>
+<dd>zero or more
+              &lt;smd:encodedSignedMark&gt; elements.  The &lt;smd:encodedSignedMark&gt; 
+              child elements are defined in 
+              the <a class='info' href='#encodedSignedMark'>&lt;smd:encodedSignedMark&gt; element<span> (</span><span class='info'>&lt;smd:encodedSignedMark&gt; element</span><span>)</span></a> 
               section.
 </dd>
 </dl></blockquote>
@@ -1739,15 +1443,79 @@ Sunrise Create Form</h3>
 </dl></blockquote>
 
 <p>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with multiple sunrise
-            codes.
+            using the &lt;launch:create&gt; extension with mark
+            information.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
   &lt;command&gt;
     &lt;create&gt;
       &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+       domain-1.0.xsd"&gt;
+        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
+        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:authInfo&gt;
+          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+        &lt;/domain:authInfo&gt;
+      &lt;/domain:create&gt;
+    &lt;/create&gt;
+    &lt;extension&gt;
+      &lt;launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+          &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+        &lt;mark:mark
+          xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+          &lt;mark:name&gt;Example One&lt;/mark:name&gt;
+          &lt;mark:label&gt;example-one&lt;/mark:label&gt;
+          &lt;mark:label&gt;exampleone&lt;/mark:label&gt;
+          &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
+          &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
+          &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+          &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
+          &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+          &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
+          &lt;mark:country&gt;AU&lt;/mark:country&gt;
+          &lt;mark:region&gt;VIC&lt;/mark:region&gt;
+          &lt;mark:owner&gt;
+            &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+          &lt;/mark:owner&gt;
+          &lt;mark:contact&gt;
+            &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
+            &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+            &lt;mark:addr&gt;
+              &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
+              &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
+              &lt;mark:city&gt;Reston&lt;/mark:city&gt;
+              &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
+              &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
+              &lt;mark:cc&gt;US&lt;/mark:cc&gt;
+            &lt;/mark:addr&gt;
+            &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
+            &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
+            &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
+          &lt;/mark:contact&gt;
+        &lt;/mark:mark&gt;
+      &lt;/launch:create&gt;
+    &lt;/extension&gt;
+    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+  &lt;/command&gt;
+&lt;/epp&gt;</pre></div>
+<p>Following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension with a code and mark
+            information.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;command&gt;
+    &lt;create&gt;
+      &lt;domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+       domain-1.0.xsd"&gt;
         &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
@@ -1760,24 +1528,47 @@ Sunrise Create Form</h3>
     &lt;extension&gt;
       &lt;launch:create
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+        &lt;launch:phase name="test"&gt;custom&lt;/launch:phase&gt;
         &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-        &lt;/launch:codeMark&gt;
-        &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AD&lt;/launch:code&gt;
-        &lt;/launch:codeMark&gt;
-        &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AE&lt;/launch:code&gt;
-        &lt;/launch:codeMark&gt;
+        &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+        &lt;mark:mark
+         xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+          &lt;mark:name&gt;Hello&lt;/mark:name&gt;
+          &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
+          &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
+          &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+          &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
+          &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+          &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
+          &lt;mark:country&gt;AU&lt;/mark:country&gt;
+          &lt;mark:region&gt;VIC&lt;/mark:region&gt;
+          &lt;mark:owner&gt;
+            &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+          &lt;/mark:owner&gt;
+          &lt;mark:contact&gt;
+            &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
+            &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+            &lt;mark:addr&gt;
+              &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
+              &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
+              &lt;mark:city&gt;Reston&lt;/mark:city&gt;
+              &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
+              &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
+              &lt;mark:cc&gt;US&lt;/mark:cc&gt;
+            &lt;/mark:addr&gt;
+            &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
+            &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
+            &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
+          &lt;/mark:contact&gt;
+        &lt;/mark:mark&gt;
+      &lt;/launch:codeMark&gt;
       &lt;/launch:create&gt;
     &lt;/extension&gt;
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
 <p>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with a code and mark
+            using the &lt;launch:create&gt; extension with signed mark
             information.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
@@ -1798,58 +1589,87 @@ Sunrise Create Form</h3>
     &lt;extension&gt;
       &lt;launch:create
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-          &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:codeMark&gt;
-            &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-            &lt;launch:mark&gt;
-              &lt;launch:name&gt;Example One&lt;/launch:name&gt;
-              &lt;launch:label&gt;example-one&lt;/launch:label&gt;
-              &lt;launch:label&gt;exampleone&lt;/launch:label&gt;
-              &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-              &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-              &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-              &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-              &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-              &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-              &lt;launch:country&gt;AU&lt;/launch:country&gt;
-              &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-              &lt;launch:owner&gt;
-                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-              &lt;/launch:owner&gt;
-              &lt;launch:contact&gt;
-                &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-                &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-                &lt;launch:addr&gt;
-                  &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-                  &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-                  &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-                  &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-                  &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-                  &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-                &lt;/launch:addr&gt;
-                &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-                &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-                &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-              &lt;/launch:contact&gt;
-            &lt;/launch:mark&gt;
-          &lt;/launch:codeMark&gt;
+        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+        &lt;smd:signedMark id="signedMark"
+         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
+          &lt;smd:serial&gt;123456&lt;/smd:serial&gt;
+          &lt;smd:exDate&gt;2012-08-16T09:00:00.0Z&lt;/smd:exDate&gt;
+          &lt;mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+            &lt;mark:name&gt;Example One&lt;/mark:name&gt;
+            &lt;mark:label&gt;example-one&lt;/mark:label&gt;
+            &lt;mark:label&gt;exampleone&lt;/mark:label&gt;
+            &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
+            &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
+            &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+            &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
+            &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+            &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
+            &lt;mark:country&gt;AU&lt;/mark:country&gt;
+            &lt;mark:region&gt;VIC&lt;/mark:region&gt;
+            &lt;mark:owner&gt;
+              &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+            &lt;/mark:owner&gt;
+            &lt;mark:contact&gt;
+              &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
+              &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+              &lt;mark:addr&gt;
+                &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
+                &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
+                &lt;mark:city&gt;Reston&lt;/mark:city&gt;
+                &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
+                &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
+                &lt;mark:cc&gt;US&lt;/mark:cc&gt;
+              &lt;/mark:addr&gt;
+              &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
+              &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
+              &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
+            &lt;/mark:contact&gt;
+          &lt;/mark:mark&gt;
+          &lt;dsig:Signature
+          xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"&gt;
+            &lt;dsig:SignedInfo&gt;
+            &lt;dsig:CanonicalizationMethod
+ Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/&gt;
+            &lt;dsig:SignatureMethod
+ Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/&gt;
+            &lt;dsig:Reference URI="#signedMark"&gt;
+                &lt;dsig:Transforms&gt;
+                  &lt;dsig:Transform
+ Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
+                &lt;/dsig:Transforms&gt;
+                &lt;dsig:DigestMethod
+ Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
+                &lt;dsig:DigestValue&gt;6651T5s9GZgQOxifdCFmDfSIoUc=
+                &lt;/dsig:DigestValue&gt;
+            &lt;/dsig:Reference&gt;
+          &lt;/dsig:SignedInfo&gt;
+            &lt;dsig:SignatureValue&gt;
+Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9a4b8nMOKdec8S3tG2hSx
+/NZa0RFHvx5zMsH/MjmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZ
+E2EvffMLBiL4xbCJM48ewRYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhh
+rhyhPjSi9Uon8FnAJaiBEfHcjG6815IJV/9RT+MTXri7i0s82CqIS4wDGbG
+pyZAs7/kDY3A3upqSOwTtrFSCFX1F+Craec72lBB/dKJHxmoVkbIO5KQhqI
+Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
+&lt;/dsig:SignatureValue&gt;
+            &lt;/dsig:Signature&gt;
+        &lt;/smd:signedMark&gt;
       &lt;/launch:create&gt;
     &lt;/extension&gt;
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
 <p>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with signed mark
-            information.
+            using the &lt;launch:create&gt; extension with base64 
+            encoded signed mark information.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
   &lt;command&gt;
     &lt;create&gt;
       &lt;domain:create
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
         &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
         &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
         &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
@@ -1860,72 +1680,54 @@ Sunrise Create Form</h3>
     &lt;/create&gt;
     &lt;extension&gt;
       &lt;launch:create
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-          &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:signedMark&gt;
-            &lt;launch:serial&gt;123456&lt;/launch:serial&gt;
-            &lt;launch:zone&gt;newtld&lt;/launch:zone&gt;
-            &lt;launch:label&gt;example-and-example&lt;/launch:label&gt;
-            &lt;launch:label&gt;example&lt;/launch:label&gt;
-        &lt;launch:mark&gt;
-          &lt;launch:name&gt;Hello&lt;/launch:name&gt;
-          &lt;launch:issuer&gt;IP Clearinghouse&lt;/launch:issuer&gt;
-          &lt;launch:number&gt;GE 3933232&lt;/launch:number&gt;
-          &lt;launch:type&gt;REG-TM-WORD&lt;/launch:type&gt;
-          &lt;launch:entitlement&gt;owner&lt;/launch:entitlement&gt;
-          &lt;launch:regDate&gt;2011-09-09&lt;/launch:regDate&gt;
-          &lt;launch:exDate&gt;2013-09-09&lt;/launch:exDate&gt;
-          &lt;launch:country&gt;AU&lt;/launch:country&gt;
-          &lt;launch:region&gt;VIC&lt;/launch:region&gt;
-          &lt;launch:owner&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-          &lt;/launch:owner&gt;
-          &lt;launch:contact&gt;
-            &lt;launch:name&gt;John Doe&lt;/launch:name&gt;
-            &lt;launch:org&gt;Example Inc.&lt;/launch:org&gt;
-            &lt;launch:addr&gt;
-              &lt;launch:street&gt;123 Example Dr.&lt;/launch:street&gt;
-              &lt;launch:street&gt;Suite 100&lt;/launch:street&gt;
-              &lt;launch:city&gt;Reston&lt;/launch:city&gt;
-              &lt;launch:sp&gt;VA&lt;/launch:sp&gt;
-              &lt;launch:pc&gt;20190&lt;/launch:pc&gt;
-              &lt;launch:cc&gt;US&lt;/launch:cc&gt;
-            &lt;/launch:addr&gt;
-            &lt;launch:voice x="1234"&gt;+1.7035555555&lt;/launch:voice&gt;
-            &lt;launch:fax&gt;+1.7035555556&lt;/launch:fax&gt;
-            &lt;launch:email&gt;jdoe@example.tld&lt;/launch:email&gt;
-          &lt;/launch:contact&gt;
-        &lt;/launch:mark&gt;
-            &lt;Signature xmlns="http://www.w3.org/2000/09/xmldsig#"&gt;
-              &lt;SignedInfo&gt;
-            &lt;CanonicalizationMethod
-             Algorithm=
-             "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
-            &lt;SignatureMethod
-             Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
-            &lt;Reference URI="#pointer(..)"&gt;
-              &lt;Transforms&gt;
-                &lt;Transform
-                  Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
-              &lt;/Transforms&gt;
-              &lt;DigestMethod
-                Algorithm=
-                "http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-              &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
-            &lt;/Reference&gt;
-          &lt;/SignedInfo&gt;
-          &lt;SignatureValue&gt;
-            cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-          &lt;/SignatureValue&gt;
-        &lt;/Signature&gt;
-          &lt;/launch:signedMark&gt;
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+        &lt;smd:encodedSignedMark
+         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+         xsi:schemaLocation="urn:ietf:params:xml:ns:signedMark-1.0
+         signedMark-1.0.xsd"&gt;
+D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnNpZ25
+lZE1hcmsgeG1sbnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOnNpZ25lZ
+E1hcmstMS4wIiBpZD0ic2lnbmVkTWFyayI-PHNtZDpzZXJpYWw-MTIzNDU2PC9
+zbWQ6c2VyaWFsPjxzbWQ6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6NTQuMDg4M
+Fo8L3NtZDpleERhdGU-PG1hcms6bWFyayB4bWxuczptYXJrPSJ1cm46aWV0Zjp
+wYXJhbXM6eG1sOm5zOm1hcmstMS4wIj48bWFyazpuYW1lPkV4YW1wbGUgT25lP
+C9tYXJrOm5hbWU-PG1hcms6bGFiZWw-ZXhhbXBsZS1vbmU8L21hcms6bGFiZWw
+-PG1hcms6bGFiZWw-ZXhhbXBsZW9uZTwvbWFyazpsYWJlbD48bWFyazppc3N1Z
+XI-SVAgQ2xlYXJpbmdob3VzZTwvbWFyazppc3N1ZXI-PG1hcms6bnVtYmVyPkd
+FIDM5MzMyMzI8L21hcms6bnVtYmVyPjxtYXJrOm51bWJlcj5vd25lcjwvbWFya
+zpudW1iZXI-PG1hcms6cmVnRGF0ZT4yMDEyLTExLTI5VDE4OjE2OjU0LjA3NDZ
+aPC9tYXJrOnJlZ0RhdGU-PG1hcms6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6N
+TQuMDc0Nlo8L21hcms6ZXhEYXRlPjxtYXJrOmNvdW50cnk-QVU8L21hcms6Y29
+1bnRyeT48bWFyazpyZWdpb24-VklDPC9tYXJrOnJlZ2lvbj48L21hcms6bWFya
+z48ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0cDovL3d3dy53My5vcmc
+vMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzpDYW5vb
+mljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmc
+vVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aENvbW1lbnRzIi8-P
+GRzaWc6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5
+vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8-PGRzaWc6UmVmZXJlbmNlI
+FVSST0iI3NpZ25lZE1hcmsiPjxkc2lnOlRyYW5zZm9ybXM-PGRzaWc6VHJhbnN
+mb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc
+2lnI2VudmVsb3BlZC1zaWduYXR1cmUiLz48L2RzaWc6VHJhbnNmb3Jtcz48ZHN
+pZzpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yM
+DAwLzA5L3htbGRzaWcjc2hhMSIvPjxkc2lnOkRpZ2VzdFZhbHVlPktIdVFrdFd
+UMnRYbXg4Y2ZWd2NvZ0JSUm5oRT08L2RzaWc6RGlnZXN0VmFsdWU-PC9kc2lnO
+lJlZmVyZW5jZT48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVWYWx
+1ZT5RdWk2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16Z
+ENhcWpWcXVvVDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV
+1MG1NMmt4VURyWkVCc0dpV3FuaHMzQVBxOTJBcVdGZHZnUmV6ZHcycmNVbVg3d
+GJyeWNGM3ZDMEJmRUg4RHoKb2FIUFRQb24xTUxObzF5bGtYTDA5bWJqTHVhRlJ
+SS3Z2UCs4djQ1VFJXRmkrbVJ0akJvMGg4blFiNTNtR2lKaU1OekFDaDBtK3pFe
+Ap2bmxEUmRpdWJFZVVWbG9LV2dMY1BiSkd4QmFWL1gvQjQvRnVRbXEzclcxaXN
+ZOUlEYzA3U3ZheEZ0a1l4emVra25GQkNCSWNibXFTCnlOckMvOEp4Y2RRSHN0T
+UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
+-PC9kc2lnOlNpZ25hdHVyZT48L3NtZDpzaWduZWRNYXJrPg
+        &lt;/smd:encodedSignedMark&gt;
       &lt;/launch:create&gt;
     &lt;/extension&gt;
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
 <p>If the create was successful, the server MAY reply with the
           &lt;launch:creData&gt; element along with the regular EPP
           &lt;resData&gt; to indicate the server generated <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> when multiple
@@ -1983,10 +1785,9 @@ Sunrise Create Form</h3>
 Claims Create Form</h3>
 
 <p>The Claims Create Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] includes the
-          information related to the acceptance of the claims notice that is
-          based on the contents of the Claims Info Response defined in the
-          <a class='info' href='#claimsInfoForm'>Claims Info Form<span> (</span><span class='info'>Claims Info Form</span><span>)</span></a> section or is based 
-          on a signed notice by a trusted third party like the Trademark Clearinghouse (TMCH).
+          information related to the acceptance of the claims notice 
+          for the "claims1" launch phase and the display of the claims 
+          notice for the "claims2" launch phase.
 </p>
 <p>A &lt;launch:create&gt; element is sent along with the regular
           &lt;create&gt; domain command. The &lt;launch:create&gt; element
@@ -1995,58 +1796,35 @@ Claims Create Form</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>Must contain the value of
-              "claims" to indicate it is the Claims Create Form
+<dd>MUST contain the value of
+              "claims1" or "claim2" to indicate the claims launch phase.
 </dd>
 <dt>&lt;launch:notice&gt;</dt>
 <dd>
-                  
-<blockquote class="text"><dl>
-<dt>&lt;launch:timestamp&gt;</dt>
-<dd>Contains the
-              date and time that the claims notice was accepted.
-</dd>
-<dt>&lt;launch:clientAddr&gt;</dt>
-<dd>Contains the
-              client IP address of the client that accepted the
-              claims notice.
-</dd>
-<dt>&lt;launch:noticeID&gt; or &lt;launch:signedNotice&gt;</dt>
-<dd>
-                    
-                      
+              
 <blockquote class="text"><dl>
 <dt>&lt;launch:noticeID&gt;</dt>
-<dd>Server generated
-                        identifier for the claim notice information returned
-                        in the &lt;launch:infData&gt; element. The server MUST
-                        validate the noticeID either matches the exact claims
-                        information returned in the &lt;launch:infData&gt; or
-                        the current claims information associated with the
-                        domain name. The method of validation is up to server
-                        policy. If the launchID does not pass the validation
-                        the server MUST return an EPP error result code of
-                        2202.
+<dd>Unique notice identifier 
+          generated by the source of the claims notice information 
+          like the Claims Notice Information Service (CNIS).
 </dd>
-<dt>&lt;launch:signedNotice&gt;</dt>
-<dd>Signed claims
-                notice reference information generated by a trusted third party
-                like the Trademark Clearinghouse (TMCH). The child elements 
-                of &lt;signedNotice&gt; are defined in the 
-                <a class='info' href='#signedNotice'>&lt;launch:signedNotice&gt; element<span> (</span><span class='info'>&lt;launch:signedNotice&gt; element</span><span>)</span></a>
-                section.
+<dt>&lt;launch:timestamp&gt;</dt>
+<dd>Contains the
+              date and time that the claims notice was displayed or accepted.
+</dd>
+<dt>&lt;launch:source&gt;</dt>
+<dd>Contains the source 
+              information of the client that was displayed or that accepted the 
+              claims notice like the client IP address.
 </dd>
 </dl></blockquote>
-                    
-</dd>
-</dl></blockquote>
-                
 </dd>
 </dl></blockquote>
 
 <p>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with the trademark
-            claims notice reference information and a &lt;launch:noticeID&gt;.
+            using the &lt;launch:create&gt; extension with the 
+            &lt;launch:notice&gt; information for the "claims1" claims 
+            launch phase.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -2066,79 +1844,22 @@ Claims Create Form</h3>
     &lt;extension&gt;
       &lt;launch:create
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
+        &lt;launch:phase&gt;claims1&lt;/launch:phase&gt;
         &lt;launch:notice&gt;
-          &lt;launch:timestamp&gt;2012-06-19T09:00:00.0Z&lt;/launch:timestamp&gt;
-          &lt;launch:clientAddr ip="v4"&gt;192.0.2.29&lt;/launch:clientAddr&gt;
           &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
-        &lt;/launch:notice&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
-<p>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with the signed notice
-            reference information.
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
-        &lt;launch:notice&gt;
           &lt;launch:timestamp&gt;2012-06-19T09:00:00.0Z&lt;/launch:timestamp&gt;
-          &lt;launch:clientAddr ip="v4"&gt;192.0.2.29&lt;/launch:clientAddr&gt;
-          &lt;launch:signedNotice&gt;
-            &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
-            &lt;launch:name&gt;example.tld&lt;/launch:name&gt;
-            &lt;launch:crDate&gt;2012-09-07T22:00:00.0Z&lt;/launch:crDate&gt;
-            &lt;launch:exDate&gt;2012-09-08T22:00:00.0Z&lt;/launch:exDate&gt;
-            &lt;Signature xmlns="http://www.w3.org/2000/09/xmldsig#"&gt;
-            &lt;SignedInfo&gt;
-              &lt;CanonicalizationMethod
-               Algorithm=
-               "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
-              &lt;SignatureMethod
-               Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/&gt;
-              &lt;Reference URI="#pointer(..)"&gt;
-                &lt;Transforms&gt;
-                  &lt;Transform
-                    Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
-                &lt;/Transforms&gt;
-                &lt;DigestMethod
-                  Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-                &lt;DigestValue&gt;j6lwx3rvEPO0vKtMup4NbeVu8nk=&lt;/DigestValue&gt;
-              &lt;/Reference&gt;
-            &lt;/SignedInfo&gt;
-            &lt;SignatureValue&gt;
-              cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-            &lt;/SignatureValue&gt;
-            &lt;/Signature&gt;
-          &lt;/launch:signedNotice&gt;
+          &lt;launch:source&gt;192.0.2.29&lt;/launch:source&gt;
         &lt;/launch:notice&gt;
       &lt;/launch:create&gt;
     &lt;/extension&gt;
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
+&lt;/epp&gt;</pre></div>
+<p>This extension does not define any extension to the response of an
+        &lt;create&gt; domain command for the Claims Create Form. After processing the command, the
+        server replies with a standard EPP response as defined in the EPP
+        domain mapping.
+</p>
 <a name="updateCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4"></a><h3>3.4.&nbsp;
@@ -2236,7 +1957,7 @@ EPP &lt;delete&gt; Command</h3>
         &lt;delete&gt; command to be used in conjunction with the domain name
         mapping.
 </p>
-<p>A server that does not support allow multiple applications of a
+<p>A server that does not support multiple applications of a
         given domain name with a <a class='info' href='#applicationID'>Application
         Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> during its launch phase operations MUST return an
         EPP error result code of 2102.
@@ -2324,12 +2045,21 @@ EPP &lt;transfer&gt; Command</h3>
 <a name="rfc.section.4"></a><h3>4.&nbsp;
 Formal Syntax</h3>
 
-<p>An EPP object mapping is specified in XML Schema notation. The formal
+<p>Three schemas are presented here.  The first schema is the EPP Launch 
+      Phase Mapping schema.  The second schema is a dependent schema for 
+      the Signed Mark.  The third schema is a dependent schema for the Mark.
+</p>
+<p>The formal
       syntax presented here is a complete schema representation of the object
       mapping suitable for automated validation of EPP XML instances. The
       BEGIN and END tags are not part of the schema; they are used to note the
       beginning and ending of the schema for URI registration purposes.
 </p>
+<a name="anchor4"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1"></a><h3>4.1.&nbsp;
+Launch Schema</h3>
+
 <p>Copyright (c) 2012 IETF Trust and the persons identified as authors
       of the code. All rights reserved.
 </p>
@@ -2371,8 +2101,9 @@ BEGIN
 &lt;schema
   targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
   xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-   xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
-   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+  xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
   xmlns="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="qualified"&gt;
 
@@ -2382,9 +2113,11 @@ Import common element types.
   &lt;import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
           schemaLocation="eppcom-1.0.xsd"/&gt;
 
-  &lt;import namespace="http://www.w3.org/2000/09/xmldsig#"
-          schemaLocation="xmldig-core-schema.xsd"/&gt;
+  &lt;import namespace="urn:ietf:params:xml:ns:mark-1.0"
+          schemaLocation="mark-1.0.xsd"/&gt;
 
+  &lt;import namespace="urn:ietf:params:xml:ns:signedMark-1.0"
+          schemaLocation="signedMark-1.0.xsd"/&gt;
 
   &lt;annotation&gt;
     &lt;documentation&gt;
@@ -2441,7 +2174,8 @@ Import common element types.
       &lt;restriction base="token"&gt;
         &lt;enumeration value="sunrise"/&gt;
         &lt;enumeration value="landrush"/&gt;
-        &lt;enumeration value="claims"/&gt;
+        &lt;enumeration value="claims1"/&gt;
+        &lt;enumeration value="claims2"/&gt;
         &lt;enumeration value="open"/&gt;
         &lt;enumeration value="custom"/&gt;
     &lt;/restriction&gt;
@@ -2466,46 +2200,9 @@ Import common element types.
     &lt;/restriction&gt;
   &lt;/simpleType&gt;
 
-  &lt;simpleType name="ccType"&gt;
-    &lt;restriction base="token"&gt;
-      &lt;length value="2"/&gt;
-    &lt;/restriction&gt;
-  &lt;/simpleType&gt;
-
-  &lt;simpleType name="pcType"&gt;
-    &lt;restriction base="token"&gt;
-      &lt;maxLength value="16"/&gt;
-    &lt;/restriction&gt;
-  &lt;/simpleType&gt;
-
-
   &lt;!--
-  Definition of the IP address taken from host-1.0.
+  Possible status values for sunrise application
   --&gt;
-   &lt;complexType name="ipAddrType"&gt;
-     &lt;simpleContent&gt;
-       &lt;extension base="launch:addrStringType"&gt;
-         &lt;attribute name="ip" type="launch:ipType"
-          default="v4"/&gt;
-       &lt;/extension&gt;
-     &lt;/simpleContent&gt;
-   &lt;/complexType&gt;
-
-   &lt;simpleType name="addrStringType"&gt;
-     &lt;restriction base="token"&gt;
-       &lt;minLength value="3"/&gt;
-       &lt;maxLength value="45"/&gt;
-     &lt;/restriction&gt;
-   &lt;/simpleType&gt;
-
-   &lt;simpleType name="ipType"&gt;
-     &lt;restriction base="token"&gt;
-       &lt;enumeration value="v4"/&gt;
-       &lt;enumeration value="v6"/&gt;
-     &lt;/restriction&gt;
-   &lt;/simpleType&gt;
-
-  &lt;!-- Possible status values for sunrise application --&gt;
     &lt;simpleType name="statusValueType"&gt;
     &lt;restriction base="token"&gt;
         &lt;enumeration value="pending"/&gt;
@@ -2518,6 +2215,9 @@ Import common element types.
       &lt;/restriction&gt;
     &lt;/simpleType&gt;
 
+  &lt;!--
+  Status type definition
+  --&gt;
   &lt;complexType name="statusType"&gt;
     &lt;simpleContent&gt;
       &lt;extension base="normalizedString"&gt;
@@ -2530,41 +2230,33 @@ Import common element types.
     &lt;/simpleContent&gt;
   &lt;/complexType&gt;
 
-    &lt;complexType name="signedMarkType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="serial" type="token"/&gt;
-      &lt;element name="zone" type="eppcom:labelType"
-      minOccurs="0" maxOccurs="unbounded"/&gt;
-      &lt;element name="exDate" type="dateTime"
-      minOccurs="0"/&gt;
-      &lt;element name="mark" type="launch:markType"/&gt;
-      &lt;element ref="ds:Signature"/&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
-
+  &lt;!--
+  codeMark Type that contains an optional code
+  with mark information.
+  --&gt;
   &lt;complexType name="codeMarkType"&gt;
     &lt;sequence&gt;
-      &lt;element name="code" type="launch:codeType"
-        minOccurs="0"/&gt;
-      &lt;element name="mark" type="launch:markType"
-        minOccurs="0"/&gt;
-    &lt;/sequence&gt;
+    &lt;element name="code" type="launch:codeType"/&gt;
+    &lt;element ref="mark:mark"/&gt;
+  &lt;/sequence&gt;
   &lt;/complexType&gt;
 
   &lt;!--
-  Child elements of create for both Sunrise and Claims periods
+  Child elements for the create command
   --&gt;
   &lt;complexType name="createType"&gt;
     &lt;sequence&gt;
       &lt;element name="phase" type="launch:phaseType"/&gt;
       &lt;choice&gt;
-        &lt;element name="codeMark"
-          type="launch:codeMarkType"
+        &lt;element name="codeMark" type="launch:codeMarkType"
+          maxOccurs="unbounded"/&gt;
+      &lt;element ref="mark:mark"
+        maxOccurs="unbounded"/&gt;
+        &lt;element ref="smd:signedMark"
          maxOccurs="unbounded"/&gt;
-        &lt;element name="signedMark"
-          type="launch:signedMarkType"
+        &lt;element ref="smd:encodedSignedMark"
          maxOccurs="unbounded"/&gt;
-        &lt;element name="notice"
+          &lt;element name="notice"
           type="launch:createNoticeType"/&gt;
       &lt;/choice&gt;
     &lt;/sequence&gt;
@@ -2575,30 +2267,15 @@ Import common element types.
   --&gt;
   &lt;complexType name="createNoticeType"&gt;
     &lt;sequence&gt;
-      &lt;element name="timestamp" type="dateTime"/&gt;
-      &lt;element name="clientAddr" type="launch:ipAddrType"/&gt;
-      &lt;choice&gt;
-        &lt;element name="noticeID" type="launch:noticeIDType"/&gt;
-         &lt;element name="signedNotice"
-          type="launch:signedNoticeType"/&gt;
-      &lt;/choice&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
-
-  &lt;complexType name="signedNoticeType"&gt;
-    &lt;sequence&gt;
       &lt;element name="noticeID" type="launch:noticeIDType"/&gt;
-      &lt;element name="name" type="eppcom:labelType"/&gt;
-      &lt;element name="crDate" type="dateTime"/&gt;
-      &lt;element name="exDate" type="dateTime"
-      minOccurs="0"/&gt;
-      &lt;element ref="ds:Signature"/&gt;
+      &lt;element name="timestamp" type="dateTime"/&gt;
+      &lt;element name="source" type="token"/&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
 
 
   &lt;!--
-  Child elements of check (Claims Info Command).
+  Child elements of check (Claims Check Command).
   --&gt;
   &lt;complexType name="checkType"&gt;
     &lt;sequence&gt;
@@ -2608,7 +2285,7 @@ Import common element types.
 
 
   &lt;!--
-  Child elements of info for both Sunrise and Claims periods.
+  Child elements of info command.
   --&gt;
   &lt;complexType name="infoType"&gt;
     &lt;sequence&gt;
@@ -2626,9 +2303,9 @@ Import common element types.
   &lt;element name="creData" type="launch:idContainerType"/&gt;
   &lt;element name="infData" type="launch:infDataType"/&gt;
 
-&lt;!--
-&lt;check&gt; response elements.
---&gt;
+  &lt;!--
+   &lt;check&gt; response elements.
+   --&gt;
   &lt;complexType name="chkDataType"&gt;
     &lt;sequence&gt;
       &lt;element name="phase" type="launch:phaseType"/&gt;
@@ -2654,98 +2331,198 @@ Import common element types.
     &lt;/simpleContent&gt;
   &lt;/complexType&gt;
 
-
+  &lt;!--
+  &lt;info&gt; response elemenets
+  --&gt;
   &lt;complexType name="infDataType"&gt;
     &lt;sequence&gt;
       &lt;element name="phase" type="launch:phaseType"/&gt;
-      &lt;choice&gt;
-        &lt;sequence&gt;
-          &lt;element name="applicationID"
-            type="launch:applicationIDType"/&gt;
-          &lt;element name="status" type="launch:statusType"
-            minOccurs="0"/&gt;
-          &lt;choice&gt;
-              &lt;element name="codeMark"
-                type="launch:codeMarkType"
-                maxOccurs="unbounded"/&gt;
-             &lt;element name="signedMark"
-                type="launch:signedMarkType"
-                maxOccurs="unbounded"/&gt;
-          &lt;/choice&gt;
-        &lt;/sequence&gt;
-        &lt;element name="notice" type="launch:claimsNoticeType"
-          minOccurs="0"/&gt;
-      &lt;/choice&gt;
+     &lt;element name="applicationID"
+      type="launch:applicationIDType"
+      minOccurs="0"/&gt;
+     &lt;element name="status" type="launch:statusType"
+      minOccurs="0"/&gt;
+      &lt;element ref="mark:mark"
+      minOccurs="0" maxOccurs="unbounded"/&gt;
     &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
+&lt;/schema&gt;
+END</pre></div>
+<a name="anchor5"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.2"></a><h3>4.2.&nbsp;
+Signed Mark Schema</h3>
+
+<p>Copyright (c) 2012 IETF Trust and the persons identified as authors
+      of the code. All rights reserved.
+</p>
+<p>Redistribution and use in source and binary forms, with or without
+      modification, are permitted provided that the following conditions are
+      met:
+</p>
+<p></p>
+<ul class="text">
+<li>Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+</li>
+<li>Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the
+          distribution.
+</li>
+<li>Neither the name of Internet Society, IETF or IETF Trust, nor the
+          names of specific contributors, may be used to endorse or promote
+          products derived from this software without specific prior written
+          permission.
+</li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+      "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+      LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+      PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+      OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+      EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+      PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+      PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+      LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+      NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+BEGIN
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;schema
+  targetNamespace="urn:ietf:params:xml:ns:signedMark-1.0"
+  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+  xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"&gt;
+
+&lt;!--
+Import common element types.
+--&gt;
+  &lt;import namespace="http://www.w3.org/2000/09/xmldsig#"
+          schemaLocation="xmldig-core-schema.xsd"/&gt;
+
+  &lt;import namespace="urn:ietf:params:xml:ns:mark-1.0"
+          schemaLocation="mark-1.0.xsd"/&gt;
+
+
+  &lt;annotation&gt;
+    &lt;documentation&gt;
+      Schema for representing a Signed Mark, also referred to
+      as Signed Mark Data (SMD), that includes digitally
+      signed trademark information.
+    &lt;/documentation&gt;
+  &lt;/annotation&gt;
+
+  &lt;!--
+  &lt;smd:signedMark&gt; element definition
+  --&gt;
+  &lt;element name="signedMark" type="smd:signedMarkType"/&gt;
+
+  &lt;!--
+  &lt;smd:encodedSignedMark&gt; element definition
+  --&gt;
+  &lt;element name="encodedSignedMark"
+    type="smd:encodedSignedMarkType"/&gt;
+
+  &lt;!--
+  &lt;smd:signedMark&gt; child elements
+  --&gt;
+  &lt;complexType name="signedMarkType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="serial" type="token"/&gt;
+      &lt;element name="zone" type="mark:labelType"
+      minOccurs="0" maxOccurs="unbounded"/&gt;
+      &lt;element name="exDate" type="dateTime"
+      minOccurs="0"/&gt;
+      &lt;element ref="mark:mark"/&gt;
+      &lt;element ref="dsig:Signature"/&gt;
+    &lt;/sequence&gt;
+    &lt;attribute name="id" type="ID" use="required"/&gt;
   &lt;/complexType&gt;
 
   &lt;!--
-  Child elements of the info (inf) notice response element.
+  &lt;smd:encodedSignedMark&gt; element type
   --&gt;
-  &lt;complexType name="claimsNoticeType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="name" type="eppcom:labelType"/&gt;
-      &lt;choice&gt;
-        &lt;element name="none"/&gt;
-        &lt;sequence&gt;
-          &lt;element name="noticeID"
-            type="launch:noticeIDType"/&gt;
-          &lt;element name="mark"
-            type="launch:markType"
-            maxOccurs="unbounded"/&gt;
-        &lt;/sequence&gt;
-      &lt;/choice&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
-
-  &lt;complexType name="e164Type"&gt;
+  &lt;complexType name="encodedSignedMarkType"&gt;
     &lt;simpleContent&gt;
-      &lt;extension base="launch:e164StringType"&gt;
-        &lt;attribute name="x" type="token"/&gt;
+      &lt;extension base="token"&gt;
+        &lt;attribute name="encoding" type="token"
+          default="base64"/&gt;
       &lt;/extension&gt;
     &lt;/simpleContent&gt;
   &lt;/complexType&gt;
 
-  &lt;simpleType name="e164StringType"&gt;
-    &lt;restriction base="token"&gt;
-      &lt;pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/&gt;
-      &lt;maxLength value="17"/&gt;
-    &lt;/restriction&gt;
-  &lt;/simpleType&gt;
 
-  &lt;complexType name="addrType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="street" type="token"
-       minOccurs="0" maxOccurs="3"/&gt;
-      &lt;element name="city" type="token"/&gt;
-      &lt;element name="sp" type="token"
-       minOccurs="0"/&gt;
-      &lt;element name="pc" type="launch:pcType"
-       minOccurs="0"/&gt;
-      &lt;element name="cc" type="launch:ccType"/&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
+&lt;/schema&gt;
+END</pre></div>
+<a name="anchor6"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.3"></a><h3>4.3.&nbsp;
+Mark Schema</h3>
 
-  &lt;complexType name="contactType"&gt;
-    &lt;sequence&gt;
-      &lt;element name="name" type="token"
-        minOccurs="0"/&gt;
-      &lt;element name="org" type="token"
-        minOccurs="0"/&gt;
-      &lt;element name="addr" type="launch:addrType"
-        minOccurs="0"/&gt;
-      &lt;element name="voice" type="launch:e164Type"
-        minOccurs="0"/&gt;
-      &lt;element name="fax" type="launch:e164Type"
-        minOccurs="0"/&gt;
-      &lt;element name="email" type="eppcom:minTokenType"
-        minOccurs="0"/&gt;
-    &lt;/sequence&gt;
-  &lt;/complexType&gt;
+<p>Copyright (c) 2012 IETF Trust and the persons identified as authors
+      of the code. All rights reserved.
+</p>
+<p>Redistribution and use in source and binary forms, with or without
+      modification, are permitted provided that the following conditions are
+      met:
+</p>
+<p></p>
+<ul class="text">
+<li>Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+</li>
+<li>Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the
+          distribution.
+</li>
+<li>Neither the name of Internet Society, IETF or IETF Trust, nor the
+          names of specific contributors, may be used to endorse or promote
+          products derived from this software without specific prior written
+          permission.
+</li>
+</ul>
 
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+      "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+      LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+      PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
+      OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+      EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+      PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+      PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+      LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+      NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+BEGIN
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;schema
+  targetNamespace="urn:ietf:params:xml:ns:mark-1.0"
+  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"&gt;
+
+  &lt;annotation&gt;
+    &lt;documentation&gt;
+      Schema for representing a Trademark, also referred to
+      as Mark.
+    &lt;/documentation&gt;
+  &lt;/annotation&gt;
 
   &lt;!--
-  Child elements of mark element.
+  &lt;mark:mark&gt; element definition
+  --&gt;
+  &lt;element name="mark" type="mark:markType"/&gt;
+
+  &lt;!--
+  &lt;mark:mark&gt; child elements
   --&gt;
   &lt;complexType name="markType"&gt;
       &lt;sequence&gt;
@@ -2753,7 +2530,7 @@ Import common element types.
           minOccurs="0"/&gt;
         &lt;element name="name" type="token"
            minOccurs="0"/&gt;
-        &lt;element name="label" type="eppcom:labelType"
+        &lt;element name="label" type="mark:labelType"
            minOccurs="0" maxOccurs="unbounded"/&gt;
         &lt;element name="issuer" type="token"
           minOccurs="0"/&gt;
@@ -2767,14 +2544,112 @@ Import common element types.
           minOccurs="0"/&gt;
         &lt;element name="exDate" type="date"
           minOccurs="0"/&gt;
-        &lt;element name="country" type="launch:ccType"
+        &lt;element name="country" type="mark:ccType"
           minOccurs="0"/&gt;
         &lt;element name="region" type="token"
           minOccurs="0"/&gt;
-        &lt;element name="owner" type="launch:contactType"
+        &lt;element name="owner" type="mark:contactType"
           minOccurs="0"/&gt;
-        &lt;element name="contact" type="launch:contactType"
+        &lt;element name="contact" type="mark:contactType"
           minOccurs="0"/&gt;
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
+
+  &lt;!--
+  DNS label type definition
+  --&gt;
+  &lt;simpleType name="labelType"&gt;
+    &lt;restriction base="token"&gt;
+      &lt;minLength value="1"/&gt;
+      &lt;maxLength value="255"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+
+  &lt;!--
+  Postal code definition
+  --&gt;
+  &lt;simpleType name="pcType"&gt;
+    &lt;restriction base="token"&gt;
+      &lt;maxLength value="16"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+
+
+  &lt;!--
+  Country code definition
+  --&gt;
+  &lt;simpleType name="ccType"&gt;
+    &lt;restriction base="token"&gt;
+      &lt;length value="2"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+
+  &lt;!--
+  Phone number with extension definition
+  --&gt;
+  &lt;complexType name="e164Type"&gt;
+    &lt;simpleContent&gt;
+      &lt;extension base="mark:e164StringType"&gt;
+        &lt;attribute name="x" type="token"/&gt;
+      &lt;/extension&gt;
+    &lt;/simpleContent&gt;
+  &lt;/complexType&gt;
+
+  &lt;!--
+  Phone number with extension definition
+  --&gt;
+  &lt;simpleType name="e164StringType"&gt;
+    &lt;restriction base="token"&gt;
+      &lt;pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/&gt;
+      &lt;maxLength value="17"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+
+  &lt;!--
+  Address (&lt;mark:addr&gt;) child elements
+  --&gt;
+  &lt;complexType name="addrType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="street" type="token"
+       minOccurs="0" maxOccurs="3"/&gt;
+      &lt;element name="city" type="token"
+       minOccurs="0"/&gt;
+      &lt;element name="sp" type="token"
+       minOccurs="0"/&gt;
+      &lt;element name="pc" type="mark:pcType"
+       minOccurs="0"/&gt;
+      &lt;element name="cc" type="mark:ccType"
+       minOccurs="0"/&gt;
+    &lt;/sequence&gt;
+  &lt;/complexType&gt;
+
+  &lt;!--
+  Type used for email addresses
+  --&gt;
+  &lt;simpleType name="minTokenType"&gt;
+    &lt;restriction base="token"&gt;
+      &lt;minLength value="1"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+
+  &lt;!--
+  Contact (&lt;mark:owner&gt; or &lt;mark:contact&gt;) child elements
+  --&gt;
+  &lt;complexType name="contactType"&gt;
+    &lt;sequence&gt;
+      &lt;element name="name" type="token"
+        minOccurs="0"/&gt;
+      &lt;element name="org" type="token"
+        minOccurs="0"/&gt;
+      &lt;element name="addr" type="mark:addrType"
+        minOccurs="0"/&gt;
+      &lt;element name="voice" type="mark:e164Type"
+        minOccurs="0"/&gt;
+      &lt;element name="fax" type="mark:e164Type"
+        minOccurs="0"/&gt;
+      &lt;element name="email" type="mark:minTokenType"
+        minOccurs="0"/&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
 
@@ -2787,29 +2662,148 @@ Acknowledgements</h3>
 
 <p>[to be filled in]
 </p>
-<a name="IANA"></a><br /><hr />
+<a name="anchor7"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.6"></a><h3>6.&nbsp;
+Change History</h3>
+
+<a name="change-00-to-01"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.1"></a><h3>6.1.&nbsp;
+Change from 00 to 01</h3>
+
+<p></p>
+<ol class="text">
+<li>Changed to use camel case for the XML elements.
+</li>
+<li>Replaced "cancelled" status to "rejected" status.
+</li>
+<li>Added the child elements of the &lt;claim&gt; element.
+</li>
+<li>Removed the XML schema and replaced with "[TBD]".
+</li>
+</ol>
+
+<a name="change-01-to-02"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.2"></a><h3>6.2.&nbsp;
+Change from 01 to 02</h3>
+
+<p></p>
+<ol class="text">
+<li>Added support for both the ICANN and ARI/Neustar TMCH models.
+</li>
+<li>Changed the namespace URI and prefix to use "launch" instead of "launchphase".
+</li>
+<li>Added definition of multiple claim validation models.
+</li>
+<li>Added the &lt;launch:signedClaim&gt; and &lt;launch:signedNotice&gt; elements.
+</li>
+<li>Added support for Claims Info Command
+</li>
+</ol>
+
+<a name="change-02-to-03"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.3"></a><h3>6.3.&nbsp;
+Change from 02 to 03</h3>
+
+<p></p>
+<ol class="text">
+<li>Removed XSI namespace per Keith Gaughan's suggestion on the provreg list.
+</li>
+<li>Added extensibility to the launch:status element and added the 
+        pendingAuction status per Trung Tran's feedback on the provreg list.
+</li>
+<li>Added support for the Claims Check Command, updated the location and 
+        contents of the signedNotice, and replaced most references of Claim to Mark 
+        based on the work being done on the ARI/Neustar launch model.
+</li>
+</ol>
+
+<a name="change-03-to-04"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.4"></a><h3>6.4.&nbsp;
+Change from 03 to 04</h3>
+
+<p></p>
+<ol class="text">
+<li>Removed references to the ICANN model.
+</li>
+<li>Removed support for the Claims Info Command.
+</li>
+<li>Removed use of the signedClaim.
+</li>
+<li>Removed support for specifying just a mark code on the create.
+</li>
+<li>Revised the method for referring to the signedClaim from the XML Signature using the IDREF URI.
+</li>
+<li>Split the launch-1.0.xsd into three XML schemas including launch-1.0.xsd, signeMark-1.0.xsd, and mark-1.0.xsd.
+</li>
+<li>Split the "claims" launch phase to the "claims1" and "claims2" launch phases.
+</li>
+<li>Added support for the encodedSignedMark with base64 encoded signedMark.
+</li>
+<li>Changed the elements in the createNoticeType to include the noticeID, timestamp, and the source elements.
+</li>
+</ol>
+
+<a name="IANA"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
 IANA Considerations</h3>
 
-<p>This document uses URNs to describe XML namespaces and XML schemas
-      conforming to a registry mechanism described in <a class='info' href='#RFC3688'>[RFC3688]<span> (</span><span class='info'>Mealling, M., &ldquo;The IETF XML Registry,&rdquo; January&nbsp;2004.</span><span>)</span></a>.
+<p>
+             This document uses URNs to describe XML namespaces and XML schemas
+             conforming to a registry mechanism described in <a class='info' href='#RFC3688'>[RFC3688]<span> (</span><span class='info'>Mealling, M., &ldquo;The IETF XML Registry,&rdquo; January&nbsp;2004.</span><span>)</span></a>.
+             Three URI assignments have been registered by the IANA.
+         
 </p>
-<p>Registration request for the extension namespace:
+<p>Registration request for the Launch namespace:
 </p>
+<p>
+             </p>
+<blockquote class="text">
 <p>URI: urn:ietf:params:xml:ns:launch-1.0
 </p>
-<p>Registrant Contact: IESG
+<p>Registrant Contact: See the &quot;Author&#039;s Address&quot; section of this document.
 </p>
-<p>XML: None. Namespace URIs do not represent an XML specification.
+<p>XML: None.  Namespace URIs do not represent an XML specification.
 </p>
-<p>Registration request for the extension XML schema:
+</blockquote><p>
+         
 </p>
-<p>URI: urn:ietf:params:xml:schema:launch-1.0
+<p>Registration request for the Signed mark namespace:
+</p>
+<p>
+             </p>
+<blockquote class="text">
+<p>URI: urn:ietf:params:xml:ns:signedMark-1.0
+</p>
+<p>Registrant Contact: See the &quot;Author&#039;s Address&quot; section of this document.
+</p>
+<p>XML: None.  Namespace URIs do not represent an XML specification.
+</p>
+</blockquote><p>
+         
+</p>
+<p>Registration request for the Mark namespace:
+</p>
+<p>
+             </p>
+<blockquote class="text">
+<p>URI: urn:ietf:params:xml:ns:mark-1.0
+</p>
+<p>Registrant Contact: See the &quot;Author&#039;s Address&quot; section of this document.
+</p>
+<p>XML: None.  Namespace URIs do not represent an XML specification.
+</p>
+</blockquote><p>
+         
 </p>
 <a name="Security"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.7"></a><h3>7.&nbsp;
+<a name="rfc.section.8"></a><h3>8.&nbsp;
 Security Considerations</h3>
 
 <p>The mapping extensions described in this document do not provide any
@@ -2832,8 +2826,10 @@ Security Considerations</h3>
 </p>
 <a name="rfc.references1"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<h3>8.&nbsp;Normative References</h3>
+<h3>9.&nbsp;Normative References</h3>
 <table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="RFC2045">[RFC2045]</a></td>
+<td class="author-text"><a href="mailto:ned@innosoft.com">Freed, N.</a> and <a href="mailto:nsb@nsb.fv.com">N. Borenstein</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2045">Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies</a>,&rdquo; RFC&nbsp;2045, November&nbsp;1996 (<a href="http://www.rfc-editor.org/rfc/rfc2045.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC2119">[RFC2119]</a></td>
 <td class="author-text"><a href="mailto:sob@harvard.edu">Bradner, S.</a>, &ldquo;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>,&rdquo; BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997 (<a href="http://www.rfc-editor.org/rfc/rfc2119.txt">TXT</a>, <a href="http://xml.resource.org/public/rfc/html/rfc2119.html">HTML</a>, <a href="http://xml.resource.org/public/rfc/xml/rfc2119.xml">XML</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC3688">[RFC3688]</a></td>

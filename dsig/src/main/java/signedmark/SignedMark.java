@@ -151,7 +151,7 @@ public class SignedMark {
 		// Create the SignedInfo
 		SignedInfo signedInfo = xmlSigFactory
 		.newSignedInfo(xmlSigFactory.newCanonicalizationMethod(
-				CanonicalizationMethod.INCLUSIVE_WITH_COMMENTS,
+				CanonicalizationMethod.EXCLUSIVE,
 				(C14NMethodParameterSpec) null), xmlSigFactory
 				.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
 				Collections.singletonList(xmlSigRef));

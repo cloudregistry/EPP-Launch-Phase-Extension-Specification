@@ -21,15 +21,24 @@ Import common element types.
     <documentation> 
       Schema for representing a Signed Mark, also referred to 
       as Signed Mark Data (SMD), that includes digitally 
-      signed Trademark information.  
+      signed trademark information.  
     </documentation>
   </annotation>
   
+  <!-- 
+  <smd:signedMark> element definition
+  -->
   <element name="signedMark" type="smd:signedMarkType"/>  
   
+  <!-- 
+  <smd:encodedSignedMark> element definition
+  -->
   <element name="encodedSignedMark" 
-  	type="smd:encodedSignedMarkType"/>
+    type="smd:encodedSignedMarkType"/>
   
+  <!-- 
+  <smd:signedMark> child elements
+  -->
   <complexType name="signedMarkType">
     <sequence>
       <element name="serial" type="token"/>
@@ -43,11 +52,14 @@ Import common element types.
     <attribute name="id" type="ID" use="required"/>
   </complexType>
 
+  <!-- 
+  <smd:encodedSignedMark> element type
+  -->
   <complexType name="encodedSignedMarkType">
     <simpleContent>
       <extension base="token">
         <attribute name="encoding" type="token" 
-        	default="base64"/>
+          default="base64"/>
       </extension>
     </simpleContent>
   </complexType>

@@ -4,14 +4,14 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Standards Track                                G. Brown
-Expires: March 16, 2013                                   CentralNic Ltd
+Expires: June 4, 2013                                     CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                      September 12, 2012
+                                                        December 1, 2012
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
-                      draft-tan-epp-launchphase-03
+                      draft-tan-epp-launchphase-04
 
 Abstract
 
@@ -34,7 +34,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 16, 2013.
+   This Internet-Draft will expire on June 4, 2013.
 
 Copyright Notice
 
@@ -52,9 +52,9 @@ Copyright Notice
 
 
 
-Tan, et al.              Expires March 16, 2013                 [Page 1]
+Tan, et al.               Expires June 4, 2013                  [Page 1]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
    described in the Simplified BSD License.
@@ -64,36 +64,42 @@ Table of Contents
 
    1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  3
      1.1.  Conventions Used in This Document  . . . . . . . . . . . .  3
-   2.  Object Attributes  . . . . . . . . . . . . . . . . . . . . . .  3
+   2.  Object Attributes  . . . . . . . . . . . . . . . . . . . . . .  4
      2.1.  Application Identifiers  . . . . . . . . . . . . . . . . .  4
      2.2.  Launch Phases  . . . . . . . . . . . . . . . . . . . . . .  4
-     2.3.  Status Values  . . . . . . . . . . . . . . . . . . . . . .  4
+     2.3.  Status Values  . . . . . . . . . . . . . . . . . . . . . .  5
        2.3.1.  State Transition . . . . . . . . . . . . . . . . . . .  6
      2.4.  Mark Validation Models . . . . . . . . . . . . . . . . . .  6
        2.4.1.  <launch:codeMark> element  . . . . . . . . . . . . . .  7
      2.5.  Mark . . . . . . . . . . . . . . . . . . . . . . . . . . .  8
      2.6.  Contact  . . . . . . . . . . . . . . . . . . . . . . . . .  9
      2.7.  Digital Signature  . . . . . . . . . . . . . . . . . . . . 10
-       2.7.1.  <launch:signedMark> element  . . . . . . . . . . . . . 10
-       2.7.2.  <launch:signedNotice> element  . . . . . . . . . . . . 12
-   3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . . 13
+       2.7.1.  <smd:signedMark> element . . . . . . . . . . . . . . . 10
+       2.7.2.  <smd:encodedSignedMark> element  . . . . . . . . . . . 12
+   3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . . 14
      3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . . 14
-     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 16
-       3.2.1.  Sunrise Info Form  . . . . . . . . . . . . . . . . . . 17
-       3.2.2.  Claims Info Form . . . . . . . . . . . . . . . . . . . 23
-     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 27
-       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 27
-       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 33
-     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 37
-     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 39
-     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 40
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 40
-   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 41
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 50
-   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 50
-   7.  Security Considerations  . . . . . . . . . . . . . . . . . . . 51
-   8.  Normative References . . . . . . . . . . . . . . . . . . . . . 51
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 52
+     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 18
+     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 22
+       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 22
+       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 30
+     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 32
+     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 34
+     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 35
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 35
+   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 36
+     4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 36
+     4.2.  Signed Mark Schema . . . . . . . . . . . . . . . . . . . . 42
+     4.3.  Mark Schema  . . . . . . . . . . . . . . . . . . . . . . . 44
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 48
+   6.  Change History . . . . . . . . . . . . . . . . . . . . . . . . 48
+     6.1.  Change from 00 to 01 . . . . . . . . . . . . . . . . . . . 48
+     6.2.  Change from 01 to 02 . . . . . . . . . . . . . . . . . . . 48
+     6.3.  Change from 02 to 03 . . . . . . . . . . . . . . . . . . . 48
+     6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 49
+   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 49
+   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 50
+   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 50
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 51
 
 
 
@@ -102,15 +108,9 @@ Table of Contents
 
 
 
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                 [Page 2]
+Tan, et al.               Expires June 4, 2013                  [Page 2]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 1.  Introduction
@@ -123,19 +123,23 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
    It is typical for domain registries to operate in special modes
    within certain periods of time to facilitate allocation of domain
-   names for a subset of the zone namespace that becomes available.
-   This document uses the term "launch phase" and the shorter form
-   "launch" to refer to such a period.
+   names.  This document uses the term "launch phase" and the shorter
+   form "launch" to refer to such a period.
 
    The EPP domain name mapping [RFC5731] is designed for the steady
    state operation of a registry.  During the launch, the interface used
    at each phase of the launch could be different from what is defined
    in EPP domain name mapping [RFC5731]. for example, registries
    typically accept multiple applications for a given domain name during
-   the "sunrise" launch phase.  In addition, the Trademark Clearinghouse
-   Draft Implementation Model [1] defines a registry interface for the
-   Trademark Claims or "claims" launch phase that includes support for
-   presenting a Trademark Claims Notice to the Registrant.  This
+   the "sunrise" launch phase, referred to as a launch application.  A
+   launch registration is used to refer to a registration made during a
+   launch phase when the server uses a first-come-first-serve model.
+   Even in a first-come-first-serve model additional steps and
+   information might be required to support a launch phase, like the
+   passing of trademark information on a create.  In addition, the
+   Proposed Trademark Claims Model [1] defines a registry interface for
+   the Trademark Claims or "claims" launch phase that includes support
+   for presenting a Trademark Claims Notice to the Registrant.  This
    document proposes an extension to the domain name extension in order
    to unambiguously manage the various launch phases known.
 
@@ -156,30 +160,43 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    instead employ a proper namespace-aware XML parser and serializer to
    interpret and output the XML documents.
 
+   "signedMark-1.0" is used as an abbreviation for
+
+
+
+Tan, et al.               Expires June 4, 2013                  [Page 3]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   "urn:ietf:params:xml:ns:signedMark-1.0".  The XML namespace prefix
+   "smd" is used, but implementations MUST NOT depend on it and instead
+   employ a proper namespace-aware XML parser and serializer to
+   interpret and output the XML documents.
+
+   "mark-1.0" is used as an abbreviation for
+   "urn:ietf:params:xml:ns:mark-1.0".  The XML namespace prefix "mark"
+   is used, but implementations MUST NOT depend on it and instead employ
+   a proper namespace-aware XML parser and serializer to interpret and
+   output the XML documents.
+
 
 2.  Object Attributes
 
    This extension adds additional elements to the EPP domain name
    mapping [RFC5731].  Only those new elements are described here.
 
-
-
-Tan, et al.              Expires March 16, 2013                 [Page 3]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
 2.1.  Application Identifiers
 
-   Servers MAY allow multiple applications of a given domain name during
-   its launch phase operations.  Upon receiving a request to create a
-   domain name, the server creates an application object corresponding
-   to the request and assigns an application identifier for the
-   application and returns it to the client with the <launch:
-   applicationID> element.  In order to facilitate correlation, all
-   subsequent launch operations on the application object MUST be
-   qualified by the previously assigned application identifier using the
-   <launch:applicationID> element.
+   Servers MAY allow multiple applications, referred to as a launch
+   application, of a given domain name during its launch phase
+   operations.  Upon receiving a request to create a domain name, the
+   server creates an application object corresponding to the request and
+   assigns an application identifier for the application and returns it
+   to the client with the <launch:applicationID> element.  In order to
+   facilitate correlation, all subsequent launch operations on the
+   application object MUST be qualified by the previously assigned
+   application identifier using the <launch:applicationID> element.
 
 2.2.  Launch Phases
 
@@ -192,9 +209,26 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
       applications with trademark information that can be validated by
       the server.
    landrush  Post sunrise phase when non-trademark holders are allowed
-      to register domain names.
-   claims  Trademark claims phase as defined by Trademark Clearinghouse
-      Draft Implementation Model [1].
+      to register domain names with steps taken to address a large
+      volume of initial registrations.
+   claims1  Trademark claims phase 1 as defined by Trademark
+      Clearinghouse model of displaying a full, detailed claims notice
+      to clients for domain names that match trademarks.
+
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                  [Page 4]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   claims2  Trademark claims phase 2 as defined by Trademark
+      Clearinghouse model of displaying a short, educational claims
+      notice to clients for domain names that match trademarks that opt
+      into the service.
    open  Post launch phase that is also referred to as "steady state".
       Servers MAY require additional trademark protection with this
       phase.
@@ -203,7 +237,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
    For extensibility the <launch:phase> element includes an OPTIONAL
    "name" attribute that can define a sub-phase or the full name of the
-   phase when the <launch:phase> element has the "custom" value.
+   phase when the <launch:phase> element has the "custom" value.  For
+   example, the "claims1" launch phase could have two sub-phases that
+   include "landrush" and "open".
 
 2.3.  Status Values
 
@@ -214,17 +250,6 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
    The following status values are defined using the required "s"
    attribute:
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                 [Page 4]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
    pending:  the initial state of a newly-created application object.
    validated:  the application meets relevant registry rules.
    invalid:  the application does not validate according to registry
@@ -235,8 +260,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
       the object corresponding to the application has been provisioned.
    rejected:  the other possible end state; the object was not
       provisioned.
-   custom:  A custom status that is defined using the the "name"
-      attribute.
+   custom:  A custom status that is defined using the "name" attribute.
 
    Each status value MAY be accompanied by a string of human-readable
    text that describes the rationale for the status applied to the
@@ -249,6 +273,14 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    status when the status value is "custom".  The server SHOULD NOT use
    of the "custom" status value.
 
+
+
+
+Tan, et al.               Expires June 4, 2013                  [Page 5]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
    Certain status values MAY be combined.  For example, an application
    can be invalid and rejected.  Additionally certain statuses MAY be
    skipped.  For example, an application MAY immediately start at the
@@ -257,29 +289,6 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    processes a request synchronously without the use of an intermediate
    application, than an Application Identifier (Section 2.1) is not
    needed along with the application status.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                 [Page 5]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
 
 2.3.1.  State Transition
 
@@ -317,61 +326,49 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 2.4.  Mark Validation Models
 
-   A server MUST support one of four models for validating the trademark
-   information:
-
-   code  Use of a mark code by itself to validate that the mark matches
-      the domain name.  The code is the "sunrise code" as defined in
-      Trademark Clearinghouse Draft Implementation Model [1] that is
-      validated by the server using its local sunrise code data.  This
-      model is supported using the <launch:codeMark> element with just
-      the <launch:code> element.
+   A server MUST support one of three models for validating the
+   trademark information:
 
 
 
 
-
-
-Tan, et al.              Expires March 16, 2013                 [Page 6]
+Tan, et al.               Expires June 4, 2013                  [Page 6]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
    mark  The mark information is passed without any other validation
       element.  The server will use some custom form of validation to
       validate that the mark information is authentic.  This model is
-      supported using the <launch:codeMark> element with just the
-      <launch:mark> element.
+      supported with the <mark:mark> element.
    code with mark:  A code is used along with the mark information by
-      the server to validate the mark utilizing an external party like a
-      Trademark Clearinghouse.  The code represents some form of secret
-      that matches the mark information passed.  This model is supported
-      using the <launch:codeMark> element with both the <launch:code>
-      and the <launch:mark> element.
+      the server to validate the mark utilizing an external party.  The
+      code represents some form of secret that matches the mark
+      information passed.  This model is supported using the <launch:
+      codeMark> element that contains both the <launch:code> and the
+      <mark:mark> elements.
    signed mark:  The mark information is digitally signed as described
       in the Digital Signature (Section 2.7) section.  The digital
       signature can be directly validated by the server using the public
-      key of the external party that created the signed mark.  This
-      model is supported using the <launch:signedMark> (Section 2.7.1)
-      and <launch:signedNotice> (Section 2.7.2) elements.
+      key of the external party that created the signed mark using it's
+      private key.  This model is supported using the <smd:signedMark>
+      (Section 2.7.1) and <smd:encodedSignedMark> (Section 2.7.2)
+      elements.
 
-   More than one <launch:codeMark> element or more than one <launch:
-   signedMark> element MAY be specified.  The maximum number of marks
-   per domain name is up to server policy.
+   More than one <launch:codeMark>, <mark:mark>, <smd:signedMark>, or
+   <smd:encodedSignedMark> element MAY be specified.  The maximum number
+   of marks per domain name is up to server policy.
 
 2.4.1.  <launch:codeMark> element
 
-   The <launch:codeMark> element that is used by the "code", "mark", and
-   "code with mark" validation models has the following child elements:
+   The <launch:codeMark> element, that is used by the "code with mark"
+   validation model, has the following child elements:
 
-   <launch:code>:  OPTIONAL mark code used to validate the <launch:mark>
-      information or to directly validate the mark against the domain
-      name.  The mark code can be a mark specific secret value that the
-      server can verify against a third party or can be directly
-      combined with the domain name to verify against a server code
-      file.
-   <launch:mark>:  OPTIONAL mark information with child elements defined
-      in the Mark (Section 2.5) section.
+   <launch:code>:  Mark code used to validate the <launch:mark>
+      information.  The mark code can be a mark specific secret value
+      that the server can verify against a third party.
+   <mark:mark>:  mark information with child elements defined in the
+      Mark (Section 2.5) section.
 
 
 
@@ -388,93 +385,96 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-Tan, et al.              Expires March 16, 2013                 [Page 7]
+
+
+
+Tan, et al.               Expires June 4, 2013                  [Page 7]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-   The following is an example <launch:codeMark> element with both a
-   <launch:code> and a <launch:mark> element.
+   The following is an example <launch:codeMark> element.
 
    <launch:codeMark>
      <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-     <launch:mark>
-       <launch:name>Example One</launch:name>
-       <launch:label>example-one</launch:label>
-       <launch:label>exampleone</launch:label>
-       <launch:issuer>IP Clearinghouse</launch:issuer>
-       <launch:number>GE 3933232</launch:number>
-       <launch:type>REG-TM-WORD</launch:type>
-       <launch:entitlement>owner</launch:entitlement>
-       <launch:regDate>2011-09-09</launch:regDate>
-       <launch:exDate>2013-09-09</launch:exDate>
-       <launch:country>AU</launch:country>
-       <launch:region>VIC</launch:region>
-       <launch:owner>
-         <launch:org>Example Inc.</launch:org>
-       </launch:owner>
-       <launch:contact>
-         <launch:name>John Doe</launch:name>
-         <launch:org>Example Inc.</launch:org>
-         <launch:addr>
-           <launch:street>123 Example Dr.</launch:street>
-           <launch:street>Suite 100</launch:street>
-           <launch:city>Reston</launch:city>
-           <launch:sp>VA</launch:sp>
-           <launch:pc>20190</launch:pc>
-           <launch:cc>US</launch:cc>
-         </launch:addr>
-         <launch:voice x="1234">+1.7035555555</launch:voice>
-         <launch:fax>+1.7035555556</launch:fax>
-         <launch:email>jdoe@example.tld</launch:email>
-       </launch:contact>
-     </launch:mark>
+     <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+       <mark:name>Example One</mark:name>
+       <mark:label>example-one</mark:label>
+       <mark:label>exampleone</mark:label>
+       <mark:issuer>IP Clearinghouse</mark:issuer>
+       <mark:number>GE 3933232</mark:number>
+       <mark:type>REG-TM-WORD</mark:type>
+       <mark:entitlement>owner</mark:entitlement>
+       <mark:regDate>2011-09-09</mark:regDate>
+       <mark:exDate>2013-09-09</mark:exDate>
+       <mark:country>AU</mark:country>
+       <mark:region>VIC</mark:region>
+       <mark:owner>
+         <mark:org>Example Inc.</mark:org>
+       </mark:owner>
+       <mark:contact>
+         <mark:name>John Doe</mark:name>
+         <mark:org>Example Inc.</mark:org>
+         <mark:addr>
+           <mark:street>123 Example Dr.</mark:street>
+           <mark:street>Suite 100</mark:street>
+           <mark:city>Reston</mark:city>
+           <mark:sp>VA</mark:sp>
+           <mark:pc>20190</mark:pc>
+           <mark:cc>US</mark:cc>
+         </mark:addr>
+         <mark:voice x="1234">+1.7035555555</mark:voice>
+         <mark:fax>+1.7035555556</mark:fax>
+         <mark:email>jdoe@example.tld</mark:email>
+       </mark:contact>
+     </mark:mark>
    </launch:codeMark>
 
 2.5.  Mark
 
-   A <launch:mark> element describes an applicant's prior right to a
-   given domain name.
+   A <mark:mark> element describes an applicant's prior right to a given
+   domain name that is used directly by the "mark" validation model and
+   indirectly by the "code with mark" validation model and the "signed
+   mark" validation model.
 
-   The child elements of the <launch:mark> element include:
-
-
-
-
+   The child elements of the <mark:mark> element include:
 
 
 
-Tan, et al.              Expires March 16, 2013                 [Page 8]
+
+
+
+Tan, et al.               Expires June 4, 2013                  [Page 8]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-   <launch:id>:  an identifier for the mark.  This identifier MUST be
+   <mark:id>:  an identifier for the mark.  This identifier MUST be
       unique among all marks associated with an application object.
-   <launch:name>:  The registered trademark text string.  This value is
-      free-form text that MAY be mapped to one or more <launch:label>
+   <mark:name>:  The registered trademark text string.  This value is
+      free-form text that MAY be mapped to one or more <mark:label>
       values.
-   <launch:label>:  Zero or more domain name labels that corresponds to
-      the <launch:name>.  Each <launch:label> can match directly to the
+   <mark:label>:  Zero or more domain name labels that corresponds to
+      the <mark:name>.  Each <mark:label> can match directly to the
       domain name after adding the parent zone.
-   <launch:issuer>:  name of the authority which issued the right
+   <mark:issuer>:  name of the authority which issued the right
       (trademark clearinghouse, trademark office, company registration
       bureau, etc.)
-   <launch:number>:  the registration number of the right (trademark
+   <mark:number>:  the registration number of the right (trademark
       number, company registration number, etc.)
-   <launch:type>:  indicates the type of mark being made (trademark,
+   <mark:type>:  indicates the type of mark being made (trademark,
       symbol, combined mark, company name, etc.)
-   <launch:entitlement>:  indicates the applicant's entitlement to the
+   <mark:entitlement>:  indicates the applicant's entitlement to the
       mark (owner, licensee, etc.)
-   <launch:regDate>:  the date of registration of the mark
-   <launch:exDate>:  the date of expiration of the mark
-   <launch:country>:  indicates the country in which the mark is valid.
+   <mark:regDate>:  the date of registration of the mark
+   <mark:exDate>:  the date of expiration of the mark
+   <mark:country>:  indicates the country in which the mark is valid.
       This may be a two-character code from [WIPO.ST3]
-   <launch:region>:  indicates the name of a city, state, province or
+   <mark:region>:  indicates the name of a city, state, province or
       other geographic region in which the mark is valid.
-   <launch:owner>:  Owner information using the Contact (Section 2.6)
+   <mark:owner>:  Owner information using the Contact (Section 2.6)
       elements.
-   <launch:contact>:  Contact for the owner using the Contact
+   <mark:contact>:  Contact for the owner using the Contact
       (Section 2.6) element.
 
    All of the child elements are OPTIONAL.  Server policy may place
@@ -489,37 +489,35 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    outside of the server.  Some of the contact elements defined in EPP
    contact mapping [RFC5733] are replicated in this extension.
 
-   The child elements of a contact using either the <launch:owner> or
-   <launch:contact> elements include:
-   <launch:id>:  identifier of contact that MUST be unique among all
-       contacts of the external third party.
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                 [Page 9]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-   <launch:name>:  name of the individual or role represented by the
+   The child elements of a contact using either the <mark:owner> or
+   <mark:contact> elements include:
+   <mark:name>:  name of the individual or role represented by the
        contact.
-   <launch:org>:  name of the organization with which the contact is
-       affiliated.
-   <launch:addr>:  address information associated with the contact. the
-       <launch:addr> element contains the following child elements:
 
-       <launch:street>  one, two, or three <launch:street> elements that
-           contain the contact's street address.
-       <launch:city>  contact's city
-       <launch:sp>  contact's state or province
-       <launch:cc>  contact's country code
-   <launch:voice>:  contact's voice telephone number
-   <launch:fax>:  contact's facsimile telephone number
-   <launch:email>:  contact's email address
+
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                  [Page 9]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   <mark:org>:  name of the organization with which the contact is
+       affiliated.
+   <mark:addr>:  address information associated with the contact. the
+       <mark:addr> element contains the following child elements:
+
+       <mark:street>  zero to three <mark:street> elements that contain
+           the contact's street address.
+       <mark:city>  contact's city
+       <mark:sp>  contact's state or province
+       <mark:cc>  contact's country code
+   <mark:voice>:  contact's voice telephone number
+   <mark:fax>:  contact's facsimile telephone number
+   <mark:email>:  contact's email address
 
    All of the child elements are OPTIONAL.  Server policy may place
    additional constraints on the format and requirements of such
@@ -527,186 +525,208 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 2.7.  Digital Signature
 
-   Digital signatures can be used by the server to validate either the
-   mark information, when using the signed mark model with the <launch:
-   signedMark> element, or the claims notice with the <launch:
-   signedNotice> element.  The digital signatures are handled using an
-   XML Signature [2] around the entire <launch:signedMark> or <launch:
-   signedNotice> elements.  Once the digital signature is validated
-   using the appropriate public key, the server can trust all of the
-   information included in the <launch:signedMark> or <launch:
-   signedNotice> elements.  It's up to server policy how the public key
-   is transferred.
+   Digital signatures MAY be used by the server to validate either the
+   mark information, when using the "signed mark" validation model with
+   the <smd:signedMark> element or the <smd:encodedSignedMark> element.
+   The digital signatures are handled using an XML Signature [2] around
+   the entire <smd:signedMark> element.  The <smd:encodedSignedMark>
+   element includes an encoded form of the <smd:signedMark> element like
+   the use of "base64" encoding.  Once the digital signature is
+   validated using the appropriate public key, the server can trust all
+   of the information included in the <smd:signedMark> element.  It's up
+   to server policy how the public key is transferred.
 
-   To have the digital signature cover all of the elements of the
-   <launch:signedMark> and <launch:signedNotice> elements, the XML
-   Signature [2] Reference URI is set to "#pointer(..)" and the
+   To have the digital signature cover all of the elements of the <smd:
+   signedMark> element, the XML Signature [2] IDREF URI is set to the
+   "id" attribute value of the <smd:signedMark> element and the
    Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is
-   used.  Both of these has the digital signature cover the parent
-   element of the Signature element and to specify that the Signature
-   element is embedded in the parent element.
+   used.  The digital signature covers the <smd:signedMark> element and
+   the Signature element is embedded in the <smd:signedMark> element.
 
-2.7.1.  <launch:signedMark> element
+2.7.1.  <smd:signedMark> element
 
-   The child elements of the <launch:signedMark> element include:
-
-
-
-
-
+   The <smd:signedMark> is the fragment of XML that is digitally signed
+   using XML Signature [2].  The <smd:signedMark> includes a required
+   "id" attribute of type XSD ID for use with an IDREF URI from the
+   Signature element.  The child elements of the <smd:signedMark>
+   element include:
 
 
-Tan, et al.              Expires March 16, 2013                [Page 10]
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 10]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-   <launch:serial>:  Signature serial number that that can be compared
-      with a revocation list by the server.
-   <launch:zone>:  Zero or more DNS zones the <launch:signedMark> can be
-      used with.  No <launch:zone> element indicates that the <launch:
-      signedMark> can be used within any DNS zone.
-   <launch:exDate>:  OPTIONAL date and time that the <launch:signedMark>
-      expires.  The server MUST NOT accept a <launch:signedMark> that
-      has expired.  No <launch:exDate> element indicates that there is
-      no expiry.
-   <launch:mark>:  Trademark information as defined in the Mark
+   <smd:serial>:  Signature serial number that that can be compared with
+      a revocation list by the server.
+   <smd:zone>:  Zero or more DNS zones the <smd:signedMark> can be used
+      with.  No <smd:zone> element indicates that the <smd:signedMark>
+      can be used within any DNS zone.
+   <smd:exDate>:  OPTIONAL date and time that the <smd:signedMark>
+      expires.  The server MUST NOT accept a <smd:signedMark> that has
+      expired.  No <smd:exDate> element indicates that there is no
+      expiry.
+   <mark:mark>:  Trademark information as defined in the Mark
       (Section 2.5) section.
-   <Signature>:  XML Signature [2] for the <launch:signedMark>
+   <Signature>:  XML Signature [2] for the <smd:signedMark>.  Use of a
+      namespace prefix, like "dsig", is recommended for the
+      "http://www.w3.org/TR/xmldsig-core/" elements.
 
-   The following is an example <launch:signedMark> using the XML
-   Signature [2] to sign all of the elements of <launch:signedMark>
+   The following is an example <smd:signedMark> using the XML
+   Signature [2] to sign all of the elements of <smd:signedMark>
    element.
 
-   <launch:signedMark>
-     <launch:serial>123456</launch:serial>
-     <launch:zone>newtld</launch:zone>
-     <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
-     <launch:mark>
-       <launch:name>Example One</launch:name>
-       <launch:label>example-one</launch:label>
-       <launch:label>exampleone</launch:label>
-       <launch:issuer>IP Clearinghouse</launch:issuer>
-       <launch:number>GE 3933232</launch:number>
-       <launch:type>REG-TM-WORD</launch:type>
-       <launch:entitlement>owner</launch:entitlement>
-       <launch:regDate>2011-09-09</launch:regDate>
-       <launch:exDate>2013-09-09</launch:exDate>
-       <launch:country>AU</launch:country>
-       <launch:region>VIC</launch:region>
-       <launch:owner>
-         <launch:org>Example Inc.</launch:org>
-       </launch:owner>
-       <launch:contact>
-         <launch:name>John Doe</launch:name>
-         <launch:org>Example Inc.</launch:org>
-         <launch:addr>
-           <launch:street>123 Example Dr.</launch:street>
-           <launch:street>Suite 100</launch:street>
-           <launch:city>Reston</launch:city>
-           <launch:sp>VA</launch:sp>
-           <launch:pc>20190</launch:pc>
-           <launch:cc>US</launch:cc>
-         </launch:addr>
-         <launch:voice x="1234">+1.7035555555</launch:voice>
+  <smd:signedMark id="signedMark"
+   xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
+   <smd:serial>123456</smd:serial>
+   <smd:zone>newtld</smd:zone>
+   <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
+   <mark:mark
+    xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+     <mark:name>Example One</mark:name>
+     <mark:label>example-one</mark:label>
+     <mark:label>exampleone</mark:label>
+     <mark:issuer>IP Clearinghouse</mark:issuer>
+     <mark:number>GE 3933232</mark:number>
+     <mark:type>REG-TM-WORD</mark:type>
+     <mark:entitlement>owner</mark:entitlement>
+     <mark:regDate>2011-09-09</mark:regDate>
+     <mark:exDate>2013-09-09</mark:exDate>
+     <mark:country>AU</mark:country>
+     <mark:region>VIC</mark:region>
+     <mark:owner>
+      <mark:org>Example Inc.</mark:org>
+     </mark:owner>
+     <mark:contact>
+      <mark:name>John Doe</mark:name>
+      <mark:org>Example Inc.</mark:org>
+      <mark:addr>
+       <mark:street>123 Example Dr.</mark:street>
+       <mark:street>Suite 100</mark:street>
+       <mark:city>Reston</mark:city>
+       <mark:sp>VA</mark:sp>
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 11]
+Tan, et al.               Expires June 4, 2013                 [Page 11]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-         <launch:fax>+1.7035555556</launch:fax>
-         <launch:email>jdoe@example.tld</launch:email>
-       </launch:contact>
-     </launch:mark>
-     <Signature xmlns=
-       "http://www.w3.org/2000/09/xmldsig#">
-       <SignedInfo>
-         <CanonicalizationMethod
-           Algorithm=
-           "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-         <SignatureMethod
-           Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
-         <Reference URI="#pointer(..)">
-           <Transforms>
-             <Transform
-               Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-             </Transforms>
-           <DigestMethod
-             Algorithm=
-             "http://www.w3.org/2000/09/xmldsig#sha1"/>
-           <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue>
-         </Reference>
-       </SignedInfo>
-       <SignatureValue>
-         cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-       </SignatureValue>
-     </Signature>
-   </launch:signedMark>
+       <mark:pc>20190</mark:pc>
+       <mark:cc>US</mark:cc>
+      </mark:addr>
+      <mark:voice x="1234">+1.7035555555</mark:voice>
+      <mark:fax>+1.7035555556</mark:fax>
+      <mark:email>jdoe@example.tld</mark:email>
+     </mark:contact>
+   </mark:mark>
+   <dsig:Signature
+         xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+     <dsig:SignedInfo>
+     <dsig:CanonicalizationMethod
+ Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+     <dsig:SignatureMethod
+ Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+     <dsig:Reference URI="#signedMark">
+       <dsig:Transforms>
+         <dsig:Transform
+ Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+       </dsig:Transforms>
+       <dsig:DigestMethod
+         Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+       <dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=</dsig:DigestValue>
+     </dsig:Reference>
+   </dsig:SignedInfo>
+     <dsig:SignatureValue>
+ Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9
+ a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
+ jmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZE2EvffMLBiL4xbCJM48ew
+ RYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcj
+ G6815IJV/9RT+MTXri7i0s82CqIS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F
+ +Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kguE++RHKa4xoBIeyTgWqpWcLu
+ MoFpM+GxwFcpSA==
+      </dsig:SignatureValue>
+    </dsig:Signature>
+  </smd:signedMark>
 
-2.7.2.  <launch:signedNotice> element
+2.7.2.  <smd:encodedSignedMark> element
 
-   The child elements of the <launch:signedNotice> element include:
-
-   <launch:noticeID>:  Unique notice identifier generated by the third
-      party.  The <launch:noticeID> can be compared with a revocation
-      list by the server.
-   <launch:name>:  Domain name that the claims notice is for.
-   <launch:crDate>:  Date and time that the <launch:signedNotice> was
-      created.
-   <launch:exDate>:  OPTIONAL date and time that the <launch:
-      signedNotice> expires.  The server MUST NOT accept a <launch:
-      signedNotice> that has expired.  No <launch:exDate> element
-      indicates that there is no expiry.
-
-
-
-
+   The <smd:encodedSignedMark> element contains an encoded form of the
+   digitally signed <smd:signedMark> element, described in
+   Section 2.7.1, with the encoding defined by the "encoding" attribute
+   with the default "encoding" value of "base64".  The "base64" encoded
+   text of the <smd:encodedSignedMark> element MUST conform to
+   [RFC2045].
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 12]
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 12]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-   <Signature>:  XML Signature [2] for the <launch:signedNotice>
+   The following is an example an <smd:encodedSignedMark> element that
+   uses the default "base64" for encoding a <smd:signedMark> element.
 
-   The following is an example <launch:signedNotice> using the XML
-   Signature [2] to sign all of the elements of <launch:signedNotice>
-   element.
+          <smd:encodedSignedMark
+           xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
+   D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnN
+   pZ25lZE1hcmsgeG1sbnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zO
+   nNpZ25lZE1hcmstMS4wIiBpZD0ic2lnbmVkTWFyayI-PHNtZDpzZXJpYWw
+   -MTIzNDU2PC9zbWQ6c2VyaWFsPjxzbWQ6ZXhEYXRlPjIwMTItMTEtMjlUM
+   Tg6MTY6NTQuMDg4MFo8L3NtZDpleERhdGU-PG1hcms6bWFyayB4bWxuczp
+   tYXJrPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOm1hcmstMS4wIj48bWFya
+   zpuYW1lPkV4YW1wbGUgT25lPC9tYXJrOm5hbWU-PG1hcms6bGFiZWw-ZXh
+   hbXBsZS1vbmU8L21hcms6bGFiZWw-PG1hcms6bGFiZWw-ZXhhbXBsZW9uZ
+   TwvbWFyazpsYWJlbD48bWFyazppc3N1ZXI-SVAgQ2xlYXJpbmdob3VzZTw
+   vbWFyazppc3N1ZXI-PG1hcms6bnVtYmVyPkdFIDM5MzMyMzI8L21hcms6b
+   nVtYmVyPjxtYXJrOm51bWJlcj5vd25lcjwvbWFyazpudW1iZXI-PG1hcms
+   6cmVnRGF0ZT4yMDEyLTExLTI5VDE4OjE2OjU0LjA3NDZaPC9tYXJrOnJlZ
+   0RhdGU-PG1hcms6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6NTQuMDc0Nlo
+   8L21hcms6ZXhEYXRlPjxtYXJrOmNvdW50cnk-QVU8L21hcms6Y291bnRye
+   T48bWFyazpyZWdpb24-VklDPC9tYXJrOnJlZ2lvbj48L21hcms6bWFyaz4
+   8ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0cDovL3d3dy53My5vc
+   mcvMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzp
+   DYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3d
+   y53My5vcmcvVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aEN
+   vbW1lbnRzIi8-PGRzaWc6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0ia
+   HR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8
+   -PGRzaWc6UmVmZXJlbmNlIFVSST0iI3NpZ25lZE1hcmsiPjxkc2lnOlRyY
+   W5zZm9ybXM-PGRzaWc6VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d
+   3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI2VudmVsb3BlZC1zaWduYXR1c
+   mUiLz48L2RzaWc6VHJhbnNmb3Jtcz48ZHNpZzpEaWdlc3RNZXRob2QgQWx
+   nb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc
+   2hhMSIvPjxkc2lnOkRpZ2VzdFZhbHVlPktIdVFrdFdUMnRYbXg4Y2ZWd2N
+   vZ0JSUm5oRT08L2RzaWc6RGlnZXN0VmFsdWU-PC9kc2lnOlJlZmVyZW5jZ
+   T48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVWYWx1ZT5RdWk
+   2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16ZENhc
+   WpWcXVvVDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV
+   1MG1NMmt4VURyWkVCc0dpV3FuaHMzQVBxOTJBcVdGZHZnUmV6ZHcycmNVb
+   Vg3dGJyeWNGM3ZDMEJmRUg4RHoKb2FIUFRQb24xTUxObzF5bGtYTDA5bWJ
+   qTHVhRlJSS3Z2UCs4djQ1VFJXRmkrbVJ0akJvMGg4blFiNTNtR2lKaU1Oe
+   kFDaDBtK3pFeAp2bmxEUmRpdWJFZVVWbG9LV2dMY1BiSkd4QmFWL1gvQjQ
+   vRnVRbXEzclcxaXNZOUlEYzA3U3ZheEZ0a1l4emVra25GQkNCSWNibXFTC
+   nlOckMvOEp4Y2RRSHN0TUZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2R
+   zaWc6U2lnbmF0dXJlVmFsdWU-PC9kc2lnOlNpZ25hdHVyZT48L3NtZDpza
+   WduZWRNYXJrPg
+          </smd:encodedSignedMark>
 
-   <launch:signedNotice>
-     <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-     <launch:name>example.tld</launch:name>
-     <launch:crDate>2012-09-07T22:00:00.0Z</launch:crDate>
-     <launch:exDate>2012-09-08T22:00:00.0Z</launch:exDate>
-     <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-       <SignedInfo>
-         <CanonicalizationMethod
-           Algorithm=
-           "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-         <SignatureMethod
-           Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
-         <Reference URI="#pointer(..)">
-           <Transforms>
-             <Transform
-               Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-           </Transforms>
-           <DigestMethod
-             Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-           <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue>
-         </Reference>
-       </SignedInfo>
-       <SignatureValue>
-        cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-       </SignatureValue>
-     </Signature>
-   </launch:signedNotice>
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 13]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 3.  EPP Command Mapping
@@ -721,14 +741,6 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
    While it is meant to serve several use cases, it does not prescribe
    any interpretation by the client or server.  Such processing is
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 13]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
    typically highly policy-dependent and therefore specific to
    implementations.
 
@@ -744,25 +756,23 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
    This extension defines a new command called the Claims Check Command
    that is used to determine whether or not there are any matching
-   trademarks for each domain name passed in the command.  Instead of
-   returning whether the domain name is available it will return whether
-   or not at least one matching trademark exists for the domain name.
-   If there is at least one matching trademark that exists for the
-   domain name a <launch:claimKey> element is returned.  The value of
-   that the <launch:claimKey> element can be used with a info service of
-   a third party trademark provider like the Trademark Clearinghouse
-   (TMCH) for getting the information needed to generate the trademark
-   claims notice.  The third party trademark provider should also return
-   a Signed Notice (Section 2.7.2) that can be passed in the extension
-   to the extension to the Create Command (Section 3.3) for the server
-   to validate that the correct trademark claims notice was presented.
-   The <domain:name> elements in the EPP <check> command of EPP domain
-   name mapping [RFC5731] define the domain names to check for matching
+   trademarks, in the specified launch phase, for each domain name
+   passed in the command.  Instead of returning whether the domain name
+   is available it will return whether or not at least one matching
+   trademark exists for the domain name.  If there is at least one
+   matching trademark that exists for the domain name a <launch:
+   claimKey> element is returned.  The value of that the <launch:
+   claimKey> element can be used with an info service of a third party
+   trademark provider like the Trademark Clearinghouse (TMCH) for
+   getting the information needed to generate the trademark claims
+   notice.  The third party trademark provider should also return a
+   unique notice identifier that can be passed in the <launch:noticeID>
+   element of the extension to the Create Command (Section 3.3).  The
+   <domain:name> elements in the EPP <check> command of EPP domain name
+   mapping [RFC5731] define the domain names to check for matching
    trademarks.  The <launch:check> element contains the following child
    elements:
 
-   <launch:phase>  The phase with the value of "claims" to indicate that
-       this is a Claims Check Command.
 
 
 
@@ -770,24 +780,22 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 14]
+Tan, et al.               Expires June 4, 2013                 [Page 14]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
+
+   <launch:phase>  The phase with the value of "claims1" or "claims2" to
+       indicate it as a Claims Check Command.  The "claims1" Claims
+       Check Command will match the <domain:name> against the full list
+       of trademark labels and the "claims2" Claims Check Command will
+       match the <domain:name> against the list of trademark labels that
+       opted into the "claims2" launch phase.
 
    Example Claims Check Command using the <check> domain command and the
    <launch:check> extension to determine if "example1.tld" and
-   "example2.tld" have any matching trademarks.
+   "example2.tld" have any matching trademarks during the "claims1"
+   launch phase.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -802,7 +810,56 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
       <extension>
        <launch:check
         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims</launch:phase>
+         <launch:phase>claims1</launch:phase>
+       </launch:check>
+      </extension>
+      <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 15]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   Example Claims Check Command using the <check> domain command and the
+   <launch:check> extension to determine if "example3.tld" and
+   "example4.tld" have any matching trademarks that opted into the
+   "claims2" launch phase.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+     <command>
+      <check>
+       <domain:check
+        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+         <domain:name>example3.tld</domain:name>
+         <domain:name>example4.tld</domain:name>
+       </domain:check>
+      </check>
+      <extension>
+       <launch:check
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>claims2</launch:phase>
        </launch:check>
       </extension>
       <clTRID>ABC-12345</clTRID>
@@ -814,7 +871,8 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    identifies the launch namespace.  The <launch:chkData> element
    contains the following child elements:
 
-   <launch:phase>  the phase with a value of "claims".
+   <launch:phase>  the phase with a value of "claims1" or "claims2" that
+       matches the associated Claims Check Command <launch:phase>.
    <launch:cd>  One or more <launch:cd> elements that contain the
        following child elements:
 
@@ -822,28 +880,28 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
            domain name.  This element MUST contain an "exists" attribute
            whose value indicates if a matching trademark exists for the
            domain name.  A value of "1" or "true" means that a matching
-           trademark does exist.  A value of "0" or "false" means that a
-           matching trademark does not exist.
-       <launch:claimKey>  An OPTIONAL claim key that can be passed to a
+           trademark does exist for the claims launch phase.  A value of
+           "0" or "false" means that a matching trademark does not
+           exist.
+       <launch:claimKey>  An OPTIONAL claim key that MAY be passed to an
            info service of a third party trademark provider like the
            Trademark Clearinghouse (TMCH) for getting the information
-           needed to generate the trademark claims notice.  The
-           <claimKey> is used as the key for the query in place of the
+           needed to generate the trademark claims notice.  The <launch:
+           claimKey> is used as the key for the query in place of the
            domain name to securely query the service without using a
-           well-known value like a domain name.
 
 
 
-
-
-Tan, et al.              Expires March 16, 2013                [Page 15]
+Tan, et al.               Expires June 4, 2013                 [Page 16]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
+
+           well-known value like a domain name.
 
    Example Claims Check Response when no matching trademarks are found
    for the domain name example1.tld and matching trademarks are found
-   for the domain name example2.tld.
+   for the domain name example2.tld for the "claims1" launch phase.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -854,12 +912,66 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
        <resData>
         <launch:chkData
          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims</launch:phase>
+         <launch:phase>claims1</launch:phase>
          <launch:cd>
            <launch:name exists="0">example1.tld</launch:name>
          </launch:cd>
          <launch:cd>
            <launch:name exists="1">example2.tld</launch:name>
+           <launch:claimKey>abc123</launch:claimKey>
+         </launch:cd>
+        </launch:chkData>
+       </resData>
+       <trID>
+        <clTRID>ABC-12345</clTRID>
+        <svTRID>54322-XYZ</svTRID>
+       </trID>
+     </response>
+   </epp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 17]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   Example Claims Check Response when no matching trademarks are found
+   for the domain name example3.tld and matching trademarks are found
+   for the domain name example4.tld for the "claims2" launch phase.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+     <response>
+       <result code="1000">
+        <msg>Command completed successfully</msg>
+       </result>
+       <resData>
+        <launch:chkData
+         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+         <launch:phase>claims2</launch:phase>
+         <launch:cd>
+           <launch:name exists="0">example3.tld</launch:name>
+         </launch:cd>
+         <launch:cd>
+           <launch:name exists="1">example4.tld</launch:name>
            <launch:claimKey>abc123</launch:claimKey>
          </launch:cd>
         </launch:chkData>
@@ -877,84 +989,35 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    command and response to be used in conjunction with the EPP domain
    name mapping [RFC5731].
 
-   There are two forms of the extension to the EPP <info> command that
-   are dependent on the supported launch phases (Section 2.2) as defined
-   below:
-
-   sunrise  The EPP <info> command with the "sunrise" phase is used to
-      retrieve information for a specific "sunrise" application based on
-      an Application Identifier (Section 2.1).  This form of the EPP
-      <info> extension is referred to as the Sunrise Info Form and is
-      defined in the Sunrise Info Form (Section 3.2.1) section.
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 16]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-   landrush  The EPP <info> command with the "landrush" phase is
-      undefined but the form supported is up to server policy.
-   claims  The EPP <info> command with the "claims" phase is used to
-      retrieve the trademark claims information associated with a non-
-      existing domain name that is referred to as the Claims Info
-      Command.  The response to the Claims Info Command does not extend
-      the Domain Info Response as defined in EPP domain name mapping
-      [RFC5731].  This form of the EPP <info> extension is referred to
-      as the Claims Info Form and defined in the Claims Info Form
-      (Section 3.2.2) section.
-   open  The EPP <info> command with the "open" phase is undefined but
-      the form supported is up to server policy.
-   custom  The EPP <info> command with the "custom" phase is undefined
-      but the form supported is up to server policy.
-
-3.2.1.  Sunrise Info Form
-
-   The Sunrise Info Form of the extension to the EPP domain name mapping
-   [RFC5731] gets information on an application created with the
-   <launch:create> using the Application Identifier (Section 2.1)
-   returned in the <launch:creData> element of the Create Response
-   (Section 3.3).  A <launch:info> element is sent along with the
+   The EPP <info> command is used to retrieve information for a launch
+   phase registration or application.  The Application Identifier
+   (Section 2.1) returned in the <launch:creData> element of the Create
+   Response (Section 3.3) is used for retrieving information for a
+   launch application.  A <launch:info> element is sent along with the
    regular <info> domain command.  The <launch:info> element contains
    the following child elements:
 
-   <launch:phase>  The phase during which the application was submitted
-       or is associated with.  Server policy defines what phases that
-       are supported for the Sunrise Info Form.
-   <launch:applicationID>  the application identifier of the
+
+
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 18]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   <launch:phase>  The phase during which the application or
+       registration was submitted or is associated with.  Server policy
+       defines the phases that are supported.
+   <launch:applicationID>  OPTIONAL application identifier of the launch
        application.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 17]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-   Example <info> domain command with the Sunrise Info Form <launch:
-   info> extension.
+   Example <info> domain command with the <launch:info> extension to
+   retrieve information for the sunrise application for example.tld and
+   application identifier "abc123".
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -976,26 +1039,6 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
      </command>
    </epp>
 
-   If the query was successful, the server replies with an <launch:
-   infData> element along with the regular EPP <resData>.  The <launch:
-   infData> contains the following child elements:
-
-   <launch:phase>  the phase during which the application was submitted
-       or is associated with.
-   <launch:applicationID>  the application identifier of the returned
-       application.
-   <launch:status>  status of the application using one of the supported
-       status values (Section 2.3).
-   <launch:codeMark> or <launch:signedMark>
-       <launch:codeMark>  zero or more <launch:codeMark> elements.  The
-           <launch:codeMark> child elements are defined in the <launch:
-           codeMark> element (Section 2.4.1) section.
-       <launch:signedMark>  zero or more <launch:signedMark> elements.
-           The <launch:signedMark> child elements are defined in the
-           <launch:signedMark> element (Section 2.7.1) section.
-
-   Example <info> domain response using the Sunrise Info Form <launch:
-   infData> extension with multiple codes.
 
 
 
@@ -1004,293 +1047,26 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 18]
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 19]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-      <response>
-        <result code="1000">
-          <msg>Command completed successfully</msg>
-        </result>
-        <resData>
-          <domain:infData
-           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-            <domain:name>example.tld</domain:name>
-            <domain:roid>EXAMPLE1-REP</domain:roid>
-            <domain:status s="pendingCreate"/>
-            <domain:registrant>jd1234</domain:registrant>
-            <domain:contact type="admin">sh8013</domain:contact>
-            <domain:contact type="tech">sh8013</domain:contact>
-            <domain:clID>ClientX</domain:clID>
-            <domain:crID>ClientY</domain:crID>
-            <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
-            <domain:authInfo>
-              <domain:pw>2fooBAR</domain:pw>
-            </domain:authInfo>
-          </domain:infData>
-        </resData>
-        <extension>
-          <launch:infData
-           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-            <launch:phase>sunrise</launch:phase>
-             <launch:applicationID>abc123</launch:applicationID>
-             <launch:status s="pending"/>
-            <launch:codeMark>
-               <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-            </launch:codeMark>
-            <launch:codeMark>
-               <launch:code>49FD46E6C4B45C55D4AD</launch:code>
-            </launch:codeMark>
-            <launch:codeMark>
-               <launch:code>49FD46E6C4B45C55D4AE</launch:code>
-            </launch:codeMark>
-          </launch:infData>
-        </extension>
-        <trID>
-          <clTRID>ABC-12345</clTRID>
-          <svTRID>54322-XYZ</svTRID>
-        </trID>
-      </response>
-    </epp>
-
-   Example <info> domain response using the Sunrise Info Form <launch:
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 19]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-   infData> extension with code and mark information.
-
- <?xml version="1.0" encoding="UTF-8" standalone="no"?>
- <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-    <response>
-      <result code="1000">
-        <msg>Command completed successfully</msg>
-      </result>
-      <resData>
-        <domain:infData
-         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-          <domain:name>exampleone.tld</domain:name>
-          <domain:roid>EXAMPLE1-REP</domain:roid>
-          <domain:status s="pendingCreate"/>
-          <domain:registrant>jd1234</domain:registrant>
-          <domain:contact type="admin">sh8013</domain:contact>
-          <domain:contact type="tech">sh8013</domain:contact>
-          <domain:clID>ClientX</domain:clID>
-          <domain:crID>ClientY</domain:crID>
-          <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
-          <domain:authInfo>
-            <domain:pw>2fooBAR</domain:pw>
-          </domain:authInfo>
-        </domain:infData>
-      </resData>
-      <extension>
-        <launch:infData
-         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-          <launch:phase>sunrise</launch:phase>
-           <launch:applicationID>abc123</launch:applicationID>
-           <launch:status s="rejected" name="rejectedAuction" lang="en">
-             Application rejected due to result of auction.
-           </launch:status>
-           <launch:codeMark>
-             <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-             <launch:mark>
-               <launch:name>Example One</launch:name>
-               <launch:label>example-one</launch:label>
-               <launch:label>exampleone</launch:label>
-               <launch:issuer>IP Clearinghouse</launch:issuer>
-               <launch:number>GE 3933232</launch:number>
-               <launch:type>REG-TM-WORD</launch:type>
-               <launch:entitlement>owner</launch:entitlement>
-               <launch:regDate>2011-09-09</launch:regDate>
-               <launch:exDate>2013-09-09</launch:exDate>
-               <launch:country>AU</launch:country>
-               <launch:region>VIC</launch:region>
-               <launch:owner>
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 20]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-                 <launch:org>Example Inc.</launch:org>
-               </launch:owner>
-               <launch:contact>
-                 <launch:name>John Doe</launch:name>
-                 <launch:org>Example Inc.</launch:org>
-                 <launch:addr>
-                   <launch:street>123 Example Dr.</launch:street>
-                   <launch:street>Suite 100</launch:street>
-                   <launch:city>Reston</launch:city>
-                   <launch:sp>VA</launch:sp>
-                   <launch:pc>20190</launch:pc>
-                   <launch:cc>US</launch:cc>
-                 </launch:addr>
-                 <launch:voice x="1234">+1.7035555555</launch:voice>
-                 <launch:fax>+1.7035555556</launch:fax>
-                 <launch:email>jdoe@example.tld</launch:email>
-               </launch:contact>
-             </launch:mark>
-           </launch:codeMark>
-        </launch:infData>
-      </extension>
-      <trID>
-        <clTRID>ABC-12345</clTRID>
-        <svTRID>54322-XYZ</svTRID>
-      </trID>
-    </response>
-  </epp>
-
-   Example <info> domain response using the Sunrise Info Form <launch:
-   infData> extension signed mark information.
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-   <response>
-     <result code="1000">
-       <msg>Command completed successfully</msg>
-     </result>
-     <resData>
-       <domain:infData
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>exampleone.tld</domain:name>
-         <domain:roid>EXAMPLE1-REP</domain:roid>
-         <domain:status s="pendingCreate"/>
-         <domain:registrant>jd1234</domain:registrant>
-         <domain:contact type="admin">sh8013</domain:contact>
-         <domain:contact type="tech">sh8013</domain:contact>
-         <domain:clID>ClientX</domain:clID>
-         <domain:crID>ClientY</domain:crID>
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 21]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-         <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
-         <domain:authInfo>
-           <domain:pw>2fooBAR</domain:pw>
-         </domain:authInfo>
-       </domain:infData>
-     </resData>
-     <extension>
-       <launch:infData
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>sunrise</launch:phase>
-          <launch:applicationID>abc123</launch:applicationID>
-          <launch:status s="pending"/>
-          <launch:signedMark>
-            <launch:serial>123456</launch:serial>
-            <launch:zone>newtld</launch:zone>
-            <launch:exDate>2012-08-16T09:00:00.0Z</launch:exDate>
-            <launch:mark>
-              <launch:name>Example One</launch:name>
-              <launch:label>example-one</launch:label>
-              <launch:label>exampleone</launch:label>
-              <launch:issuer>IP Clearinghouse</launch:issuer>
-              <launch:number>GE 3933232</launch:number>
-              <launch:type>REG-TM-WORD</launch:type>
-              <launch:entitlement>owner</launch:entitlement>
-              <launch:regDate>2011-09-09</launch:regDate>
-              <launch:exDate>2013-09-09</launch:exDate>
-              <launch:country>AU</launch:country>
-              <launch:region>VIC</launch:region>
-              <launch:owner>
-                <launch:org>Example Inc.</launch:org>
-              </launch:owner>
-              <launch:contact>
-                <launch:name>John Doe</launch:name>
-                <launch:org>Example Inc.</launch:org>
-                <launch:addr>
-                  <launch:street>123 Example Dr.</launch:street>
-                  <launch:street>Suite 100</launch:street>
-                  <launch:city>Reston</launch:city>
-                  <launch:sp>VA</launch:sp>
-                  <launch:pc>20190</launch:pc>
-                  <launch:cc>US</launch:cc>
-                </launch:addr>
-                <launch:voice x="1234">+1.7035555555</launch:voice>
-                <launch:fax>+1.7035555556</launch:fax>
-                <launch:email>jdoe@example.tld</launch:email>
-              </launch:contact>
-            </launch:mark>
-            <Signature xmlns=
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 22]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-              "http://www.w3.org/2000/09/xmldsig#">
-              <SignedInfo>
-                <CanonicalizationMethod
-                  Algorithm=
-                  "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-                 <SignatureMethod
-               Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
-                <Reference URI="#pointer(..)">
-                  <Transforms>
-                    <Transform
-                      Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                  </Transforms>
-                  <DigestMethod
-                    Algorithm=
-                "http://www.w3.org/2000/09/xmldsig#sha1"/>
-                <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue>
-                </Reference>
-              </SignedInfo>
-              <SignatureValue>
-            cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-              </SignatureValue>
-            </Signature>
-          </launch:signedMark>
-       </launch:infData>
-     </extension>
-     <trID>
-       <clTRID>ABC-12345</clTRID>
-       <svTRID>54322-XYZ</svTRID>
-     </trID>
-   </response>
- </epp>
-
-3.2.2.  Claims Info Form
-
-   The Claims Info Form of the extension to the EPP domain name mapping
-   [RFC5731] gets trademark claims information for a non-existing domain
-   name that is referred to as a Claims Info Command.  The <launch:info>
-   element contains the following child elements:
-
-   <launch:phase>  The phase with the value of "claims" to indicate that
-       this is a Claims Info Command.
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 23]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-   Example Claims Info Command using the <info> domain command and the
-   Claims Info Form <launch:info> extension.
+   Example <info> domain command with the <launch:info> extension to
+   retrieve information for the sunrise registration for example.tld.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1304,7 +1080,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
       <extension>
        <launch:info
         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims</launch:phase>
+         <launch:phase>sunrise</launch:phase>
        </launch:info>
       </extension>
       <clTRID>ABC-12345</clTRID>
@@ -1312,165 +1088,103 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    </epp>
 
    If the query was successful, the server replies with an <launch:
-   infData> element containing the trademark claims information expected
-   to be used by the client to generate the claims notice.  The <launch:
-   infData> has the following child elements:
+   infData> element along with the regular EPP <resData>.  The <launch:
+   infData> contains the following child elements:
 
-   <launch:phase>  the phase with a value of "claims".
-   <launch:notice>  The information used for the trademark claims
-       notice.  The <launch:notice> element has the following child
-       elements:
+   <launch:phase>  the phase during which the application was submitted
+       or is associated with that matches the associated <info> command
+       <launch:phase>.
+   <launch:applicationID>  OPTIONAL application identifier of the launch
+       application.
+   <launch:status>  OPTIONAL status of the launch application using one
+       of the supported status values (Section 2.3).
+   <mark:mark>  zero or more <mark:mark> elements.  The <mark:mark>
+       child elements are defined in the <mark:mark> element
+       (Section 2.5) section.
 
-       <launch:name>  The domain name that the claim notice information
-           is associated with.
-       <launch:none>  OPTIONAL element included if there are no
-           trademark claims associated with the <launch:name>
-       <launch:noticeID>  OPTIONAL server generated identifier for the
-           claims notice that is passed in the <launch:create> extension
-           of the Create Command (Section 3.3).  This MUST be included
-           if there is at least one trademark claim associated with the
-           <launch:notice> <launch:name> element.
-       <launch:mark>  Zero or more <launch:mark> elements containing the
-           trademark information as defined in the Mark (Section 2.5)
-           section.
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 24]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-   Example Claims Info Response when no matching trademark claims are
-   found for the domain name example.tld.
+   Example <info> domain response using the <launch:infData> extension
+   with the mark information.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <response>
        <result code="1000">
-        <msg>Command completed successfully</msg>
+         <msg>Command completed successfully</msg>
        </result>
        <resData>
-        <launch:infData
-         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims</launch:phase>
-         <launch:notice>
-           <launch:name>example.tld</launch:name>
-           <launch:none/>
-         </launch:notice>
-        </launch:infData>
-       </resData>
-       <trID>
-        <clTRID>ABC-12345</clTRID>
-        <svTRID>54322-XYZ</svTRID>
-       </trID>
-     </response>
-   </epp>
-
-   Example Claims Info Response when two matching trademark claims are
-   found for the domain name exampleone.tld.
-
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1000">
-        <msg>Command completed successfully</msg>
-       </result>
-       <resData>
-        <launch:infData
-         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims</launch:phase>
-         <launch:notice>
-           <launch:name>exampleone.tld</launch:name>
-               <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-           <launch:mark>
-             <launch:name>Example One</launch:name>
-             <launch:label>example-one</launch:label>
-             <launch:label>exampleone</launch:label>
-             <launch:issuer>IP Clearinghouse</launch:issuer>
-             <launch:number>GE 3933232</launch:number>
+         <domain:infData
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 25]
+Tan, et al.               Expires June 4, 2013                 [Page 20]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-             <launch:type>REG-TM-WORD</launch:type>
-             <launch:entitlement>owner</launch:entitlement>
-             <launch:regDate>2011-09-09</launch:regDate>
-             <launch:exDate>2013-09-09</launch:exDate>
-             <launch:country>AU</launch:country>
-             <launch:region>VIC</launch:region>
-             <launch:owner>
-               <launch:org>Example Inc.</launch:org>
-             </launch:owner>
-             <launch:contact>
-               <launch:name>John Doe</launch:name>
-               <launch:org>Example Inc.</launch:org>
-               <launch:addr>
-                 <launch:street>123 Example Dr.</launch:street>
-                 <launch:street>Suite 100</launch:street>
-                 <launch:city>Reston</launch:city>
-                 <launch:sp>VA</launch:sp>
-                 <launch:pc>20190</launch:pc>
-                 <launch:cc>US</launch:cc>
-               </launch:addr>
-               <launch:voice x="1234">+1.7035555555</launch:voice>
-               <launch:fax>+1.7035555556</launch:fax>
-               <launch:email>jdoe@example.tld</launch:email>
-             </launch:contact>
-           </launch:mark>
-           <launch:mark>
-             <launch:name>Example Two</launch:name>
-             <launch:label>example-two</launch:label>
-             <launch:label>exampletwo</launch:label>
-             <launch:issuer>IP Clearinghouse</launch:issuer>
-             <launch:number>GE 3933233</launch:number>
-             <launch:type>REG-TM-WORD</launch:type>
-             <launch:entitlement>owner</launch:entitlement>
-             <launch:regDate>2011-09-09</launch:regDate>
-             <launch:exDate>2013-09-09</launch:exDate>
-             <launch:country>AU</launch:country>
-             <launch:region>VIC</launch:region>
-             <launch:owner>
-               <launch:org>Example Inc.</launch:org>
-             </launch:owner>
-             <launch:contact>
-               <launch:name>John Doe</launch:name>
-               <launch:org>Example Inc.</launch:org>
-               <launch:addr>
-                 <launch:street>123 Example Dr.</launch:street>
-                 <launch:street>Suite 100</launch:street>
-                 <launch:city>Reston</launch:city>
-                 <launch:sp>VA</launch:sp>
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 26]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-                 <launch:pc>20190</launch:pc>
-                 <launch:cc>US</launch:cc>
-               </launch:addr>
-               <launch:voice x="1234">+1.7035555555</launch:voice>
-               <launch:fax>+1.7035555556</launch:fax>
-               <launch:email>jdoe@example.tld</launch:email>
-             </launch:contact>
-           </launch:mark>
-         </launch:notice>
-        </launch:infData>
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+           <domain:name>example.tld</domain:name>
+           <domain:roid>EXAMPLE1-REP</domain:roid>
+           <domain:status s="pendingCreate"/>
+           <domain:registrant>jd1234</domain:registrant>
+           <domain:contact type="admin">sh8013</domain:contact>
+           <domain:contact type="tech">sh8013</domain:contact>
+           <domain:clID>ClientX</domain:clID>
+           <domain:crID>ClientY</domain:crID>
+           <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
+           <domain:authInfo>
+             <domain:pw>2fooBAR</domain:pw>
+           </domain:authInfo>
+         </domain:infData>
        </resData>
+       <extension>
+         <launch:infData
+          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+           <launch:phase>sunrise</launch:phase>
+             <launch:applicationID>abc123</launch:applicationID>
+             <launch:status s="pending"/>
+             <mark:mark
+               xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+               <mark:name>Hello</mark:name>
+               <mark:issuer>IP Clearinghouse</mark:issuer>
+               <mark:number>GE 3933232</mark:number>
+               <mark:type>REG-TM-WORD</mark:type>
+               <mark:entitlement>owner</mark:entitlement>
+               <mark:regDate>2011-09-09</mark:regDate>
+               <mark:exDate>2013-09-09</mark:exDate>
+               <mark:country>AU</mark:country>
+               <mark:region>VIC</mark:region>
+               <mark:owner>
+                 <mark:org>Example Inc.</mark:org>
+               </mark:owner>
+               <mark:contact>
+                 <mark:name>John Doe</mark:name>
+                 <mark:org>Example Inc.</mark:org>
+                 <mark:addr>
+                   <mark:street>123 Example Dr.</mark:street>
+                   <mark:street>Suite 100</mark:street>
+                   <mark:city>Reston</mark:city>
+                   <mark:sp>VA</mark:sp>
+                   <mark:pc>20190</mark:pc>
+                   <mark:cc>US</mark:cc>
+                 </mark:addr>
+                 <mark:voice x="1234">+1.7035555555</mark:voice>
+                 <mark:fax>+1.7035555556</mark:fax>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 21]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+                 <mark:email>jdoe@example.tld</mark:email>
+               </mark:contact>
+            </mark:mark>
+         </launch:infData>
+       </extension>
        <trID>
-        <clTRID>ABC-12345</clTRID>
-        <svTRID>54322-XYZ</svTRID>
+         <clTRID>ABC-12345</clTRID>
+         <svTRID>54322-XYZ</svTRID>
        </trID>
      </response>
    </epp>
@@ -1481,104 +1195,76 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    are dependent on the supported launch phases (Section 2.2) as defined
    below:
 
-   sunrise  The EPP <create> command with the "sunrise" phase is used to
-      submit an application with trademark information that can be
-      verified by the server with the <domain:name> value.  The Sunrise
-      Create Form (Section 3.3.1) is used for the "sunrise" phase.
-      Optionally, the server can support multiple overlapping
-      applications that are chosen asynchronously with a server
-      generated Application Identifier (Section 2.1) for later
+   sunrise  The EPP <create> command with the "sunrise" launch phase is
+      used to submit an registration with trademark information that can
+      be verified by the server with the <domain:name> value.  The
+      Sunrise Create Form (Section 3.3.1) is used for the "sunrise"
+      launch phase.  Optionally, the server can support multiple
+      overlapping applications that are chosen asynchronously with a
+      server generated Application Identifier (Section 2.1) for later
       reference.
-   landrush  The EPP <create> command with the "landrush" phase is
+   landrush  The EPP <create> command with the "landrush" launch phase
+      is undefined but the form supported is up to server policy.
+   claims1  The EPP <create> command with the "claims1" launch phase is
+      used to pass the information associated with the presentation and
+      acceptance of the "claims1" claims notice.  The Claims Create Form
+      (Section 3.3.2) is used for the "claims1" launch phase.
+   claims2  The EPP <create> command with the "claims2" launch phase is
+      used to pass the information associated with the presentation of
+      the "claims1" claims notice.  The Claims Create Form
+      (Section 3.3.2) is used for the "claims2" launch phase.
+   open  The EPP <create> command with the "open" launch phase is
       undefined but the form supported is up to server policy.
-   claims  The EPP <create> command with the "claims" phase is used to
-      pass the information that can be used to validate that the claims
-      notice information was retrieved via the Claims Info Command and
-      was accepted by the registrant.  The Claims Create Form
-      (Section 3.3.2) is used for the "claims" phase.
-   open  The EPP <create> command with the "open" phase is undefined but
-      the form supported is up to server policy.
-   custom  The EPP <create> command with the "custom" phase is undefined
-      but the form supported is up to server policy.
+   custom  The EPP <create> command with the "custom" launch phase is
+      undefined but the form supported is up to server policy.
 
 3.3.1.  Sunrise Create Form
 
    The Sunrise Create Form of the extension to the EPP domain name
    mapping [RFC5731] includes the verifiable trademark information that
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 27]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
    the server uses to match against the domain name to authorize the
-   domain create.  A server MUST support one of four models in Claim
-   Validation Models (Section 2.4) for the verifiable trademark
-   information passed by the client.
+   domain create.  A server MUST support one of three models in Claim
+   Validation Models (Section 2.4) to verify the trademark information
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 22]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   passed by the client.
 
    A <launch:create> element is sent along with the regular <create>
    domain command.  The <launch:create> element contains the following
    child elements:
 
-   <launch:phase>  The phase the application is associated with.
-   <launch:codeMark> or <launch:signedMark>
+   <launch:phase>  The launch phase for the create like the "sunrise"
+       launch phase.
+   <launch:codeMark> or <smd:signedMark> or <smd:encodedSignedMark>
        <launch:codeMark>  zero or more <launch:codeMark> elements.  The
            <launch:codeMark> child elements are defined in the <launch:
            codeMark> element (Section 2.4.1) section.
-       <launch:signedMark>  zero or more <launch:signedMark> elements.
-           The <launch:signedMark> child elements are defined in the
-           <launch:signedMark> element (Section 2.7.1) section.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 28]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
+       <smd:signedMark>  zero or more <smd:signedMark> elements.  The
+           <smd:signedMark> child elements are defined in the <smd:
+           signedMark> element (Section 2.7.1) section.
+       <smd:encodedSignedMark>  zero or more <smd:encodedSignedMark>
+           elements.  The <smd:encodedSignedMark> child elements are
+           defined in the <smd:encodedSignedMark> element
+           (Section 2.7.2) section.
 
    Following is an example <create> domain command using the <launch:
-   create> extension with multiple sunrise codes.
+   create> extension with mark information.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
        <create>
          <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+          xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+          domain-1.0.xsd">
+           <domain:name>exampleone.tld</domain:name>
            <domain:registrant>jd1234</domain:registrant>
            <domain:contact type="admin">sh8013</domain:contact>
            <domain:contact type="tech">sh8013</domain:contact>
@@ -1590,16 +1276,47 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
        <extension>
          <launch:create
           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-           <launch:codeMark>
-               <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-           </launch:codeMark>
-           <launch:codeMark>
-               <launch:code>49FD46E6C4B45C55D4AD</launch:code>
-           </launch:codeMark>
-           <launch:codeMark>
-               <launch:code>49FD46E6C4B45C55D4AE</launch:code>
-           </launch:codeMark>
+             <launch:phase>sunrise</launch:phase>
+           <mark:mark
+             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+             <mark:name>Example One</mark:name>
+             <mark:label>example-one</mark:label>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 23]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+             <mark:label>exampleone</mark:label>
+             <mark:issuer>IP Clearinghouse</mark:issuer>
+             <mark:number>GE 3933232</mark:number>
+             <mark:type>REG-TM-WORD</mark:type>
+             <mark:entitlement>owner</mark:entitlement>
+             <mark:regDate>2011-09-09</mark:regDate>
+             <mark:exDate>2013-09-09</mark:exDate>
+             <mark:country>AU</mark:country>
+             <mark:region>VIC</mark:region>
+             <mark:owner>
+               <mark:org>Example Inc.</mark:org>
+             </mark:owner>
+             <mark:contact>
+               <mark:name>John Doe</mark:name>
+               <mark:org>Example Inc.</mark:org>
+               <mark:addr>
+                 <mark:street>123 Example Dr.</mark:street>
+                 <mark:street>Suite 100</mark:street>
+                 <mark:city>Reston</mark:city>
+                 <mark:sp>VA</mark:sp>
+                 <mark:pc>20190</mark:pc>
+                 <mark:cc>US</mark:cc>
+               </mark:addr>
+               <mark:voice x="1234">+1.7035555555</mark:voice>
+               <mark:fax>+1.7035555556</mark:fax>
+               <mark:email>jdoe@example.tld</mark:email>
+             </mark:contact>
+           </mark:mark>
          </launch:create>
        </extension>
        <clTRID>ABC-12345</clTRID>
@@ -1614,17 +1331,87 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
      <command>
        <create>
          <domain:create
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+          xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+          domain-1.0.xsd">
+           <domain:name>example.tld</domain:name>
+           <domain:registrant>jd1234</domain:registrant>
+           <domain:contact type="admin">sh8013</domain:contact>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 24]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+           <domain:contact type="tech">sh8013</domain:contact>
+           <domain:authInfo>
+             <domain:pw>2fooBAR</domain:pw>
+           </domain:authInfo>
+         </domain:create>
+       </create>
+       <extension>
+         <launch:create
+          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+           <launch:phase name="test">custom</launch:phase>
+           <launch:codeMark>
+           <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+           <mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+             <mark:name>Hello</mark:name>
+             <mark:issuer>IP Clearinghouse</mark:issuer>
+             <mark:number>GE 3933232</mark:number>
+             <mark:type>REG-TM-WORD</mark:type>
+             <mark:entitlement>owner</mark:entitlement>
+             <mark:regDate>2011-09-09</mark:regDate>
+             <mark:exDate>2013-09-09</mark:exDate>
+             <mark:country>AU</mark:country>
+             <mark:region>VIC</mark:region>
+             <mark:owner>
+               <mark:org>Example Inc.</mark:org>
+             </mark:owner>
+             <mark:contact>
+               <mark:name>John Doe</mark:name>
+               <mark:org>Example Inc.</mark:org>
+               <mark:addr>
+                 <mark:street>123 Example Dr.</mark:street>
+                 <mark:street>Suite 100</mark:street>
+                 <mark:city>Reston</mark:city>
+                 <mark:sp>VA</mark:sp>
+                 <mark:pc>20190</mark:pc>
+                 <mark:cc>US</mark:cc>
+               </mark:addr>
+               <mark:voice x="1234">+1.7035555555</mark:voice>
+               <mark:fax>+1.7035555556</mark:fax>
+               <mark:email>jdoe@example.tld</mark:email>
+             </mark:contact>
+           </mark:mark>
+         </launch:codeMark>
+         </launch:create>
+       </extension>
+       <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 25]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   Following is an example <create> domain command using the <launch:
+   create> extension with signed mark information.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+     <command>
+       <create>
+         <domain:create
           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
            <domain:name>exampleone.tld</domain:name>
            <domain:registrant>jd1234</domain:registrant>
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 29]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
            <domain:contact type="admin">sh8013</domain:contact>
            <domain:contact type="tech">sh8013</domain:contact>
            <domain:authInfo>
@@ -1635,148 +1422,169 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
        <extension>
          <launch:create
           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-             <launch:phase>sunrise</launch:phase>
-             <launch:codeMark>
-               <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-               <launch:mark>
-                 <launch:name>Example One</launch:name>
-                 <launch:label>example-one</launch:label>
-                 <launch:label>exampleone</launch:label>
-                 <launch:issuer>IP Clearinghouse</launch:issuer>
-                 <launch:number>GE 3933232</launch:number>
-                 <launch:type>REG-TM-WORD</launch:type>
-                 <launch:entitlement>owner</launch:entitlement>
-                 <launch:regDate>2011-09-09</launch:regDate>
-                 <launch:exDate>2013-09-09</launch:exDate>
-                 <launch:country>AU</launch:country>
-                 <launch:region>VIC</launch:region>
-                 <launch:owner>
-                   <launch:org>Example Inc.</launch:org>
-                 </launch:owner>
-                 <launch:contact>
-                   <launch:name>John Doe</launch:name>
-                   <launch:org>Example Inc.</launch:org>
-                   <launch:addr>
-                     <launch:street>123 Example Dr.</launch:street>
-                     <launch:street>Suite 100</launch:street>
-                     <launch:city>Reston</launch:city>
-                     <launch:sp>VA</launch:sp>
-                     <launch:pc>20190</launch:pc>
-                     <launch:cc>US</launch:cc>
-                   </launch:addr>
-                   <launch:voice x="1234">+1.7035555555</launch:voice>
-                   <launch:fax>+1.7035555556</launch:fax>
-                   <launch:email>jdoe@example.tld</launch:email>
-                 </launch:contact>
-               </launch:mark>
-             </launch:codeMark>
+           <launch:phase>sunrise</launch:phase>
+           <smd:signedMark id="signedMark"
+            xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
+             <smd:serial>123456</smd:serial>
+             <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
+             <mark:mark
+               xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+               <mark:name>Example One</mark:name>
+               <mark:label>example-one</mark:label>
+               <mark:label>exampleone</mark:label>
+               <mark:issuer>IP Clearinghouse</mark:issuer>
+               <mark:number>GE 3933232</mark:number>
+               <mark:type>REG-TM-WORD</mark:type>
+               <mark:entitlement>owner</mark:entitlement>
+               <mark:regDate>2011-09-09</mark:regDate>
+               <mark:exDate>2013-09-09</mark:exDate>
+               <mark:country>AU</mark:country>
+               <mark:region>VIC</mark:region>
+               <mark:owner>
+                 <mark:org>Example Inc.</mark:org>
+               </mark:owner>
+               <mark:contact>
+                 <mark:name>John Doe</mark:name>
+                 <mark:org>Example Inc.</mark:org>
+                 <mark:addr>
+                   <mark:street>123 Example Dr.</mark:street>
+                   <mark:street>Suite 100</mark:street>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 26]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+                   <mark:city>Reston</mark:city>
+                   <mark:sp>VA</mark:sp>
+                   <mark:pc>20190</mark:pc>
+                   <mark:cc>US</mark:cc>
+                 </mark:addr>
+                 <mark:voice x="1234">+1.7035555555</mark:voice>
+                 <mark:fax>+1.7035555556</mark:fax>
+                 <mark:email>jdoe@example.tld</mark:email>
+               </mark:contact>
+             </mark:mark>
+             <dsig:Signature
+             xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+               <dsig:SignedInfo>
+               <dsig:CanonicalizationMethod
+    Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+               <dsig:SignatureMethod
+    Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+               <dsig:Reference URI="#signedMark">
+                   <dsig:Transforms>
+                     <dsig:Transform
+    Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                   </dsig:Transforms>
+                   <dsig:DigestMethod
+    Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                   <dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=
+                   </dsig:DigestValue>
+               </dsig:Reference>
+             </dsig:SignedInfo>
+               <dsig:SignatureValue>
+   Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9a4b8nMOKdec8S3tG2hSx
+   /NZa0RFHvx5zMsH/MjmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZ
+   E2EvffMLBiL4xbCJM48ewRYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhh
+   rhyhPjSi9Uon8FnAJaiBEfHcjG6815IJV/9RT+MTXri7i0s82CqIS4wDGbG
+   pyZAs7/kDY3A3upqSOwTtrFSCFX1F+Craec72lBB/dKJHxmoVkbIO5KQhqI
+   Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
+   </dsig:SignatureValue>
+               </dsig:Signature>
+           </smd:signedMark>
          </launch:create>
        </extension>
        <clTRID>ABC-12345</clTRID>
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 30]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
      </command>
    </epp>
 
    Following is an example <create> domain command using the <launch:
-   create> extension with signed mark information.
+   create> extension with base64 encoded signed mark information.
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <domain:create
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
-        <domain:registrant>jd1234</domain:registrant>
-        <domain:contact type="admin">sh8013</domain:contact>
-        <domain:contact type="tech">sh8013</domain:contact>
-        <domain:authInfo>
-          <domain:pw>2fooBAR</domain:pw>
-        </domain:authInfo>
-      </domain:create>
-    </create>
-    <extension>
-      <launch:create
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-          <launch:phase>sunrise</launch:phase>
-          <launch:signedMark>
-            <launch:serial>123456</launch:serial>
-            <launch:zone>newtld</launch:zone>
-            <launch:label>example-and-example</launch:label>
-            <launch:label>example</launch:label>
-        <launch:mark>
-          <launch:name>Hello</launch:name>
-          <launch:issuer>IP Clearinghouse</launch:issuer>
-          <launch:number>GE 3933232</launch:number>
-          <launch:type>REG-TM-WORD</launch:type>
-          <launch:entitlement>owner</launch:entitlement>
-          <launch:regDate>2011-09-09</launch:regDate>
-          <launch:exDate>2013-09-09</launch:exDate>
-          <launch:country>AU</launch:country>
-          <launch:region>VIC</launch:region>
-          <launch:owner>
-            <launch:org>Example Inc.</launch:org>
-          </launch:owner>
-          <launch:contact>
-            <launch:name>John Doe</launch:name>
-            <launch:org>Example Inc.</launch:org>
-            <launch:addr>
-              <launch:street>123 Example Dr.</launch:street>
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 31]
+Tan, et al.               Expires June 4, 2013                 [Page 27]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-              <launch:street>Suite 100</launch:street>
-              <launch:city>Reston</launch:city>
-              <launch:sp>VA</launch:sp>
-              <launch:pc>20190</launch:pc>
-              <launch:cc>US</launch:cc>
-            </launch:addr>
-            <launch:voice x="1234">+1.7035555555</launch:voice>
-            <launch:fax>+1.7035555556</launch:fax>
-            <launch:email>jdoe@example.tld</launch:email>
-          </launch:contact>
-        </launch:mark>
-            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-              <SignedInfo>
-            <CanonicalizationMethod
-             Algorithm=
-             "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-            <SignatureMethod
-             Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
-            <Reference URI="#pointer(..)">
-              <Transforms>
-                <Transform
-                  Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-              </Transforms>
-              <DigestMethod
-                Algorithm=
-                "http://www.w3.org/2000/09/xmldsig#sha1"/>
-              <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue>
-            </Reference>
-          </SignedInfo>
-          <SignatureValue>
-            cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-          </SignatureValue>
-        </Signature>
-          </launch:signedMark>
-      </launch:create>
-    </extension>
-    <clTRID>ABC-12345</clTRID>
-  </command>
-</epp>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+     <command>
+       <create>
+         <domain:create
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+           <domain:name>exampleone.tld</domain:name>
+           <domain:registrant>jd1234</domain:registrant>
+           <domain:contact type="admin">sh8013</domain:contact>
+           <domain:contact type="tech">sh8013</domain:contact>
+           <domain:authInfo>
+             <domain:pw>2fooBAR</domain:pw>
+           </domain:authInfo>
+         </domain:create>
+       </create>
+       <extension>
+         <launch:create
+          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+           <launch:phase>sunrise</launch:phase>
+           <smd:encodedSignedMark
+            xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+            xsi:schemaLocation="urn:ietf:params:xml:ns:signedMark-1.0
+            signedMark-1.0.xsd">
+   D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnNpZ25
+   lZE1hcmsgeG1sbnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOnNpZ25lZ
+   E1hcmstMS4wIiBpZD0ic2lnbmVkTWFyayI-PHNtZDpzZXJpYWw-MTIzNDU2PC9
+   zbWQ6c2VyaWFsPjxzbWQ6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6NTQuMDg4M
+   Fo8L3NtZDpleERhdGU-PG1hcms6bWFyayB4bWxuczptYXJrPSJ1cm46aWV0Zjp
+   wYXJhbXM6eG1sOm5zOm1hcmstMS4wIj48bWFyazpuYW1lPkV4YW1wbGUgT25lP
+   C9tYXJrOm5hbWU-PG1hcms6bGFiZWw-ZXhhbXBsZS1vbmU8L21hcms6bGFiZWw
+   -PG1hcms6bGFiZWw-ZXhhbXBsZW9uZTwvbWFyazpsYWJlbD48bWFyazppc3N1Z
+   XI-SVAgQ2xlYXJpbmdob3VzZTwvbWFyazppc3N1ZXI-PG1hcms6bnVtYmVyPkd
+   FIDM5MzMyMzI8L21hcms6bnVtYmVyPjxtYXJrOm51bWJlcj5vd25lcjwvbWFya
+   zpudW1iZXI-PG1hcms6cmVnRGF0ZT4yMDEyLTExLTI5VDE4OjE2OjU0LjA3NDZ
+   aPC9tYXJrOnJlZ0RhdGU-PG1hcms6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6N
+   TQuMDc0Nlo8L21hcms6ZXhEYXRlPjxtYXJrOmNvdW50cnk-QVU8L21hcms6Y29
+   1bnRyeT48bWFyazpyZWdpb24-VklDPC9tYXJrOnJlZ2lvbj48L21hcms6bWFya
+   z48ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0cDovL3d3dy53My5vcmc
+   vMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzpDYW5vb
+   mljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmc
+   vVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aENvbW1lbnRzIi8-P
+   GRzaWc6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5
+   vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8-PGRzaWc6UmVmZXJlbmNlI
+   FVSST0iI3NpZ25lZE1hcmsiPjxkc2lnOlRyYW5zZm9ybXM-PGRzaWc6VHJhbnN
+   mb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc
+   2lnI2VudmVsb3BlZC1zaWduYXR1cmUiLz48L2RzaWc6VHJhbnNmb3Jtcz48ZHN
+   pZzpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yM
+   DAwLzA5L3htbGRzaWcjc2hhMSIvPjxkc2lnOkRpZ2VzdFZhbHVlPktIdVFrdFd
+   UMnRYbXg4Y2ZWd2NvZ0JSUm5oRT08L2RzaWc6RGlnZXN0VmFsdWU-PC9kc2lnO
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 28]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   lJlZmVyZW5jZT48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVWYWx
+   1ZT5RdWk2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16Z
+   ENhcWpWcXVvVDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV
+   1MG1NMmt4VURyWkVCc0dpV3FuaHMzQVBxOTJBcVdGZHZnUmV6ZHcycmNVbVg3d
+   GJyeWNGM3ZDMEJmRUg4RHoKb2FIUFRQb24xTUxObzF5bGtYTDA5bWJqTHVhRlJ
+   SS3Z2UCs4djQ1VFJXRmkrbVJ0akJvMGg4blFiNTNtR2lKaU1OekFDaDBtK3pFe
+   Ap2bmxEUmRpdWJFZVVWbG9LV2dMY1BiSkd4QmFWL1gvQjQvRnVRbXEzclcxaXN
+   ZOUlEYzA3U3ZheEZ0a1l4emVra25GQkNCSWNibXFTCnlOckMvOEp4Y2RRSHN0T
+   UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
+   -PC9kc2lnOlNpZ25hdHVyZT48L3NtZDpzaWduZWRNYXJrPg
+           </smd:encodedSignedMark>
+         </launch:create>
+       </extension>
+       <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
 
    If the create was successful, the server MAY reply with the <launch:
    creData> element along with the regular EPP <resData> to indicate the
@@ -1785,18 +1593,37 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    extension is included with the regular EPP <resData>.  The <launch:
    creData> element contains the following child elements:
 
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 32]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
    <launch:phase>  The phase of the application that mirrors the
        <launch:phase> element included in the <launch:create>.
    <launch:applicationID>  the application identifier of the
        application.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 29]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
 
    An example response when multiple overlapping applications are
    supported by the server.
@@ -1832,45 +1659,16 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
    The Claims Create Form of the extension to the EPP domain name
    mapping [RFC5731] includes the information related to the acceptance
-   of the claims notice that is based on the contents of the Claims Info
-   Response defined in the Claims Info Form (Section 3.2.2) section or
-   is based on a signed notice by a trusted third party like the
-   Trademark Clearinghouse (TMCH).
+   of the claims notice for the "claims1" launch phase and the display
+   of the claims notice for the "claims2" launch phase.
 
    A <launch:create> element is sent along with the regular <create>
    domain command.  The <launch:create> element contains the following
    child elements:
 
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 33]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-   <launch:phase>  Must contain the value of "claims" to indicate it is
-       the Claims Create Form
+   <launch:phase>  MUST contain the value of "claims1" or "claim2" to
+       indicate the claims launch phase.
    <launch:notice>
-       <launch:timestamp>  Contains the date and time that the claims
-           notice was accepted.
-       <launch:clientAddr>  Contains the client IP address of the client
-           that accepted the claims notice.
-       <launch:noticeID> or <launch:signedNotice>
-           <launch:noticeID>  Server generated identifier for the claim
-               notice information returned in the <launch:infData>
-               element.  The server MUST validate the noticeID either
-               matches the exact claims information returned in the
-               <launch:infData> or the current claims information
-               associated with the domain name.  The method of
-               validation is up to server policy.  If the launchID does
-               not pass the validation the server MUST return an EPP
-               error result code of 2202.
-           <launch:signedNotice>  Signed claims notice reference
-               information generated by a trusted third party like the
-               Trademark Clearinghouse (TMCH).  The child elements of
-               <signedNotice> are defined in the <launch:signedNotice>
-               element (Section 2.7.2) section.
 
 
 
@@ -1878,36 +1676,23 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 34]
+Tan, et al.               Expires June 4, 2013                 [Page 30]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
+
+       <launch:noticeID>  Unique notice identifier generated by the
+           source of the claims notice information like the Claims
+           Notice Information Service (CNIS).
+       <launch:timestamp>  Contains the date and time that the claims
+           notice was displayed or accepted.
+       <launch:source>  Contains the source information of the client
+           that was displayed or that accepted the claims notice like
+           the client IP address.
 
    Following is an example <create> domain command using the <launch:
-   create> extension with the trademark claims notice reference
-   information and a <launch:noticeID>.
+   create> extension with the <launch:notice> information for the
+   "claims1" claims launch phase.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1927,11 +1712,11 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
        <extension>
          <launch:create
           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>claims</launch:phase>
+           <launch:phase>claims1</launch:phase>
            <launch:notice>
-             <launch:timestamp>2012-06-19T09:00:00.0Z</launch:timestamp>
-             <launch:clientAddr ip="v4">192.0.2.29</launch:clientAddr>
              <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+             <launch:timestamp>2012-06-19T09:00:00.0Z</launch:timestamp>
+             <launch:source>192.0.2.29</launch:source>
            </launch:notice>
          </launch:create>
        </extension>
@@ -1939,82 +1724,17 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
      </command>
    </epp>
 
-   Following is an example <create> domain command using the <launch:
-   create> extension with the signed notice reference information.
-
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <domain:create
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>example.tld</domain:name>
-        <domain:registrant>jd1234</domain:registrant>
-        <domain:contact type="admin">sh8013</domain:contact>
-        <domain:contact type="tech">sh8013</domain:contact>
-        <domain:authInfo>
+   This extension does not define any extension to the response of an
+   <create> domain command for the Claims Create Form.  After processing
+   the command, the server replies with a standard EPP response as
+   defined in the EPP domain mapping.
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 35]
+
+Tan, et al.               Expires June 4, 2013                 [Page 31]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-          <domain:pw>2fooBAR</domain:pw>
-        </domain:authInfo>
-      </domain:create>
-    </create>
-    <extension>
-      <launch:create
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-        <launch:phase>claims</launch:phase>
-        <launch:notice>
-          <launch:timestamp>2012-06-19T09:00:00.0Z</launch:timestamp>
-          <launch:clientAddr ip="v4">192.0.2.29</launch:clientAddr>
-          <launch:signedNotice>
-            <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-            <launch:name>example.tld</launch:name>
-            <launch:crDate>2012-09-07T22:00:00.0Z</launch:crDate>
-            <launch:exDate>2012-09-08T22:00:00.0Z</launch:exDate>
-            <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-            <SignedInfo>
-              <CanonicalizationMethod
-               Algorithm=
-               "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-              <SignatureMethod
-               Algorithm="http://www.w3.org/2000/09/xmldsig#dsa-sha1"/>
-              <Reference URI="#pointer(..)">
-                <Transforms>
-                  <Transform
-                    Algorithm=
-               "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                </Transforms>
-                <DigestMethod
-                  Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                <DigestValue>j6lwx3rvEPO0vKtMup4NbeVu8nk=</DigestValue>
-              </Reference>
-            </SignedInfo>
-            <SignatureValue>
-              cID8yqvR60QYQVhOpBDUmPiIxplV/fM7lj9RKF+fswSjJAklUrgf2w==
-            </SignatureValue>
-            </Signature>
-          </launch:signedNotice>
-        </launch:notice>
-      </launch:create>
-    </extension>
-    <clTRID>ABC-12345</clTRID>
-  </command>
-</epp>
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 36]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 3.4.  EPP <update> Command
@@ -2068,9 +1788,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 37]
+Tan, et al.               Expires June 4, 2013                 [Page 32]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
    Following is an example <update> domain command with the <launch:
@@ -2124,9 +1844,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 38]
+Tan, et al.               Expires June 4, 2013                 [Page 33]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
    An example response that corresponds to the above command.
@@ -2149,7 +1869,7 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    This extension defines additional elements to extend the EPP <delete>
    command to be used in conjunction with the domain name mapping.
 
-   A server that does not support allow multiple applications of a given
+   A server that does not support multiple applications of a given
    domain name with a Application Identifier (Section 2.1) during its
    launch phase operations MUST return an EPP error result code of 2102.
 
@@ -2180,9 +1900,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 39]
+Tan, et al.               Expires June 4, 2013                 [Page 34]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
    Following is an example <delete> domain command with the <launch:
@@ -2236,9 +1956,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 40]
+Tan, et al.               Expires June 4, 2013                 [Page 35]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
    [RFC5731].
@@ -2246,12 +1966,351 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 4.  Formal Syntax
 
-   An EPP object mapping is specified in XML Schema notation.  The
-   formal syntax presented here is a complete schema representation of
-   the object mapping suitable for automated validation of EPP XML
+   Three schemas are presented here.  The first schema is the EPP Launch
+   Phase Mapping schema.  The second schema is a dependent schema for
+   the Signed Mark.  The third schema is a dependent schema for the
+   Mark.
+
+   The formal syntax presented here is a complete schema representation
+   of the object mapping suitable for automated validation of EPP XML
    instances.  The BEGIN and END tags are not part of the schema; they
    are used to note the beginning and ending of the schema for URI
    registration purposes.
+
+4.1.  Launch Schema
+
+   Copyright (c) 2012 IETF Trust and the persons identified as authors
+   of the code.  All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+   o  Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   o  Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+   o  Neither the name of Internet Society, IETF or IETF Trust, nor the
+      names of specific contributors, may be used to endorse or promote
+      products derived from this software without specific prior written
+      permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 36]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   BEGIN
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema
+     targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+     xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+     xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+     xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+     xmlns="http://www.w3.org/2001/XMLSchema"
+     elementFormDefault="qualified">
+
+   <!--
+   Import common element types.
+   -->
+     <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
+             schemaLocation="eppcom-1.0.xsd"/>
+
+     <import namespace="urn:ietf:params:xml:ns:mark-1.0"
+             schemaLocation="mark-1.0.xsd"/>
+
+     <import namespace="urn:ietf:params:xml:ns:signedMark-1.0"
+             schemaLocation="signedMark-1.0.xsd"/>
+
+     <annotation>
+       <documentation>
+         Extensible Provisioning Protocol v1.0
+         domain name extension schema
+         for the launch phase processing.
+       </documentation>
+     </annotation>
+
+     <!--
+     Child elements found in EPP commands.
+     -->
+     <element name="check" type="launch:checkType"/>
+     <element name="info" type="launch:infoType"/>
+     <element name="create" type="launch:createType"/>
+     <element name="update" type="launch:idContainerType"/>
+     <element name="delete" type="launch:idContainerType"/>
+
+     <!--
+     Common container of id (identifier) element
+     -->
+     <complexType name="idContainerType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+         <element name="applicationID" type="token"/>
+       </sequence>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 37]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+     </complexType>
+
+     <!--
+     Definition for application identifier
+     -->
+     <simpleType name="applicationIDType">
+       <restriction base="token"/>
+     </simpleType>
+
+     <!--
+     Definition for launch phase.  Name is an optional attribute
+     used to extend the phase type.  For example, when
+     using the phase type value of &qt;custom&gt;, the name
+     can be used to specify the custom phase.
+     -->
+     <complexType name="phaseType">
+       <simpleContent>
+         <extension base="launch:phaseTypeValue">
+           <attribute name="name" type="token"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+
+     <!--
+     Enumeration of for launch phase values.
+     -->
+     <simpleType name="phaseTypeValue">
+         <restriction base="token">
+           <enumeration value="sunrise"/>
+           <enumeration value="landrush"/>
+           <enumeration value="claims1"/>
+           <enumeration value="claims2"/>
+           <enumeration value="open"/>
+           <enumeration value="custom"/>
+       </restriction>
+     </simpleType>
+
+
+     <!--
+     Definition for the sunrise code
+     -->
+     <simpleType name="codeType">
+       <restriction base="base64Binary">
+         <minLength value="1"/>
+       </restriction>
+     </simpleType>
+
+     <!--
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 38]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+     Definition for the notice identifier
+     -->
+     <simpleType name="noticeIDType">
+       <restriction base="base64Binary">
+         <minLength value="1"/>
+       </restriction>
+     </simpleType>
+
+     <!--
+     Possible status values for sunrise application
+     -->
+       <simpleType name="statusValueType">
+       <restriction base="token">
+           <enumeration value="pending"/>
+           <enumeration value="validated"/>
+           <enumeration value="invalid"/>
+           <enumeration value="pendingAuction"/>
+           <enumeration value="allocated"/>
+           <enumeration value="rejected"/>
+           <enumeration value="custom"/>
+         </restriction>
+       </simpleType>
+
+     <!--
+     Status type definition
+     -->
+     <complexType name="statusType">
+       <simpleContent>
+         <extension base="normalizedString">
+           <attribute name="s" type="launch:statusValueType"
+             use="required"/>
+           <attribute name="lang" type="language"
+             default="en"/>
+           <attribute name="name" type="token"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+
+     <!--
+     codeMark Type that contains an optional code
+     with mark information.
+     -->
+     <complexType name="codeMarkType">
+       <sequence>
+       <element name="code" type="launch:codeType"/>
+       <element ref="mark:mark"/>
+     </sequence>
+     </complexType>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 39]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+     <!--
+     Child elements for the create command
+     -->
+     <complexType name="createType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+         <choice>
+           <element name="codeMark" type="launch:codeMarkType"
+             maxOccurs="unbounded"/>
+         <element ref="mark:mark"
+           maxOccurs="unbounded"/>
+           <element ref="smd:signedMark"
+            maxOccurs="unbounded"/>
+           <element ref="smd:encodedSignedMark"
+            maxOccurs="unbounded"/>
+             <element name="notice"
+             type="launch:createNoticeType"/>
+         </choice>
+       </sequence>
+     </complexType>
+
+     <!--
+     Child elements of the create notice element.
+     -->
+     <complexType name="createNoticeType">
+       <sequence>
+         <element name="noticeID" type="launch:noticeIDType"/>
+         <element name="timestamp" type="dateTime"/>
+         <element name="source" type="token"/>
+       </sequence>
+     </complexType>
+
+
+     <!--
+     Child elements of check (Claims Check Command).
+     -->
+     <complexType name="checkType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+       </sequence>
+     </complexType>
+
+
+     <!--
+     Child elements of info command.
+     -->
+     <complexType name="infoType">
+       <sequence>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 40]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+         <element name="phase" type="launch:phaseType"/>
+         <element name="applicationID"
+           type="launch:applicationIDType"
+           minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+     <!--
+     Child response elements.
+     -->
+     <element name="chkData" type="launch:chkDataType"/>
+     <element name="creData" type="launch:idContainerType"/>
+     <element name="infData" type="launch:infDataType"/>
+
+     <!--
+      <check> response elements.
+      -->
+     <complexType name="chkDataType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+         <element name="cd" type="launch:cdType"
+          maxOccurs="unbounded"/>
+       </sequence>
+     </complexType>
+
+     <complexType name="cdType">
+       <sequence>
+         <element name="name" type="launch:cdNameType"/>
+         <element name="claimKey" type="token"
+          minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+     <complexType name="cdNameType">
+       <simpleContent>
+         <extension base="eppcom:labelType">
+           <attribute name="exists" type="boolean"
+            use="required"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+
+     <!--
+     <info> response elemenets
+     -->
+     <complexType name="infDataType">
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 41]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+        <element name="applicationID"
+         type="launch:applicationIDType"
+         minOccurs="0"/>
+        <element name="status" type="launch:statusType"
+         minOccurs="0"/>
+         <element ref="mark:mark"
+         minOccurs="0" maxOccurs="unbounded"/>
+       </sequence>
+     </complexType>
+
+   </schema>
+   END
+
+4.2.  Signed Mark Schema
 
    Copyright (c) 2012 IETF Trust and the persons identified as authors
    of the code.  All rights reserved.
@@ -2286,447 +2345,152 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    BEGIN
    <?xml version="1.0" encoding="UTF-8"?>
    <schema
-     targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-      xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 41]
+Tan, et al.               Expires June 4, 2013                 [Page 42]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-      xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+     targetNamespace="urn:ietf:params:xml:ns:signedMark-1.0"
+     xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+     xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+     xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
      xmlns="http://www.w3.org/2001/XMLSchema"
      elementFormDefault="qualified">
 
    <!--
    Import common element types.
    -->
-     <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
-             schemaLocation="eppcom-1.0.xsd"/>
-
      <import namespace="http://www.w3.org/2000/09/xmldsig#"
              schemaLocation="xmldig-core-schema.xsd"/>
+
+     <import namespace="urn:ietf:params:xml:ns:mark-1.0"
+             schemaLocation="mark-1.0.xsd"/>
 
 
      <annotation>
        <documentation>
-         Extensible Provisioning Protocol v1.0
-         domain name extension schema
-         for the launch phase processing.
+         Schema for representing a Signed Mark, also referred to
+         as Signed Mark Data (SMD), that includes digitally
+         signed trademark information.
        </documentation>
      </annotation>
 
      <!--
-     Child elements found in EPP commands.
+     <smd:signedMark> element definition
      -->
-     <element name="check" type="launch:checkType"/>
-     <element name="info" type="launch:infoType"/>
-     <element name="create" type="launch:createType"/>
-     <element name="update" type="launch:idContainerType"/>
-     <element name="delete" type="launch:idContainerType"/>
+     <element name="signedMark" type="smd:signedMarkType"/>
 
      <!--
-     Common container of id (identifier) element
+     <smd:encodedSignedMark> element definition
      -->
-     <complexType name="idContainerType">
-       <sequence>
-         <element name="phase" type="launch:phaseType"/>
-         <element name="applicationID" type="token"/>
-       </sequence>
-     </complexType>
+     <element name="encodedSignedMark"
+       type="smd:encodedSignedMarkType"/>
 
      <!--
-     Definition for application identifier
+     <smd:signedMark> child elements
      -->
-     <simpleType name="applicationIDType">
-       <restriction base="token"/>
-     </simpleType>
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 42]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-     <!--
-     Definition for launch phase.  Name is an optional attribute
-     used to extend the phase type.  For example, when
-     using the phase type value of &qt;custom&gt;, the name
-     can be used to specify the custom phase.
-     -->
-     <complexType name="phaseType">
-       <simpleContent>
-         <extension base="launch:phaseTypeValue">
-           <attribute name="name" type="token"/>
-         </extension>
-       </simpleContent>
-     </complexType>
-
-     <!--
-     Enumeration of for launch phase values.
-     -->
-     <simpleType name="phaseTypeValue">
-         <restriction base="token">
-           <enumeration value="sunrise"/>
-           <enumeration value="landrush"/>
-           <enumeration value="claims"/>
-           <enumeration value="open"/>
-           <enumeration value="custom"/>
-       </restriction>
-     </simpleType>
-
-
-     <!--
-     Definition for the sunrise code
-     -->
-     <simpleType name="codeType">
-       <restriction base="base64Binary">
-         <minLength value="1"/>
-       </restriction>
-     </simpleType>
-
-     <!--
-     Definition for the notice identifier
-     -->
-     <simpleType name="noticeIDType">
-       <restriction base="base64Binary">
-         <minLength value="1"/>
-       </restriction>
-     </simpleType>
-
-     <simpleType name="ccType">
-       <restriction base="token">
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 43]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-         <length value="2"/>
-       </restriction>
-     </simpleType>
-
-     <simpleType name="pcType">
-       <restriction base="token">
-         <maxLength value="16"/>
-       </restriction>
-     </simpleType>
-
-
-     <!--
-     Definition of the IP address taken from host-1.0.
-     -->
-      <complexType name="ipAddrType">
-        <simpleContent>
-          <extension base="launch:addrStringType">
-            <attribute name="ip" type="launch:ipType"
-             default="v4"/>
-          </extension>
-        </simpleContent>
-      </complexType>
-
-      <simpleType name="addrStringType">
-        <restriction base="token">
-          <minLength value="3"/>
-          <maxLength value="45"/>
-        </restriction>
-      </simpleType>
-
-      <simpleType name="ipType">
-        <restriction base="token">
-          <enumeration value="v4"/>
-          <enumeration value="v6"/>
-        </restriction>
-      </simpleType>
-
-     <!-- Possible status values for sunrise application -->
-       <simpleType name="statusValueType">
-       <restriction base="token">
-           <enumeration value="pending"/>
-           <enumeration value="validated"/>
-           <enumeration value="invalid"/>
-           <enumeration value="pendingAuction"/>
-           <enumeration value="allocated"/>
-           <enumeration value="rejected"/>
-           <enumeration value="custom"/>
-         </restriction>
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 44]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-       </simpleType>
-
-     <complexType name="statusType">
-       <simpleContent>
-         <extension base="normalizedString">
-           <attribute name="s" type="launch:statusValueType"
-             use="required"/>
-           <attribute name="lang" type="language"
-             default="en"/>
-           <attribute name="name" type="token"/>
-         </extension>
-       </simpleContent>
-     </complexType>
-
-       <complexType name="signedMarkType">
+     <complexType name="signedMarkType">
        <sequence>
          <element name="serial" type="token"/>
-         <element name="zone" type="eppcom:labelType"
+         <element name="zone" type="mark:labelType"
          minOccurs="0" maxOccurs="unbounded"/>
          <element name="exDate" type="dateTime"
          minOccurs="0"/>
-         <element name="mark" type="launch:markType"/>
-         <element ref="ds:Signature"/>
-       </sequence>
-     </complexType>
-
-     <complexType name="codeMarkType">
-       <sequence>
-         <element name="code" type="launch:codeType"
-           minOccurs="0"/>
-         <element name="mark" type="launch:markType"
-           minOccurs="0"/>
-       </sequence>
-     </complexType>
-
-     <!--
-     Child elements of create for both Sunrise and Claims periods
-     -->
-     <complexType name="createType">
-       <sequence>
-         <element name="phase" type="launch:phaseType"/>
-         <choice>
-           <element name="codeMark"
-             type="launch:codeMarkType"
-            maxOccurs="unbounded"/>
-           <element name="signedMark"
-             type="launch:signedMarkType"
-            maxOccurs="unbounded"/>
+         <element ref="mark:mark"/>
+         <element ref="dsig:Signature"/>
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 45]
+Tan, et al.               Expires June 4, 2013                 [Page 43]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-           <element name="notice"
-             type="launch:createNoticeType"/>
-         </choice>
        </sequence>
+       <attribute name="id" type="ID" use="required"/>
      </complexType>
 
      <!--
-     Child elements of the create notice element.
+     <smd:encodedSignedMark> element type
      -->
-     <complexType name="createNoticeType">
-       <sequence>
-         <element name="timestamp" type="dateTime"/>
-         <element name="clientAddr" type="launch:ipAddrType"/>
-         <choice>
-           <element name="noticeID" type="launch:noticeIDType"/>
-            <element name="signedNotice"
-             type="launch:signedNoticeType"/>
-         </choice>
-       </sequence>
-     </complexType>
-
-     <complexType name="signedNoticeType">
-       <sequence>
-         <element name="noticeID" type="launch:noticeIDType"/>
-         <element name="name" type="eppcom:labelType"/>
-         <element name="crDate" type="dateTime"/>
-         <element name="exDate" type="dateTime"
-         minOccurs="0"/>
-         <element ref="ds:Signature"/>
-       </sequence>
-     </complexType>
-
-
-     <!--
-     Child elements of check (Claims Info Command).
-     -->
-     <complexType name="checkType">
-       <sequence>
-         <element name="phase" type="launch:phaseType"/>
-       </sequence>
-     </complexType>
-
-
-     <!--
-     Child elements of info for both Sunrise and Claims periods.
-     -->
-     <complexType name="infoType">
-       <sequence>
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 46]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-         <element name="phase" type="launch:phaseType"/>
-         <element name="applicationID"
-           type="launch:applicationIDType"
-           minOccurs="0"/>
-       </sequence>
-     </complexType>
-
-     <!--
-     Child response elements.
-     -->
-     <element name="chkData" type="launch:chkDataType"/>
-     <element name="creData" type="launch:idContainerType"/>
-     <element name="infData" type="launch:infDataType"/>
-
-   <!--
-   <check> response elements.
-   -->
-     <complexType name="chkDataType">
-       <sequence>
-         <element name="phase" type="launch:phaseType"/>
-         <element name="cd" type="launch:cdType"
-          maxOccurs="unbounded"/>
-       </sequence>
-     </complexType>
-
-     <complexType name="cdType">
-       <sequence>
-         <element name="name" type="launch:cdNameType"/>
-         <element name="claimKey" type="token"
-          minOccurs="0"/>
-       </sequence>
-     </complexType>
-
-     <complexType name="cdNameType">
+     <complexType name="encodedSignedMarkType">
        <simpleContent>
-         <extension base="eppcom:labelType">
-           <attribute name="exists" type="boolean"
-            use="required"/>
+         <extension base="token">
+           <attribute name="encoding" type="token"
+             default="base64"/>
          </extension>
        </simpleContent>
      </complexType>
 
 
-     <complexType name="infDataType">
-       <sequence>
-         <element name="phase" type="launch:phaseType"/>
-         <choice>
-           <sequence>
+   </schema>
+   END
+
+4.3.  Mark Schema
+
+   Copyright (c) 2012 IETF Trust and the persons identified as authors
+   of the code.  All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions
+   are met:
+
+   o  Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+   o  Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+   o  Neither the name of Internet Society, IETF or IETF Trust, nor the
+      names of specific contributors, may be used to endorse or promote
+      products derived from this software without specific prior written
+      permission.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+   OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
 
 
 
-Tan, et al.              Expires March 16, 2013                [Page 47]
+Tan, et al.               Expires June 4, 2013                 [Page 44]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-             <element name="applicationID"
-               type="launch:applicationIDType"/>
-             <element name="status" type="launch:statusType"
-               minOccurs="0"/>
-             <choice>
-                 <element name="codeMark"
-                   type="launch:codeMarkType"
-                   maxOccurs="unbounded"/>
-                <element name="signedMark"
-                   type="launch:signedMarkType"
-                   maxOccurs="unbounded"/>
-             </choice>
-           </sequence>
-           <element name="notice" type="launch:claimsNoticeType"
-             minOccurs="0"/>
-         </choice>
-       </sequence>
-     </complexType>
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+   BEGIN
+   <?xml version="1.0" encoding="UTF-8"?>
+   <schema
+     targetNamespace="urn:ietf:params:xml:ns:mark-1.0"
+     xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+     xmlns="http://www.w3.org/2001/XMLSchema"
+     elementFormDefault="qualified">
+
+     <annotation>
+       <documentation>
+         Schema for representing a Trademark, also referred to
+         as Mark.
+       </documentation>
+     </annotation>
 
      <!--
-     Child elements of the info (inf) notice response element.
+     <mark:mark> element definition
      -->
-     <complexType name="claimsNoticeType">
-       <sequence>
-         <element name="name" type="eppcom:labelType"/>
-         <choice>
-           <element name="none"/>
-           <sequence>
-             <element name="noticeID"
-               type="launch:noticeIDType"/>
-             <element name="mark"
-               type="launch:markType"
-               maxOccurs="unbounded"/>
-           </sequence>
-         </choice>
-       </sequence>
-     </complexType>
-
-     <complexType name="e164Type">
-       <simpleContent>
-         <extension base="launch:e164StringType">
-           <attribute name="x" type="token"/>
-         </extension>
-       </simpleContent>
-     </complexType>
-
-     <simpleType name="e164StringType">
-       <restriction base="token">
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 48]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
-         <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
-         <maxLength value="17"/>
-       </restriction>
-     </simpleType>
-
-     <complexType name="addrType">
-       <sequence>
-         <element name="street" type="token"
-          minOccurs="0" maxOccurs="3"/>
-         <element name="city" type="token"/>
-         <element name="sp" type="token"
-          minOccurs="0"/>
-         <element name="pc" type="launch:pcType"
-          minOccurs="0"/>
-         <element name="cc" type="launch:ccType"/>
-       </sequence>
-     </complexType>
-
-     <complexType name="contactType">
-       <sequence>
-         <element name="name" type="token"
-           minOccurs="0"/>
-         <element name="org" type="token"
-           minOccurs="0"/>
-         <element name="addr" type="launch:addrType"
-           minOccurs="0"/>
-         <element name="voice" type="launch:e164Type"
-           minOccurs="0"/>
-         <element name="fax" type="launch:e164Type"
-           minOccurs="0"/>
-         <element name="email" type="eppcom:minTokenType"
-           minOccurs="0"/>
-       </sequence>
-     </complexType>
-
+     <element name="mark" type="mark:markType"/>
 
      <!--
-     Child elements of mark element.
+     <mark:mark> child elements
      -->
      <complexType name="markType">
          <sequence>
@@ -2734,17 +2498,9 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
              minOccurs="0"/>
            <element name="name" type="token"
               minOccurs="0"/>
-           <element name="label" type="eppcom:labelType"
+           <element name="label" type="mark:labelType"
               minOccurs="0" maxOccurs="unbounded"/>
            <element name="issuer" type="token"
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 49]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
-
-
              minOccurs="0"/>
            <element name="number" type="token"
              minOccurs="0"/>
@@ -2756,14 +2512,136 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
              minOccurs="0"/>
            <element name="exDate" type="date"
              minOccurs="0"/>
-           <element name="country" type="launch:ccType"
+           <element name="country" type="mark:ccType"
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 45]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
              minOccurs="0"/>
            <element name="region" type="token"
              minOccurs="0"/>
-           <element name="owner" type="launch:contactType"
+           <element name="owner" type="mark:contactType"
              minOccurs="0"/>
-           <element name="contact" type="launch:contactType"
+           <element name="contact" type="mark:contactType"
              minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+
+     <!--
+     DNS label type definition
+     -->
+     <simpleType name="labelType">
+       <restriction base="token">
+         <minLength value="1"/>
+         <maxLength value="255"/>
+       </restriction>
+     </simpleType>
+
+     <!--
+     Postal code definition
+     -->
+     <simpleType name="pcType">
+       <restriction base="token">
+         <maxLength value="16"/>
+       </restriction>
+     </simpleType>
+
+
+     <!--
+     Country code definition
+     -->
+     <simpleType name="ccType">
+       <restriction base="token">
+         <length value="2"/>
+       </restriction>
+     </simpleType>
+
+     <!--
+     Phone number with extension definition
+     -->
+     <complexType name="e164Type">
+       <simpleContent>
+         <extension base="mark:e164StringType">
+           <attribute name="x" type="token"/>
+         </extension>
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 46]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+       </simpleContent>
+     </complexType>
+
+     <!--
+     Phone number with extension definition
+     -->
+     <simpleType name="e164StringType">
+       <restriction base="token">
+         <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
+         <maxLength value="17"/>
+       </restriction>
+     </simpleType>
+
+     <!--
+     Address (<mark:addr>) child elements
+     -->
+     <complexType name="addrType">
+       <sequence>
+         <element name="street" type="token"
+          minOccurs="0" maxOccurs="3"/>
+         <element name="city" type="token"
+          minOccurs="0"/>
+         <element name="sp" type="token"
+          minOccurs="0"/>
+         <element name="pc" type="mark:pcType"
+          minOccurs="0"/>
+         <element name="cc" type="mark:ccType"
+          minOccurs="0"/>
+       </sequence>
+     </complexType>
+
+     <!--
+     Type used for email addresses
+     -->
+     <simpleType name="minTokenType">
+       <restriction base="token">
+         <minLength value="1"/>
+       </restriction>
+     </simpleType>
+
+     <!--
+     Contact (<mark:owner> or <mark:contact>) child elements
+     -->
+     <complexType name="contactType">
+       <sequence>
+         <element name="name" type="token"
+           minOccurs="0"/>
+         <element name="org" type="token"
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 47]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+           minOccurs="0"/>
+         <element name="addr" type="mark:addrType"
+           minOccurs="0"/>
+         <element name="voice" type="mark:e164Type"
+           minOccurs="0"/>
+         <element name="fax" type="mark:e164Type"
+           minOccurs="0"/>
+         <element name="email" type="mark:minTokenType"
+           minOccurs="0"/>
        </sequence>
      </complexType>
 
@@ -2776,32 +2654,103 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    [to be filled in]
 
 
-6.  IANA Considerations
+6.  Change History
+
+6.1.  Change from 00 to 01
+
+   1.  Changed to use camel case for the XML elements.
+   2.  Replaced "cancelled" status to "rejected" status.
+   3.  Added the child elements of the <claim> element.
+   4.  Removed the XML schema and replaced with "[TBD]".
+
+6.2.  Change from 01 to 02
+
+   1.  Added support for both the ICANN and ARI/Neustar TMCH models.
+   2.  Changed the namespace URI and prefix to use "launch" instead of
+       "launchphase".
+   3.  Added definition of multiple claim validation models.
+   4.  Added the <launch:signedClaim> and <launch:signedNotice>
+       elements.
+   5.  Added support for Claims Info Command
+
+6.3.  Change from 02 to 03
+
+   1.  Removed XSI namespace per Keith Gaughan's suggestion on the
+       provreg list.
+   2.  Added extensibility to the launch:status element and added the
+       pendingAuction status per Trung Tran's feedback on the provreg
+       list.
+
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 48]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
+   3.  Added support for the Claims Check Command, updated the location
+       and contents of the signedNotice, and replaced most references of
+       Claim to Mark based on the work being done on the ARI/Neustar
+       launch model.
+
+6.4.  Change from 03 to 04
+
+   1.  Removed references to the ICANN model.
+   2.  Removed support for the Claims Info Command.
+   3.  Removed use of the signedClaim.
+   4.  Removed support for specifying just a mark code on the create.
+   5.  Revised the method for referring to the signedClaim from the XML
+       Signature using the IDREF URI.
+   6.  Split the launch-1.0.xsd into three XML schemas including launch-
+       1.0.xsd, signeMark-1.0.xsd, and mark-1.0.xsd.
+   7.  Split the "claims" launch phase to the "claims1" and "claims2"
+       launch phases.
+   8.  Added support for the encodedSignedMark with base64 encoded
+       signedMark.
+   9.  Changed the elements in the createNoticeType to include the
+       noticeID, timestamp, and the source elements.
+
+
+7.  IANA Considerations
 
    This document uses URNs to describe XML namespaces and XML schemas
-   conforming to a registry mechanism described in [RFC3688].
+   conforming to a registry mechanism described in [RFC3688].  Three URI
+   assignments have been registered by the IANA.
 
-   Registration request for the extension namespace:
+   Registration request for the Launch namespace:
 
-   URI: urn:ietf:params:xml:ns:launch-1.0
+      URI: urn:ietf:params:xml:ns:launch-1.0
+      Registrant Contact: See the "Author's Address" section of this
+      document.
+      XML: None.  Namespace URIs do not represent an XML specification.
 
-   Registrant Contact: IESG
+   Registration request for the Signed mark namespace:
 
-   XML: None.  Namespace URIs do not represent an XML specification.
+      URI: urn:ietf:params:xml:ns:signedMark-1.0
+      Registrant Contact: See the "Author's Address" section of this
+      document.
+      XML: None.  Namespace URIs do not represent an XML specification.
 
-   Registration request for the extension XML schema:
+   Registration request for the Mark namespace:
 
-   URI: urn:ietf:params:xml:schema:launch-1.0
-
-
+      URI: urn:ietf:params:xml:ns:mark-1.0
 
 
-Tan, et al.              Expires March 16, 2013                [Page 50]
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 49]
 
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-7.  Security Considerations
+      Registrant Contact: See the "Author's Address" section of this
+      document.
+      XML: None.  Namespace URIs do not represent an XML specification.
+
+
+8.  Security Considerations
 
    The mapping extensions described in this document do not provide any
    security services beyond those described by EPP [RFC5730], the EPP
@@ -2822,7 +2771,11 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
    filtered to include only fields that are publicly accessible.
 
 
-8.  Normative References
+9.  Normative References
+
+   [RFC2045]  Freed, N. and N. Borenstein, "Multipurpose Internet Mail
+              Extensions (MIME) Part One: Format of Internet Message
+              Bodies", RFC 2045, November 1996.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -2840,21 +2793,22 @@ Internet-Draft        Launch Phase Mapping for EPP        September 2012
               Contact Mapping", STD 69, RFC 5733, August 2009.
 
    [WIPO.ST3]
+
+
+
+Tan, et al.               Expires June 4, 2013                 [Page 50]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
               WIPO, "Recommended standard on two-letter codes for the
               representation of states, other entities and
               intergovernmental organizations", March 2007.
 
-   [1]  <http://mm.icann.org/pipermail/tmch-tech/attachments/20120629/
-        92b95395/TMCH-Model-28jun2012-clean-0001.pdf>
+   [1]  <http://newgtlds.icann.org/en/about/trademark-clearinghouse/
+        claims-model-26sep12-en.pdf>
 
    [2]  <http://www.w3.org/TR/xmldsig-core/>
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 51]
-
-Internet-Draft        Launch Phase Mapping for EPP        September 2012
 
 
 Authors' Addresses
@@ -2898,15 +2852,5 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires March 16, 2013                [Page 52]
+Tan, et al.               Expires June 4, 2013                 [Page 51]
 

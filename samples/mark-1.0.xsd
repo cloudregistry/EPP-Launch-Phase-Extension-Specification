@@ -12,10 +12,13 @@
     </documentation>
   </annotation>
   
+  <!-- 
+  <mark:mark> element definition
+  -->
   <element name="mark" type="mark:markType"/>    
   
   <!--
-  Child element of a trademark 
+  <mark:mark> child elements
   -->
   <complexType name="markType">
       <sequence>
@@ -49,9 +52,9 @@
   </complexType>
   
   
-<!--
-DNS label type.
--->
+  <!--
+  DNS label type definition
+  -->
   <simpleType name="labelType">
     <restriction base="token">
       <minLength value="1"/>
@@ -59,7 +62,9 @@ DNS label type.
     </restriction>
   </simpleType>
   
-  
+  <!--
+  Postal code definition
+  -->
   <simpleType name="pcType">
     <restriction base="token">
       <maxLength value="16"/>
@@ -67,12 +72,18 @@ DNS label type.
   </simpleType>
   
   
+  <!--
+  Country code definition
+  -->
   <simpleType name="ccType">
     <restriction base="token">
       <length value="2"/>
     </restriction>
   </simpleType>
   
+  <!--
+  Phone number with extension definition
+  -->
   <complexType name="e164Type">
     <simpleContent>
       <extension base="mark:e164StringType">
@@ -81,33 +92,46 @@ DNS label type.
     </simpleContent>
   </complexType>
 
+  <!--
+  Phone number with extension definition
+  -->
   <simpleType name="e164StringType">
     <restriction base="token">
       <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
       <maxLength value="17"/>
     </restriction>
   </simpleType>  
-  
+
+  <!-- 
+  Address (<mark:addr>) child elements
+  -->
   <complexType name="addrType">
     <sequence>
       <element name="street" type="token"
        minOccurs="0" maxOccurs="3"/>
-      <element name="city" type="token"/>
+      <element name="city" type="token"
+       minOccurs="0"/>
       <element name="sp" type="token"
        minOccurs="0"/>
       <element name="pc" type="mark:pcType"
        minOccurs="0"/>
-      <element name="cc" type="mark:ccType"/>
+      <element name="cc" type="mark:ccType"
+       minOccurs="0"/>
     </sequence>
   </complexType>
   
+  <!--
+  Type used for email addresses
+  -->
   <simpleType name="minTokenType">
     <restriction base="token">
       <minLength value="1"/>
     </restriction>
   </simpleType>
   
-  
+  <!--
+  Contact (<mark:owner> or <mark:contact>) child elements
+  -->
   <complexType name="contactType">
     <sequence>
       <element name="name" type="token" 
@@ -124,8 +148,5 @@ DNS label type.
         minOccurs="0"/>
     </sequence>
   </complexType>
-  
-
-  
-
+ 
 </schema>
