@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: June 4, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: June 5, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">December 1, 2012</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">December 2, 2012</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-04</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on June 4, 2013.</p>
+This Internet-Draft will expire on June 5, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -594,8 +594,10 @@ Mark Validation Models</h3>
     &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
     &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
     &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+    &lt;mark:class&gt;1&lt;/mark:class&gt;
     &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
     &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+    &lt;mark:effectiveDate&gt;2011-10-09&lt;/mark:effectiveDate&gt;
     &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
     &lt;mark:country&gt;AU&lt;/mark:country&gt;
     &lt;mark:region&gt;VIC&lt;/mark:region&gt;
@@ -656,16 +658,24 @@ Mark</h3>
             (trademark number, company registration number, etc.)
 </dd>
 <dt>&lt;mark:type&gt;:</dt>
-<dd>indicates the type of mark being made
-            (trademark, symbol, combined mark, company name, etc.)
+<dd>indicates the applicant's entitlement to the mark 
+            (owner, licensee, etc.)
+</dd>
+<dt>&lt;mark:class&gt;:</dt>
+<dd>zero or more Nice Classification class numbers as defined in the 
+            <a href='http://www.wipo.int/classifications/nivilo/nice/index.htm'>Nice List of Classes</a>
 </dd>
 <dt>&lt;mark:entitlement&gt;:</dt>
 <dd>indicates the applicant's
             entitlement to the mark (owner, licensee, etc.)
 </dd>
 <dt>&lt;mark:regDate&gt;:</dt>
-<dd>the date of registration of the
+<dd>the date of registration / application of the
             mark
+</dd>
+<dt>&lt;mark:effectiveDate&gt;:</dt>
+<dd>the date the
+            mark becomes effective
 </dd>
 <dt>&lt;mark:exDate&gt;:</dt>
 <dd>the date of expiration of the
@@ -833,8 +843,10 @@ Digital Signature</h3>
     &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
     &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
     &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+    &lt;mark:class&gt;1&lt;/mark:class&gt;
     &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
     &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+    &lt;mark:effectiveDate&gt;2011-10-09&lt;/mark:effectiveDate&gt;
     &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
     &lt;mark:country&gt;AU&lt;/mark:country&gt;
     &lt;mark:region&gt;VIC&lt;/mark:region&gt;
@@ -1303,8 +1315,10 @@ EPP &lt;info&gt; Command</h3>
             &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
             &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
             &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+            &lt;mark:class&gt;1&lt;/mark:class&gt;
             &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
             &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+            &lt;mark:effectiveDate&gt;2011-10-09&lt;/mark:effectiveDate&gt;
             &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
             &lt;mark:country&gt;AU&lt;/mark:country&gt;
             &lt;mark:region&gt;VIC&lt;/mark:region&gt;
@@ -1469,8 +1483,10 @@ Sunrise Create Form</h3>
           &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
           &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
           &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+          &lt;mark:class&gt;1&lt;/mark:class&gt;
           &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
           &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+          &lt;mark:effectiveDate&gt;2011-10-09&lt;/mark:effectiveDate&gt;
           &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
           &lt;mark:country&gt;AU&lt;/mark:country&gt;
           &lt;mark:region&gt;VIC&lt;/mark:region&gt;
@@ -1531,8 +1547,10 @@ Sunrise Create Form</h3>
           &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
           &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
           &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+          &lt;mark:class&gt;1&lt;/mark:class&gt;
           &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
           &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+          &lt;mark:effectiveDate&gt;2011-10-09&lt;/mark:effectiveDate&gt;
           &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
           &lt;mark:country&gt;AU&lt;/mark:country&gt;
           &lt;mark:region&gt;VIC&lt;/mark:region&gt;
@@ -1596,8 +1614,10 @@ Sunrise Create Form</h3>
             &lt;mark:issuer&gt;IP Clearinghouse&lt;/mark:issuer&gt;
             &lt;mark:number&gt;GE 3933232&lt;/mark:number&gt;
             &lt;mark:type&gt;REG-TM-WORD&lt;/mark:type&gt;
+            &lt;mark:class&gt;1&lt;/mark:class&gt;
             &lt;mark:entitlement&gt;owner&lt;/mark:entitlement&gt;
             &lt;mark:regDate&gt;2011-09-09&lt;/mark:regDate&gt;
+            &lt;mark:effectiveDate&gt;2011-10-09&lt;/mark:effectiveDate&gt;
             &lt;mark:exDate&gt;2013-09-09&lt;/mark:exDate&gt;
             &lt;mark:country&gt;AU&lt;/mark:country&gt;
             &lt;mark:region&gt;VIC&lt;/mark:region&gt;
@@ -2530,16 +2550,20 @@ BEGIN
           minOccurs="0"/&gt;
         &lt;element name="type" type="token"
           minOccurs="0"/&gt;
+        &lt;element name="class" type="integer"
+          minOccurs="0" maxOccurs="unbounded"/&gt;
         &lt;element name="entitlement" type="token"
           minOccurs="0"/&gt;
         &lt;element name="regDate" type="date"
+          minOccurs="0"/&gt;
+        &lt;element name="effectiveDate" type="date"
           minOccurs="0"/&gt;
         &lt;element name="exDate" type="date"
           minOccurs="0"/&gt;
         &lt;element name="country" type="mark:ccType"
           minOccurs="0"/&gt;
         &lt;element name="region" type="token"
-          minOccurs="0"/&gt;
+           minOccurs="0"/&gt;
         &lt;element name="owner" type="mark:contactType"
           minOccurs="0"/&gt;
         &lt;element name="contact" type="mark:contactType"
@@ -2737,6 +2761,8 @@ Change from 03 to 04</h3>
 <li>Added support for the encodedSignedMark with base64 encoded signedMark.
 </li>
 <li>Changed the elements in the createNoticeType to include the noticeID, timestamp, and the source elements.
+</li>
+<li>Added the class and effectiveDate elements to mark.
 </li>
 </ol>
 

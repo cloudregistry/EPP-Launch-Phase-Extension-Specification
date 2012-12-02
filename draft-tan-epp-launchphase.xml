@@ -128,7 +128,7 @@
       </address>
     </author>
 
-    <date day="1" month="December" year="2012"/>
+    <date day="2" month="December" year="2012"/>
 
     <!-- Meta-data Declarations -->
 
@@ -413,8 +413,10 @@
     <mark:issuer>IP Clearinghouse</mark:issuer>
     <mark:number>GE 3933232</mark:number>
     <mark:type>REG-TM-WORD</mark:type>
+    <mark:class>1</mark:class>
     <mark:entitlement>owner</mark:entitlement>
     <mark:regDate>2011-09-09</mark:regDate>
+    <mark:effectiveDate>2011-10-09</mark:effectiveDate>
     <mark:exDate>2013-09-09</mark:exDate>
     <mark:country>AU</mark:country>
     <mark:region>VIC</mark:region>
@@ -467,15 +469,21 @@
 
             <t hangText="&lt;mark:number&gt;:">the registration number of the right
             (trademark number, company registration number, etc.)</t>
+            
+            <t hangText="&lt;mark:type&gt;:">indicates the applicant's entitlement to the mark 
+            (owner, licensee, etc.)</t>
 
-            <t hangText="&lt;mark:type&gt;:">indicates the type of mark being made
-            (trademark, symbol, combined mark, company name, etc.)</t>
+            <t hangText="&lt;mark:class&gt;:">zero or more Nice Classification class numbers as defined in the 
+            <eref target="http://www.wipo.int/classifications/nivilo/nice/index.htm">Nice List of Classes</eref></t>
 
             <t hangText="&lt;mark:entitlement&gt;:">indicates the applicant's
             entitlement to the mark (owner, licensee, etc.)</t>
 
-            <t hangText="&lt;mark:regDate&gt;:">the date of registration of the
+            <t hangText="&lt;mark:regDate&gt;:">the date of registration / application of the
             mark</t>
+
+            <t hangText="&lt;mark:effectiveDate&gt;:">the date the
+            mark becomes effective</t>
 
             <t hangText="&lt;mark:exDate&gt;:">the date of expiration of the
             mark</t>
@@ -606,8 +614,10 @@
     <mark:issuer>IP Clearinghouse</mark:issuer>
     <mark:number>GE 3933232</mark:number>
     <mark:type>REG-TM-WORD</mark:type>
+    <mark:class>1</mark:class>
     <mark:entitlement>owner</mark:entitlement>
     <mark:regDate>2011-09-09</mark:regDate>
+    <mark:effectiveDate>2011-10-09</mark:effectiveDate>
     <mark:exDate>2013-09-09</mark:exDate>
     <mark:country>AU</mark:country>
     <mark:region>VIC</mark:region>
@@ -1080,8 +1090,10 @@ WduZWRNYXJrPg
             <mark:issuer>IP Clearinghouse</mark:issuer>
             <mark:number>GE 3933232</mark:number>
             <mark:type>REG-TM-WORD</mark:type>
+            <mark:class>1</mark:class>
             <mark:entitlement>owner</mark:entitlement>
             <mark:regDate>2011-09-09</mark:regDate>
+            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
             <mark:exDate>2013-09-09</mark:exDate>
             <mark:country>AU</mark:country>
             <mark:region>VIC</mark:region>
@@ -1237,8 +1249,10 @@ WduZWRNYXJrPg
           <mark:issuer>IP Clearinghouse</mark:issuer>
           <mark:number>GE 3933232</mark:number>
           <mark:type>REG-TM-WORD</mark:type>
+          <mark:class>1</mark:class>
           <mark:entitlement>owner</mark:entitlement>
           <mark:regDate>2011-09-09</mark:regDate>
+          <mark:effectiveDate>2011-10-09</mark:effectiveDate>
           <mark:exDate>2013-09-09</mark:exDate>
           <mark:country>AU</mark:country>
           <mark:region>VIC</mark:region>
@@ -1304,8 +1318,10 @@ WduZWRNYXJrPg
           <mark:issuer>IP Clearinghouse</mark:issuer>
           <mark:number>GE 3933232</mark:number>
           <mark:type>REG-TM-WORD</mark:type>
+          <mark:class>1</mark:class>
           <mark:entitlement>owner</mark:entitlement>
           <mark:regDate>2011-09-09</mark:regDate>
+          <mark:effectiveDate>2011-10-09</mark:effectiveDate>
           <mark:exDate>2013-09-09</mark:exDate>
           <mark:country>AU</mark:country>
           <mark:region>VIC</mark:region>
@@ -1373,8 +1389,10 @@ WduZWRNYXJrPg
             <mark:issuer>IP Clearinghouse</mark:issuer>
             <mark:number>GE 3933232</mark:number>
             <mark:type>REG-TM-WORD</mark:type>
+            <mark:class>1</mark:class>
             <mark:entitlement>owner</mark:entitlement>
             <mark:regDate>2011-09-09</mark:regDate>
+            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
             <mark:exDate>2013-09-09</mark:exDate>
             <mark:country>AU</mark:country>
             <mark:region>VIC</mark:region>
@@ -2310,18 +2328,22 @@ BEGIN
           minOccurs="0"/>
         <element name="number" type="token" 
           minOccurs="0"/>
-        <element name="type" type="token" 
+        <element name="type" type="token"
           minOccurs="0"/>
+        <element name="class" type="integer" 
+          minOccurs="0" maxOccurs="unbounded"/>
         <element name="entitlement" type="token" 
           minOccurs="0"/>
         <element name="regDate" type="date" 
+          minOccurs="0"/>
+        <element name="effectiveDate" type="date" 
           minOccurs="0"/>
         <element name="exDate" type="date" 
           minOccurs="0"/>
         <element name="country" type="mark:ccType" 
           minOccurs="0"/>
-        <element name="region" type="token" 
-          minOccurs="0"/>
+        <element name="region" type="token"
+           minOccurs="0"/>
         <element name="owner" type="mark:contactType" 
           minOccurs="0"/>
         <element name="contact" type="mark:contactType" 
@@ -2476,6 +2498,7 @@ END]]></artwork>
         <t>Split the "claims" launch phase to the "claims1" and "claims2" launch phases.</t>
         <t>Added support for the encodedSignedMark with base64 encoded signedMark.</t>
         <t>Changed the elements in the createNoticeType to include the noticeID, timestamp, and the source elements.</t>
+        <t>Added the class and effectiveDate elements to mark.</t>
       </list></t>
     </section>
    </section>

@@ -32,18 +32,22 @@
           minOccurs="0"/>
         <element name="number" type="token" 
           minOccurs="0"/>
-        <element name="type" type="token" 
+        <element name="type" type="token"
           minOccurs="0"/>
+        <element name="class" type="integer" 
+          minOccurs="0" maxOccurs="unbounded"/>
         <element name="entitlement" type="token" 
           minOccurs="0"/>
         <element name="regDate" type="date" 
+          minOccurs="0"/>
+        <element name="effectiveDate" type="date" 
           minOccurs="0"/>
         <element name="exDate" type="date" 
           minOccurs="0"/>
         <element name="country" type="mark:ccType" 
           minOccurs="0"/>
-        <element name="region" type="token" 
-          minOccurs="0"/>
+        <element name="region" type="token"
+           minOccurs="0"/>
         <element name="owner" type="mark:contactType" 
           minOccurs="0"/>
         <element name="contact" type="mark:contactType" 

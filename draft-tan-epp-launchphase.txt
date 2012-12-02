@@ -4,10 +4,10 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Standards Track                                G. Brown
-Expires: June 4, 2013                                     CentralNic Ltd
+Expires: June 5, 2013                                     CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                        December 1, 2012
+                                                        December 2, 2012
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -34,7 +34,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 4, 2013.
+   This Internet-Draft will expire on June 5, 2013.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Tan, et al.               Expires June 4, 2013                  [Page 1]
+Tan, et al.               Expires June 5, 2013                  [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Tan, et al.               Expires June 4, 2013                  [Page 2]
+Tan, et al.               Expires June 5, 2013                  [Page 2]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -164,7 +164,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                  [Page 3]
+Tan, et al.               Expires June 5, 2013                  [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -220,7 +220,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                  [Page 4]
+Tan, et al.               Expires June 5, 2013                  [Page 4]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -276,7 +276,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                  [Page 5]
+Tan, et al.               Expires June 5, 2013                  [Page 5]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -332,7 +332,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                  [Page 6]
+Tan, et al.               Expires June 5, 2013                  [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -388,7 +388,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                  [Page 7]
+Tan, et al.               Expires June 5, 2013                  [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -404,8 +404,10 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
        <mark:issuer>IP Clearinghouse</mark:issuer>
        <mark:number>GE 3933232</mark:number>
        <mark:type>REG-TM-WORD</mark:type>
+       <mark:class>1</mark:class>
        <mark:entitlement>owner</mark:entitlement>
        <mark:regDate>2011-09-09</mark:regDate>
+       <mark:effectiveDate>2011-10-09</mark:effectiveDate>
        <mark:exDate>2013-09-09</mark:exDate>
        <mark:country>AU</mark:country>
        <mark:region>VIC</mark:region>
@@ -442,9 +444,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-
-
-Tan, et al.               Expires June 4, 2013                  [Page 8]
+Tan, et al.               Expires June 5, 2013                  [Page 8]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -462,11 +462,14 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
       bureau, etc.)
    <mark:number>:  the registration number of the right (trademark
       number, company registration number, etc.)
-   <mark:type>:  indicates the type of mark being made (trademark,
-      symbol, combined mark, company name, etc.)
+   <mark:type>:  indicates the applicant's entitlement to the mark
+      (owner, licensee, etc.)
+   <mark:class>:  zero or more Nice Classification class numbers as
+      defined in the Nice List of Classes [2]
    <mark:entitlement>:  indicates the applicant's entitlement to the
       mark (owner, licensee, etc.)
-   <mark:regDate>:  the date of registration of the mark
+   <mark:regDate>:  the date of registration / application of the mark
+   <mark:effectiveDate>:  the date the mark becomes effective
    <mark:exDate>:  the date of expiration of the mark
    <mark:country>:  indicates the country in which the mark is valid.
       This may be a two-character code from [WIPO.ST3]
@@ -491,20 +494,19 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
    The child elements of a contact using either the <mark:owner> or
    <mark:contact> elements include:
-   <mark:name>:  name of the individual or role represented by the
-       contact.
 
 
 
 
 
 
-
-Tan, et al.               Expires June 4, 2013                  [Page 9]
+Tan, et al.               Expires June 5, 2013                  [Page 9]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+   <mark:name>:  name of the individual or role represented by the
+       contact.
    <mark:org>:  name of the organization with which the contact is
        affiliated.
    <mark:addr>:  address information associated with the contact. the
@@ -528,7 +530,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    Digital signatures MAY be used by the server to validate either the
    mark information, when using the "signed mark" validation model with
    the <smd:signedMark> element or the <smd:encodedSignedMark> element.
-   The digital signatures are handled using an XML Signature [2] around
+   The digital signatures are handled using an XML Signature [3] around
    the entire <smd:signedMark> element.  The <smd:encodedSignedMark>
    element includes an encoded form of the <smd:signedMark> element like
    the use of "base64" encoding.  Once the digital signature is
@@ -537,7 +539,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    to server policy how the public key is transferred.
 
    To have the digital signature cover all of the elements of the <smd:
-   signedMark> element, the XML Signature [2] IDREF URI is set to the
+   signedMark> element, the XML Signature [3] IDREF URI is set to the
    "id" attribute value of the <smd:signedMark> element and the
    Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is
    used.  The digital signature covers the <smd:signedMark> element and
@@ -546,7 +548,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 2.7.1.  <smd:signedMark> element
 
    The <smd:signedMark> is the fragment of XML that is digitally signed
-   using XML Signature [2].  The <smd:signedMark> includes a required
+   using XML Signature [3].  The <smd:signedMark> includes a required
    "id" attribute of type XSD ID for use with an IDREF URI from the
    Signature element.  The child elements of the <smd:signedMark>
    element include:
@@ -554,9 +556,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 10]
+Tan, et al.               Expires June 5, 2013                 [Page 10]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -569,12 +569,12 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
       expiry.
    <mark:mark>:  Trademark information as defined in the Mark
       (Section 2.5) section.
-   <Signature>:  XML Signature [2] for the <smd:signedMark>.  Use of a
+   <Signature>:  XML Signature [3] for the <smd:signedMark>.  Use of a
       namespace prefix, like "dsig", is recommended for the
       "http://www.w3.org/TR/xmldsig-core/" elements.
 
    The following is an example <smd:signedMark> using the XML
-   Signature [2] to sign all of the elements of <smd:signedMark>
+   Signature [3] to sign all of the elements of <smd:signedMark>
    element.
 
   <smd:signedMark id="signedMark"
@@ -590,8 +590,10 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
      <mark:issuer>IP Clearinghouse</mark:issuer>
      <mark:number>GE 3933232</mark:number>
      <mark:type>REG-TM-WORD</mark:type>
+     <mark:class>1</mark:class>
      <mark:entitlement>owner</mark:entitlement>
      <mark:regDate>2011-09-09</mark:regDate>
+     <mark:effectiveDate>2011-10-09</mark:effectiveDate>
      <mark:exDate>2013-09-09</mark:exDate>
      <mark:country>AU</mark:country>
      <mark:region>VIC</mark:region>
@@ -607,16 +609,16 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
        <mark:city>Reston</mark:city>
        <mark:sp>VA</mark:sp>
        <mark:pc>20190</mark:pc>
-       <mark:cc>US</mark:cc>
-      </mark:addr>
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 11]
+Tan, et al.               Expires June 5, 2013                 [Page 11]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+       <mark:cc>US</mark:cc>
+      </mark:addr>
       <mark:voice x="1234">+1.7035555555</mark:voice>
       <mark:fax>+1.7035555556</mark:fax>
       <mark:email>jdoe@example.tld</mark:email>
@@ -666,9 +668,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 12]
+Tan, et al.               Expires June 5, 2013                 [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -724,7 +724,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 13]
+Tan, et al.               Expires June 5, 2013                 [Page 13]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -780,7 +780,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 14]
+Tan, et al.               Expires June 5, 2013                 [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -836,7 +836,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 15]
+Tan, et al.               Expires June 5, 2013                 [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -892,7 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 16]
+Tan, et al.               Expires June 5, 2013                 [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -948,7 +948,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 17]
+Tan, et al.               Expires June 5, 2013                 [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1004,7 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 18]
+Tan, et al.               Expires June 5, 2013                 [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1060,7 +1060,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 19]
+Tan, et al.               Expires June 5, 2013                 [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1116,7 +1116,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 20]
+Tan, et al.               Expires June 5, 2013                 [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1148,8 +1148,10 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
                <mark:issuer>IP Clearinghouse</mark:issuer>
                <mark:number>GE 3933232</mark:number>
                <mark:type>REG-TM-WORD</mark:type>
+               <mark:class>1</mark:class>
                <mark:entitlement>owner</mark:entitlement>
                <mark:regDate>2011-09-09</mark:regDate>
+               <mark:effectiveDate>2011-10-09</mark:effectiveDate>
                <mark:exDate>2013-09-09</mark:exDate>
                <mark:country>AU</mark:country>
                <mark:region>VIC</mark:region>
@@ -1167,16 +1169,16 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
                    <mark:pc>20190</mark:pc>
                    <mark:cc>US</mark:cc>
                  </mark:addr>
-                 <mark:voice x="1234">+1.7035555555</mark:voice>
-                 <mark:fax>+1.7035555556</mark:fax>
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 21]
+Tan, et al.               Expires June 5, 2013                 [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+                 <mark:voice x="1234">+1.7035555555</mark:voice>
+                 <mark:fax>+1.7035555556</mark:fax>
                  <mark:email>jdoe@example.tld</mark:email>
                </mark:contact>
             </mark:mark>
@@ -1223,16 +1225,16 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    The Sunrise Create Form of the extension to the EPP domain name
    mapping [RFC5731] includes the verifiable trademark information that
    the server uses to match against the domain name to authorize the
-   domain create.  A server MUST support one of three models in Claim
-   Validation Models (Section 2.4) to verify the trademark information
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 22]
+Tan, et al.               Expires June 5, 2013                 [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+   domain create.  A server MUST support one of three models in Claim
+   Validation Models (Section 2.4) to verify the trademark information
    passed by the client.
 
    A <launch:create> element is sent along with the regular <create>
@@ -1279,22 +1281,24 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
              <launch:phase>sunrise</launch:phase>
            <mark:mark
              xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-             <mark:name>Example One</mark:name>
-             <mark:label>example-one</mark:label>
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 23]
+Tan, et al.               Expires June 5, 2013                 [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+             <mark:name>Example One</mark:name>
+             <mark:label>example-one</mark:label>
              <mark:label>exampleone</mark:label>
              <mark:issuer>IP Clearinghouse</mark:issuer>
              <mark:number>GE 3933232</mark:number>
              <mark:type>REG-TM-WORD</mark:type>
+             <mark:class>1</mark:class>
              <mark:entitlement>owner</mark:entitlement>
              <mark:regDate>2011-09-09</mark:regDate>
+             <mark:effectiveDate>2011-10-09</mark:effectiveDate>
              <mark:exDate>2013-09-09</mark:exDate>
              <mark:country>AU</mark:country>
              <mark:region>VIC</mark:region>
@@ -1333,18 +1337,18 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
          <domain:create
           xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
           xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
-          domain-1.0.xsd">
-           <domain:name>example.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 24]
+Tan, et al.               Expires June 5, 2013                 [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+          domain-1.0.xsd">
+           <domain:name>example.tld</domain:name>
+           <domain:registrant>jd1234</domain:registrant>
+           <domain:contact type="admin">sh8013</domain:contact>
            <domain:contact type="tech">sh8013</domain:contact>
            <domain:authInfo>
              <domain:pw>2fooBAR</domain:pw>
@@ -1363,8 +1367,10 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
              <mark:issuer>IP Clearinghouse</mark:issuer>
              <mark:number>GE 3933232</mark:number>
              <mark:type>REG-TM-WORD</mark:type>
+             <mark:class>1</mark:class>
              <mark:entitlement>owner</mark:entitlement>
              <mark:regDate>2011-09-09</mark:regDate>
+             <mark:effectiveDate>2011-10-09</mark:effectiveDate>
              <mark:exDate>2013-09-09</mark:exDate>
              <mark:country>AU</mark:country>
              <mark:region>VIC</mark:region>
@@ -1387,19 +1393,20 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
                <mark:email>jdoe@example.tld</mark:email>
              </mark:contact>
            </mark:mark>
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 25]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
          </launch:codeMark>
          </launch:create>
        </extension>
        <clTRID>ABC-12345</clTRID>
      </command>
    </epp>
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 25]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
 
    Following is an example <create> domain command using the <launch:
    create> extension with signed mark information.
@@ -1435,11 +1442,21 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
                <mark:issuer>IP Clearinghouse</mark:issuer>
                <mark:number>GE 3933232</mark:number>
                <mark:type>REG-TM-WORD</mark:type>
+               <mark:class>1</mark:class>
                <mark:entitlement>owner</mark:entitlement>
                <mark:regDate>2011-09-09</mark:regDate>
+               <mark:effectiveDate>2011-10-09</mark:effectiveDate>
                <mark:exDate>2013-09-09</mark:exDate>
                <mark:country>AU</mark:country>
                <mark:region>VIC</mark:region>
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 26]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
                <mark:owner>
                  <mark:org>Example Inc.</mark:org>
                </mark:owner>
@@ -1449,14 +1466,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
                  <mark:addr>
                    <mark:street>123 Example Dr.</mark:street>
                    <mark:street>Suite 100</mark:street>
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 26]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
                    <mark:city>Reston</mark:city>
                    <mark:sp>VA</mark:sp>
                    <mark:pc>20190</mark:pc>
@@ -1496,6 +1505,14 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
                </dsig:Signature>
            </smd:signedMark>
          </launch:create>
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 27]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
        </extension>
        <clTRID>ABC-12345</clTRID>
      </command>
@@ -1505,14 +1522,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    create> extension with base64 encoded signed mark information.
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 27]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
      <command>
        <create>
@@ -1552,6 +1561,14 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    z48ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0cDovL3d3dy53My5vcmc
    vMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzpDYW5vb
    mljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmc
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 28]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
    vVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aENvbW1lbnRzIi8-P
    GRzaWc6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5
    vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8-PGRzaWc6UmVmZXJlbmNlI
@@ -1561,14 +1578,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    pZzpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yM
    DAwLzA5L3htbGRzaWcjc2hhMSIvPjxkc2lnOkRpZ2VzdFZhbHVlPktIdVFrdFd
    UMnRYbXg4Y2ZWd2NvZ0JSUm5oRT08L2RzaWc6RGlnZXN0VmFsdWU-PC9kc2lnO
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 28]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
    lJlZmVyZW5jZT48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVWYWx
    1ZT5RdWk2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16Z
    ENhcWpWcXVvVDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV
@@ -1611,16 +1620,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-
-
-
-
-
-
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 29]
+Tan, et al.               Expires June 5, 2013                 [Page 29]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1676,7 +1676,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 30]
+Tan, et al.               Expires June 5, 2013                 [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1732,7 +1732,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 31]
+Tan, et al.               Expires June 5, 2013                 [Page 31]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1788,7 +1788,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 32]
+Tan, et al.               Expires June 5, 2013                 [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1844,7 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 33]
+Tan, et al.               Expires June 5, 2013                 [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1900,7 +1900,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 34]
+Tan, et al.               Expires June 5, 2013                 [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -1956,7 +1956,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 35]
+Tan, et al.               Expires June 5, 2013                 [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2012,7 +2012,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 36]
+Tan, et al.               Expires June 5, 2013                 [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2068,7 +2068,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 37]
+Tan, et al.               Expires June 5, 2013                 [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2124,7 +2124,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 38]
+Tan, et al.               Expires June 5, 2013                 [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2180,7 +2180,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 39]
+Tan, et al.               Expires June 5, 2013                 [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2236,7 +2236,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 40]
+Tan, et al.               Expires June 5, 2013                 [Page 40]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2292,7 +2292,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 41]
+Tan, et al.               Expires June 5, 2013                 [Page 41]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2348,7 +2348,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 42]
+Tan, et al.               Expires June 5, 2013                 [Page 42]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2404,7 +2404,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 43]
+Tan, et al.               Expires June 5, 2013                 [Page 43]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2460,7 +2460,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 44]
+Tan, et al.               Expires June 5, 2013                 [Page 44]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
@@ -2504,24 +2504,28 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
              minOccurs="0"/>
            <element name="type" type="token"
              minOccurs="0"/>
+           <element name="class" type="integer"
+             minOccurs="0" maxOccurs="unbounded"/>
            <element name="entitlement" type="token"
              minOccurs="0"/>
            <element name="regDate" type="date"
              minOccurs="0"/>
+           <element name="effectiveDate" type="date"
+             minOccurs="0"/>
            <element name="exDate" type="date"
-             minOccurs="0"/>
-           <element name="country" type="mark:ccType"
-             minOccurs="0"/>
-           <element name="region" type="token"
 
 
 
-Tan, et al.               Expires June 4, 2013                 [Page 45]
+Tan, et al.               Expires June 5, 2013                 [Page 45]
 
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
              minOccurs="0"/>
+           <element name="country" type="mark:ccType"
+             minOccurs="0"/>
+           <element name="region" type="token"
+              minOccurs="0"/>
            <element name="owner" type="mark:contactType"
              minOccurs="0"/>
            <element name="contact" type="mark:contactType"
@@ -2565,17 +2569,18 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
      <complexType name="e164Type">
        <simpleContent>
          <extension base="mark:e164StringType">
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 46]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
            <attribute name="x" type="token"/>
          </extension>
        </simpleContent>
      </complexType>
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 46]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
 
      <!--
      Phone number with extension definition
@@ -2620,19 +2625,19 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
      <complexType name="contactType">
        <sequence>
          <element name="name" type="token"
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 47]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
            minOccurs="0"/>
          <element name="org" type="token"
            minOccurs="0"/>
          <element name="addr" type="mark:addrType"
            minOccurs="0"/>
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 47]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
          <element name="voice" type="mark:e164Type"
            minOccurs="0"/>
          <element name="fax" type="mark:e164Type"
@@ -2674,6 +2679,16 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
    1.  Removed XSI namespace per Keith Gaughan's suggestion on the
        provreg list.
+
+
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 48]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
    2.  Added extensibility to the launch:status element and added the
        pendingAuction status per Trung Tran's feedback on the provreg
        list.
@@ -2682,29 +2697,23 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
        Claim to Mark based on the work being done on the ARI/Neustar
        launch model.
 
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 48]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
 6.4.  Change from 03 to 04
 
-   1.  Removed references to the ICANN model.
-   2.  Removed support for the Claims Info Command.
-   3.  Removed use of the signedClaim.
-   4.  Removed support for specifying just a mark code on the create.
-   5.  Revised the method for referring to the signedClaim from the XML
-       Signature using the IDREF URI.
-   6.  Split the launch-1.0.xsd into three XML schemas including launch-
-       1.0.xsd, signeMark-1.0.xsd, and mark-1.0.xsd.
-   7.  Split the "claims" launch phase to the "claims1" and "claims2"
-       launch phases.
-   8.  Added support for the encodedSignedMark with base64 encoded
-       signedMark.
-   9.  Changed the elements in the createNoticeType to include the
-       noticeID, timestamp, and the source elements.
+   1.   Removed references to the ICANN model.
+   2.   Removed support for the Claims Info Command.
+   3.   Removed use of the signedClaim.
+   4.   Removed support for specifying just a mark code on the create.
+   5.   Revised the method for referring to the signedClaim from the XML
+        Signature using the IDREF URI.
+   6.   Split the launch-1.0.xsd into three XML schemas including
+        launch-1.0.xsd, signeMark-1.0.xsd, and mark-1.0.xsd.
+   7.   Split the "claims" launch phase to the "claims1" and "claims2"
+        launch phases.
+   8.   Added support for the encodedSignedMark with base64 encoded
+        signedMark.
+   9.   Changed the elements in the createNoticeType to include the
+        noticeID, timestamp, and the source elements.
+   10.  Added the class and effectiveDate elements to mark.
 
 
 7.  IANA Considerations
@@ -2729,20 +2738,17 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
    Registration request for the Mark namespace:
 
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 49]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
       URI: urn:ietf:params:xml:ns:mark-1.0
       Registrant Contact: See the "Author's Address" section of this
       document.
       XML: None.  Namespace URIs do not represent an XML specification.
-
-
-
-
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 49]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
 8.  Security Considerations
@@ -2787,23 +2793,25 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    [RFC5733]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)
               Contact Mapping", STD 69, RFC 5733, August 2009.
 
+
+
+
+Tan, et al.               Expires June 5, 2013                 [Page 50]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
    [WIPO.ST3]
               WIPO, "Recommended standard on two-letter codes for the
               representation of states, other entities and
               intergovernmental organizations", March 2007.
 
    [1]  <http://newgtlds.icann.org/en/about/trademark-clearinghouse/
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 50]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
         claims-model-26sep12-en.pdf>
 
-   [2]  <http://www.w3.org/TR/xmldsig-core/>
+   [2]  <http://www.wipo.int/classifications/nivilo/nice/index.htm>
+
+   [3]  <http://www.w3.org/TR/xmldsig-core/>
 
 
 Authors' Addresses
@@ -2844,13 +2852,5 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-Tan, et al.               Expires June 4, 2013                 [Page 51]
+Tan, et al.               Expires June 5, 2013                 [Page 51]
 
