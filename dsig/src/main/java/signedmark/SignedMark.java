@@ -132,6 +132,14 @@ public class SignedMark {
 		
 		return root;
 	}
+	
+	public void decode(Element element) {
+		// <smd:serial> element
+		// <smd:zone> elements
+		// <smd:exDate> element
+		// <smd:mark> element
+		
+	}
 
 	public void signMark(Document doc, Element root) throws Exception {
 
@@ -153,8 +161,8 @@ public class SignedMark {
 		.newSignedInfo(xmlSigFactory.newCanonicalizationMethod(
 				CanonicalizationMethod.EXCLUSIVE,
 				(C14NMethodParameterSpec) null), xmlSigFactory
-//				.newSignatureMethod("http://www. w3.org/2001/04/xmldsig-more#rsa-sha256", null),
-				.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
+				.newSignatureMethod("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256", null),
+//				.newSignatureMethod(SignatureMethod.RSA_SHA1, null),
 				Collections.singletonList(xmlSigRef));
 
 		// Create a DOMSignContext and specify the PrivateKey and

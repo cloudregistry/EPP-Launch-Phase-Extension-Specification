@@ -2,8 +2,9 @@
 <schema 
   targetNamespace="urn:ietf:params:xml:ns:launch-1.0" 
   xmlns:launch="urn:ietf:params:xml:ns:launch-1.0" 
-   xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
-   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+  xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
   xmlns="http://www.w3.org/2001/XMLSchema" 
   elementFormDefault="qualified">
   
@@ -13,9 +14,11 @@ Import common element types.
   <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"
           schemaLocation="eppcom-1.0.xsd"/> 
   
-  <import namespace="http://www.w3.org/2000/09/xmldsig#"
-          schemaLocation="xmldig-core-schema.xsd"/> 
-  
+  <import namespace="urn:ietf:params:xml:ns:mark-1.0"
+          schemaLocation="mark-1.0.xsd"/> 
+
+  <import namespace="urn:ietf:params:xml:ns:signedMark-1.0"
+          schemaLocation="signedMark-1.0.xsd"/> 
   
   <annotation>
     <documentation> 
@@ -28,9 +31,10 @@ Import common element types.
   <!-- 
   Child elements found in EPP commands.  
   -->
+  <element name="check" type="launch:checkType"/>
+  <element name="info" type="launch:infoType"/>
   <element name="create" type="launch:createType"/>
-    <element name="update" type="launch:idContainerType"/>
-  <element name="info" type="launch:infType"/>
+  <element name="update" type="launch:idContainerType"/>
   <element name="delete" type="launch:idContainerType"/>
   
   <!-- 
@@ -71,7 +75,8 @@ Import common element types.
       <restriction base="token">
         <enumeration value="sunrise"/>
         <enumeration value="landrush"/>
-        <enumeration value="claims"/>
+        <enumeration value="claims1"/>
+        <enumeration value="claims2"/>
         <enumeration value="open"/>
         <enumeration value="custom"/>
     </restriction>
@@ -88,54 +93,17 @@ Import common element types.
   </simpleType>
   
   <!-- 
-  Definition for the claims identifier   
+  Definition for the notice identifier   
   -->
   <simpleType name="noticeIDType">
     <restriction base="base64Binary">
       <minLength value="1"/>
     </restriction>
   </simpleType>
-  
-  <simpleType name="ccType">
-    <restriction base="token">
-      <length value="2"/>
-    </restriction>
-  </simpleType>
-  
-  <simpleType name="pcType">
-    <restriction base="token">
-      <maxLength value="16"/>
-    </restriction>
-  </simpleType>
-  
-  
+      
   <!-- 
-  Definition of the IP address taken from host-1.0.
-  --> 
-   <complexType name="ipAddrType">
-     <simpleContent>
-       <extension base="launch:addrStringType">
-         <attribute name="ip" type="launch:ipType"
-          default="v4"/>
-       </extension>
-     </simpleContent>
-   </complexType>
-
-   <simpleType name="addrStringType">
-     <restriction base="token">
-       <minLength value="3"/>
-       <maxLength value="45"/>
-     </restriction>
-   </simpleType>
-
-   <simpleType name="ipType">
-     <restriction base="token">
-       <enumeration value="v4"/>
-       <enumeration value="v6"/>
-     </restriction>
-   </simpleType>
-  
-  <!-- Possible status values for sunrise application -->
+  Possible status values for sunrise application 
+  -->
     <simpleType name="statusValueType">
     <restriction base="token">
         <enumeration value="pending"/>
@@ -148,6 +116,9 @@ Import common element types.
       </restriction>
     </simpleType>
   
+  <!-- 
+  Status type definition
+  -->
   <complexType name="statusType">
     <simpleContent>
       <extension base="normalizedString">
@@ -160,44 +131,34 @@ Import common element types.
     </simpleContent>
   </complexType>
   
-    <complexType name="signedClaimType">
+  <!--
+  codeMark Type that contains an optional code 
+  with mark information.
+  -->
+  <complexType name="codeMarkType">
     <sequence>
-      <element name="serial" type="token"/>
-      <element name="zone" type="eppcom:labelType"
-      minOccurs="0" maxOccurs="unbounded"/>
-      <element name="exDate" type="dateTime" 
+    <element name="code" type="launch:codeType"
       minOccurs="0"/>
-      <element name="claim" type="launch:claimType"/>
-      <element ref="ds:Signature"/>
-    </sequence>
+    <element ref="mark:mark"
+      minOccurs="0"/>
+  </sequence>
   </complexType>
-
-  <complexType name="codeClaimType">
-    <sequence>
-      <element name="code" type="launch:codeType" 
-        minOccurs="0"/> 
-      <element name="claim" type="launch:claimType" 
-        minOccurs="0"/>
-    </sequence>
-  </complexType>
-
+  
   <!-- 
-  Child elements of create for both Sunrise and Claims periods
+  Child elements for the create command
   -->
   <complexType name="createType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
       <choice>
-        <element name="codeClaim" 
-          type="launch:codeClaimType" 
+        <element name="codeMark" type="launch:codeMarkType"
+          maxOccurs="unbounded"/>
+        <element ref="smd:signedMark" 
          maxOccurs="unbounded"/>
-        <element name="signedClaim" 
-          type="launch:signedClaimType" 
+        <element ref="smd:encodedSignedMark" 
          maxOccurs="unbounded"/>
-        <element name="notice" 
+          <element name="notice" 
           type="launch:createNoticeType"/> 
-        <element name="signedNotice" 
-          type="launch:signedCreateNoticeType"/> 
       </choice>
     </sequence>
   </complexType>
@@ -209,24 +170,25 @@ Import common element types.
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
       <element name="timestamp" type="dateTime"/>
-      <element name="clientAddr" type="launch:ipAddrType"/>
-    </sequence>
-  </complexType>
-
-  <complexType name="signedCreateNoticeType">
-    <sequence>
-      <element name="noticeID" type="launch:noticeIDType"/>
-      <element name="exDate" type="dateTime" 
-      minOccurs="0"/>
-      <element ref="ds:Signature"/>
+      <element name="source" type="token"/>
     </sequence>
   </complexType>
 
 
   <!-- 
-  Child elements of info for both Sunrise and Claims periods.  
+  Child elements of check (Claims Check Command).  
   -->
-  <complexType name="infType">
+  <complexType name="checkType">
+    <sequence>
+      <element name="phase" type="launch:phaseType"/>
+    </sequence>
+  </complexType>
+
+
+  <!-- 
+  Child elements of info command.  
+  -->
+  <complexType name="infoType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
       <element name="applicationID" 
@@ -238,130 +200,52 @@ Import common element types.
   <!-- 
   Child response elements.  
   -->
+  <element name="chkData" type="launch:chkDataType"/>    
   <element name="creData" type="launch:idContainerType"/>
-  
   <element name="infData" type="launch:infDataType"/>
   
-  <complexType name="infDataType">
+  <!--
+   <check> response elements.
+   -->
+  <complexType name="chkDataType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
-      <choice>
-        <sequence>
-          <element name="applicationID" type="launch:applicationIDType"/>
-          <element name="status" type="launch:statusType" 
-            minOccurs="0"/>
-          <choice>
-              <element name="codeClaim" 
-                type="launch:codeClaimType" 
-                maxOccurs="unbounded"/>
-             <element name="signedClaim" 
-                type="launch:signedClaimType" 
-                maxOccurs="unbounded"/>
-          </choice>
-        </sequence>
-        <element name="notice" type="launch:claimsNoticeType" 
-          minOccurs="0"/>
-      </choice>
+      <element name="cd" type="launch:cdType"
+       maxOccurs="unbounded"/>
     </sequence>
   </complexType>
-  
-  <!--
-  Child elements of the info (inf) notice response element.   
-  -->
-  <complexType name="claimsNoticeType">
+
+  <complexType name="cdType">
     <sequence>
-      <element name="name" type="eppcom:labelType"/>
-      <choice>
-        <element name="none"/>
-        <sequence>
-          <element name="noticeID" 
-            type="launch:noticeIDType"/>
-          <element name="claim" 
-            type="launch:claimType" 
-            maxOccurs="unbounded"/>
-        </sequence>
-      </choice> 
+      <element name="name" type="launch:cdNameType"/>
+      <element name="claimKey" type="token"
+       minOccurs="0"/>
     </sequence>
   </complexType>
-  
-  <complexType name="e164Type">
+
+  <complexType name="cdNameType">
     <simpleContent>
-      <extension base="launch:e164StringType">
-        <attribute name="x" type="token"/>
+      <extension base="eppcom:labelType">
+        <attribute name="exists" type="boolean"
+         use="required"/>
       </extension>
     </simpleContent>
   </complexType>
-
-  <simpleType name="e164StringType">
-    <restriction base="token">
-      <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
-      <maxLength value="17"/>
-    </restriction>
-  </simpleType>
-    
-  <complexType name="addrType">
-    <sequence>
-      <element name="street" type="token"
-       minOccurs="0" maxOccurs="3"/>
-      <element name="city" type="token"/>
-      <element name="sp" type="token"
-       minOccurs="0"/>
-      <element name="pc" type="launch:pcType"
-       minOccurs="0"/>
-      <element name="cc" type="launch:ccType"/>
-    </sequence>
-  </complexType>
-  
-  <complexType name="contactType">
-    <sequence>
-      <element name="name" type="token" 
-        minOccurs="0"/>
-      <element name="org" type="token" 
-        minOccurs="0"/>
-      <element name="addr" type="launch:addrType" 
-        minOccurs="0"/>
-      <element name="voice" type="launch:e164Type" 
-        minOccurs="0"/>
-      <element name="fax" type="launch:e164Type" 
-        minOccurs="0"/>
-      <element name="email" type="eppcom:minTokenType" 
-        minOccurs="0"/>
-    </sequence>
-  </complexType>
-    
   
   <!--
-  Child elements of claim element.  
+  <info> response elemenets
   -->
-  <complexType name="claimType">
-      <sequence>
-        <element name="id" type="token" 
-          minOccurs="0"/>
-        <element name="name" type="token"
-           minOccurs="0"/>
-        <element name="label" type="eppcom:labelType"
-           minOccurs="0" maxOccurs="unbounded"/>
-        <element name="issuer" type="token" 
-          minOccurs="0"/>
-        <element name="number" type="token" 
-          minOccurs="0"/>
-        <element name="type" type="token" 
-          minOccurs="0"/>
-        <element name="entitlement" type="token" 
-          minOccurs="0"/>
-        <element name="regDate" type="date" 
-          minOccurs="0"/>
-        <element name="exDate" type="date" 
-          minOccurs="0"/>
-        <element name="country" type="launch:ccType" 
-          minOccurs="0"/>
-        <element name="region" type="token" 
-          minOccurs="0"/>
-        <element name="owner" type="launch:contactType" 
-          minOccurs="0"/>
-        <element name="contact" type="launch:contactType" 
-          minOccurs="0"/>
+  <complexType name="infDataType">
+    <sequence>
+      <element name="phase" type="launch:phaseType"/>
+     <element name="applicationID" 
+      type="launch:applicationIDType" 
+      minOccurs="0"/>
+     <element name="status" type="launch:statusType" 
+      minOccurs="0"/>
+      <element ref="mark:mark"
+      minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
-
+    
 </schema>

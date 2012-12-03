@@ -137,8 +137,10 @@ Import common element types.
   -->
   <complexType name="codeMarkType">
     <sequence>
-    <element name="code" type="launch:codeType"/>
-    <element ref="mark:mark"/>
+    <element name="code" type="launch:codeType"
+      minOccurs="0"/>
+    <element ref="mark:mark"
+      minOccurs="0"/>
   </sequence>
   </complexType>
   
@@ -151,8 +153,6 @@ Import common element types.
       <choice>
         <element name="codeMark" type="launch:codeMarkType"
           maxOccurs="unbounded"/>
-      <element ref="mark:mark"
-        maxOccurs="unbounded"/>
         <element ref="smd:signedMark" 
          maxOccurs="unbounded"/>
         <element ref="smd:encodedSignedMark" 

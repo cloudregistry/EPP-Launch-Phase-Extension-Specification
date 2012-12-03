@@ -128,7 +128,7 @@
       </address>
     </author>
 
-    <date day="2" month="December" year="2012"/>
+    <date day="4" month="December" year="2012"/>
 
     <!-- Meta-data Declarations -->
 
@@ -354,15 +354,21 @@
       </section>
 
       <section anchor="validationModels" title="Mark Validation Models">
-        <t>A server MUST support one of three models for validating the trademark 
+        <t>A server MUST support one of four models for validating the trademark 
         information:</t>
 
         <t><list style="hanging">
 
+          	<t hangText="code">Use of a mark code by itself to validate 
+          	that the mark matches the domain name.  This model is supported 
+          	using the &lt;launch:codeMark&gt; element with just the 
+          	&lt;launch:code&gt; element.</t>
+
             <t hangText="mark">The mark information is passed without any
             other validation element. The server will use some custom form of
             validation to validate that the mark information is authentic. This
-            model is supported with the &lt;mark:mark&gt; element.</t>
+            model is supported using the &lt;launch:codeMark&gt; element with 
+            just the &lt;mark:mark&gt; element.</t>
 
             <t hangText="code with mark:">A code is used along with the mark
             information by the server to validate the mark utilizing an external party. 
@@ -382,26 +388,26 @@
             elements.</t>
           </list></t>
 
-        <t>More than one &lt;launch:codeMark&gt;, &lt;mark:mark&gt;, &lt;smd:signedMark&gt;, 
+        <t>More than one &lt;launch:codeMark&gt;, &lt;smd:signedMark&gt;, 
         or &lt;smd:encodedSignedMark&gt; element MAY be specified. The maximum
         number of marks per domain name is up to server policy.</t>
         
         <section anchor="codeMark" title="&lt;launch:codeMark&gt; element">
-           <t>The &lt;launch:codeMark&gt; element, that is used by the 
-           "code with mark" validation model, has the following child 
+           <t>The &lt;launch:codeMark&gt; element that is used by the "code", "mark", 
+           and "code with mark" validation models, has the following child 
            elements:</t>
            <t><list style="hanging">
-              <t hangText="&lt;launch:code&gt;:">Mark code used to 
+              <t hangText="&lt;launch:code&gt;:">OPTIONAL mark code used to 
               validate the &lt;launch:mark&gt; information.  The mark code 
               can be a mark specific secret value that the server can verify 
               against a third party.</t>
-              <t hangText="&lt;mark:mark&gt;:">mark information 
+              <t hangText="&lt;mark:mark&gt;:">OPTIONAL mark information 
               with child elements defined in the <xref target="mark">Mark</xref> 
               section.</t>
            </list></t>
                    <figure>
             <preamble>The following is an example &lt;launch:codeMark&gt;
-            element.</preamble>
+            element with both a &lt;launch:code&gt; and &lt;launch:mark&gt; element.</preamble>
 
             <artwork><![CDATA[
 <launch:codeMark>
@@ -447,9 +453,8 @@
 
       <section anchor="mark" title="Mark">
         <t>A &lt;mark:mark&gt; element describes an applicant's prior right
-        to a given domain name that is used directly by the "mark" validation 
-        model and indirectly by the "code with mark" validation model and the 
-        "signed mark" validation model.</t>
+        to a given domain name that is used with the "mark", "mark with code", and 
+        the "signed mark" validation models.</t>
 
         <t>The child elements of the &lt;mark:mark&gt; element include:</t>
         <t><list style="hanging">
@@ -761,9 +766,11 @@ WduZWRNYXJrPg
         
         <t>This extension defines a new command called the Claims Check Command 
         that is used to determine whether or not there are any matching 
-        trademarks, in the specified launch phase, for each domain name passed in the command. 
+        trademarks, in the specified launch phase, for each domain name passed in the command.  
+        The availability check information defined in the <xref target="RFC5731">EPP domain name
+      mapping</xref> MUST NOT be returned for the Claims Check Command.  
         Instead of 
-        returning whether the domain name is available it will return whether 
+        returning whether the domain name is available the Claims Check Command will return whether 
         or not at least one matching trademark exists for the domain name.  
         If there is at least one matching trademark that exists for the 
         domain name a &lt;launch:claimKey&gt; element is returned.  
@@ -1176,7 +1183,7 @@ WduZWRNYXJrPg
           target="RFC5731">EPP domain name mapping</xref> includes the
           verifiable trademark information that the server uses to match
           against the domain name to authorize the domain create. A server
-          MUST support one of three models in <xref
+          MUST support one of four models in <xref
           target="validationModels">Claim Validation Models</xref> to 
           verify the trademark information passed by the client.</t>
 
@@ -1216,8 +1223,8 @@ WduZWRNYXJrPg
 
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with mark
-            information.</preamble>
+            using the &lt;launch:create&gt; extension, following the "code" 
+            validation model, with multiple sunrise codes.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1225,78 +1232,7 @@ WduZWRNYXJrPg
   <command>
     <create>
       <domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
-       domain-1.0.xsd">
-        <domain:name>exampleone.tld</domain:name>
-        <domain:registrant>jd1234</domain:registrant>
-        <domain:contact type="admin">sh8013</domain:contact>
-        <domain:contact type="tech">sh8013</domain:contact>
-        <domain:authInfo>
-          <domain:pw>2fooBAR</domain:pw>
-        </domain:authInfo>
-      </domain:create>
-    </create>
-    <extension>
-      <launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-          <launch:phase>sunrise</launch:phase>
-        <mark:mark
-          xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-          <mark:name>Example One</mark:name>
-          <mark:label>example-one</mark:label>
-          <mark:label>exampleone</mark:label>
-          <mark:issuer>IP Clearinghouse</mark:issuer>
-          <mark:number>GE 3933232</mark:number>
-          <mark:type>REG-TM-WORD</mark:type>
-          <mark:class>1</mark:class>
-          <mark:entitlement>owner</mark:entitlement>
-          <mark:regDate>2011-09-09</mark:regDate>
-          <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-          <mark:exDate>2013-09-09</mark:exDate>
-          <mark:country>AU</mark:country>
-          <mark:region>VIC</mark:region>
-          <mark:owner>
-            <mark:org>Example Inc.</mark:org>
-          </mark:owner>
-          <mark:contact>
-            <mark:name>John Doe</mark:name>
-            <mark:org>Example Inc.</mark:org>
-            <mark:addr>
-              <mark:street>123 Example Dr.</mark:street>
-              <mark:street>Suite 100</mark:street>
-              <mark:city>Reston</mark:city>
-              <mark:sp>VA</mark:sp>
-              <mark:pc>20190</mark:pc>
-              <mark:cc>US</mark:cc>
-            </mark:addr>
-            <mark:voice x="1234">+1.7035555555</mark:voice>
-            <mark:fax>+1.7035555556</mark:fax>
-            <mark:email>jdoe@example.tld</mark:email>
-          </mark:contact>
-        </mark:mark>
-      </launch:create>
-    </extension>
-    <clTRID>ABC-12345</clTRID>
-  </command>
-</epp>]]></artwork>
-          </figure>
-
-
-          <figure>
-            <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with a code and mark
-            information.</preamble>
-
-            <artwork><![CDATA[
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
-       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
-       domain-1.0.xsd">
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
         <domain:name>example.tld</domain:name>
         <domain:registrant>jd1234</domain:registrant>
         <domain:contact type="admin">sh8013</domain:contact>
@@ -1309,42 +1245,154 @@ WduZWRNYXJrPg
     <extension>
       <launch:create
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-        <launch:phase name="test">custom</launch:phase>
+        <launch:phase>sunrise</launch:phase>
         <launch:codeMark>
-        <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-        <mark:mark
-         xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-          <mark:name>Hello</mark:name>
-          <mark:issuer>IP Clearinghouse</mark:issuer>
-          <mark:number>GE 3933232</mark:number>
-          <mark:type>REG-TM-WORD</mark:type>
-          <mark:class>1</mark:class>
-          <mark:entitlement>owner</mark:entitlement>
-          <mark:regDate>2011-09-09</mark:regDate>
-          <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-          <mark:exDate>2013-09-09</mark:exDate>
-          <mark:country>AU</mark:country>
-          <mark:region>VIC</mark:region>
-          <mark:owner>
-            <mark:org>Example Inc.</mark:org>
-          </mark:owner>
-          <mark:contact>
-            <mark:name>John Doe</mark:name>
-            <mark:org>Example Inc.</mark:org>
-            <mark:addr>
-              <mark:street>123 Example Dr.</mark:street>
-              <mark:street>Suite 100</mark:street>
-              <mark:city>Reston</mark:city>
-              <mark:sp>VA</mark:sp>
-              <mark:pc>20190</mark:pc>
-              <mark:cc>US</mark:cc>
-            </mark:addr>
-            <mark:voice x="1234">+1.7035555555</mark:voice>
-            <mark:fax>+1.7035555556</mark:fax>
-            <mark:email>jdoe@example.tld</mark:email>
-          </mark:contact>
-        </mark:mark>
-      </launch:codeMark>
+          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+        </launch:codeMark>
+        <launch:codeMark>
+          <launch:code>49FD46E6C4B45C55D4AD</launch:code>
+        </launch:codeMark>
+        <launch:codeMark>
+          <launch:code>49FD46E6C4B45C55D4AE</launch:code>
+        </launch:codeMark>
+     </launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>]]></artwork>
+          </figure>
+
+
+          <figure>
+            <preamble>Following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension, following the "mark" 
+            validation model, with the mark information.</preamble>
+
+            <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>exampleone.tld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+        <launch:phase>sunrise</launch:phase>
+        <launch:codeMark>
+          <mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+            <mark:name>Example One</mark:name>
+            <mark:label>example-one</mark:label>
+            <mark:label>exampleone</mark:label>
+            <mark:issuer>IP Clearinghouse</mark:issuer>
+            <mark:number>GE 3933232</mark:number>
+            <mark:type>REG-TM-WORD</mark:type>
+            <mark:class>1</mark:class>
+            <mark:entitlement>owner</mark:entitlement>
+            <mark:regDate>2011-09-09</mark:regDate>
+            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
+            <mark:exDate>2013-09-09</mark:exDate>
+            <mark:country>AU</mark:country>
+            <mark:region>VIC</mark:region>
+            <mark:owner>
+              <mark:org>Example Inc.</mark:org>
+            </mark:owner>
+            <mark:contact>
+              <mark:name>John Doe</mark:name>
+              <mark:org>Example Inc.</mark:org>
+              <mark:addr>
+                <mark:street>123 Example Dr.</mark:street>
+                <mark:street>Suite 100</mark:street>
+                <mark:city>Reston</mark:city>
+                <mark:sp>VA</mark:sp>
+                <mark:pc>20190</mark:pc>
+                <mark:cc>US</mark:cc>
+              </mark:addr>
+              <mark:voice x="1234">+1.7035555555</mark:voice>
+              <mark:fax>+1.7035555556</mark:fax>
+              <mark:email>jdoe@example.tld</mark:email>
+            </mark:contact>
+          </mark:mark>
+        </launch:codeMark>
+      </launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>]]></artwork>
+          </figure>
+
+
+
+          <figure>
+            <preamble>Following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension, following the "code with mark" 
+            validation model, with a code and mark information.</preamble>
+
+            <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+        <launch:phase>sunrise</launch:phase>
+        <launch:codeMark>
+          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+          <mark:mark
+           xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+            <mark:name>Hello</mark:name>
+            <mark:issuer>IP Clearinghouse</mark:issuer>
+            <mark:number>GE 3933232</mark:number>
+            <mark:type>REG-TM-WORD</mark:type>
+            <mark:class>1</mark:class>
+            <mark:entitlement>owner</mark:entitlement>
+            <mark:regDate>2011-09-09</mark:regDate>
+            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
+            <mark:exDate>2013-09-09</mark:exDate>
+            <mark:country>AU</mark:country>
+            <mark:region>VIC</mark:region>
+            <mark:owner>
+              <mark:org>Example Inc.</mark:org>
+            </mark:owner>
+            <mark:contact>
+              <mark:name>John Doe</mark:name>
+              <mark:org>Example Inc.</mark:org>
+              <mark:addr>
+                <mark:street>123 Example Dr.</mark:street>
+                <mark:street>Suite 100</mark:street>
+                <mark:city>Reston</mark:city>
+                <mark:sp>VA</mark:sp>
+                <mark:pc>20190</mark:pc>
+                <mark:cc>US</mark:cc>
+              </mark:addr>
+              <mark:voice x="1234">+1.7035555555</mark:voice>
+              <mark:fax>+1.7035555556</mark:fax>
+              <mark:email>jdoe@example.tld</mark:email>
+            </mark:contact>
+          </mark:mark>
+        </launch:codeMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
@@ -1354,8 +1402,8 @@ WduZWRNYXJrPg
 
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with signed mark
-            information.</preamble>
+            using the &lt;launch:create&gt; extension, following the "signed mark" 
+            validation model, with the signed mark information.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1453,8 +1501,8 @@ Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
 
           <figure>
             <preamble>Following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension with base64 
-            encoded signed mark information.</preamble>
+            using the &lt;launch:create&gt; extension, following the "signed mark" 
+            validation model, with the base64 encoded signed mark information.</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1477,9 +1525,7 @@ Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
         <launch:phase>sunrise</launch:phase>
         <smd:encodedSignedMark 
-         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
-         xsi:schemaLocation="urn:ietf:params:xml:ns:signedMark-1.0
-         signedMark-1.0.xsd">
+         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
 D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnNpZ25
 lZE1hcmsgeG1sbnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOnNpZ25lZ
 E1hcmstMS4wIiBpZD0ic2lnbmVkTWFyayI-PHNtZDpzZXJpYWw-MTIzNDU2PC9
@@ -2032,8 +2078,10 @@ Import common element types.
   -->
   <complexType name="codeMarkType">
     <sequence>
-    <element name="code" type="launch:codeType"/>
-    <element ref="mark:mark"/>
+    <element name="code" type="launch:codeType"
+    	minOccurs="0"/>
+    <element ref="mark:mark"
+    	minOccurs="0"/>
   </sequence>
   </complexType>
   
@@ -2046,8 +2094,6 @@ Import common element types.
       <choice>
         <element name="codeMark" type="launch:codeMarkType"
           maxOccurs="unbounded"/>
-      <element ref="mark:mark"
-        maxOccurs="unbounded"/>
         <element ref="smd:signedMark" 
          maxOccurs="unbounded"/>
         <element ref="smd:encodedSignedMark" 
@@ -2492,7 +2538,6 @@ END]]></artwork>
         <t>Removed references to the ICANN model.</t>
         <t>Removed support for the Claims Info Command.</t>
         <t>Removed use of the signedClaim.</t>
-        <t>Removed support for specifying just a mark code on the create.</t>
         <t>Revised the method for referring to the signedClaim from the XML Signature using the IDREF URI.</t>
         <t>Split the launch-1.0.xsd into three XML schemas including launch-1.0.xsd, signeMark-1.0.xsd, and mark-1.0.xsd.</t>
         <t>Split the "claims" launch phase to the "claims1" and "claims2" launch phases.</t>
