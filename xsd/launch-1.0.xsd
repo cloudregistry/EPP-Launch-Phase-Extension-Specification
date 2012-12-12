@@ -43,7 +43,7 @@ Import common element types.
   <complexType name="idContainerType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
-      <element name="applicationID" type="token"/>
+      <element name="applicationID" type="launch:applicationIDType"/>
     </sequence>
   </complexType>
   

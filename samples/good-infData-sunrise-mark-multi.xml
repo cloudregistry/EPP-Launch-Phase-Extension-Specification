@@ -102,7 +102,7 @@
      </extension>
      <trID>
        <clTRID>ABC-12345</clTRID>
-       <svTRID>54322-XYZ</svTRID>
+       <svTRID>54321-XYZ</svTRID>
      </trID>
    </response>
  </epp>

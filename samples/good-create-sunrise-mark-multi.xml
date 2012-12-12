@@ -24,6 +24,7 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
           <launch:phase>sunrise</launch:phase>
+          <launch:codeMark>
           <mark:mark
             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
             xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
@@ -60,6 +61,8 @@
               <mark:email>jdoe@example.tld</mark:email>
             </mark:contact>
          </mark:mark>
+         </launch:codeMark>
+          <launch:codeMark>
          <mark:mark
            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
            xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
@@ -96,6 +99,7 @@
              <mark:email>jdoe@example.tld</mark:email>
            </mark:contact>
          </mark:mark>
+         </launch:codeMark>
        </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
