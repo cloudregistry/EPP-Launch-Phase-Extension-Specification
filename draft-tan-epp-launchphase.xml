@@ -341,12 +341,12 @@
       |                                 |              |
       +---------------------------------+              |
       |                                 ^              |
-      |                                 |              |      
-      |                        +--------+-------+      | 
+      |                                 |              |
+      |                        +--------+-------+      |
       |                        |                |      |
       +----------------------->| pendingAuction +------+
-                               |                |       
-                               +----------------+        
+                               |                |
+                               +----------------+
 
             ]]></artwork>
           </figure>
@@ -359,10 +359,10 @@
 
         <t><list style="hanging">
 
-          	<t hangText="code">Use of a mark code by itself to validate 
-          	that the mark matches the domain name.  This model is supported 
-          	using the &lt;launch:codeMark&gt; element with just the 
-          	&lt;launch:code&gt; element.</t>
+            <t hangText="code">Use of a mark code by itself to validate 
+            that the mark matches the domain name.  This model is supported 
+            using the &lt;launch:codeMark&gt; element with just the 
+            &lt;launch:code&gt; element.</t>
 
             <t hangText="mark">The mark information is passed without any
             other validation element. The server will use some custom form of
@@ -645,7 +645,7 @@
     </mark:contact>
   </mark:mark>
   <dsig:Signature 
-  	xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
     <dsig:SignedInfo>
     <dsig:CanonicalizationMethod 
 Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
@@ -2078,9 +2078,9 @@ Import common element types.
   <complexType name="codeMarkType">
     <sequence>
     <element name="code" type="launch:codeType"
-    	minOccurs="0"/>
+      minOccurs="0"/>
     <element ref="mark:mark"
-    	minOccurs="0"/>
+      minOccurs="0"/>
   </sequence>
   </complexType>
   
