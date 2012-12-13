@@ -718,7 +718,7 @@ Contact</h3>
 <p>The contact information contained within the <a class='info' href='#mark'>Mark<span> (</span><span class='info'>Mark</span><span>)</span></a> cannot 
         be defined via a contact identifier as defined in the <a class='info' href='#RFC5733'>EPP contact mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733] since 
         it is contact information defined outside of the server.  Some of the contact elements defined in 
-        <a class='info' href='#RFC5733'>EPP contact mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733] are replicated in this extension.
+        <a class='info' href='#RFC5733'>EPP contact mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733] are replicated for the mark contact so there is no dependency to the <a class='info' href='#RFC5733'>EPP contact mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Contact Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5733] XML schema from the Mark XML schema.
 </p>
 <p>The child elements of a contact using either the &lt;mark:owner&gt; or 
         &lt;mark:contact&gt; elements include:
@@ -819,7 +819,7 @@ Digital Signature</h3>
 </dd>
 <dt>&lt;smd:exDate&gt;:</dt>
 <dd>OPTIONAL date and time that the 
-            &lt;smd:signedMark&gt; expires.  The server MUST NOT accept 
+            &lt;smd:signedMark&gt; expiry.  The server MUST NOT accept 
             a &lt;smd:signedMark&gt; that has expired.  No &lt;smd:exDate&gt; 
             element indicates that there is no expiry.
 </dd>

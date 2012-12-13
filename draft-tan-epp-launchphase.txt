@@ -490,12 +490,12 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    cannot be defined via a contact identifier as defined in the EPP
    contact mapping [RFC5733] since it is contact information defined
    outside of the server.  Some of the contact elements defined in EPP
-   contact mapping [RFC5733] are replicated in this extension.
+   contact mapping [RFC5733] are replicated for the mark contact so
+   there is no dependency to the EPP contact mapping [RFC5733] XML
+   schema from the Mark XML schema.
 
    The child elements of a contact using either the <mark:owner> or
    <mark:contact> elements include:
-
-
 
 
 
@@ -564,7 +564,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    <smd:serial>:  The signature serial number that can be compared with
       a revocation list by the server.
    <smd:exDate>:  OPTIONAL date and time that the <smd:signedMark>
-      expires.  The server MUST NOT accept a <smd:signedMark> that has
+      expiry.  The server MUST NOT accept a <smd:signedMark> that has
       expired.  No <smd:exDate> element indicates that there is no
       expiry.
    <mark:mark>:  The trademark information as defined in the Mark
