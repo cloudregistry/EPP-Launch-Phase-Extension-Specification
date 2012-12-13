@@ -1997,7 +1997,7 @@ Import common element types.
   <!-- 
   Definition for launch phase.  Name is an optional attribute
   used to extend the phase type.  For example, when 
-  using the phase type value of &qt;custom&gt;, the name 
+  using the phase type value of <custom>, the name 
   can be used to specify the custom phase.  
   -->
   <complexType name="phaseType">
