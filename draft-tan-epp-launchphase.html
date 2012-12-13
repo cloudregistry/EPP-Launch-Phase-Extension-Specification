@@ -148,13 +148,13 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: June 7, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: June 15, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">December 4, 2012</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">December 12, 2012</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
-    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-04</h1>
+    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-05</h1>
 
 <h3>Abstract</h3>
 
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on June 7, 2013.</p>
+This Internet-Draft will expire on June 15, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -264,6 +264,8 @@ Change from 01 to 02<br />
 Change from 02 to 03<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-03-to-04">6.4.</a>&nbsp;
 Change from 03 to 04<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-04-to-05">6.5.</a>&nbsp;
+Change from 04 to 05<br />
 <a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
 <a href="#Security">8.</a>&nbsp;
@@ -378,7 +380,7 @@ Launch Phases</h3>
 <blockquote class="text"><dl>
 <dt>sunrise</dt>
 <dd>Phase when trademark holders can submit
-            registration applications with trademark information that can be
+            registrations or applications with trademark information that can be
             validated by the server.
 </dd>
 <dt>landrush</dt>
@@ -429,28 +431,28 @@ Status Values</h3>
         required "s" attribute: </p>
 <blockquote class="text"><dl>
 <dt>pending:</dt>
-<dd>the initial state of a newly-created
+<dd>The initial state of a newly-created
             application object.
 </dd>
 <dt>validated:</dt>
-<dd>the application meets relevant registry
+<dd>The application meets relevant registry
             rules.
 </dd>
 <dt>invalid:</dt>
-<dd>the application does not validate according
+<dd>The application does not validate according
             to registry rules.
 </dd>
 <dt>pendingAuction:</dt>
-<dd>the application is pending based on 
+<dd>The application is pending based on 
             results of an auction.
 </dd>
 <dt>allocated:</dt>
-<dd>one of two possible end states of an
+<dd>One of two possible end states of an
             application object; the object corresponding to the application
             has been provisioned.
 </dd>
 <dt>rejected:</dt>
-<dd>the other possible end state; the object
+<dd>The other possible end state; the object
             was not provisioned.
 </dd>
 <dt>custom:</dt>
@@ -468,13 +470,13 @@ Status Values</h3>
 <p>For extensibility the &lt;launch:status&gt; element includes an
         OPTIONAL "name" attribute that can define a sub-status or the full name
         of the status when the status value is "custom".  The server SHOULD 
-        NOT use of the "custom" status value.
+        NOT use the "custom" status value.
 </p>
 <p>Certain status values MAY be combined. For example, an application
         can be invalid and rejected. Additionally certain statuses MAY be
         skipped. For example, an application MAY immediately start at the
         allocated status or an application MAY skip the pendingAuction status
-        if server does not support an auction. If a &lt;domain:create&gt; processes a request
+        if the server does not support an auction. If a &lt;domain:create&gt; processes a request
         synchronously without the use of an intermediate application, than an
         <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> is not
         needed along with the application status.
@@ -642,7 +644,7 @@ Mark</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;mark:id&gt;:</dt>
-<dd>an identifier for the mark. This
+<dd>An identifier for the mark. This
             identifier MUST be unique among all marks associated with an
             application object.
 </dd>
@@ -651,56 +653,56 @@ Mark</h3>
             value is free-form text that MAY be mapped to one or more &lt;mark:label&gt; values.
 </dd>
 <dt>&lt;mark:label&gt;:</dt>
-<dd>Zero or more domain name labels that corresponds 
+<dd>Zero or more domain name labels that correspond 
             to the &lt;mark:name&gt;.  Each &lt;mark:label&gt; can match 
             directly to the domain name after adding the parent zone.
 </dd>
 <dt>&lt;mark:issuer&gt;:</dt>
-<dd>name of the authority which issued
-            the right (trademark clearinghouse, trademark office, company registration bureau, etc.)
+<dd>The name of the authority which issued
+            the right (trademark clearinghouse, trademark office, company registration bureau, etc.).
 </dd>
 <dt>&lt;mark:number&gt;:</dt>
-<dd>the registration number of the right
-            (trademark number, company registration number, etc.)
+<dd>The registration number of the right
+            (trademark number, company registration number, etc.).
 </dd>
 <dt>&lt;mark:type&gt;:</dt>
-<dd>indicates the applicant's entitlement to the mark 
-            (owner, licensee, etc.)
+<dd>Indicates the type of claim being made (trademark,
+      symbol, combined mark, company name, etc.).
 </dd>
 <dt>&lt;mark:class&gt;:</dt>
-<dd>zero or more Nice Classification class numbers as defined in the 
-            <a href='http://www.wipo.int/classifications/nivilo/nice/index.htm'>Nice List of Classes</a>
+<dd>Zero or more Nice Classification class numbers as defined in the 
+            <a href='http://www.wipo.int/classifications/nivilo/nice/index.htm'>Nice List of Classes</a>.
 </dd>
 <dt>&lt;mark:entitlement&gt;:</dt>
-<dd>indicates the applicant's
-            entitlement to the mark (owner, licensee, etc.)
+<dd>Indicates the applicant's
+            entitlement to the mark (owner, licensee, etc.).
 </dd>
 <dt>&lt;mark:regDate&gt;:</dt>
-<dd>the date of registration / application of the
-            mark
+<dd>The date of registration / application of the
+            mark.
 </dd>
 <dt>&lt;mark:effectiveDate&gt;:</dt>
-<dd>the date the
-            mark becomes effective
+<dd>The date the
+            mark becomes effective.
 </dd>
 <dt>&lt;mark:exDate&gt;:</dt>
-<dd>the date of expiration of the
-            mark
+<dd>The date of expiration of the
+            mark.
 </dd>
 <dt>&lt;mark:country&gt;:</dt>
-<dd>indicates the country in which the
-              mark is valid. This may be a two-character code from <a class='info' href='#WIPO.ST3'>[WIPO.ST3]<span> (</span><span class='info'>WIPO, &ldquo;Recommended standard on two-letter codes for the representation of states, other entities and intergovernmental organizations,&rdquo; March&nbsp;2007.</span><span>)</span></a>
+<dd>The country in which the
+              mark is valid. This may be a two-character code from <a class='info' href='#WIPO.ST3'>[WIPO.ST3]<span> (</span><span class='info'>WIPO, &ldquo;Recommended standard on two-letter codes for the representation of states, other entities and intergovernmental organizations,&rdquo; March&nbsp;2007.</span><span>)</span></a>.
 </dd>
 <dt>&lt;mark:region&gt;:</dt>
-<dd>indicates the name of a city, state,
+<dd>The name of a city, state,
             province or other geographic region in which the mark is valid.
 </dd>
 <dt>&lt;mark:owner&gt;:</dt>
-<dd>Owner information using the <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> 
+<dd>The owner information using the <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> 
             elements.
 </dd>
 <dt>&lt;mark:contact&gt;:</dt>
-<dd>Contact for the owner using the 
+<dd>The contact for the owner using the 
             <a class='info' href='#contact'>Contact<span> (</span><span class='info'>Contact</span><span>)</span></a> element.
 </dd>
 </dl></blockquote>
@@ -723,41 +725,44 @@ Contact</h3>
         </p>
 <blockquote class="text"><dl>
 <dt>&lt;mark:name&gt;:</dt>
-<dd>name of the individual or role represented by the contact.
+<dd>The name of the individual or role represented by the contact.
 </dd>
 <dt>&lt;mark:org&gt;:</dt>
-<dd>name of the organization with which the contact is affiliated.
+<dd>The name of the organization with which the contact is affiliated.
 </dd>
 <dt>&lt;mark:addr&gt;:</dt>
-<dd>address information associated with the contact.  the &lt;mark:addr&gt; element contains 
+<dd>The address information associated with the contact.  the &lt;mark:addr&gt; element contains 
             the following child elements:
 </dd>
 <dt></dt>
 <dd>
 <blockquote class="text"><dl>
 <dt>&lt;mark:street&gt;</dt>
-<dd>zero to three &lt;mark:street&gt; elements that contain 
+<dd>Zero to three &lt;mark:street&gt; elements that contain 
                   the contact's street address.
 </dd>
 <dt>&lt;mark:city&gt;</dt>
-<dd>contact's city
+<dd>The contact's city.
 </dd>
 <dt>&lt;mark:sp&gt;</dt>
-<dd>contact's state or province
+<dd>The contact's state or province.
+</dd>
+<dt>&lt;mark:pc&gt;</dt>
+<dd>The contact's postal code.
 </dd>
 <dt>&lt;mark:cc&gt;</dt>
-<dd>contact's country code
+<dd>The contact's country code.
 </dd>
 </dl></blockquote>
 </dd>
 <dt>&lt;mark:voice&gt;:</dt>
-<dd>contact's voice telephone number
+<dd>The contact's voice telephone number.
 </dd>
 <dt>&lt;mark:fax&gt;:</dt>
-<dd>contact's facsimile telephone number
+<dd>The contact's facsimile telephone number.
 </dd>
 <dt>&lt;mark:email&gt;:</dt>
-<dd>contact's email address
+<dd>The contact's email address.
 </dd>
 </dl></blockquote>
 
@@ -809,8 +814,8 @@ Digital Signature</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;smd:serial&gt;:</dt>
-<dd>Signature serial number that 
-            that can be compared with a revocation list by the server.
+<dd>The signature serial number that 
+            can be compared with a revocation list by the server.
 </dd>
 <dt>&lt;smd:exDate&gt;:</dt>
 <dd>OPTIONAL date and time that the 
@@ -819,7 +824,7 @@ Digital Signature</h3>
             element indicates that there is no expiry.
 </dd>
 <dt>&lt;mark:mark&gt;:</dt>
-<dd>Trademark information as defined in the  
+<dd>The trademark information as defined in the  
             <a class='info' href='#mark'>Mark<span> (</span><span class='info'>Mark</span><span>)</span></a> section.
 </dd>
 <dt>&lt;Signature&gt;:</dt>
@@ -839,7 +844,6 @@ Digital Signature</h3>
  &lt;smd:signedMark id="signedMark"
   xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
   &lt;smd:serial&gt;123456&lt;/smd:serial&gt;
-  &lt;smd:zone&gt;newtld&lt;/smd:zone&gt;
   &lt;smd:exDate&gt;2012-08-16T09:00:00.0Z&lt;/smd:exDate&gt;
   &lt;mark:mark
    xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
@@ -914,7 +918,7 @@ MoFpM+GxwFcpSA==
         value of "base64".  The "base64" encoded text of the &lt;smd:encodedSignedMark&gt; element 
         MUST conform to <a class='info' href='#RFC2045'>[RFC2045]<span> (</span><span class='info'>Freed, N. and N. Borenstein, &ldquo;Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies,&rdquo; November&nbsp;1996.</span><span>)</span></a>.
 </p>
-<p>The following is an example an &lt;smd:encodedSignedMark&gt;
+<p>The following is an example of a &lt;smd:encodedSignedMark&gt;
             element that uses the default "base64" for encoding a &lt;smd:signedMark&gt; element.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
        &lt;smd:encodedSignedMark
@@ -1001,7 +1005,7 @@ EPP &lt;check&gt; Command</h3>
         or not at least one matching trademark exists for the domain name.  
         If there is at least one matching trademark that exists for the 
         domain name a &lt;launch:claimKey&gt; element is returned.  
-        The value of that the &lt;launch:claimKey&gt; element can 
+        The value of the &lt;launch:claimKey&gt; element can 
         be used with an info service of a third party trademark provider like 
         the Trademark Clearinghouse (TMCH) for getting the information needed 
         to generate the trademark claims notice.  The third party trademark 
@@ -1083,7 +1087,7 @@ EPP &lt;check&gt; Command</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>the phase with a value of
+<dd>The phase with a value of
               "claims1" or "claims2" that matches the associated 
               Claims Check Command &lt;launch:phase&gt;.
 </dd>
@@ -1144,7 +1148,7 @@ EPP &lt;check&gt; Command</h3>
     &lt;/resData&gt;
     &lt;trID&gt;
      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-     &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+     &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
 &lt;/epp&gt;</pre></div>
@@ -1174,7 +1178,7 @@ EPP &lt;check&gt; Command</h3>
     &lt;/resData&gt;
     &lt;trID&gt;
      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-     &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+     &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
 &lt;/epp&gt;</pre></div>
@@ -1254,7 +1258,7 @@ EPP &lt;info&gt; Command</h3>
    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
 &lt;/epp&gt;</pre></div>
-<p>If the query was successful, the server replies with an
+<p>If the query was successful, the server replies with a
           &lt;launch:infData&gt; element along with the regular EPP
           &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
           child elements:
@@ -1262,7 +1266,7 @@ EPP &lt;info&gt; Command</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>the phase during which the
+<dd>The phase during which the
               application was submitted or is associated with that matches the associated 
               &lt;info&gt; command &lt;launch:phase&gt;.
 </dd>
@@ -1276,7 +1280,7 @@ EPP &lt;info&gt; Command</h3>
               values<span> (</span><span class='info'>Status Values</span><span>)</span></a>.
 </dd>
 <dt>&lt;mark:mark&gt;</dt>
-<dd>zero or more
+<dd>Zero or more
               &lt;mark:mark&gt; elements.  The &lt;mark:mark&gt;
               child elements are defined in the 
               <a class='info' href='#mark'>&lt;mark:mark&gt; element<span> (</span><span class='info'>Mark</span><span>)</span></a> 
@@ -1353,7 +1357,7 @@ EPP &lt;info&gt; Command</h3>
     &lt;/extension&gt;
     &lt;trID&gt;
       &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-      &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
 &lt;/epp&gt;</pre></div>
@@ -1369,7 +1373,7 @@ EPP &lt;create&gt; Command</h3>
 <blockquote class="text"><dl>
 <dt>sunrise</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "sunrise" launch phase is used to submit an registration with trademark
+            "sunrise" launch phase is used to submit a registration with trademark
             information that can be verified by the server with the
             &lt;domain:name&gt; value. The <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> is used for the "sunrise" launch phase.
             Optionally, the server can support multiple overlapping
@@ -1434,21 +1438,21 @@ Sunrise Create Form</h3>
                   
 <blockquote class="text"><dl>
 <dt>&lt;launch:codeMark&gt;</dt>
-<dd>zero or more
+<dd>Zero or more
               &lt;launch:codeMark&gt; elements.  The &lt;launch:codeMark&gt;
               child elements are defined in the 
               <a class='info' href='#codeMark'>&lt;launch:codeMark&gt; element<span> (</span><span class='info'>&lt;launch:codeMark&gt; element</span><span>)</span></a> 
               section.
 </dd>
 <dt>&lt;smd:signedMark&gt;</dt>
-<dd>zero or more
+<dd>Zero or more
               &lt;smd:signedMark&gt; elements.  The &lt;smd:signedMark&gt; 
               child elements are defined in 
               the <a class='info' href='#signedMark'>&lt;smd:signedMark&gt; element<span> (</span><span class='info'>&lt;smd:signedMark&gt; element</span><span>)</span></a> 
               section.
 </dd>
 <dt>&lt;smd:encodedSignedMark&gt;</dt>
-<dd>zero or more
+<dd>Zero or more
               &lt;smd:encodedSignedMark&gt; elements.  The &lt;smd:encodedSignedMark&gt; 
               child elements are defined in 
               the <a class='info' href='#encodedSignedMark'>&lt;smd:encodedSignedMark&gt; element<span> (</span><span class='info'>&lt;smd:encodedSignedMark&gt; element</span><span>)</span></a> 
@@ -1799,7 +1803,7 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
               &lt;launch:create&gt;.
 </dd>
 <dt>&lt;launch:applicationID&gt;</dt>
-<dd>the application
+<dd>The application
               identifier of the application.
 </dd>
 </dl></blockquote>
@@ -1810,8 +1814,8 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
   &lt;response&gt;
-    &lt;result code="1000"&gt;
-      &lt;msg&gt;Command completed successfully&lt;/msg&gt;
+    &lt;result code="1001"&gt;
+      &lt;msg&gt;Command completed successfully; action pending&lt;/msg&gt;
     &lt;/result&gt;
     &lt;resData&gt;
       &lt;domain:creData
@@ -1822,14 +1826,16 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
       &lt;/domain:creData&gt;
     &lt;/resData&gt;
     &lt;extension&gt;
-      &lt;launch:creData xmlns:lp="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
+      &lt;launch:creData
+      	xmlns:launch="urn:ietf:params:xml:ns:launchphase-1.0"&gt;
         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;launch:applicationID&gt;2393-9323-E08C-03B1&lt;/launch:applicationID&gt;
+        &lt;launch:applicationID&gt;2393-9323-E08C-03B1
+        &lt;/launch:applicationID&gt;
       &lt;/launch:creData&gt;
     &lt;/extension&gt;
     &lt;trID&gt;
-      &lt;clTRID&gt;example:epp:239332&lt;/clTRID&gt;
-      &lt;svTRID&gt;server-8551292e23b&lt;/svTRID&gt;
+      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
 &lt;/epp&gt;
@@ -1910,10 +1916,9 @@ Claims Create Form</h3>
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
 &lt;/epp&gt;</pre></div>
-<p>This extension does not define any extension to the response of an
+<p>This extension does not define any extension to the response of a
         &lt;create&gt; domain command for the Claims Create Form. After processing the command, the
-        server replies with a standard EPP response as defined in the EPP
-        domain mapping.
+        server replies with a standard EPP response as defined in the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
 </p>
 <a name="updateCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1924,13 +1929,13 @@ EPP &lt;update&gt; Command</h3>
         &lt;update&gt; command to be used in conjunction with the domain name
         mapping.
 </p>
-<p>A server that does not support allow multiple applications of a
-        given domain name with a <a class='info' href='#applicationID'>Application
+<p>A server that does not support multiple applications of a
+        given domain name with an <a class='info' href='#applicationID'>Application
         Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> during its launch phase operations MUST return an
         EPP error result code of 2102.
 </p>
 <p>Registry policies permitting, clients may update an application
-        object by submitting an EPP &lt;update&gt; command along with an
+        object by submitting an EPP &lt;update&gt; command along with a
         &lt;launch:update&gt; element to indicate the application object to be
         updated. The &lt;launch:update&gt; element contains the following
         child elements:
@@ -1938,19 +1943,18 @@ EPP &lt;update&gt; Command</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>the phase during which the
+<dd>The phase during which the
             application was submitted or is associated with.
 </dd>
 <dt>&lt;launch:applicationID&gt;</dt>
-<dd>the application
+<dd>The application
             identifier for which the client wishes to update.
 </dd>
 </dl></blockquote>
 
 <p>This extension does not define any extension to the response of an
         &lt;update&gt; domain command. After processing the command, the
-        server replies with a standard EPP response as defined in the EPP
-        domain mapping.
+        server replies with a standard EPP response as defined in the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
 </p>
 <p>Following is an example &lt;update&gt; domain command with
           the &lt;launch:update&gt; extension to add and remove a name server
@@ -1997,8 +2001,8 @@ EPP &lt;update&gt; Command</h3>
       &lt;msg&gt;Command completed successfully&lt;/msg&gt;
     &lt;/result&gt;
     &lt;trID&gt;
-      &lt;clTRID&gt;example:epp:239333&lt;/clTRID&gt;
-      &lt;svTRID&gt;server-8551292e23c&lt;/svTRID&gt;
+      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
 &lt;/epp&gt;
@@ -2013,12 +2017,12 @@ EPP &lt;delete&gt; Command</h3>
         mapping.
 </p>
 <p>A server that does not support multiple applications of a
-        given domain name with a <a class='info' href='#applicationID'>Application
+        given domain name with an <a class='info' href='#applicationID'>Application
         Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> during its launch phase operations MUST return an
         EPP error result code of 2102.
 </p>
 <p>Registry policies permitting, clients MAY withdraw an application
-        by submitting an EPP &lt;delete&gt; command along with an
+        by submitting an EPP &lt;delete&gt; command along with a
         &lt;launch:delete&gt; element to indicate the application object to be
         deleted. The &lt;launch:delete&gt; element contains the following
         child elements:
@@ -2026,19 +2030,18 @@ EPP &lt;delete&gt; Command</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>the phase during which the
+<dd>The phase during which the
             application was submitted or is associated with.
 </dd>
 <dt>&lt;launch:applicationID&gt;</dt>
-<dd>the application
+<dd>The application
             identifier for which the client wishes to delete.
 </dd>
 </dl></blockquote>
 
-<p>This extension does not define any extension to the response of an
+<p>This extension does not define any extension to the response of a
         &lt;delete&gt; domain command. After processing the command, the
-        server replies with a standard EPP response as defined in the EPP
-        domain mapping.
+        server replies with a standard EPP response as defined in the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
 </p>
 <p>Following is an example &lt;delete&gt; domain command with
           the &lt;launch:delete&gt; extension.
@@ -2073,8 +2076,8 @@ EPP &lt;delete&gt; Command</h3>
       &lt;msg&gt;Command completed successfully&lt;/msg&gt;
     &lt;/result&gt;
     &lt;trID&gt;
-      &lt;clTRID&gt;example:epp:239334&lt;/clTRID&gt;
-      &lt;svTRID&gt;server-8551292e23d&lt;/svTRID&gt;
+      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
     &lt;/trID&gt;
   &lt;/response&gt;
 &lt;/epp&gt;
@@ -2197,7 +2200,7 @@ Import common element types.
   &lt;complexType name="idContainerType"&gt;
     &lt;sequence&gt;
       &lt;element name="phase" type="launch:phaseType"/&gt;
-      &lt;element name="applicationID" type="token"/&gt;
+      &lt;element name="applicationID" type="launch:applicationIDType"/&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
 
@@ -2802,6 +2805,23 @@ Change from 03 to 04</h3>
 <li>Changed the elements in the createNoticeType to include the noticeID, timestamp, and the source elements.
 </li>
 <li>Added the class and effectiveDate elements to mark.
+</li>
+</ol>
+
+<a name="change-04-to-05"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.5"></a><h3>6.5.&nbsp;
+Change from 04 to 05</h3>
+
+<p></p>
+<ol class="text">
+<li>Removed reference to &lt;smd:zone&gt; in the &lt;smd:signedMark&gt; example.
+</li>
+<li>Incorporated feedback from Bernhard Reutner-Fischer on the provreg mail list.
+</li>
+<li>Added missing launch XML prefix to applicationIDType reference in the idContainerType of the Launch Schema.
+</li>
+<li>Added missing description of the &lt;mark:pc&gt; element in the &lt;mark:addr&gt; element.
 </li>
 </ol>
 

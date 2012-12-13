@@ -533,6 +533,8 @@
 
                   <t hangText="&lt;mark:sp&gt;">The contact's state or province.</t>
 
+                  <t hangText="&lt;mark:pc&gt;">The contact's postal code.</t>
+                  
                   <t hangText="&lt;mark:cc&gt;">The contact's country code.</t>
                 </list></t>
 
@@ -1607,9 +1609,11 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
       </domain:creData>
     </resData>
     <extension>
-      <launch:creData xmlns:launch="urn:ietf:params:xml:ns:launchphase-1.0">
+      <launch:creData 
+      	xmlns:launch="urn:ietf:params:xml:ns:launchphase-1.0">
         <launch:phase>sunrise</launch:phase>
-        <launch:applicationID>2393-9323-E08C-03B1</launch:applicationID>
+        <launch:applicationID>2393-9323-E08C-03B1
+        </launch:applicationID>
       </launch:creData>
     </extension>
     <trID>
@@ -2549,7 +2553,8 @@ END]]></artwork>
       <t><list style="numbers">
         <t>Removed reference to &lt;smd:zone&gt; in the &lt;smd:signedMark&gt; example.</t>
         <t>Incorporated feedback from Bernhard Reutner-Fischer on the provreg mail list.</t>
-        </list></t>
+        <t>Added missing launch XML prefix to applicationIDType reference in the idContainerType of the Launch Schema.</t>
+        <t>Added missing description of the &lt;mark:pc&gt; element in the &lt;mark:addr&gt; element.</t>
       </list></t>
     </section>
    </section>
