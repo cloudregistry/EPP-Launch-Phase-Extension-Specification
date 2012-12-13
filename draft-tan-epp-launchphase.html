@@ -531,9 +531,9 @@ Mark Validation Models</h3>
 <blockquote class="text"><dl>
 <dt>code</dt>
 <dd>Use of a mark code by itself to validate 
-          	that the mark matches the domain name.  This model is supported 
-          	using the &lt;launch:codeMark&gt; element with just the 
-          	&lt;launch:code&gt; element.
+            that the mark matches the domain name.  This model is supported 
+            using the &lt;launch:codeMark&gt; element with just the 
+            &lt;launch:code&gt; element.
 </dd>
 <dt>mark</dt>
 <dd>The mark information is passed without any
@@ -841,8 +841,8 @@ Digital Signature</h3>
             Signature</a> to sign all of the elements of 
             &lt;smd:signedMark&gt; element.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
- &lt;smd:signedMark id="signedMark"
-  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
+&lt;smd:signedMark id="signedMark"
+ xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
   &lt;smd:serial&gt;123456&lt;/smd:serial&gt;
   &lt;smd:exDate&gt;2012-08-16T09:00:00.0Z&lt;/smd:exDate&gt;
   &lt;mark:mark
@@ -861,41 +861,44 @@ Digital Signature</h3>
     &lt;mark:country&gt;AU&lt;/mark:country&gt;
     &lt;mark:region&gt;VIC&lt;/mark:region&gt;
     &lt;mark:owner&gt;
-     &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+      &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
     &lt;/mark:owner&gt;
     &lt;mark:contact&gt;
-     &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
-     &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
-     &lt;mark:addr&gt;
-      &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
-      &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
-      &lt;mark:city&gt;Reston&lt;/mark:city&gt;
-      &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
-      &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
-      &lt;mark:cc&gt;US&lt;/mark:cc&gt;
-     &lt;/mark:addr&gt;
-     &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
-     &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
-     &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
+      &lt;mark:name&gt;John Doe&lt;/mark:name&gt;
+      &lt;mark:org&gt;Example Inc.&lt;/mark:org&gt;
+      &lt;mark:addr&gt;
+        &lt;mark:street&gt;123 Example Dr.&lt;/mark:street&gt;
+        &lt;mark:street&gt;Suite 100&lt;/mark:street&gt;
+        &lt;mark:city&gt;Reston&lt;/mark:city&gt;
+        &lt;mark:sp&gt;VA&lt;/mark:sp&gt;
+        &lt;mark:pc&gt;20190&lt;/mark:pc&gt;
+        &lt;mark:cc&gt;US&lt;/mark:cc&gt;
+      &lt;/mark:addr&gt;
+      &lt;mark:voice x="1234"&gt;+1.7035555555&lt;/mark:voice&gt;
+      &lt;mark:fax&gt;+1.7035555556&lt;/mark:fax&gt;
+      &lt;mark:email&gt;jdoe@example.tld&lt;/mark:email&gt;
     &lt;/mark:contact&gt;
   &lt;/mark:mark&gt;
   &lt;dsig:Signature
-  	xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"&gt;
+   xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"&gt;
     &lt;dsig:SignedInfo&gt;
-    &lt;dsig:CanonicalizationMethod
-Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/&gt;
-    &lt;dsig:SignatureMethod
-Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/&gt;
-    &lt;dsig:Reference URI="#signedMark"&gt;
-      &lt;dsig:Transforms&gt;
-        &lt;dsig:Transform
-Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
-      &lt;/dsig:Transforms&gt;
-      &lt;dsig:DigestMethod
-        Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-      &lt;dsig:DigestValue&gt;6651T5s9GZgQOxifdCFmDfSIoUc=&lt;/dsig:DigestValue&gt;
-    &lt;/dsig:Reference&gt;
-  &lt;/dsig:SignedInfo&gt;
+      &lt;dsig:CanonicalizationMethod
+       Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/&gt;
+      &lt;dsig:SignatureMethod
+       Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/&gt;
+      &lt;dsig:Reference URI="#signedMark"&gt;
+        &lt;dsig:Transforms&gt;
+          &lt;dsig:Transform
+           Algorithm=
+           "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
+        &lt;/dsig:Transforms&gt;
+        &lt;dsig:DigestMethod
+         Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
+        &lt;dsig:DigestValue&gt;
+          6651T5s9GZgQOxifdCFmDfSIoUc=
+        &lt;/dsig:DigestValue&gt;
+      &lt;/dsig:Reference&gt;
+    &lt;/dsig:SignedInfo&gt;
     &lt;dsig:SignatureValue&gt;
 Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9
 a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
@@ -904,9 +907,9 @@ RYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcj
 G6815IJV/9RT+MTXri7i0s82CqIS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F
 +Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kguE++RHKa4xoBIeyTgWqpWcLu
 MoFpM+GxwFcpSA==
-     &lt;/dsig:SignatureValue&gt;
-   &lt;/dsig:Signature&gt;
- &lt;/smd:signedMark&gt;</pre></div>
+    &lt;/dsig:SignatureValue&gt;
+  &lt;/dsig:Signature&gt;
+&lt;/smd:signedMark&gt;</pre></div>
 <a name="encodedSignedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.7.2"></a><h3>2.7.2.&nbsp;
@@ -1827,7 +1830,7 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
     &lt;/resData&gt;
     &lt;extension&gt;
       &lt;launch:creData
-      	xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
         &lt;launch:applicationID&gt;2393-9323-E08C-03B1
         &lt;/launch:applicationID&gt;
@@ -2214,7 +2217,7 @@ Import common element types.
   &lt;!--
   Definition for launch phase.  Name is an optional attribute
   used to extend the phase type.  For example, when
-  using the phase type value of &amp;qt;custom&amp;gt;, the name
+  using the phase type value of &lt;custom&gt;, the name
   can be used to specify the custom phase.
   --&gt;
   &lt;complexType name="phaseType"&gt;
@@ -2295,9 +2298,9 @@ Import common element types.
   &lt;complexType name="codeMarkType"&gt;
     &lt;sequence&gt;
     &lt;element name="code" type="launch:codeType"
-    	minOccurs="0"/&gt;
+      minOccurs="0"/&gt;
     &lt;element ref="mark:mark"
-    	minOccurs="0"/&gt;
+      minOccurs="0"/&gt;
   &lt;/sequence&gt;
   &lt;/complexType&gt;
 

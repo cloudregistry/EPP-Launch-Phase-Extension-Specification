@@ -341,12 +341,12 @@
       |                                 |              |
       +---------------------------------+              |
       |                                 ^              |
-      |                                 |              |      
-      |                        +--------+-------+      | 
+      |                                 |              |
+      |                        +--------+-------+      |
       |                        |                |      |
       +----------------------->| pendingAuction +------+
-                               |                |       
-                               +----------------+        
+                               |                |
+                               +----------------+
 
             ]]></artwork>
           </figure>
@@ -359,10 +359,10 @@
 
         <t><list style="hanging">
 
-          	<t hangText="code">Use of a mark code by itself to validate 
-          	that the mark matches the domain name.  This model is supported 
-          	using the &lt;launch:codeMark&gt; element with just the 
-          	&lt;launch:code&gt; element.</t>
+            <t hangText="code">Use of a mark code by itself to validate 
+            that the mark matches the domain name.  This model is supported 
+            using the &lt;launch:codeMark&gt; element with just the 
+            &lt;launch:code&gt; element.</t>
 
             <t hangText="mark">The mark information is passed without any
             other validation element. The server will use some custom form of
@@ -608,8 +608,8 @@
             &lt;smd:signedMark&gt; element.</preamble>
 
             <artwork><![CDATA[
- <smd:signedMark id="signedMark"
-  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
+<smd:signedMark id="signedMark" 
+ xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
   <smd:serial>123456</smd:serial>
   <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
   <mark:mark
@@ -628,41 +628,44 @@
     <mark:country>AU</mark:country>
     <mark:region>VIC</mark:region>
     <mark:owner>
-     <mark:org>Example Inc.</mark:org>
+      <mark:org>Example Inc.</mark:org>
     </mark:owner>
     <mark:contact>
-     <mark:name>John Doe</mark:name>
-     <mark:org>Example Inc.</mark:org>
-     <mark:addr>
-      <mark:street>123 Example Dr.</mark:street>
-      <mark:street>Suite 100</mark:street>
-      <mark:city>Reston</mark:city>
-      <mark:sp>VA</mark:sp>
-      <mark:pc>20190</mark:pc>
-      <mark:cc>US</mark:cc>
-     </mark:addr>
-     <mark:voice x="1234">+1.7035555555</mark:voice>
-     <mark:fax>+1.7035555556</mark:fax>
-     <mark:email>jdoe@example.tld</mark:email>
+      <mark:name>John Doe</mark:name>
+      <mark:org>Example Inc.</mark:org>
+      <mark:addr>
+        <mark:street>123 Example Dr.</mark:street>
+        <mark:street>Suite 100</mark:street>
+        <mark:city>Reston</mark:city>
+        <mark:sp>VA</mark:sp>
+        <mark:pc>20190</mark:pc>
+        <mark:cc>US</mark:cc>
+      </mark:addr>
+      <mark:voice x="1234">+1.7035555555</mark:voice>
+      <mark:fax>+1.7035555556</mark:fax>
+      <mark:email>jdoe@example.tld</mark:email>
     </mark:contact>
   </mark:mark>
   <dsig:Signature 
-  	xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+   xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
     <dsig:SignedInfo>
-    <dsig:CanonicalizationMethod 
-Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-    <dsig:SignatureMethod 
-Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-    <dsig:Reference URI="#signedMark">
-      <dsig:Transforms>
-        <dsig:Transform 
-Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-      </dsig:Transforms>
-      <dsig:DigestMethod 
-        Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-      <dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=</dsig:DigestValue>
-    </dsig:Reference>
-  </dsig:SignedInfo>
+      <dsig:CanonicalizationMethod 
+       Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+      <dsig:SignatureMethod 
+       Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <dsig:Reference URI="#signedMark">
+        <dsig:Transforms>
+          <dsig:Transform 
+           Algorithm=
+           "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+        </dsig:Transforms>
+        <dsig:DigestMethod 
+         Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <dsig:DigestValue>
+          6651T5s9GZgQOxifdCFmDfSIoUc=
+        </dsig:DigestValue>
+      </dsig:Reference>
+    </dsig:SignedInfo>
     <dsig:SignatureValue>
 Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9
 a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
@@ -671,9 +674,9 @@ RYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcj
 G6815IJV/9RT+MTXri7i0s82CqIS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F
 +Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kguE++RHKa4xoBIeyTgWqpWcLu
 MoFpM+GxwFcpSA==
-     </dsig:SignatureValue>
-   </dsig:Signature>
- </smd:signedMark>]]></artwork>
+    </dsig:SignatureValue>
+  </dsig:Signature>
+</smd:signedMark>]]></artwork>
           </figure>
 
         </section>
@@ -1610,7 +1613,7 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
     </resData>
     <extension>
       <launch:creData 
-      	xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
         <launch:phase>sunrise</launch:phase>
         <launch:applicationID>2393-9323-E08C-03B1
         </launch:applicationID>
@@ -2001,7 +2004,7 @@ Import common element types.
   <!-- 
   Definition for launch phase.  Name is an optional attribute
   used to extend the phase type.  For example, when 
-  using the phase type value of &qt;custom&gt;, the name 
+  using the phase type value of <custom>, the name 
   can be used to specify the custom phase.  
   -->
   <complexType name="phaseType">
@@ -2082,9 +2085,9 @@ Import common element types.
   <complexType name="codeMarkType">
     <sequence>
     <element name="code" type="launch:codeType"
-    	minOccurs="0"/>
+      minOccurs="0"/>
     <element ref="mark:mark"
-    	minOccurs="0"/>
+      minOccurs="0"/>
   </sequence>
   </complexType>
   

@@ -577,38 +577,38 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    Signature [3] to sign all of the elements of <smd:signedMark>
    element.
 
-  <smd:signedMark id="signedMark"
-   xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
-   <smd:serial>123456</smd:serial>
-   <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
-   <mark:mark
-    xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-     <mark:name>Example One</mark:name>
-     <mark:label>example-one</mark:label>
-     <mark:label>exampleone</mark:label>
-     <mark:issuer>IP Clearinghouse</mark:issuer>
-     <mark:number>GE 3933232</mark:number>
-     <mark:type>REG-TM-WORD</mark:type>
-     <mark:class>1</mark:class>
-     <mark:entitlement>owner</mark:entitlement>
-     <mark:regDate>2011-09-09</mark:regDate>
-     <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-     <mark:exDate>2013-09-09</mark:exDate>
-     <mark:country>AU</mark:country>
-     <mark:region>VIC</mark:region>
-     <mark:owner>
-      <mark:org>Example Inc.</mark:org>
-     </mark:owner>
-     <mark:contact>
-      <mark:name>John Doe</mark:name>
-      <mark:org>Example Inc.</mark:org>
-      <mark:addr>
-       <mark:street>123 Example Dr.</mark:street>
-       <mark:street>Suite 100</mark:street>
-       <mark:city>Reston</mark:city>
-       <mark:sp>VA</mark:sp>
-       <mark:pc>20190</mark:pc>
-       <mark:cc>US</mark:cc>
+   <smd:signedMark id="signedMark"
+    xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
+     <smd:serial>123456</smd:serial>
+     <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
+     <mark:mark
+      xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+       <mark:name>Example One</mark:name>
+       <mark:label>example-one</mark:label>
+       <mark:label>exampleone</mark:label>
+       <mark:issuer>IP Clearinghouse</mark:issuer>
+       <mark:number>GE 3933232</mark:number>
+       <mark:type>REG-TM-WORD</mark:type>
+       <mark:class>1</mark:class>
+       <mark:entitlement>owner</mark:entitlement>
+       <mark:regDate>2011-09-09</mark:regDate>
+       <mark:effectiveDate>2011-10-09</mark:effectiveDate>
+       <mark:exDate>2013-09-09</mark:exDate>
+       <mark:country>AU</mark:country>
+       <mark:region>VIC</mark:region>
+       <mark:owner>
+         <mark:org>Example Inc.</mark:org>
+       </mark:owner>
+       <mark:contact>
+         <mark:name>John Doe</mark:name>
+         <mark:org>Example Inc.</mark:org>
+         <mark:addr>
+           <mark:street>123 Example Dr.</mark:street>
+           <mark:street>Suite 100</mark:street>
+           <mark:city>Reston</mark:city>
+           <mark:sp>VA</mark:sp>
+           <mark:pc>20190</mark:pc>
+           <mark:cc>US</mark:cc>
 
 
 
@@ -617,40 +617,43 @@ Tan, et al.               Expires June 15, 2013                [Page 11]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
-      </mark:addr>
-      <mark:voice x="1234">+1.7035555555</mark:voice>
-      <mark:fax>+1.7035555556</mark:fax>
-      <mark:email>jdoe@example.tld</mark:email>
-     </mark:contact>
-   </mark:mark>
-   <dsig:Signature
-         xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
-     <dsig:SignedInfo>
-     <dsig:CanonicalizationMethod
- Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-     <dsig:SignatureMethod
- Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-     <dsig:Reference URI="#signedMark">
-       <dsig:Transforms>
-         <dsig:Transform
- Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-       </dsig:Transforms>
-       <dsig:DigestMethod
-         Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-       <dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=</dsig:DigestValue>
-     </dsig:Reference>
-   </dsig:SignedInfo>
-     <dsig:SignatureValue>
- Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9
- a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
- jmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZE2EvffMLBiL4xbCJM48ew
- RYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcj
- G6815IJV/9RT+MTXri7i0s82CqIS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F
- +Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kguE++RHKa4xoBIeyTgWqpWcLu
- MoFpM+GxwFcpSA==
-      </dsig:SignatureValue>
-    </dsig:Signature>
-  </smd:signedMark>
+         </mark:addr>
+         <mark:voice x="1234">+1.7035555555</mark:voice>
+         <mark:fax>+1.7035555556</mark:fax>
+         <mark:email>jdoe@example.tld</mark:email>
+       </mark:contact>
+     </mark:mark>
+     <dsig:Signature
+      xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+       <dsig:SignedInfo>
+         <dsig:CanonicalizationMethod
+          Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+         <dsig:SignatureMethod
+          Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+         <dsig:Reference URI="#signedMark">
+           <dsig:Transforms>
+             <dsig:Transform
+              Algorithm=
+              "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+           </dsig:Transforms>
+           <dsig:DigestMethod
+            Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+           <dsig:DigestValue>
+             6651T5s9GZgQOxifdCFmDfSIoUc=
+           </dsig:DigestValue>
+         </dsig:Reference>
+       </dsig:SignedInfo>
+       <dsig:SignatureValue>
+   Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9
+   a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
+   jmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZE2EvffMLBiL4xbCJM48ew
+   RYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcj
+   G6815IJV/9RT+MTXri7i0s82CqIS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F
+   +Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kguE++RHKa4xoBIeyTgWqpWcLu
+   MoFpM+GxwFcpSA==
+       </dsig:SignatureValue>
+     </dsig:Signature>
+   </smd:signedMark>
 
 2.7.2.  <smd:encodedSignedMark> element
 
@@ -660,9 +663,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
    with the default "encoding" value of "base64".  The "base64" encoded
    text of the <smd:encodedSignedMark> element MUST conform to
    [RFC2045].
-
-
-
 
 
 
@@ -2141,7 +2141,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
      <!--
      Definition for launch phase.  Name is an optional attribute
      used to extend the phase type.  For example, when
-     using the phase type value of &qt;custom&gt;, the name
+     using the phase type value of <custom>, the name
      can be used to specify the custom phase.
      -->
      <complexType name="phaseType">
@@ -2230,9 +2230,9 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
      <complexType name="codeMarkType">
        <sequence>
        <element name="code" type="launch:codeType"
-           minOccurs="0"/>
+         minOccurs="0"/>
        <element ref="mark:mark"
-           minOccurs="0"/>
+         minOccurs="0"/>
 
 
 
