@@ -1610,7 +1610,7 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
     </resData>
     <extension>
       <launch:creData 
-      	xmlns:launch="urn:ietf:params:xml:ns:launchphase-1.0">
+      	xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
         <launch:phase>sunrise</launch:phase>
         <launch:applicationID>2393-9323-E08C-03B1
         </launch:applicationID>

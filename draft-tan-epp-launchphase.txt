@@ -1705,7 +1705,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
        </resData>
        <extension>
          <launch:creData
-           xmlns:launch="urn:ietf:params:xml:ns:launchphase-1.0">
+           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
            <launch:phase>sunrise</launch:phase>
            <launch:applicationID>2393-9323-E08C-03B1
            </launch:applicationID>
@@ -2779,6 +2779,8 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
        the idContainerType of the Launch Schema.
    4.  Added missing description of the <mark:pc> element in the <mark:
        addr> element.
+   5.  Updated note on replication of the EPP contact mapping elements
+       in the Mark Contact section.
 
 
 7.  IANA Considerations
@@ -2789,9 +2791,7 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
    Registration request for the Launch namespace:
 
-      URI: urn:ietf:params:xml:ns:launch-1.0
-      Registrant Contact: See the "Author's Address" section of this
-      document.
+
 
 
 
@@ -2801,6 +2801,9 @@ Tan, et al.               Expires June 15, 2013                [Page 50]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+      URI: urn:ietf:params:xml:ns:launch-1.0
+      Registrant Contact: See the "Author's Address" section of this
+      document.
       XML: None.  Namespace URIs do not represent an XML specification.
 
    Registration request for the Signed mark namespace:
@@ -2846,9 +2849,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
               Bodies", RFC 2045, November 1996.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
-
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
 
 
 
@@ -2857,6 +2857,9 @@ Tan, et al.               Expires June 15, 2013                [Page 51]
 Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
 
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               January 2004.
 
    [RFC5730]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)",
@@ -2895,6 +2898,21 @@ Authors' Addresses
    URI:   http://www.cloudregistry.net
 
 
+
+
+
+
+
+
+
+
+
+
+Tan, et al.               Expires June 15, 2013                [Page 52]
+
+Internet-Draft        Launch Phase Mapping for EPP         December 2012
+
+
    Gavin Brown
    CentralNic Ltd
    35-39 Mooregate
@@ -2906,13 +2924,6 @@ Authors' Addresses
    URI:   http://www.centralnic.com
 
 
-
-
-Tan, et al.               Expires June 15, 2013                [Page 52]
-
-Internet-Draft        Launch Phase Mapping for EPP         December 2012
-
-
    James Gould
    VeriSign, Inc.
    12061 Bluemont Way
@@ -2921,17 +2932,6 @@ Internet-Draft        Launch Phase Mapping for EPP         December 2012
 
    Email: jgould@verisign.com
    URI:   http://www.verisigninc.com
-
-
-
-
-
-
-
-
-
-
-
 
 
 
