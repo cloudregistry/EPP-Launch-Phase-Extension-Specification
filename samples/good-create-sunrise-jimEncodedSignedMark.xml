@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+     epp-1.0.xsd">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+       domain-1.0.xsd">
+        <domain:name>exampleone.tld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+       launch-1.0.xsd">
+        <launch:phase>sunrise</launch:phase>
+        <jimSM:encodedSignedMark 
+         xmlns:jimSM="urn:ietf:params:xml:ns:jimSignedMark-1.0"
+         xsi:schemaLocation="urn:ietf:params:xml:ns:jimSignedMark-1.0
+         jimSignedMark-1.0.xsd" jim="gould">
+D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnNpZ25lZE1hcmsgeG1s
+bnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOnNpZ25lZE1hcmstMS4wIiBpZD0ic2lnbmVk
+TWFyayI-PHNtZDpzZXJpYWw-MTIzNDU2PC9zbWQ6c2VyaWFsPjxzbWQ6ZXhEYXRlPjIwMTItMTEt
+MjlUMTg6MTY6NTQuMDg4MFo8L3NtZDpleERhdGU-PG1hcms6bWFyayB4bWxuczptYXJrPSJ1cm46
+aWV0ZjpwYXJhbXM6eG1sOm5zOm1hcmstMS4wIj48bWFyazpuYW1lPkV4YW1wbGUgT25lPC9tYXJr
+Om5hbWU-PG1hcms6bGFiZWw-ZXhhbXBsZS1vbmU8L21hcms6bGFiZWw-PG1hcms6bGFiZWw-ZXhh
+bXBsZW9uZTwvbWFyazpsYWJlbD48bWFyazppc3N1ZXI-SVAgQ2xlYXJpbmdob3VzZTwvbWFyazpp
+c3N1ZXI-PG1hcms6bnVtYmVyPkdFIDM5MzMyMzI8L21hcms6bnVtYmVyPjxtYXJrOm51bWJlcj5v
+d25lcjwvbWFyazpudW1iZXI-PG1hcms6cmVnRGF0ZT4yMDEyLTExLTI5VDE4OjE2OjU0LjA3NDZa
+PC9tYXJrOnJlZ0RhdGU-PG1hcms6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6NTQuMDc0Nlo8L21h
+cms6ZXhEYXRlPjxtYXJrOmNvdW50cnk-QVU8L21hcms6Y291bnRyeT48bWFyazpyZWdpb24-VklD
+PC9tYXJrOnJlZ2lvbj48L21hcms6bWFyaz48ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0
+cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzpD
+YW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvVFIvMjAw
+MS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aENvbW1lbnRzIi8-PGRzaWc6U2lnbmF0dXJlTWV0
+aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGEx
+Ii8-PGRzaWc6UmVmZXJlbmNlIFVSST0iI3NpZ25lZE1hcmsiPjxkc2lnOlRyYW5zZm9ybXM-PGRz
+aWc6VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2ln
+I2VudmVsb3BlZC1zaWduYXR1cmUiLz48L2RzaWc6VHJhbnNmb3Jtcz48ZHNpZzpEaWdlc3RNZXRo
+b2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc2hhMSIvPjxk
+c2lnOkRpZ2VzdFZhbHVlPktIdVFrdFdUMnRYbXg4Y2ZWd2NvZ0JSUm5oRT08L2RzaWc6RGlnZXN0
+VmFsdWU-PC9kc2lnOlJlZmVyZW5jZT48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVW
+YWx1ZT5RdWk2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16ZENhcWpWcXVv
+VDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV1MG1NMmt4VURyWkVCc0dpV3Fu
+aHMzQVBxOTJBcVdGZHZnUmV6ZHcycmNVbVg3dGJyeWNGM3ZDMEJmRUg4RHoKb2FIUFRQb24xTUxO
+bzF5bGtYTDA5bWJqTHVhRlJSS3Z2UCs4djQ1VFJXRmkrbVJ0akJvMGg4blFiNTNtR2lKaU1OekFD
+aDBtK3pFeAp2bmxEUmRpdWJFZVVWbG9LV2dMY1BiSkd4QmFWL1gvQjQvRnVRbXEzclcxaXNZOUlE
+YzA3U3ZheEZ0a1l4emVra25GQkNCSWNibXFTCnlOckMvOEp4Y2RRSHN0TUZWc1Z2SjdWUFJqS2VZ
+M0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU-PC9kc2lnOlNpZ25hdHVyZT48L3NtZDpz
+aWduZWRNYXJrPg</jimSM:encodedSignedMark>
+      </launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>

@@ -36,9 +36,9 @@
             <mark:type>REG-TM-WORD</mark:type>
             <mark:class>1</mark:class>
             <mark:entitlement>owner</mark:entitlement>
-            <mark:regDate>2011-09-09</mark:regDate>
-            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-            <mark:exDate>2013-09-09</mark:exDate>
+            <mark:regDate>2011-09-09T22:00:00.0Z</mark:regDate>
+            <mark:effectiveDate>2011-10-09T22:00:00.0Z</mark:effectiveDate>
+            <mark:exDate>2013-09-09T22:00:00.0Z</mark:exDate>
             <mark:country>AU</mark:country>
             <mark:region>VIC</mark:region>
             <mark:owner>

@@ -26,28 +26,46 @@ Import common element types.
   </annotation>
   
   <!-- 
+   Abstract signed mark for replacement via substitution.
+  -->
+  <element name="abstractSignedMark" 
+    type="smd:abstractSignedMarkType"
+    abstract="true"/>  
+  
+  
+  <!-- 
   <smd:signedMark> element definition
   -->
-  <element name="signedMark" type="smd:signedMarkType"/>  
+  <element name="signedMark" type="smd:signedMarkType"
+    substitutionGroup="smd:abstractSignedMark"/>  
   
   <!-- 
   <smd:encodedSignedMark> element definition
   -->
-  <element name="encodedSignedMark" 
-    type="smd:encodedSignedMarkType"/>
+  <element name="encodedSignedMark" type="smd:encodedSignedMarkType"/>
+  
+  <!-- 
+  Empty type for use in extending for a signedMark 
+   -->
+  <complexType name="abstractSignedMarkType"/>
+  
   
   <!-- 
   <smd:signedMark> child elements
   -->
   <complexType name="signedMarkType">
-    <sequence>
-      <element name="serial" type="token"/>
-     <element name="exDate" type="dateTime" 
-      minOccurs="0"/>
-      <element ref="mark:mark"/>
-      <element ref="dsig:Signature"/>
-    </sequence>
-    <attribute name="id" type="ID" use="required"/>
+    <complexContent>
+      <extension base="smd:abstractSignedMarkType">
+        <sequence>
+          <element name="serial" type="token"/>
+          <element name="exDate" type="dateTime" 
+            minOccurs="0"/>
+          <element ref="mark:mark"/>
+          <element ref="dsig:Signature"/>
+        </sequence>
+        <attribute name="id" type="ID" use="required"/>
+      </extension>
+    </complexContent>
   </complexType>
 
   <!-- 
@@ -61,6 +79,5 @@ Import common element types.
       </extension>
     </simpleContent>
   </complexType>
-
 
 </schema>

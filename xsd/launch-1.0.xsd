@@ -139,7 +139,7 @@ Import common element types.
     <sequence>
     <element name="code" type="launch:codeType"
       minOccurs="0"/>
-    <element ref="mark:mark"
+    <element ref="mark:abstractMark"
       minOccurs="0"/>
   </sequence>
   </complexType>
@@ -153,7 +153,7 @@ Import common element types.
       <choice>
         <element name="codeMark" type="launch:codeMarkType"
           maxOccurs="unbounded"/>
-        <element ref="smd:signedMark" 
+        <element ref="smd:abstractSignedMark" 
          maxOccurs="unbounded"/>
         <element ref="smd:encodedSignedMark" 
          maxOccurs="unbounded"/>
@@ -169,7 +169,8 @@ Import common element types.
   <complexType name="createNoticeType">
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
-      <element name="timestamp" type="dateTime"/>
+      <element name="generatedDate" type="dateTime"/>
+      <element name="acceptedDate" type="dateTime"/>
       <element name="source" type="token"/>
     </sequence>
   </complexType>
@@ -195,6 +196,8 @@ Import common element types.
         type="launch:applicationIDType" 
         minOccurs="0"/>
     </sequence>
+    <attribute name="includeMark" type="boolean" 
+      default="true"/>
   </complexType>
 
   <!-- 
@@ -243,7 +246,7 @@ Import common element types.
       minOccurs="0"/>
      <element name="status" type="launch:statusType" 
       minOccurs="0"/>
-      <element ref="mark:mark"
+      <element ref="mark:abstractMark"
       minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>

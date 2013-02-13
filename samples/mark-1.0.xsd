@@ -12,47 +12,65 @@
     </documentation>
   </annotation>
   
+  
+  <!-- 
+   Abstract mark for replacement via substitution.
+  -->
+  <element name="abstractMark" type="mark:abstractMarkType"
+    abstract="true"/>    
+  
+  
   <!-- 
   <mark:mark> element definition
   -->
-  <element name="mark" type="mark:markType"/>    
-  
+  <element name="mark" type="mark:markType" 
+    substitutionGroup="mark:abstractMark"/>    
+    
+  <!-- 
+  Empty type for use in extending for a mark 
+   -->
+  <complexType name="abstractMarkType"/>
+    
   <!--
   <mark:mark> child elements
   -->
   <complexType name="markType">
+    <complexContent>
+      <extension base="mark:abstractMarkType">
       <sequence>
         <element name="id" type="token" 
-          minOccurs="0"/>
+         minOccurs="0"/>
         <element name="name" type="token"
-           minOccurs="0"/>
+          minOccurs="0"/>
         <element name="label" type="mark:labelType"
-           minOccurs="0" maxOccurs="unbounded"/>
-        <element name="issuer" type="token" 
-          minOccurs="0"/>
-        <element name="number" type="token" 
-          minOccurs="0"/>
-        <element name="type" type="token"
-          minOccurs="0"/>
-        <element name="class" type="integer" 
           minOccurs="0" maxOccurs="unbounded"/>
+        <element name="issuer" type="token" 
+         minOccurs="0"/>
+        <element name="number" type="token" 
+         minOccurs="0"/>
+        <element name="type" type="token"
+         minOccurs="0"/>
+        <element name="class" type="integer" 
+         minOccurs="0" maxOccurs="unbounded"/>
         <element name="entitlement" type="token" 
-          minOccurs="0"/>
-        <element name="regDate" type="date" 
-          minOccurs="0"/>
-        <element name="effectiveDate" type="date" 
-          minOccurs="0"/>
-        <element name="exDate" type="date" 
-          minOccurs="0"/>
+         minOccurs="0"/>
+        <element name="regDate" type="dateTime" 
+         minOccurs="0"/>
+        <element name="effectiveDate" type="dateTime" 
+         minOccurs="0"/>
+        <element name="exDate" type="dateTime" 
+         minOccurs="0"/>
         <element name="country" type="mark:ccType" 
-          minOccurs="0"/>
+         minOccurs="0"/>
         <element name="region" type="token"
-           minOccurs="0"/>
+          minOccurs="0"/>
         <element name="owner" type="mark:contactType" 
-          minOccurs="0"/>
+         minOccurs="0"/>
         <element name="contact" type="mark:contactType" 
-          minOccurs="0"/>
-    </sequence>
+         minOccurs="0"/>
+     </sequence>
+    </extension>
+  </complexContent>
   </complexType>
   
   

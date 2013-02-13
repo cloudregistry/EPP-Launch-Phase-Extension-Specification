@@ -16,7 +16,7 @@
     <launch:info
      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
      xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
-     launch-1.0.xsd">
+     launch-1.0.xsd" includeMark="false">
       <launch:phase>sunrise</launch:phase>
       <launch:applicationID>abc123</launch:applicationID>
     </launch:info>

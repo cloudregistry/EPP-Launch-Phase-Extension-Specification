@@ -3,10 +3,8 @@
 <!-- One method to get references from the online citation libraries.
      There has to be one entity for each item to be referenced. 
      An alternate method (rfc include) is described in the references. -->
-<!ENTITY RFC2045 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2045.xml">
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC5730 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5730.xml">
-<!ENTITY RFC5733 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5733.xml">
 <!ENTITY RFC5731 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5731.xml">
 <!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
 <!ENTITY I-D.narten-iana-considerations-rfc2434bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.narten-iana-considerations-rfc2434bis.xml">
@@ -40,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-05" ipr="trust200902">
+<rfc category="std" docName="draft-tan-epp-launchphase-06" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -128,7 +126,7 @@
       </address>
     </author>
 
-    <date day="12" month="December" year="2012"/>
+    <date day="13" month="February" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -195,12 +193,14 @@
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.</t>
         <t>"signedMark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:signedMark-1.0". The XML namespace prefix "smd"
+        "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in <xref target="draft-lozano-smd"/>. 
+        The XML namespace prefix "smd"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.</t>
         <t>"mark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:mark-1.0". The XML namespace prefix "mark"
+        "urn:ietf:params:xml:ns:mark-1.0" that is defined in <xref target="draft-lozano-smd"/>. 
+        The XML namespace prefix "mark"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.</t>
@@ -354,7 +354,7 @@
       </section>
 
       <section anchor="validationModels" title="Mark Validation Models">
-        <t>A server MUST support one of four models for validating the trademark 
+        <t>A server MUST support at least one of the following models for validating the trademark 
         information:</t>
 
         <t><list style="hanging">
@@ -368,14 +368,14 @@
             other validation element. The server will use some custom form of
             validation to validate that the mark information is authentic. This
             model is supported using the &lt;launch:codeMark&gt; element with 
-            just the &lt;mark:mark&gt; element.</t>
+            just the <xref target="mark">&lt;mark:mark&gt;</xref> element.</t>
 
             <t hangText="code with mark:">A code is used along with the mark
             information by the server to validate the mark utilizing an external party. 
             The code represents some form of
             secret that matches the mark information passed. This model is
             supported using the &lt;launch:codeMark&gt; element that contains both the
-            &lt;launch:code&gt; and the &lt;mark:mark&gt; elements.</t>
+            &lt;launch:code&gt; and the <xref target="mark">&lt;mark:mark&gt;</xref> elements.</t>
 
             <t hangText="signed mark:">The mark information is digitally
             signed as described in the <xref target="digitalsignature">Digital Signature</xref>
@@ -388,8 +388,8 @@
             elements.</t>
           </list></t>
 
-        <t>More than one &lt;launch:codeMark&gt;, &lt;smd:signedMark&gt;, 
-        or &lt;smd:encodedSignedMark&gt; element MAY be specified. The maximum
+        <t>More than one &lt;launch:codeMark&gt;, <xref target="signedMark">&lt;smd:signedMark&gt;</xref>, 
+        or <xref target="encodedSignedMark">&lt;smd:encodedSignedMark&gt;</xref> element MAY be specified. The maximum
         number of marks per domain name is up to server policy.</t>
         
         <section anchor="codeMark" title="&lt;launch:codeMark&gt; element">
@@ -398,7 +398,7 @@
            elements:</t>
            <t><list style="hanging">
               <t hangText="&lt;launch:code&gt;:">OPTIONAL mark code used to 
-              validate the &lt;launch:mark&gt; information.  The mark code 
+              validate the <xref target="mark">&lt;mark:mark&gt;</xref> information.  The mark code 
               can be a mark specific secret value that the server can verify 
               against a third party.</t>
               <t hangText="&lt;mark:mark&gt;:">OPTIONAL mark information 
@@ -407,43 +407,14 @@
            </list></t>
                    <figure>
             <preamble>The following is an example &lt;launch:codeMark&gt;
-            element with both a &lt;launch:code&gt; and &lt;launch:mark&gt; element.</preamble>
+            element with both a &lt;launch:code&gt; and <xref target="mark">&lt;mark:mark&gt;</xref> element.
+            </preamble>
 
             <artwork><![CDATA[
 <launch:codeMark>
   <launch:code>49FD46E6C4B45C55D4AC</launch:code>
   <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-    <mark:name>Example One</mark:name>
-    <mark:label>example-one</mark:label>
-    <mark:label>exampleone</mark:label>
-    <mark:issuer>IP Clearinghouse</mark:issuer>
-    <mark:number>GE 3933232</mark:number>
-    <mark:type>REG-TM-WORD</mark:type>
-    <mark:class>1</mark:class>
-    <mark:entitlement>owner</mark:entitlement>
-    <mark:regDate>2011-09-09</mark:regDate>
-    <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-    <mark:exDate>2013-09-09</mark:exDate>
-    <mark:country>AU</mark:country>
-    <mark:region>VIC</mark:region>
-    <mark:owner>
-      <mark:org>Example Inc.</mark:org>
-    </mark:owner>
-    <mark:contact>
-      <mark:name>John Doe</mark:name>
-      <mark:org>Example Inc.</mark:org>
-      <mark:addr>
-        <mark:street>123 Example Dr.</mark:street>
-        <mark:street>Suite 100</mark:street>
-        <mark:city>Reston</mark:city>
-        <mark:sp>VA</mark:sp>
-        <mark:pc>20190</mark:pc>
-        <mark:cc>US</mark:cc>
-      </mark:addr>
-      <mark:voice x="1234">+1.7035555555</mark:voice>
-      <mark:fax>+1.7035555556</mark:fax>
-      <mark:email>jdoe@example.tld</mark:email>
-    </mark:contact>
+    ...
   </mark:mark>
 </launch:codeMark>]]></artwork>
           </figure>
@@ -454,293 +425,37 @@
       <section anchor="mark" title="Mark">
         <t>A &lt;mark:mark&gt; element describes an applicant's prior right
         to a given domain name that is used with the "mark", "mark with code", and 
-        the "signed mark" validation models.</t>
-
-        <t>The child elements of the &lt;mark:mark&gt; element include:</t>
-        <t><list style="hanging">
-            <t hangText="&lt;mark:id&gt;:">An identifier for the mark. This
-            identifier MUST be unique among all marks associated with an
-            application object.</t>
-
-            <t hangText="&lt;mark:name&gt;:">The registered trademark text string.  This 
-            value is free-form text that MAY be mapped to one or more &lt;mark:label&gt; values.</t>
-            
-            <t hangText="&lt;mark:label&gt;:">Zero or more domain name labels that correspond 
-            to the &lt;mark:name&gt;.  Each &lt;mark:label&gt; can match 
-            directly to the domain name after adding the parent zone.</t>            
-
-            <t hangText="&lt;mark:issuer&gt;:">The name of the authority which issued
-            the right (trademark clearinghouse, trademark office, company registration bureau, etc.).</t>
-
-            <t hangText="&lt;mark:number&gt;:">The registration number of the right
-            (trademark number, company registration number, etc.).</t>
-            
-            <t hangText="&lt;mark:type&gt;:">Indicates the type of claim being made (trademark,
-      symbol, combined mark, company name, etc.).</t>
-
-            <t hangText="&lt;mark:class&gt;:">Zero or more Nice Classification class numbers as defined in the 
-            <eref target="http://www.wipo.int/classifications/nivilo/nice/index.htm">Nice List of Classes</eref>.</t>
-
-            <t hangText="&lt;mark:entitlement&gt;:">Indicates the applicant's
-            entitlement to the mark (owner, licensee, etc.).</t>
-
-            <t hangText="&lt;mark:regDate&gt;:">The date of registration / application of the
-            mark.</t>
-
-            <t hangText="&lt;mark:effectiveDate&gt;:">The date the
-            mark becomes effective.</t>
-
-            <t hangText="&lt;mark:exDate&gt;:">The date of expiration of the
-            mark.</t>
-
-            <t hangText="&lt;mark:country&gt;:">The country in which the
-              mark is valid. This may be a two-character code from <xref target="WIPO.ST3" />.</t>
-
-            <t hangText="&lt;mark:region&gt;:">The name of a city, state,
-            province or other geographic region in which the mark is valid.</t>
-
-            <t hangText="&lt;mark:owner&gt;:">The owner information using the <xref target="contact">Contact</xref> 
-            elements.</t>
-
-            <t hangText="&lt;mark:contact&gt;:">The contact for the owner using the 
-            <xref target="contact">Contact</xref> element.</t>
-          </list></t>
-          <t>All of the child elements are OPTIONAL. Server policy may 
-          place additional constraints on the format and requirements of such elements.</t>
+        the "signed mark" validation models.  The &lt;mark:mark&gt; element is defined 
+        in <xref target="draft-lozano-smd"/>.  
+        A new mark format can be supported by creating a new 
+        XML schema for the mark that has an element that substitutes 
+        for the &lt;mark:abstractMark&gt; element from <xref target="draft-lozano-smd"/>.</t>
       </section>
-      
-      <section anchor="contact" title="Contact">
-        <t>The contact information contained within the <xref target="mark">Mark</xref> cannot 
-        be defined via a contact identifier as defined in the <xref target="RFC5733">EPP contact mapping</xref> since 
-        it is contact information defined outside of the server.  Some of the contact elements defined in 
-        <xref target="RFC5733">EPP contact mapping</xref> are replicated for the mark contact so there is no dependency to the <xref target="RFC5733">EPP contact mapping</xref> XML schema from the Mark XML schema.</t>  
-
-        <t>The child elements of a contact using either the &lt;mark:owner&gt; or 
-        &lt;mark:contact&gt; elements include:
-        <list hangIndent="4" style="hanging">
-            <t hangText="&lt;mark:name&gt;:">The name of the individual or role represented by the contact.</t>
-
-            <t hangText="&lt;mark:org&gt;:">The name of the organization with which the contact is affiliated.</t>
-
-            <t hangText="&lt;mark:addr&gt;:">The address information associated with the contact.  the &lt;mark:addr&gt; element contains 
-            the following child elements:</t>
-
-              <t><list hangIndent="4" style="hanging">
-                  <t hangText="&lt;mark:street&gt;">Zero to three &lt;mark:street&gt; elements that contain 
-                  the contact's street address.</t>
-
-                  <t hangText="&lt;mark:city&gt;">The contact's city.</t>
-
-                  <t hangText="&lt;mark:sp&gt;">The contact's state or province.</t>
-
-                  <t hangText="&lt;mark:pc&gt;">The contact's postal code.</t>
-                  
-                  <t hangText="&lt;mark:cc&gt;">The contact's country code.</t>
-                </list></t>
-
-
-            <t hangText="&lt;mark:voice&gt;:">The contact's voice telephone number.</t>
-
-            <t hangText="&lt;mark:fax&gt;:">The contact's facsimile telephone number.</t>
-
-            <t hangText="&lt;mark:email&gt;:">The contact's email address.</t>
-
-          </list></t>
-          <t>All of the child elements are OPTIONAL.  Server policy may place additional constraints
-        on the format and requirements of such elements.</t>
-      </section>
-      
+            
       <section anchor="digitalsignature" title="Digital Signature">
         <t>Digital signatures MAY be used by the server to validate either 
         the mark information, when using the "signed mark" validation model with the 
-        &lt;smd:signedMark&gt; element or the &lt;smd:encodedSignedMark&gt; element.  
-        The digital signatures are   
-        handled using an <eref target="http://www.w3.org/TR/xmldsig-core/">XML
-            Signature</eref> around the entire &lt;smd:signedMark&gt; 
-            element.  The &lt;smd:encodedSignedMark&gt; element includes an 
-            encoded form of the &lt;smd:signedMark&gt; element like the use of "base64" encoding.
-            Once the digital signature 
-         is validated using the appropriate public key, the server can trust 
-         all of the information included in the &lt;smd:signedMark&gt; 
-         element.  It's up to server policy how 
-         the public key is transferred.</t>  
-         <t>To have the digital signature cover all of the elements of the 
-         &lt;smd:signedMark&gt; element, 
-         the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
-            Signature</eref> IDREF URI is set to the "id" attribute value of the 
-            &lt;smd:signedMark&gt; element and the 
-            Transform "http://www.w3.org/2000/09/xmldsig#enveloped-signature" is 
-            used.  The digital signature covers the &lt;smd:signedMark&gt; element 
-            and the Signature 
-            element is embedded in the &lt;smd:signedMark&gt; element.
+        <xref target="signedMark">&lt;smd:signedMark&gt;</xref> element or the <xref target="encodedSignedMark">&lt;smd:encodedSignedMark&gt;</xref> element.  
         </t>
      <section anchor="signedMark" title="&lt;smd:signedMark&gt; element">
-        <t>The &lt;smd:signedMark&gt; is the fragment of XML that is digitally 
-        signed using <eref target="http://www.w3.org/TR/xmldsig-core/">XML
-            Signature</eref>.  The &lt;smd:signedMark&gt; includes a required "id" 
-            attribute of type XSD ID for 
-            use with an IDREF URI from the Signature element.  
-            The child elements of the &lt;smd:signedMark&gt; element include:</t>
-        <t><list style="hanging">
-            <t hangText="&lt;smd:serial&gt;:">The signature serial number that 
-            can be compared with a revocation list by the server.</t>
-
-           <t hangText="&lt;smd:exDate&gt;:">OPTIONAL date and time that the 
-            &lt;smd:signedMark&gt; expiry.  The server MUST NOT accept 
-            a &lt;smd:signedMark&gt; that has expired.  No &lt;smd:exDate&gt; 
-            element indicates that there is no expiry.</t>            
-
-            <t hangText="&lt;mark:mark&gt;:">The trademark information as defined in the  
-            <xref target="mark">Mark</xref> section.</t>
-
-            <t hangText="&lt;Signature&gt;:">
-            <eref target="http://www.w3.org/TR/xmldsig-core/">XML
-            Signature</eref> for the &lt;smd:signedMark&gt;.  Use of 
-            a namespace prefix, like "dsig", is recommended for the "http://www.w3.org/TR/xmldsig-core/" 
-            elements.</t>  
-
-          </list></t>
-          
-          <figure>
-            <preamble>The following is an example &lt;smd:signedMark&gt;
-            using the <eref target="http://www.w3.org/TR/xmldsig-core/">XML
-            Signature</eref> to sign all of the elements of 
-            &lt;smd:signedMark&gt; element.</preamble>
-
-            <artwork><![CDATA[
-<smd:signedMark id="signedMark" 
- xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
-  <smd:serial>123456</smd:serial>
-  <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
-  <mark:mark
-   xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-    <mark:name>Example One</mark:name>
-    <mark:label>example-one</mark:label>
-    <mark:label>exampleone</mark:label>
-    <mark:issuer>IP Clearinghouse</mark:issuer>
-    <mark:number>GE 3933232</mark:number>
-    <mark:type>REG-TM-WORD</mark:type>
-    <mark:class>1</mark:class>
-    <mark:entitlement>owner</mark:entitlement>
-    <mark:regDate>2011-09-09</mark:regDate>
-    <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-    <mark:exDate>2013-09-09</mark:exDate>
-    <mark:country>AU</mark:country>
-    <mark:region>VIC</mark:region>
-    <mark:owner>
-      <mark:org>Example Inc.</mark:org>
-    </mark:owner>
-    <mark:contact>
-      <mark:name>John Doe</mark:name>
-      <mark:org>Example Inc.</mark:org>
-      <mark:addr>
-        <mark:street>123 Example Dr.</mark:street>
-        <mark:street>Suite 100</mark:street>
-        <mark:city>Reston</mark:city>
-        <mark:sp>VA</mark:sp>
-        <mark:pc>20190</mark:pc>
-        <mark:cc>US</mark:cc>
-      </mark:addr>
-      <mark:voice x="1234">+1.7035555555</mark:voice>
-      <mark:fax>+1.7035555556</mark:fax>
-      <mark:email>jdoe@example.tld</mark:email>
-    </mark:contact>
-  </mark:mark>
-  <dsig:Signature 
-   xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
-    <dsig:SignedInfo>
-      <dsig:CanonicalizationMethod 
-       Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-      <dsig:SignatureMethod 
-       Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-      <dsig:Reference URI="#signedMark">
-        <dsig:Transforms>
-          <dsig:Transform 
-           Algorithm=
-           "http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-        </dsig:Transforms>
-        <dsig:DigestMethod 
-         Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-        <dsig:DigestValue>
-          6651T5s9GZgQOxifdCFmDfSIoUc=
-        </dsig:DigestValue>
-      </dsig:Reference>
-    </dsig:SignedInfo>
-    <dsig:SignatureValue>
-Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9
-a4b8nMOKdec8S3tG2hSx/NZa0RFHvx5zMsH/M
-jmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZE2EvffMLBiL4xbCJM48ew
-RYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhhrhyhPjSi9Uon8FnAJaiBEfHcj
-G6815IJV/9RT+MTXri7i0s82CqIS4wDGbGpyZAs7/kDY3A3upqSOwTtrFSCFX1F
-+Craec72lBB/dKJHxmoVkbIO5KQhqIOd+E+h2kguE++RHKa4xoBIeyTgWqpWcLu
-MoFpM+GxwFcpSA==
-    </dsig:SignatureValue>
-  </dsig:Signature>
-</smd:signedMark>]]></artwork>
-          </figure>
-
+        <t>The &lt;smd:signedMark&gt; element contains the digitally signed mark information.  The &lt;smd:signedMark&gt; 
+        element is defined in <xref target="draft-lozano-smd"/>.  A new 
+        signed mark format can be supported by creating a new XML schema 
+        for the signed mark that has an element that substitutes for 
+        the &lt;smd:abstractSignedMark&gt; element from <xref target="draft-lozano-smd"/>.  
+        </t>
         </section>
 
      <section anchor="encodedSignedMark" title="&lt;smd:encodedSignedMark&gt; element">
         <t>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
-        the digitally signed &lt;smd:signedMark&gt; element, described in <xref target="signedMark"/>, 
-        with the encoding defined by the "encoding" attribute with the default "encoding" 
-        value of "base64".  The "base64" encoded text of the &lt;smd:encodedSignedMark&gt; element 
-        MUST conform to <xref target="RFC2045"/>.</t>
-         
-                   <figure>
-            <preamble>The following is an example of a &lt;smd:encodedSignedMark&gt;
-            element that uses the default "base64" for encoding a &lt;smd:signedMark&gt; element.</preamble>
-
-            <artwork><![CDATA[
-       <smd:encodedSignedMark 
-        xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
-D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnN
-pZ25lZE1hcmsgeG1sbnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zO
-nNpZ25lZE1hcmstMS4wIiBpZD0ic2lnbmVkTWFyayI-PHNtZDpzZXJpYWw
--MTIzNDU2PC9zbWQ6c2VyaWFsPjxzbWQ6ZXhEYXRlPjIwMTItMTEtMjlUM
-Tg6MTY6NTQuMDg4MFo8L3NtZDpleERhdGU-PG1hcms6bWFyayB4bWxuczp
-tYXJrPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOm1hcmstMS4wIj48bWFya
-zpuYW1lPkV4YW1wbGUgT25lPC9tYXJrOm5hbWU-PG1hcms6bGFiZWw-ZXh
-hbXBsZS1vbmU8L21hcms6bGFiZWw-PG1hcms6bGFiZWw-ZXhhbXBsZW9uZ
-TwvbWFyazpsYWJlbD48bWFyazppc3N1ZXI-SVAgQ2xlYXJpbmdob3VzZTw
-vbWFyazppc3N1ZXI-PG1hcms6bnVtYmVyPkdFIDM5MzMyMzI8L21hcms6b
-nVtYmVyPjxtYXJrOm51bWJlcj5vd25lcjwvbWFyazpudW1iZXI-PG1hcms
-6cmVnRGF0ZT4yMDEyLTExLTI5VDE4OjE2OjU0LjA3NDZaPC9tYXJrOnJlZ
-0RhdGU-PG1hcms6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6NTQuMDc0Nlo
-8L21hcms6ZXhEYXRlPjxtYXJrOmNvdW50cnk-QVU8L21hcms6Y291bnRye
-T48bWFyazpyZWdpb24-VklDPC9tYXJrOnJlZ2lvbj48L21hcms6bWFyaz4
-8ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0cDovL3d3dy53My5vc
-mcvMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzp
-DYW5vbmljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3d
-y53My5vcmcvVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aEN
-vbW1lbnRzIi8-PGRzaWc6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0ia
-HR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8
--PGRzaWc6UmVmZXJlbmNlIFVSST0iI3NpZ25lZE1hcmsiPjxkc2lnOlRyY
-W5zZm9ybXM-PGRzaWc6VHJhbnNmb3JtIEFsZ29yaXRobT0iaHR0cDovL3d
-3dy53My5vcmcvMjAwMC8wOS94bWxkc2lnI2VudmVsb3BlZC1zaWduYXR1c
-mUiLz48L2RzaWc6VHJhbnNmb3Jtcz48ZHNpZzpEaWdlc3RNZXRob2QgQWx
-nb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwLzA5L3htbGRzaWcjc
-2hhMSIvPjxkc2lnOkRpZ2VzdFZhbHVlPktIdVFrdFdUMnRYbXg4Y2ZWd2N
-vZ0JSUm5oRT08L2RzaWc6RGlnZXN0VmFsdWU-PC9kc2lnOlJlZmVyZW5jZ
-T48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVWYWx1ZT5RdWk
-2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16ZENhc
-WpWcXVvVDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV
-1MG1NMmt4VURyWkVCc0dpV3FuaHMzQVBxOTJBcVdGZHZnUmV6ZHcycmNVb
-Vg3dGJyeWNGM3ZDMEJmRUg4RHoKb2FIUFRQb24xTUxObzF5bGtYTDA5bWJ
-qTHVhRlJSS3Z2UCs4djQ1VFJXRmkrbVJ0akJvMGg4blFiNTNtR2lKaU1Oe
-kFDaDBtK3pFeAp2bmxEUmRpdWJFZVVWbG9LV2dMY1BiSkd4QmFWL1gvQjQ
-vRnVRbXEzclcxaXNZOUlEYzA3U3ZheEZ0a1l4emVra25GQkNCSWNibXFTC
-nlOckMvOEp4Y2RRSHN0TUZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2R
-zaWc6U2lnbmF0dXJlVmFsdWU-PC9kc2lnOlNpZ25hdHVyZT48L3NtZDpza
-WduZWRNYXJrPg
-       </smd:encodedSignedMark>
-]]></artwork>
-          </figure>
-
+        the digitally signed <xref target="signedMark">&lt;smd:signedMark&gt;</xref> element.  The 
+        &lt;smd:encodedSignedMark&gt; element is defined in <xref target="draft-lozano-smd"/>.  
+        A new encoded signed mark format can be supported by creating a new XML schema 
+        for the encoded signed mark that has an element that substitutes for the 
+        &lt;smd:encodedSignedMark&gt; element from <xref target="draft-lozano-smd"/>.
+        </t>
         </section>
-
-
+        
       </section>
       
     </section>
@@ -968,7 +683,9 @@ WduZWRNYXJrPg
         for a launch phase registration or application.  The <xref target="applicationID">Application Identifier</xref> 
         returned in the &lt;launch:creData&gt; element of the <xref target="createCommand">Create Response</xref> 
         is used for retrieving information for a launch application.  A &lt;launch:info&gt; element
-        is sent along with the regular &lt;info&gt; domain command. The
+        is sent along with the regular &lt;info&gt; domain command. The &lt;launch:info&gt; element includes 
+        an OPTIONAL "includeMark" boolean attribute, with a default value of "true", to indicate whether 
+        or not to include the mark in the response.  The
         &lt;launch:info&gt; element contains the following child
         elements:</t>
         
@@ -999,7 +716,8 @@ WduZWRNYXJrPg
    </info>
    <extension>
     <launch:info
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0" 
+       includeMark="true">
       <launch:phase>sunrise</launch:phase>
       <launch:applicationID>abc123</launch:applicationID>
     </launch:info>
@@ -1053,10 +771,8 @@ WduZWRNYXJrPg
               values</xref>.</t>
 
               <t hangText="&lt;mark:mark&gt;">Zero or more
-              &lt;mark:mark&gt; elements.  The &lt;mark:mark&gt;
-              child elements are defined in the 
-              <xref target="mark">&lt;mark:mark&gt; element</xref> 
-              section.</t>
+              <xref target="mark">&lt;mark:mark&gt;</xref> elements.
+              </t>
               
             </list></t>
 
@@ -1097,35 +813,7 @@ WduZWRNYXJrPg
           <launch:status s="pending"/>
           <mark:mark
             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-            <mark:name>Hello</mark:name>
-            <mark:issuer>IP Clearinghouse</mark:issuer>
-            <mark:number>GE 3933232</mark:number>
-            <mark:type>REG-TM-WORD</mark:type>
-            <mark:class>1</mark:class>
-            <mark:entitlement>owner</mark:entitlement>
-            <mark:regDate>2011-09-09</mark:regDate>
-            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-            <mark:exDate>2013-09-09</mark:exDate>
-            <mark:country>AU</mark:country>
-            <mark:region>VIC</mark:region>
-            <mark:owner>
-              <mark:org>Example Inc.</mark:org>
-            </mark:owner>
-            <mark:contact>
-              <mark:name>John Doe</mark:name>
-              <mark:org>Example Inc.</mark:org>
-              <mark:addr>
-                <mark:street>123 Example Dr.</mark:street>
-                <mark:street>Suite 100</mark:street>
-                <mark:city>Reston</mark:city>
-                <mark:sp>VA</mark:sp>
-                <mark:pc>20190</mark:pc>
-                <mark:cc>US</mark:cc>
-              </mark:addr>
-              <mark:voice x="1234">+1.7035555555</mark:voice>
-              <mark:fax>+1.7035555556</mark:fax>
-              <mark:email>jdoe@example.tld</mark:email>
-            </mark:contact>
+             ...
          </mark:mark>
       </launch:infData>
     </extension>
@@ -1295,37 +983,7 @@ WduZWRNYXJrPg
         <launch:codeMark>
           <mark:mark
             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-            <mark:name>Example One</mark:name>
-            <mark:label>example-one</mark:label>
-            <mark:label>exampleone</mark:label>
-            <mark:issuer>IP Clearinghouse</mark:issuer>
-            <mark:number>GE 3933232</mark:number>
-            <mark:type>REG-TM-WORD</mark:type>
-            <mark:class>1</mark:class>
-            <mark:entitlement>owner</mark:entitlement>
-            <mark:regDate>2011-09-09</mark:regDate>
-            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-            <mark:exDate>2013-09-09</mark:exDate>
-            <mark:country>AU</mark:country>
-            <mark:region>VIC</mark:region>
-            <mark:owner>
-              <mark:org>Example Inc.</mark:org>
-            </mark:owner>
-            <mark:contact>
-              <mark:name>John Doe</mark:name>
-              <mark:org>Example Inc.</mark:org>
-              <mark:addr>
-                <mark:street>123 Example Dr.</mark:street>
-                <mark:street>Suite 100</mark:street>
-                <mark:city>Reston</mark:city>
-                <mark:sp>VA</mark:sp>
-                <mark:pc>20190</mark:pc>
-                <mark:cc>US</mark:cc>
-              </mark:addr>
-              <mark:voice x="1234">+1.7035555555</mark:voice>
-              <mark:fax>+1.7035555556</mark:fax>
-              <mark:email>jdoe@example.tld</mark:email>
-            </mark:contact>
+            ...
           </mark:mark>
         </launch:codeMark>
       </launch:create>
@@ -1366,35 +1024,7 @@ WduZWRNYXJrPg
           <launch:code>49FD46E6C4B45C55D4AC</launch:code>
           <mark:mark
            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-            <mark:name>Hello</mark:name>
-            <mark:issuer>IP Clearinghouse</mark:issuer>
-            <mark:number>GE 3933232</mark:number>
-            <mark:type>REG-TM-WORD</mark:type>
-            <mark:class>1</mark:class>
-            <mark:entitlement>owner</mark:entitlement>
-            <mark:regDate>2011-09-09</mark:regDate>
-            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-            <mark:exDate>2013-09-09</mark:exDate>
-            <mark:country>AU</mark:country>
-            <mark:region>VIC</mark:region>
-            <mark:owner>
-              <mark:org>Example Inc.</mark:org>
-            </mark:owner>
-            <mark:contact>
-              <mark:name>John Doe</mark:name>
-              <mark:org>Example Inc.</mark:org>
-              <mark:addr>
-                <mark:street>123 Example Dr.</mark:street>
-                <mark:street>Suite 100</mark:street>
-                <mark:city>Reston</mark:city>
-                <mark:sp>VA</mark:sp>
-                <mark:pc>20190</mark:pc>
-                <mark:cc>US</mark:cc>
-              </mark:addr>
-              <mark:voice x="1234">+1.7035555555</mark:voice>
-              <mark:fax>+1.7035555556</mark:fax>
-              <mark:email>jdoe@example.tld</mark:email>
-            </mark:contact>
+           ...
           </mark:mark>
         </launch:codeMark>
       </launch:create>
@@ -1430,70 +1060,8 @@ WduZWRNYXJrPg
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
         <launch:phase>sunrise</launch:phase>
         <smd:signedMark id="signedMark"
-         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
-          <smd:serial>123456</smd:serial>
-          <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
-          <mark:mark
-            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-            <mark:name>Example One</mark:name>
-            <mark:label>example-one</mark:label>
-            <mark:label>exampleone</mark:label>
-            <mark:issuer>IP Clearinghouse</mark:issuer>
-            <mark:number>GE 3933232</mark:number>
-            <mark:type>REG-TM-WORD</mark:type>
-            <mark:class>1</mark:class>
-            <mark:entitlement>owner</mark:entitlement>
-            <mark:regDate>2011-09-09</mark:regDate>
-            <mark:effectiveDate>2011-10-09</mark:effectiveDate>
-            <mark:exDate>2013-09-09</mark:exDate>
-            <mark:country>AU</mark:country>
-            <mark:region>VIC</mark:region>
-            <mark:owner>
-              <mark:org>Example Inc.</mark:org>
-            </mark:owner>
-            <mark:contact>
-              <mark:name>John Doe</mark:name>
-              <mark:org>Example Inc.</mark:org>
-              <mark:addr>
-                <mark:street>123 Example Dr.</mark:street>
-                <mark:street>Suite 100</mark:street>
-                <mark:city>Reston</mark:city>
-                <mark:sp>VA</mark:sp>
-                <mark:pc>20190</mark:pc>
-                <mark:cc>US</mark:cc>
-              </mark:addr>
-              <mark:voice x="1234">+1.7035555555</mark:voice>
-              <mark:fax>+1.7035555556</mark:fax>
-              <mark:email>jdoe@example.tld</mark:email>
-            </mark:contact>
-          </mark:mark>
-          <dsig:Signature 
-          xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
-            <dsig:SignedInfo>
-            <dsig:CanonicalizationMethod 
- Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-            <dsig:SignatureMethod 
- Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-            <dsig:Reference URI="#signedMark">
-                <dsig:Transforms>
-                  <dsig:Transform 
- Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                </dsig:Transforms>
-                <dsig:DigestMethod 
- Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                <dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=
-                </dsig:DigestValue>
-            </dsig:Reference>
-          </dsig:SignedInfo>
-            <dsig:SignatureValue>
-Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9a4b8nMOKdec8S3tG2hSx
-/NZa0RFHvx5zMsH/MjmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZ
-E2EvffMLBiL4xbCJM48ewRYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhh
-rhyhPjSi9Uon8FnAJaiBEfHcjG6815IJV/9RT+MTXri7i0s82CqIS4wDGbG
-pyZAs7/kDY3A3upqSOwTtrFSCFX1F+Craec72lBB/dKJHxmoVkbIO5KQhqI
-Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
-</dsig:SignatureValue>
-            </dsig:Signature>
+         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"> 
+         ...
         </smd:signedMark>
       </launch:create>
     </extension>
@@ -1530,42 +1098,7 @@ Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
         <launch:phase>sunrise</launch:phase>
         <smd:encodedSignedMark 
          xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
-D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c21kOnNpZ25
-lZE1hcmsgeG1sbnM6c21kPSJ1cm46aWV0ZjpwYXJhbXM6eG1sOm5zOnNpZ25lZ
-E1hcmstMS4wIiBpZD0ic2lnbmVkTWFyayI-PHNtZDpzZXJpYWw-MTIzNDU2PC9
-zbWQ6c2VyaWFsPjxzbWQ6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6NTQuMDg4M
-Fo8L3NtZDpleERhdGU-PG1hcms6bWFyayB4bWxuczptYXJrPSJ1cm46aWV0Zjp
-wYXJhbXM6eG1sOm5zOm1hcmstMS4wIj48bWFyazpuYW1lPkV4YW1wbGUgT25lP
-C9tYXJrOm5hbWU-PG1hcms6bGFiZWw-ZXhhbXBsZS1vbmU8L21hcms6bGFiZWw
--PG1hcms6bGFiZWw-ZXhhbXBsZW9uZTwvbWFyazpsYWJlbD48bWFyazppc3N1Z
-XI-SVAgQ2xlYXJpbmdob3VzZTwvbWFyazppc3N1ZXI-PG1hcms6bnVtYmVyPkd
-FIDM5MzMyMzI8L21hcms6bnVtYmVyPjxtYXJrOm51bWJlcj5vd25lcjwvbWFya
-zpudW1iZXI-PG1hcms6cmVnRGF0ZT4yMDEyLTExLTI5VDE4OjE2OjU0LjA3NDZ
-aPC9tYXJrOnJlZ0RhdGU-PG1hcms6ZXhEYXRlPjIwMTItMTEtMjlUMTg6MTY6N
-TQuMDc0Nlo8L21hcms6ZXhEYXRlPjxtYXJrOmNvdW50cnk-QVU8L21hcms6Y29
-1bnRyeT48bWFyazpyZWdpb24-VklDPC9tYXJrOnJlZ2lvbj48L21hcms6bWFya
-z48ZHNpZzpTaWduYXR1cmUgeG1sbnM6ZHNpZz0iaHR0cDovL3d3dy53My5vcmc
-vMjAwMC8wOS94bWxkc2lnIyI-PGRzaWc6U2lnbmVkSW5mbz48ZHNpZzpDYW5vb
-mljYWxpemF0aW9uTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmc
-vVFIvMjAwMS9SRUMteG1sLWMxNG4tMjAwMTAzMTUjV2l0aENvbW1lbnRzIi8-P
-GRzaWc6U2lnbmF0dXJlTWV0aG9kIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5
-vcmcvMjAwMC8wOS94bWxkc2lnI3JzYS1zaGExIi8-PGRzaWc6UmVmZXJlbmNlI
-FVSST0iI3NpZ25lZE1hcmsiPjxkc2lnOlRyYW5zZm9ybXM-PGRzaWc6VHJhbnN
-mb3JtIEFsZ29yaXRobT0iaHR0cDovL3d3dy53My5vcmcvMjAwMC8wOS94bWxkc
-2lnI2VudmVsb3BlZC1zaWduYXR1cmUiLz48L2RzaWc6VHJhbnNmb3Jtcz48ZHN
-pZzpEaWdlc3RNZXRob2QgQWxnb3JpdGhtPSJodHRwOi8vd3d3LnczLm9yZy8yM
-DAwLzA5L3htbGRzaWcjc2hhMSIvPjxkc2lnOkRpZ2VzdFZhbHVlPktIdVFrdFd
-UMnRYbXg4Y2ZWd2NvZ0JSUm5oRT08L2RzaWc6RGlnZXN0VmFsdWU-PC9kc2lnO
-lJlZmVyZW5jZT48L2RzaWc6U2lnbmVkSW5mbz48ZHNpZzpTaWduYXR1cmVWYWx
-1ZT5RdWk2d2xLVUlRcHMxS2N6ajhUaTVuNTBjaTVDc2pML2k2YjBwS0Z2NG16Z
-ENhcWpWcXVvVDFiSzJCZnhKNG0rbXJiOWxLeFlrVnNFCnB4QnloSG5KSHpSMXV
-1MG1NMmt4VURyWkVCc0dpV3FuaHMzQVBxOTJBcVdGZHZnUmV6ZHcycmNVbVg3d
-GJyeWNGM3ZDMEJmRUg4RHoKb2FIUFRQb24xTUxObzF5bGtYTDA5bWJqTHVhRlJ
-SS3Z2UCs4djQ1VFJXRmkrbVJ0akJvMGg4blFiNTNtR2lKaU1OekFDaDBtK3pFe
-Ap2bmxEUmRpdWJFZVVWbG9LV2dMY1BiSkd4QmFWL1gvQjQvRnVRbXEzclcxaXN
-ZOUlEYzA3U3ZheEZ0a1l4emVra25GQkNCSWNibXFTCnlOckMvOEp4Y2RRSHN0T
-UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
--PC9kc2lnOlNpZ25hdHVyZT48L3NtZDpzaWduZWRNYXJrPg
+         ...
         </smd:encodedSignedMark>
       </launch:create>
     </extension>
@@ -1650,9 +1183,10 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
             <t hangText="&lt;launch:noticeID&gt;">Unique notice identifier 
           generated by the source of the claims notice information 
           like the Claims Notice Information Service (CNIS).</t>
-                <t hangText="&lt;launch:timestamp&gt;">Contains the
+                <t hangText="&lt;launch:generatedDate&gt;">Contains the
+              date and time that the claims notice was generated.</t>
+                <t hangText="&lt;launch:acceptedDate&gt;">Contains the
               date and time that the claims notice was displayed or accepted.</t>
-
                 <t hangText="&lt;launch:source&gt;">Contains the source 
               information of the client that was displayed or that accepted the 
               claims notice like the client IP address.</t>
@@ -1687,7 +1221,10 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
         <launch:phase>claims1</launch:phase>
         <launch:notice>
           <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-          <launch:timestamp>2012-06-19T09:00:00.0Z</launch:timestamp>
+          <launch:generatedDate>2012-06-19T09:00:10.0Z
+          </launch:generatedDate>
+          <launch:acceptedDate>2012-06-19T09:01:30.0Z
+          </launch:acceptedDate>
           <launch:source>192.0.2.29</launch:source>
         </launch:notice>
       </launch:create>
@@ -1897,9 +1434,8 @@ UZWc1Z2SjdWUFJqS2VZM0RLcUwrTGhRPT08L2RzaWc6U2lnbmF0dXJlVmFsdWU
 
     <section anchor="syntax" title="Formal Syntax">
     
-      <t>Three schemas are presented here.  The first schema is the EPP Launch 
-      Phase Mapping schema.  The second schema is a dependent schema for 
-      the Signed Mark.  The third schema is a dependent schema for the Mark.</t>
+      <t>One schema is presented here that is the EPP Launch 
+      Phase Mapping schema.</t>
       
       <t>The formal
       syntax presented here is a complete schema representation of the object
@@ -2004,7 +1540,7 @@ Import common element types.
   <!-- 
   Definition for launch phase.  Name is an optional attribute
   used to extend the phase type.  For example, when 
-  using the phase type value of <custom>, the name 
+  using the phase type value of &qt;custom&gt;, the name 
   can be used to specify the custom phase.  
   -->
   <complexType name="phaseType">
@@ -2086,7 +1622,7 @@ Import common element types.
     <sequence>
     <element name="code" type="launch:codeType"
       minOccurs="0"/>
-    <element ref="mark:mark"
+    <element ref="mark:abstractMark"
       minOccurs="0"/>
   </sequence>
   </complexType>
@@ -2100,7 +1636,7 @@ Import common element types.
       <choice>
         <element name="codeMark" type="launch:codeMarkType"
           maxOccurs="unbounded"/>
-        <element ref="smd:signedMark" 
+        <element ref="smd:abstractSignedMark" 
          maxOccurs="unbounded"/>
         <element ref="smd:encodedSignedMark" 
          maxOccurs="unbounded"/>
@@ -2116,7 +1652,8 @@ Import common element types.
   <complexType name="createNoticeType">
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
-      <element name="timestamp" type="dateTime"/>
+      <element name="generatedDate" type="dateTime"/>
+      <element name="acceptedDate" type="dateTime"/>
       <element name="source" type="token"/>
     </sequence>
   </complexType>
@@ -2142,6 +1679,8 @@ Import common element types.
         type="launch:applicationIDType" 
         minOccurs="0"/>
     </sequence>
+    <attribute name="includeMark" type="boolean" 
+      default="true"/>
   </complexType>
 
   <!-- 
@@ -2190,7 +1729,7 @@ Import common element types.
       minOccurs="0"/>
      <element name="status" type="launch:statusType" 
       minOccurs="0"/>
-      <element ref="mark:mark"
+      <element ref="mark:abstractMark"
       minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
   </complexType>
@@ -2199,316 +1738,16 @@ Import common element types.
 END]]></artwork>
       </figure>
       </section>
-      
-      <section title="Signed Mark Schema">
-      <t>Copyright (c) 2012 IETF Trust and the persons identified as authors
-      of the code. All rights reserved.</t>
-
-      <t>Redistribution and use in source and binary forms, with or without
-      modification, are permitted provided that the following conditions are
-      met:</t>
-
-      <t><list style="symbols">
-          <t>Redistributions of source code must retain the above copyright
-          notice, this list of conditions and the following disclaimer.</t>
-
-          <t>Redistributions in binary form must reproduce the above copyright
-          notice, this list of conditions and the following disclaimer in the
-          documentation and/or other materials provided with the
-          distribution.</t>
-
-          <t>Neither the name of Internet Society, IETF or IETF Trust, nor the
-          names of specific contributors, may be used to endorse or promote
-          products derived from this software without specific prior written
-          permission.</t>
-        </list></t>
-
-      <t>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-      "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-      LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-      PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
-      OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-      EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-      PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-      PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-      LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-      NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</t>
-
-      <figure>
-        <artwork><![CDATA[
-BEGIN
-<?xml version="1.0" encoding="UTF-8"?>
-<schema 
-  targetNamespace="urn:ietf:params:xml:ns:signedMark-1.0" 
-  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0" 
-  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0" 
-  xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
-  xmlns="http://www.w3.org/2001/XMLSchema" 
-  elementFormDefault="qualified">
-  
-<!--
-Import common element types.
---> 
-  <import namespace="http://www.w3.org/2000/09/xmldsig#"
-          schemaLocation="xmldig-core-schema.xsd"/> 
-          
-  <import namespace="urn:ietf:params:xml:ns:mark-1.0"
-          schemaLocation="mark-1.0.xsd"/> 
-  
-  
-  <annotation>
-    <documentation> 
-      Schema for representing a Signed Mark, also referred to 
-      as Signed Mark Data (SMD), that includes digitally 
-      signed trademark information.  
-    </documentation>
-  </annotation>
-  
-  <!-- 
-  <smd:signedMark> element definition
-  -->
-  <element name="signedMark" type="smd:signedMarkType"/>  
-  
-  <!-- 
-  <smd:encodedSignedMark> element definition
-  -->
-  <element name="encodedSignedMark" 
-    type="smd:encodedSignedMarkType"/>
-  
-  <!-- 
-  <smd:signedMark> child elements
-  -->
-  <complexType name="signedMarkType">
-    <sequence>
-      <element name="serial" type="token"/>
-      <element name="exDate" type="dateTime" 
-      minOccurs="0"/>
-      <element ref="mark:mark"/>
-      <element ref="dsig:Signature"/>
-    </sequence>
-    <attribute name="id" type="ID" use="required"/>
-  </complexType>
-
-  <!-- 
-  <smd:encodedSignedMark> element type
-  -->
-  <complexType name="encodedSignedMarkType">
-    <simpleContent>
-      <extension base="token">
-        <attribute name="encoding" type="token" 
-          default="base64"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-
-
-</schema>
-END]]></artwork>
-      </figure>
-      </section>
-      
-      <section title="Mark Schema">
-      <t>Copyright (c) 2012 IETF Trust and the persons identified as authors
-      of the code. All rights reserved.</t>
-
-      <t>Redistribution and use in source and binary forms, with or without
-      modification, are permitted provided that the following conditions are
-      met:</t>
-
-      <t><list style="symbols">
-          <t>Redistributions of source code must retain the above copyright
-          notice, this list of conditions and the following disclaimer.</t>
-
-          <t>Redistributions in binary form must reproduce the above copyright
-          notice, this list of conditions and the following disclaimer in the
-          documentation and/or other materials provided with the
-          distribution.</t>
-
-          <t>Neither the name of Internet Society, IETF or IETF Trust, nor the
-          names of specific contributors, may be used to endorse or promote
-          products derived from this software without specific prior written
-          permission.</t>
-        </list></t>
-
-      <t>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-      "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-      LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
-      PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER
-      OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-      EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-      PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
-      PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-      LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-      NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-      SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</t>
-
-      <figure>
-        <artwork><![CDATA[
-BEGIN
-<?xml version="1.0" encoding="UTF-8"?>
-<schema 
-  targetNamespace="urn:ietf:params:xml:ns:mark-1.0" 
-  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0" 
-  xmlns="http://www.w3.org/2001/XMLSchema" 
-  elementFormDefault="qualified">
-    
-  <annotation>
-    <documentation> 
-      Schema for representing a Trademark, also referred to 
-      as Mark.  
-    </documentation>
-  </annotation>
-  
-  <!-- 
-  <mark:mark> element definition
-  -->
-  <element name="mark" type="mark:markType"/>    
-  
-  <!--
-  <mark:mark> child elements
-  -->
-  <complexType name="markType">
-      <sequence>
-        <element name="id" type="token" 
-          minOccurs="0"/>
-        <element name="name" type="token"
-           minOccurs="0"/>
-        <element name="label" type="mark:labelType"
-           minOccurs="0" maxOccurs="unbounded"/>
-        <element name="issuer" type="token" 
-          minOccurs="0"/>
-        <element name="number" type="token" 
-          minOccurs="0"/>
-        <element name="type" type="token"
-          minOccurs="0"/>
-        <element name="class" type="integer" 
-          minOccurs="0" maxOccurs="unbounded"/>
-        <element name="entitlement" type="token" 
-          minOccurs="0"/>
-        <element name="regDate" type="date" 
-          minOccurs="0"/>
-        <element name="effectiveDate" type="date" 
-          minOccurs="0"/>
-        <element name="exDate" type="date" 
-          minOccurs="0"/>
-        <element name="country" type="mark:ccType" 
-          minOccurs="0"/>
-        <element name="region" type="token"
-           minOccurs="0"/>
-        <element name="owner" type="mark:contactType" 
-          minOccurs="0"/>
-        <element name="contact" type="mark:contactType" 
-          minOccurs="0"/>
-    </sequence>
-  </complexType>
-  
-  
-  <!--
-  DNS label type definition
-  -->
-  <simpleType name="labelType">
-    <restriction base="token">
-      <minLength value="1"/>
-      <maxLength value="255"/>
-    </restriction>
-  </simpleType>
-  
-  <!--
-  Postal code definition
-  -->
-  <simpleType name="pcType">
-    <restriction base="token">
-      <maxLength value="16"/>
-    </restriction>
-  </simpleType>
-  
-  
-  <!--
-  Country code definition
-  -->
-  <simpleType name="ccType">
-    <restriction base="token">
-      <length value="2"/>
-    </restriction>
-  </simpleType>
-  
-  <!--
-  Phone number with extension definition
-  -->
-  <complexType name="e164Type">
-    <simpleContent>
-      <extension base="mark:e164StringType">
-        <attribute name="x" type="token"/>
-      </extension>
-    </simpleContent>
-  </complexType>
-
-  <!--
-  Phone number with extension definition
-  -->
-  <simpleType name="e164StringType">
-    <restriction base="token">
-      <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
-      <maxLength value="17"/>
-    </restriction>
-  </simpleType>  
-
-  <!-- 
-  Address (<mark:addr>) child elements
-  -->
-  <complexType name="addrType">
-    <sequence>
-      <element name="street" type="token"
-       minOccurs="0" maxOccurs="3"/>
-      <element name="city" type="token"
-       minOccurs="0"/>
-      <element name="sp" type="token"
-       minOccurs="0"/>
-      <element name="pc" type="mark:pcType"
-       minOccurs="0"/>
-      <element name="cc" type="mark:ccType"
-       minOccurs="0"/>
-    </sequence>
-  </complexType>
-  
-  <!--
-  Type used for email addresses
-  -->
-  <simpleType name="minTokenType">
-    <restriction base="token">
-      <minLength value="1"/>
-    </restriction>
-  </simpleType>
-  
-  <!--
-  Contact (<mark:owner> or <mark:contact>) child elements
-  -->
-  <complexType name="contactType">
-    <sequence>
-      <element name="name" type="token" 
-        minOccurs="0"/>
-      <element name="org" type="token" 
-        minOccurs="0"/>
-      <element name="addr" type="mark:addrType" 
-        minOccurs="0"/>
-      <element name="voice" type="mark:e164Type" 
-        minOccurs="0"/>
-      <element name="fax" type="mark:e164Type" 
-        minOccurs="0"/>
-      <element name="email" type="mark:minTokenType" 
-        minOccurs="0"/>
-    </sequence>
-  </complexType>
- 
-</schema>
-END]]></artwork>
-      </figure>
-      </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>[to be filled in]</t>
+      <t>The authors wish to acknowledge the efforts of the leading 
+      participants of the Community TMCH Model that led to many of the 
+      changes to this document, which include Chris Wright, Jeff Neuman, 
+      Jeff Eckhaus, and Will Shorter.</t>
+      <t>Special suggestions that have been incorporated into this document 
+      were provided by Trung Tran, Bernhard Reutner-Fischer, Klaus Malorny,
+      Gustavo Lozano, and Keith Gaughan.</t>  
     </section>
     
    <section title="Change History">
@@ -2561,6 +1800,13 @@ END]]></artwork>
         <t>Updated note on replication of the EPP contact mapping elements in the Mark Contact section.</t>
       </list></t>
     </section>
+    <section title="Change from 05 to 06" anchor="change-05-to-06">
+      <t><list style="numbers">
+        <t>Removed the definition of the mark-1.0 and signedMark-1.0 and replaced with reference to draft-lozano-smd, that contains the definition for the mark, signed marked, and encoded signed mark.</t>
+        <t>Split the &lt;launch:timestamp&gt; into &lt;launch:generatedDate&gt; and &lt;launch:acceptedDate&gt; based on feedback from Trung Tran.</t>
+        <t>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.</t>
+      </list></t>
+    </section>
    </section>
     
 
@@ -2578,26 +1824,7 @@ END]]></artwork>
                  <t>Registrant Contact: See the &quot;Author&apos;s Address&quot; section of this document.</t>
                  <t>XML: None.  Namespace URIs do not represent an XML specification.</t>
              </list>
-         </t>
-         
-         <t>Registration request for the Signed mark namespace:</t>
-         <t>
-             <list>
-                 <t>URI: urn:ietf:params:xml:ns:signedMark-1.0</t>
-                 <t>Registrant Contact: See the &quot;Author&apos;s Address&quot; section of this document.</t>
-                 <t>XML: None.  Namespace URIs do not represent an XML specification.</t>
-             </list>
-         </t>
-
-         <t>Registration request for the Mark namespace:</t>
-         <t>
-             <list>
-                 <t>URI: urn:ietf:params:xml:ns:mark-1.0</t>
-                 <t>Registrant Contact: See the &quot;Author&apos;s Address&quot; section of this document.</t>
-                 <t>XML: None.  Namespace URIs do not represent an XML specification.</t>
-             </list>
-         </t>
- 
+         </t> 
  
     </section>
 
@@ -2641,31 +1868,25 @@ END]]></artwork>
      filing system or remote ones accessed by http (http://domain/dir/... ).-->
 
     <references title="Normative References">
-
-      &RFC2045; 
-
+    
+      <reference anchor="draft-lozano-smd">
+        <front>
+          <title abbrev='Mark and Signed Mark Objects Mapping'>Mark and Signed Mark Objects Mapping</title>
+          <author fullname="Gustavo Lozano" initials="G.L." surname="Lozano"/>
+        </front>
+        <format type='HTML' target='http://tools.ietf.org/html/draft-lozano-tmch-smd' />
+      </reference>    
+    
+    
       &RFC2119;
 
       &RFC5730;
 
       &RFC5731;
 
-      &RFC5733;
-
       &RFC3688;
 
 
-      <reference anchor="WIPO.ST3">
-        <front>
-          <title abbrev='Two-Letter Codes for the Representation of States, Other Entities and Organizations'>Recommended standard on two-letter codes for the representation of states, other entities and intergovernmental organizations</title>
-          <author>
-            <organization>WIPO</organization>
-          </author>
-          <date year='2007' month='March' />
-          <keyword>WIPO</keyword>
-        </front>
-        <format type='PDF' target='http://www.wipo.int/standards/en/pdf/03-03-01.pdf' />
-      </reference>
     </references>
   </back>
 

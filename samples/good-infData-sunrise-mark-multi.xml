@@ -43,8 +43,8 @@
 				<mark:number>GE 3933232</mark:number>
 				<mark:type>REG-TM-WORD</mark:type>
 				<mark:entitlement>owner</mark:entitlement>
-				<mark:regDate>2011-09-09</mark:regDate>
-				<mark:exDate>2013-09-09</mark:exDate>
+				<mark:regDate>2011-09-09T22:00:00.0Z</mark:regDate>
+				<mark:exDate>2013-09-09T22:00:00.0Z</mark:exDate>
 				<mark:country>AU</mark:country>
 				<mark:region>VIC</mark:region>
 				<mark:owner>
@@ -75,8 +75,8 @@
 				<mark:number>GE 3933233</mark:number>
 				<mark:type>REG-TM-WORD</mark:type>
 				<mark:entitlement>owner</mark:entitlement>
-				<mark:regDate>2011-09-09</mark:regDate>
-				<mark:exDate>2013-09-09</mark:exDate>
+				<mark:regDate>2011-09-09T22:00:00.0Z</mark:regDate>
+				<mark:exDate>2013-09-09T22:00:00.0Z</mark:exDate>
 				<mark:country>AU</mark:country>
 				<mark:region>VIC</mark:region>
 				<mark:owner>

@@ -24,46 +24,46 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         <launch:phase>sunrise</launch:phase>
-        <smd:signedMark id="signedMark"
-         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
-         xsi:schemaLocation="urn:ietf:params:xml:ns:signedMark-1.0
-         signedMark-1.0.xsd">
-          <smd:serial>123456</smd:serial>
-          <smd:exDate>2012-08-16T09:00:00.0Z</smd:exDate>
-          <mark:mark
-            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
-            xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
-            mark-1.0.xsd">
-            <mark:name>Example One</mark:name>
-            <mark:label>example-one</mark:label>
-            <mark:label>exampleone</mark:label>
-            <mark:issuer>IP Clearinghouse</mark:issuer>
-            <mark:number>GE 3933232</mark:number>
-            <mark:type>REG-TM-WORD</mark:type>
-            <mark:entitlement>owner</mark:entitlement>
-            <mark:regDate>2011-09-09</mark:regDate>
-            <mark:exDate>2013-09-09</mark:exDate>
-            <mark:country>AU</mark:country>
-            <mark:region>VIC</mark:region>
-            <mark:owner>
-              <mark:org>Example Inc.</mark:org>
-            </mark:owner>
-            <mark:contact>
-              <mark:name>John Doe</mark:name>
-              <mark:org>Example Inc.</mark:org>
-              <mark:addr>
-                <mark:street>123 Example Dr.</mark:street>
-                <mark:street>Suite 100</mark:street>
-                <mark:city>Reston</mark:city>
-                <mark:sp>VA</mark:sp>
-                <mark:pc>20190</mark:pc>
-                <mark:cc>US</mark:cc>
-              </mark:addr>
-              <mark:voice x="1234">+1.7035555555</mark:voice>
-              <mark:fax>+1.7035555556</mark:fax>
-              <mark:email>jdoe@example.tld</mark:email>
-            </mark:contact>
-          </mark:mark>
+        <jimSM:signedMark id="signedMark"
+         xmlns:jimSM="urn:ietf:params:xml:ns:jimSignedMark-1.0"
+         xsi:schemaLocation="urn:ietf:params:xml:ns:jimSignedMark-1.0
+         jimSignedMark-1.0.xsd" jim="gould">
+          <jimSM:serial>123456</jimSM:serial>
+          <jimSM:exDate>2012-08-16T09:00:00.0Z</jimSM:exDate>
+          <jimMark:mark
+            xmlns:jimMark="urn:ietf:params:xml:ns:jimMark-1.0"
+            xsi:schemaLocation="urn:ietf:params:xml:ns:jimMark-1.0
+            jimMark-1.0.xsd" jim="gould">
+            <jimMark:name>Example One</jimMark:name>
+            <jimMark:label>example-one</jimMark:label>
+            <jimMark:label>exampleone</jimMark:label>
+            <jimMark:issuer>IP Clearinghouse</jimMark:issuer>
+            <jimMark:number>GE 3933232</jimMark:number>
+            <jimMark:type>REG-TM-WORD</jimMark:type>
+            <jimMark:entitlement>owner</jimMark:entitlement>
+            <jimMark:regDate>2011-09-09</jimMark:regDate>
+            <jimMark:exDate>2013-09-09</jimMark:exDate>
+            <jimMark:country>AU</jimMark:country>
+            <jimMark:region>VIC</jimMark:region>
+            <jimMark:owner>
+              <jimMark:org>Example Inc.</jimMark:org>
+            </jimMark:owner>
+            <jimMark:contact>
+              <jimMark:name>John Doe</jimMark:name>
+              <jimMark:org>Example Inc.</jimMark:org>
+              <jimMark:addr>
+                <jimMark:street>123 Example Dr.</jimMark:street>
+                <jimMark:street>Suite 100</jimMark:street>
+                <jimMark:city>Reston</jimMark:city>
+                <jimMark:sp>VA</jimMark:sp>
+                <jimMark:pc>20190</jimMark:pc>
+                <jimMark:cc>US</jimMark:cc>
+              </jimMark:addr>
+              <jimMark:voice x="1234">+1.7035555555</jimMark:voice>
+              <jimMark:fax>+1.7035555556</jimMark:fax>
+              <jimMark:email>jdoe@example.tld</jimMark:email>
+            </jimMark:contact>
+          </jimMark:mark>
           <dsig:Signature xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
             <dsig:SignedInfo>
             <dsig:CanonicalizationMethod 
@@ -90,7 +90,7 @@ pyZAs7/kDY3A3upqSOwTtrFSCFX1F+Craec72lBB/dKJHxmoVkbIO5KQhqI
 Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
 			   </dsig:SignatureValue>
           </dsig:Signature>
-        </smd:signedMark>
+        </jimSM:signedMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
