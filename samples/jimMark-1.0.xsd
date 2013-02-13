@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+  targetNamespace="urn:ietf:params:xml:ns:jimMark-1.0" 
+  xmlns:jimMark="urn:ietf:params:xml:ns:jimMark-1.0" 
+  xmlns:mark="urn:ietf:params:xml:ns:mark-1.0" 
+  xmlns="http://www.w3.org/2001/XMLSchema" 
+  elementFormDefault="qualified">
+    
+    
+  <import namespace="urn:ietf:params:xml:ns:mark-1.0"
+          schemaLocation="mark-1.0.xsd"/> 
+      
+  <annotation>
+    <documentation> 
+      Schema for representing Jim's Trademark, also referred to 
+      as jimMark.  
+    </documentation>
+  </annotation>
+   
+  
+  <!-- 
+  <jimMark:mark> element definition
+  -->
+  <element name="mark" type="jimMark:markType" 
+    substitutionGroup="mark:abstractMark"/>    
+        
+  <!--
+  <jimMark:mark> child elements
+  -->
+  <complexType name="markType">
+    <complexContent>
+      <extension base="mark:abstractMarkType">
+      <sequence>
+        <element name="id" type="token" 
+         minOccurs="0"/>
+        <element name="name" type="token"
+          minOccurs="0"/>
+        <element name="label" type="jimMark:labelType"
+          minOccurs="0" maxOccurs="unbounded"/>
+        <element name="issuer" type="token" 
+         minOccurs="0"/>
+        <element name="number" type="token" 
+         minOccurs="0"/>
+        <element name="type" type="token"
+         minOccurs="0"/>
+        <element name="class" type="integer" 
+         minOccurs="0" maxOccurs="unbounded"/>
+        <element name="entitlement" type="token" 
+         minOccurs="0"/>
+        <element name="regDate" type="date" 
+         minOccurs="0"/>
+        <element name="effectiveDate" type="date" 
+         minOccurs="0"/>
+        <element name="exDate" type="date" 
+         minOccurs="0"/>
+        <element name="country" type="jimMark:ccType" 
+         minOccurs="0"/>
+        <element name="region" type="token"
+          minOccurs="0"/>
+        <element name="owner" type="jimMark:contactType" 
+         minOccurs="0"/>
+        <element name="contact" type="jimMark:contactType" 
+         minOccurs="0"/>
+     </sequence>
+	  <attribute name="jim" type="token" 
+	 	 default="gould"/>
+    </extension>
+  </complexContent>
+  </complexType>
+  
+  
+  <!--
+  DNS label type definition
+  -->
+  <simpleType name="labelType">
+    <restriction base="token">
+      <minLength value="1"/>
+      <maxLength value="255"/>
+    </restriction>
+  </simpleType>
+  
+  <!--
+  Postal code definition
+  -->
+  <simpleType name="pcType">
+    <restriction base="token">
+      <maxLength value="16"/>
+    </restriction>
+  </simpleType>
+  
+  
+  <!--
+  Country code definition
+  -->
+  <simpleType name="ccType">
+    <restriction base="token">
+      <length value="2"/>
+    </restriction>
+  </simpleType>
+  
+  <!--
+  Phone number with extension definition
+  -->
+  <complexType name="e164Type">
+    <simpleContent>
+      <extension base="jimMark:e164StringType">
+        <attribute name="x" type="token"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <!--
+  Phone number with extension definition
+  -->
+  <simpleType name="e164StringType">
+    <restriction base="token">
+      <pattern value="(\+[0-9]{1,3}\.[0-9]{1,14})?"/>
+      <maxLength value="17"/>
+    </restriction>
+  </simpleType>  
+
+  <!-- 
+  Address (<jimMark:addr>) child elements
+  -->
+  <complexType name="addrType">
+    <sequence>
+      <element name="street" type="token"
+       minOccurs="0" maxOccurs="3"/>
+      <element name="city" type="token"
+       minOccurs="0"/>
+      <element name="sp" type="token"
+       minOccurs="0"/>
+      <element name="pc" type="jimMark:pcType"
+       minOccurs="0"/>
+      <element name="cc" type="jimMark:ccType"
+       minOccurs="0"/>
+    </sequence>
+  </complexType>
+  
+  <!--
+  Type used for email addresses
+  -->
+  <simpleType name="minTokenType">
+    <restriction base="token">
+      <minLength value="1"/>
+    </restriction>
+  </simpleType>
+  
+  <!--
+  Contact (<jimMark:owner> or <jimMark:contact>) child elements
+  -->
+  <complexType name="contactType">
+    <sequence>
+      <element name="name" type="token" 
+        minOccurs="0"/>
+      <element name="org" type="token" 
+        minOccurs="0"/>
+      <element name="addr" type="jimMark:addrType" 
+        minOccurs="0"/>
+      <element name="voice" type="jimMark:e164Type" 
+        minOccurs="0"/>
+      <element name="fax" type="jimMark:e164Type" 
+        minOccurs="0"/>
+      <element name="email" type="jimMark:minTokenType" 
+        minOccurs="0"/>
+    </sequence>
+  </complexType>
+ 
+</schema>

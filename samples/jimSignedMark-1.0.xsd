@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+  targetNamespace="urn:ietf:params:xml:ns:jimSignedMark-1.0" 
+  xmlns:jimSM="urn:ietf:params:xml:ns:jimSignedMark-1.0" 
+  xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0" 
+  xmlns:jimMark="urn:ietf:params:xml:ns:jimMark-1.0" 
+  xmlns:dsig="http://www.w3.org/2000/09/xmldsig#"
+  xmlns="http://www.w3.org/2001/XMLSchema" 
+  elementFormDefault="qualified">
+  
+<!--
+Import common element types.
+--> 
+  <import namespace="http://www.w3.org/2000/09/xmldsig#"
+          schemaLocation="xmldig-core-schema.xsd"/> 
+          
+  <import namespace="urn:ietf:params:xml:ns:signedMark-1.0"
+          schemaLocation="signedMark-1.0.xsd"/>           
+          
+  <import namespace="urn:ietf:params:xml:ns:jimMark-1.0"
+          schemaLocation="jimMark-1.0.xsd"/> 
+  
+  
+  <annotation>
+    <documentation> 
+      Schema for representing a Jim's Signed Mark, also referred to 
+      as Signed Mark Data (SMD), that includes digitally 
+      signed trademark information.  
+    </documentation>
+  </annotation>
+    
+  <!-- 
+  <jimSM:signedMark> element definition
+  -->
+  <element name="signedMark" type="jimSM:signedMarkType"
+    substitutionGroup="smd:abstractSignedMark"/>  
+  
+  <!-- 
+  <jimSM:encodedSignedMark> element definition
+  -->
+  <element name="encodedSignedMark" 
+  	type="jimSM:encodedSignedMarkType"
+  	substitutionGroup="smd:encodedSignedMark"/>
+    
+  
+  <!-- 
+  <jimSM:signedMark> child elements
+  -->
+  <complexType name="signedMarkType">
+    <complexContent>
+      <extension base="smd:abstractSignedMarkType">
+        <sequence>
+          <element name="serial" type="token"/>
+          <element name="exDate" type="dateTime" 
+            minOccurs="0"/>
+          <element ref="jimMark:mark"/>
+          <element ref="dsig:Signature"/>
+        </sequence>
+        <attribute name="id" type="ID" use="required"/>
+        <attribute name="jim" type="token" 
+          default="gould"/>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <!-- 
+  <jimSM:encodedSignedMark> element type
+  -->
+  <complexType name="encodedSignedMarkType">
+    <simpleContent>
+      <extension base="smd:encodedSignedMarkType">
+        <attribute name="jim" type="token" 
+          default="gould"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+</schema>
