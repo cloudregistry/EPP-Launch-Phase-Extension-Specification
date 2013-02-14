@@ -197,7 +197,7 @@ Import common element types.
         minOccurs="0"/>
     </sequence>
     <attribute name="includeMark" type="boolean" 
-      default="true"/>
+      default="false"/>
   </complexType>
 
   <!-- 

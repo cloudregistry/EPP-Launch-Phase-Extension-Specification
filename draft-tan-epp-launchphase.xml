@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="13" month="February" year="2013"/>
+    <date day="14" month="February" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -684,7 +684,7 @@
         returned in the &lt;launch:creData&gt; element of the <xref target="createCommand">Create Response</xref> 
         is used for retrieving information for a launch application.  A &lt;launch:info&gt; element
         is sent along with the regular &lt;info&gt; domain command. The &lt;launch:info&gt; element includes 
-        an OPTIONAL "includeMark" boolean attribute, with a default value of "true", to indicate whether 
+        an OPTIONAL "includeMark" boolean attribute, with a default value of "false", to indicate whether 
         or not to include the mark in the response.  The
         &lt;launch:info&gt; element contains the following child
         elements:</t>
@@ -1680,7 +1680,7 @@ Import common element types.
         minOccurs="0"/>
     </sequence>
     <attribute name="includeMark" type="boolean" 
-      default="true"/>
+      default="false"/>
   </complexType>
 
   <!-- 
