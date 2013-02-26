@@ -1928,8 +1928,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    Jeff Eckhaus, and Will Shorter.
 
    Special suggestions that have been incorporated into this document
-   were provided by Trung Tran, Bernhard Reutner-Fischer, Klaus Malorny,
-   Gustavo Lozano, and Keith Gaughan.
+   were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo
+   Lozano, Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer,
+   Trung Tran, Ulrich Wisser and Sharon Wodjenski.
 
 
 6.  Change History
@@ -1950,7 +1951,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    4.  Added the <launch:signedClaim> and <launch:signedNotice>
        elements.
    5.  Added support for Claims Info Command
-
 
 
 
