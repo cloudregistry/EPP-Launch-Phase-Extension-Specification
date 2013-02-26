@@ -150,7 +150,7 @@
       <xref target="RFC5730">Extensible Provisioning Protocol (EPP)</xref>.
       This EPP mapping specifies a flexible schema that can be used to
       implement several common use cases related to the provisioning and
-      management of launch phase extension in a domain name registry.</t>
+      management of domain name applications during the launch of a domain name registry.</t>
 
       <t>It is typical for domain registries to operate in special modes
       within certain periods of time to facilitate allocation of domain names. 
@@ -162,11 +162,11 @@
       for the steady state operation of a registry. During the launch, the
       interface used at each phase of the launch could be different from what
       is defined in <xref target="RFC5731">EPP domain name mapping</xref>. for
-      example, registries typically accept multiple applications for a given
+      example, registries often accept multiple applications for a given
       domain name during the "sunrise" launch phase, referred to as a launch application.  A launch registration 
-      is used to refer to a registration made during a launch phase when the server uses 
-      a first-come-first-serve model.  Even in a first-come-first-serve model additional steps 
-      and information might be required to support a launch phase, like the passing of 
+      refers to a registration made during a launch phase when the server uses 
+      a "first-come, first-served" model.  Even in a "first-come, first-served" model, additional steps 
+      and information might be required to support an applciation, like the passing of 
       trademark information on a create.  In addition, the <eref
       target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/claims-model-26sep12-en.pdf">Proposed Trademark Claims Model</eref> 
       defines a registry
