@@ -16,8 +16,8 @@ Expires: August 30, 2013                                  CentralNic Ltd
 Abstract
 
    This document describes an Extensible Provisioning Protocol (EPP)
-   extension mapping for the provisioning and management of domain names
-   during the launch phase of a domain name registry.
+   extension mapping for the provisioning and management of domain name
+   applications during the launch of a domain name registry.
 
 Status of this Memo
 
@@ -118,30 +118,31 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    This document describes an extension mapping for version 1.0 of the
    Extensible Provisioning Protocol (EPP) [RFC5730].  This EPP mapping
    specifies a flexible schema that can be used to implement several
-   common use cases related to the provisioning and management of launch
-   phase extension in a domain name registry.
+   common use cases related to the provisioning and management of domain
+   name applications during the launch of a domain name registry.
 
    It is typical for domain registries to operate in special modes
-   within certain periods of time to facilitate allocation of domain
-   names.  This document uses the term "launch phase" and the shorter
-   form "launch" to refer to such a period.
+   during their initial launch to facilitate allocation of domain names,
+   often according to special rules.  This document uses the term
+   "launch phase" and the shorter form "launch" to refer to such a
+   period.
 
-   The EPP domain name mapping [RFC5731] is designed for the steady
-   state operation of a registry.  During the launch, the interface used
-   at each phase of the launch could be different from what is defined
-   in EPP domain name mapping [RFC5731]. for example, registries
-   typically accept multiple applications for a given domain name during
-   the "sunrise" launch phase, referred to as a launch application.  A
-   launch registration is used to refer to a registration made during a
-   launch phase when the server uses a first-come-first-serve model.
-   Even in a first-come-first-serve model additional steps and
-   information might be required to support a launch phase, like the
-   passing of trademark information on a create.  In addition, the
-   Proposed Trademark Claims Model [1] defines a registry interface for
-   the Trademark Claims or "claims" launch phase that includes support
-   for presenting a Trademark Claims Notice to the Registrant.  This
-   document proposes an extension to the domain name extension in order
-   to unambiguously manage the various launch phases known.
+   The EPP domain name mapping [RFC5731] is designed for the steady-
+   state operation of a registry.  During a launch period, the model in
+   place may be different from what is defined in EPP domain name
+   mapping [RFC5731].  For example, registries often accept multiple
+   applications for the same domain name during the "Sunrise" launch
+   phase, referred to as a Aaunch Application.  A Launch Registration
+   refers to a registration made during a launch phase when the server
+   uses a "first-come, first-served" model.  Even in a "first-come,
+   first-served" model, additional steps and information might be
+   required to support an application, such as trademark information.
+   In addition, the Proposed Trademark Claims Model [1] defines a
+   registry interface for the Trademark Claims or "claims" launch phase
+   that includes support for presenting a Trademark Claims Notice to the
+   Registrant.  This document proposes an extension to the domain name
+   extension in order to unambiguously manage the various launch phases
+   known.
 
 1.1.  Conventions Used in This Document
 
@@ -160,7 +161,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    instead employ a proper namespace-aware XML parser and serializer to
    interpret and output the XML documents.
 
-   "signedMark-1.0" is used as an abbreviation for
 
 
 
@@ -169,6 +169,7 @@ Tan, et al.              Expires August 30, 2013                [Page 3]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+   "signedMark-1.0" is used as an abbreviation for
    "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in
    [draft-lozano-smd].  The XML namespace prefix "smd" is used, but
    implementations MUST NOT depend on it and instead employ a proper
@@ -190,11 +191,11 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 2.1.  Application Identifiers
 
-   Servers MAY allow multiple applications, referred to as a launch
-   application, of a given domain name during its launch phase
+   Servers MAY allow multiple applications, referred to as a Launch
+   Application, of the same domain name during its launch phase
    operations.  Upon receiving a request to create a domain name, the
-   server creates an application object corresponding to the request and
-   assigns an application identifier for the application and returns it
+   server creates an application object corresponding to the request,
+   assigns an application identifier for the application, and returns it
    to the client with the <launch:applicationID> element.  In order to
    facilitate correlation, all subsequent launch operations on the
    application object MUST be qualified by the previously assigned
@@ -207,13 +208,12 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    client to define the target launch phase of the command.
 
    The following launch phase values are defined:
-   sunrise  Phase when trademark holders can submit registrations or
-      applications with trademark information that can be validated by
-      the server.
-   landrush  Post sunrise phase when non-trademark holders are allowed
+   sunrise  The phase during which trademark holders can submit
+      registrations or applications with trademark information that can
+      be validated by the server.
+   landrush  A post-Sunrise phase when non-trademark holders are allowed
       to register domain names with steps taken to address a large
       volume of initial registrations.
-
 
 
 
@@ -225,20 +225,21 @@ Tan, et al.              Expires August 30, 2013                [Page 4]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   claims1  Trademark claims phase 1 as defined by Trademark
-      Clearinghouse model of displaying a full, detailed claims notice
-      to clients for domain names that match trademarks.
-   claims2  Trademark claims phase 2 as defined by Trademark
-      Clearinghouse model of displaying a short, educational claims
-      notice to clients for domain names that match trademarks that opt
-      into the service.
-   open  Post launch phase that is also referred to as "steady state".
-      Servers MAY require additional trademark protection with this
+   claims1  The Trademark Claims Phase 1, as defined by Trademark
+      Clearinghouse model, in which a full, detailed Claims Notice must
+      be displayed to prospective registrants of domain names that match
+      trademarks.
+   claims2  The Trademark Claims Phase 2, as defined by Trademark
+      Clearinghouse model, in which a short, educational Claims Notice
+      must be displayed to prospective registrants of domain names that
+      match trademarks that have opted in.
+   open  A post-launch phase that is also referred to as "steady state".
+      Servers MAY require additional trademark protection during this
       phase.
    custom  A custom server launch phase that is defined using the "name"
       attribute.
 
-   For extensibility the <launch:phase> element includes an OPTIONAL
+   For extensibility, the <launch:phase> element includes an OPTIONAL
    "name" attribute that can define a sub-phase or the full name of the
    phase when the <launch:phase> element has the "custom" value.  For
    example, the "claims1" launch phase could have two sub-phases that
@@ -246,7 +247,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 2.3.  Status Values
 
-   A launch application object MAY have a status value.  The <launch:
+   A Launch Application object MAY have a status value.  The <launch:
    status> element is used to convey extended status pertaining to the
    application object, beyond what is specified in the object mapping
    for this application object.
@@ -272,7 +273,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    value of "en" (English).
 
    For extensibility the <launch:status> element includes an OPTIONAL
-   "name" attribute that can define a sub-status or the full name of the
 
 
 
@@ -281,17 +281,18 @@ Tan, et al.              Expires August 30, 2013                [Page 5]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+   "name" attribute that can define a sub-status or the full name of the
    status when the status value is "custom".  The server SHOULD NOT use
    the "custom" status value.
 
    Certain status values MAY be combined.  For example, an application
-   can be invalid and rejected.  Additionally certain statuses MAY be
-   skipped.  For example, an application MAY immediately start at the
-   allocated status or an application MAY skip the pendingAuction status
-   if the server does not support an auction.  If a <domain:create>
-   processes a request synchronously without the use of an intermediate
-   application, than an Application Identifier (Section 2.1) is not
-   needed along with the application status.
+   may be both invalid and rejected.  Additionally, certain statuses MAY
+   be skipped.  For example, an application MAY immediately start at the
+   "allocated" status or an application MAY skip the "pendingAuction"
+   status if the server does not support an auction model.  If the
+   <domain:create> command processes a request synchronously without the
+   use of an intermediate, application, then an Application Identifier
+   (Section 2.1) is not needed along with the application status.
 
 2.3.1.  State Transition
 
@@ -331,7 +332,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-
 Tan, et al.              Expires August 30, 2013                [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
@@ -340,7 +340,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 2.4.  Mark Validation Models
 
    A server MUST support at least one of the following models for
-   validating the trademark information:
+   validating trademark information:
 
    code  Use of a mark code by itself to validate that the mark matches
       the domain name.  This model is supported using the <launch:
@@ -359,7 +359,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    signed mark:  The mark information is digitally signed as described
       in the Digital Signature (Section 2.6) section.  The digital
       signature can be directly validated by the server using the public
-      key of the external party that created the signed mark using it's
+      key of the external party that created the signed mark using its
       private key.  This model is supported using the <smd:signedMark>
       (Section 2.6.1) and <smd:encodedSignedMark> (Section 2.6.2)
       elements.
@@ -374,8 +374,8 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    "code with mark" validation models, has the following child elements:
 
    <launch:code>:  OPTIONAL mark code used to validate the <mark:mark>
-      (Section 2.5) information.  The mark code can be a mark specific
-      secret value that the server can verify against a third party.
+      (Section 2.5) information.  The mark code is be a mark-specific
+      secret that the server can verify against a third party.
    <mark:mark>:  OPTIONAL mark information with child elements defined
       in the Mark (Section 2.5) section.
 
@@ -479,24 +479,24 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    trademarks, in the specified launch phase, for each domain name
    passed in the command.  The availability check information defined in
    the EPP domain name mapping [RFC5731] MUST NOT be returned for the
-   Claims Check Command.  Instead of returning whether the domain name
-   is available the Claims Check Command will return whether or not at
-   least one matching trademark exists for the domain name.  If there is
-   at least one matching trademark that exists for the domain name a
-   <launch:claimKey> element is returned.  The value of the <launch:
-   claimKey> element can be used with an info service of a third party
-   trademark provider like the Trademark Clearinghouse (TMCH) for
-   getting the information needed to generate the trademark claims
-   notice.  The third party trademark provider should also return a
-   unique notice identifier that can be passed in the <launch:noticeID>
-   element of the extension to the Create Command (Section 3.3).  The
-   <domain:name> elements in the EPP <check> command of EPP domain name
-   mapping [RFC5731] define the domain names to check for matching
+   Claims Check Command.
+
+   Instead of returning whether the domain name is available, the Claims
+   Check Command will return whether or not at least one matching
+   trademark exists for the domain name.  If there is at least one
+   matching trademark that exists for the domain name, a <launch:
+   claimKey> element is returned.  The client may then use the value of
+   the <launch:claimKey> element to obtain information needed to
+   generate the trademark Claims Notice from a third-party trademark
+   validator such as the Trademark Clearinghouse (TMCH).  The third
+   party trademark validator should also return a unique notice
+   identifier that can be passed in the <launch:noticeID> element of the
+   extension to the Create Command (Section 3.3).
+
+   The <domain:name> elements in the EPP <check> command of EPP domain
+   name mapping [RFC5731] define the domain names to check for matching
    trademarks.  The <launch:check> element contains the following child
    elements:
-
-
-
 
 
 
@@ -505,17 +505,17 @@ Tan, et al.              Expires August 30, 2013                [Page 9]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   <launch:phase>  The phase with the value of "claims1" or "claims2" to
-       indicate it as a Claims Check Command.  The "claims1" Claims
-       Check Command will match the <domain:name> against the full list
-       of trademark labels and the "claims2" Claims Check Command will
-       match the <domain:name> against the list of trademark labels that
-       opted into the "claims2" launch phase.
+   <launch:phase>  The launch phase, with a value of either "claims1" or
+       "claims2" to indicate that the command is a Claims Check Command.
+       The "claims1" Claims Check Command will match the <domain:name>
+       against the full list of trademark labels.  The "claims2" Claims
+       Check Command will match the <domain:name> against the list of
+       trademark labels that opted into the "claims2" launch phase.
 
-   Example Claims Check Command using the <check> domain command and the
+   Example Claims Check command using the <check> domain command and the
    <launch:check> extension to determine if "example1.tld" and
    "example2.tld" have any matching trademarks during the "claims1"
-   launch phase.
+   launch phase:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -564,7 +564,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    Example Claims Check Command using the <check> domain command and the
    <launch:check> extension to determine if "example3.tld" and
    "example4.tld" have any matching trademarks that opted into the
-   "claims2" launch phase.
+   "claims2" launch phase:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -587,28 +587,28 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    </epp>
 
    If the <check> command has been processed successfully, the EPP
-   <resData> element MUST contains a child <launch:chkData> element that
+   <resData> element MUST contain a child <launch:chkData> element that
    identifies the launch namespace.  The <launch:chkData> element
    contains the following child elements:
 
-   <launch:phase>  The phase with a value of "claims1" or "claims2" that
-       matches the associated Claims Check Command <launch:phase>.
+   <launch:phase>  The launch phase, with a value of either "claims1" or
+       "claims2", which matches the associated Claims Check Command
+       <launch:phase>.
    <launch:cd>  One or more <launch:cd> elements that contain the
        following child elements:
 
        <launch:name>  Contains the fully qualified name of the queried
            domain name.  This element MUST contain an "exists" attribute
            whose value indicates if a matching trademark exists for the
-           domain name.  A value of "1" or "true" means that a matching
-           trademark does exist for the claims launch phase.  A value of
-           "0" or "false" means that a matching trademark does not
-           exist.
-       <launch:claimKey>  An OPTIONAL claim key that MAY be passed to an
-           info service of a third party trademark provider like the
-           Trademark Clearinghouse (TMCH) for getting the information
-           needed to generate the trademark claims notice.  The <launch:
-           claimKey> is used as the key for the query in place of the
-           domain name to securely query the service without using a
+           domain name.  A value of "1" (or "true") means that a
+           matching trademark does exist for the claims launch phase.  A
+           value of "0" (or "false") means that a matching trademark
+           does not exist.
+       <launch:claimKey>  An OPTIONAL claim key that MAY be passed to a
+           third-party trademark validator such as the Trademark
+           Clearinghouse (TMCH) for querying the information needed to
+           generate a Trademark Claims Notice.  The <launch:claimKey> is
+           used as the key for the query in place of the domain name to
 
 
 
@@ -617,11 +617,12 @@ Tan, et al.              Expires August 30, 2013               [Page 11]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-           well-known value like a domain name.
+           securely query the service without using a well-known value
+           like a domain name.
 
-   Example Claims Check Response when no matching trademarks are found
+   Example Claims Check response when no matching trademarks are found
    for the domain name example1.tld and matching trademarks are found
-   for the domain name example2.tld for the "claims1" launch phase.
+   for the domain name example2.tld for the "claims1" launch phase:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -667,15 +668,14 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-
 Tan, et al.              Expires August 30, 2013               [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   Example Claims Check Response when no matching trademarks are found
+   Example Claims Check response when no matching trademarks are found
    for the domain name example3.tld and matching trademarks are found
-   for the domain name example4.tld for the "claims2" launch phase.
+   for the domain name example4.tld for the "claims2" launch phase:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -711,9 +711,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
    The EPP <info> command is used to retrieve information for a launch
    phase registration or application.  The Application Identifier
-   (Section 2.1) returned in the <launch:creData> element of the Create
-   Response (Section 3.3) is used for retrieving information for a
-   launch application.  A <launch:info> element is sent along with the
+   (Section 2.1) returned in the <launch:creData> element of the create
+   response (Section 3.3) is used for retrieving information for a
+   Launch Application.  A <launch:info> element is sent along with the
    regular <info> domain command.  The <launch:info> element includes an
    OPTIONAL "includeMark" boolean attribute, with a default value of
    "false", to indicate whether or not to include the mark in the
@@ -732,12 +732,12 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    <launch:phase>  The phase during which the application or
        registration was submitted or is associated with.  Server policy
        defines the phases that are supported.
-   <launch:applicationID>  OPTIONAL application identifier of the launch
-       application.
+   <launch:applicationID>  OPTIONAL application identifier of the Launch
+       Application.
 
    Example <info> domain command with the <launch:info> extension to
    retrieve information for the sunrise application for example.tld and
-   application identifier "abc123".
+   application identifier "abc123":
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -786,7 +786,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
    Example <info> domain command with the <launch:info> extension to
-   retrieve information for the sunrise registration for example.tld.
+   retrieve information for the sunrise registration for example.tld:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -811,12 +811,12 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    infData> element along with the regular EPP <resData>.  The <launch:
    infData> contains the following child elements:
 
-   <launch:phase>  The phase during which the application was submitted
-       or is associated with that matches the associated <info> command
+   <launch:phase>  The phase during which the application was submitted,
+       or is associated with, that matches the associated <info> command
        <launch:phase>.
-   <launch:applicationID>  OPTIONAL application identifier of the launch
-       application.
-   <launch:status>  OPTIONAL status of the launch application using one
+   <launch:applicationID>  OPTIONAL Application Identifier of the Launch
+       Application.
+   <launch:status>  OPTIONAL status of the Launch Application using one
        of the supported status values (Section 2.3).
    <mark:mark>  Zero or more <mark:mark> (Section 2.5) elements.
 
@@ -842,7 +842,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
    Example <info> domain response using the <launch:infData> extension
-   with the mark information.
+   with the mark information:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -915,11 +915,11 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
       is undefined but the form supported is up to server policy.
    claims1  The EPP <create> command with the "claims1" launch phase is
       used to pass the information associated with the presentation and
-      acceptance of the "claims1" claims notice.  The Claims Create Form
+      acceptance of the "claims1" Claims Notice.  The Claims Create Form
       (Section 3.3.2) is used for the "claims1" launch phase.
    claims2  The EPP <create> command with the "claims2" launch phase is
       used to pass the information associated with the presentation of
-      the "claims1" claims notice.  The Claims Create Form
+      the "claims2" Claims Notice.  The Claims Create Form
       (Section 3.3.2) is used for the "claims2" launch phase.
    open  The EPP <create> command with the "open" launch phase is
       undefined but the form supported is up to server policy.
@@ -939,8 +939,8 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    domain command.  The <launch:create> element contains the following
    child elements:
 
-   <launch:phase>  The launch phase for the create like the "sunrise"
-       launch phase.
+   <launch:phase>  The identifier for the launch phase.
+   <launch:codeMark> or <smd:signedMark> or <smd:encodedSignedMark>
 
 
 
@@ -953,7 +953,6 @@ Tan, et al.              Expires August 30, 2013               [Page 17]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   <launch:codeMark> or <smd:signedMark> or <smd:encodedSignedMark>
        <launch:codeMark>  Zero or more <launch:codeMark> elements.  The
            <launch:codeMark> child elements are defined in the <launch:
            codeMark> element (Section 2.4.1) section.
@@ -965,9 +964,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
            defined in the <smd:encodedSignedMark> element
            (Section 2.6.2) section.
 
-   Following is an example <create> domain command using the <launch:
-   create> extension, following the "code" validation model, with
-   multiple sunrise codes.
+   The following is an example <create> domain command using the
+   <launch:create> extension, following the "code" validation model,
+   with multiple sunrise codes:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1001,6 +1000,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
        </extension>
        <clTRID>ABC-12345</clTRID>
      </command>
+   </epp>
 
 
 
@@ -1009,11 +1009,9 @@ Tan, et al.              Expires August 30, 2013               [Page 18]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   </epp>
-
-   Following is an example <create> domain command using the <launch:
-   create> extension, following the "mark" validation model, with the
-   mark information.
+   The following is an example <create> domain command using the
+   <launch:create> extension, following the "mark" validation model,
+   with the mark information:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1060,14 +1058,16 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
+
+
 Tan, et al.              Expires August 30, 2013               [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   Following is an example <create> domain command using the <launch:
-   create> extension, following the "code with mark" validation model,
-   with a code and mark information.
+   The following is an example <create> domain command using the
+   <launch:create> extension, following the "code with mark" validation
+   model, with a code and mark information:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1121,9 +1121,9 @@ Tan, et al.              Expires August 30, 2013               [Page 20]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   Following is an example <create> domain command using the <launch:
-   create> extension, following the "signed mark" validation model, with
-   the signed mark information.
+   The following is an example <create> domain command using the
+   <launch:create> extension, following the "signed mark" validation
+   model, with the signed mark information:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1177,9 +1177,9 @@ Tan, et al.              Expires August 30, 2013               [Page 21]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   Following is an example <create> domain command using the <launch:
-   create> extension, following the "signed mark" validation model, with
-   the base64 encoded signed mark information.
+   The following is an example <create> domain command using the
+   <launch:create> extension, following the "signed mark" validation
+   model, with the base64 encoded signed mark information:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1212,7 +1212,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
    If the create was successful, the server MAY reply with the <launch:
    creData> element along with the regular EPP <resData> to indicate the
-   server generated Application Identifier (Section 2.1) when multiple
+   server generated Application Identifier (Section 2.1), when multiple
    applications of a given domain name is supported; otherwise no
    extension is included with the regular EPP <resData>.  The <launch:
    creData> element contains the following child elements:
@@ -1234,7 +1234,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
    An example response when multiple overlapping applications are
-   supported by the server.
+   supported by the server:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1268,16 +1268,16 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 3.3.2.  Claims Create Form
 
    The Claims Create Form of the extension to the EPP domain name
-   mapping [RFC5731] includes the information related to the acceptance
-   of the claims notice for the "claims1" launch phase and the display
-   of the claims notice for the "claims2" launch phase.
+   mapping [RFC5731] includes the information related to the
+   registrant's acceptance of the Claims Notice for the "claims1" launch
+   phase and the display of the Claims Notice for the "claims2" launch
+   phase.
 
    A <launch:create> element is sent along with the regular <create>
    domain command.  The <launch:create> element contains the following
    child elements:
 
-   <launch:phase>  MUST contain the value of "claims1" or "claim2" to
-       indicate the claims launch phase.
+
 
 
 
@@ -1289,21 +1289,61 @@ Tan, et al.              Expires August 30, 2013               [Page 23]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+   <launch:phase>  MUST contain the value of "claims1" or "claim2" to
+       indicate the claims launch phase.
    <launch:notice>
        <launch:noticeID>  Unique notice identifier generated by the
-           source of the claims notice information like the Claims
+           source of the Claims Notice information such as the Claims
            Notice Information Service (CNIS).
        <launch:generatedDate>  Contains the date and time that the
-           claims notice was generated.
-       <launch:acceptedDate>  Contains the date and time that the claims
-           notice was displayed or accepted.
-       <launch:source>  Contains the source information of the client
-           that was displayed or that accepted the claims notice like
-           the client IP address.
+           Claims Notice was generated.
+       <launch:acceptedDate>  Contains the date and time that the Claims
+           Notice was displayed or accepted.
+       <launch:source>  Contains the source information of the end-user
+           client that was shown, or that accepted, the Claims Notice,
+           such the end-user client's IP address.
 
-   Following is an example <create> domain command using the <launch:
-   create> extension with the <launch:notice> information for the
-   "claims1" claims launch phase.
+   The following is an example <create> domain command using the
+   <launch:create> extension with the <launch:notice> information for
+   the "claims1" claims launch phase:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.              Expires August 30, 2013               [Page 24]
+
+Internet-Draft        Launch Phase Mapping for EPP         February 2013
+
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1338,13 +1378,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
      </command>
    </epp>
 
-
-
-Tan, et al.              Expires August 30, 2013               [Page 24]
-
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
-
-
    This extension does not define any extension to the response of a
    <create> domain command for the Claims Create Form.  After processing
    the command, the server replies with a standard EPP response as
@@ -1360,6 +1393,14 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    launch phase operations MUST return an EPP error result code of 2102.
 
    Registry policies permitting, clients may update an application
+
+
+
+Tan, et al.              Expires August 30, 2013               [Page 25]
+
+Internet-Draft        Launch Phase Mapping for EPP         February 2013
+
+
    object by submitting an EPP <update> command along with a <launch:
    update> element to indicate the application object to be updated.
    The <launch:update> element contains the following child elements:
@@ -1374,36 +1415,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    replies with a standard EPP response as defined in the EPP domain
    name mapping [RFC5731].
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.              Expires August 30, 2013               [Page 25]
-
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
-
-
-   Following is an example <update> domain command with the <launch:
+   The following is an example <update> domain command with the <launch:
    update> extension to add and remove a name server of a sunrise
-   application with the application identifier "abc123".
+   application with the application identifier "abc123":
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1438,26 +1452,12 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Tan, et al.              Expires August 30, 2013               [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   An example response that corresponds to the above command.
+   An example response that corresponds to the above command:
 
    <?xml version="1.0" encoding="UTF-8"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1513,8 +1513,8 @@ Tan, et al.              Expires August 30, 2013               [Page 27]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
-   Following is an example <delete> domain command with the <launch:
-   delete> extension.
+   The following is an example <delete> domain command with the <launch:
+   delete> extension:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1536,7 +1536,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
      </command>
    </epp>
 
-   An example response that corresponds to the above command.
+   An example response that corresponds to the above command:
 
    <?xml version="1.0" encoding="UTF-8"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -2024,6 +2024,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
        the mark in the info response.
    4.  Fixed state diagram to remove redundant transition from "invalid"
        to "rejected"; thanks Klaus Malorny.
+   5.  Proof-read grammar and spelling.
 
 
 7.  IANA Considerations
@@ -2064,7 +2065,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 9.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
 
 
 
@@ -2072,6 +2072,8 @@ Tan, et al.              Expires August 30, 2013               [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
+
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               January 2004.
@@ -2109,11 +2111,9 @@ Authors' Addresses
    London, England  EC2R 6AR
    GB
 
-   Phone: +44 8700 170 900
+   Phone: +44 20 33 88 0600
    Email: gavin.brown@centralnic.com
-   URI:   http://www.centralnic.com
-
-
+   URI:   https://www.centralnic.com
 
 
 
