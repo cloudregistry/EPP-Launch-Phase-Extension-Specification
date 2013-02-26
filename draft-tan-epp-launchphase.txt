@@ -132,7 +132,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    place may be different from what is defined in EPP domain name
    mapping [RFC5731].  For example, registries often accept multiple
    applications for the same domain name during the "Sunrise" launch
-   phase, referred to as a Aaunch Application.  A Launch Registration
+   phase, referred to as a Launch Application.  A Launch Registration
    refers to a registration made during a launch phase when the server
    uses a "first-come, first-served" model.  Even in a "first-come,
    first-served" model, additional steps and information might be

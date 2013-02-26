@@ -162,7 +162,7 @@
       model in place may be different from what is defined in
       <xref target="RFC5731">EPP domain name mapping</xref>. For example,
       registries often accept multiple applications for the same domain name during
-      the "Sunrise" launch phase, referred to as a Aaunch Application.  A Launch
+      the "Sunrise" launch phase, referred to as a Launch Application.  A Launch
       Registration refers to a registration made during a launch phase when the
       server uses a "first-come, first-served" model.  Even in a "first-come,
       first-served" model, additional steps and information might be required to
