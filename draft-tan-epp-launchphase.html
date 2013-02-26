@@ -502,12 +502,12 @@ State Transition</h3>
  | validated |   | invalid +-----&gt;| rejected  |  | allocated |
  |           |   |         |       \         /    \         /
  +----+------+   +----+----+        +-------+      +-------+
-      |               |                 ^              ^
-      |               |                 |              |
-      |               +-----------------+              |
+      |                                 ^              ^
+      |                                 |              |
+      |                                 |              |
       |                                 |              |
       +---------------------------------+              |
-      |                                 ^              |
+      |                                 |              |
       |                                 |              |
       |                        +--------+-------+      |
       |                        |                |      |
@@ -1928,8 +1928,9 @@ Acknowledgements</h3>
       Jeff Eckhaus, and Will Shorter.
 </p>
 <p>Special suggestions that have been incorporated into this document 
-      were provided by Trung Tran, Bernhard Reutner-Fischer, Klaus Malorny,
-      Gustavo Lozano, and Keith Gaughan.
+      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo Lozano,
+      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,
+      Ulrich Wisser and Sharon Wodjenski.
 </p>
 <a name="anchor5"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2048,6 +2049,8 @@ Change from 05 to 06</h3>
 <li>Split the &lt;launch:timestamp&gt; into &lt;launch:generatedDate&gt; and &lt;launch:acceptedDate&gt; based on feedback from Trung Tran.
 </li>
 <li>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.
+</li>
+<li>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.
 </li>
 </ol>
 
