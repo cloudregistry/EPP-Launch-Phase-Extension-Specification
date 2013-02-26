@@ -335,12 +335,12 @@
  | validated |   | invalid +----->| rejected  |  | allocated |
  |           |   |         |       \         /    \         /
  +----+------+   +----+----+        +-------+      +-------+
-      |               |                 ^              ^
-      |               |                 |              |
-      |               +-----------------+              |
+      |                                 ^              ^
+      |                                 |              |
+      |                                 |              |
       |                                 |              |
       +---------------------------------+              |
-      |                                 ^              |
+      |                                 |              |
       |                                 |              |
       |                        +--------+-------+      |
       |                        |                |      |
@@ -1805,6 +1805,7 @@ END]]></artwork>
         <t>Removed the definition of the mark-1.0 and signedMark-1.0 and replaced with reference to draft-lozano-smd, that contains the definition for the mark, signed marked, and encoded signed mark.</t>
         <t>Split the &lt;launch:timestamp&gt; into &lt;launch:generatedDate&gt; and &lt;launch:acceptedDate&gt; based on feedback from Trung Tran.</t>
         <t>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.</t>
+        <t>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.</t>
       </list></t>
     </section>
    </section>

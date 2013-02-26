@@ -502,12 +502,12 @@ State Transition</h3>
  | validated |   | invalid +-----&gt;| rejected  |  | allocated |
  |           |   |         |       \         /    \         /
  +----+------+   +----+----+        +-------+      +-------+
-      |               |                 ^              ^
-      |               |                 |              |
-      |               +-----------------+              |
+      |                                 ^              ^
+      |                                 |              |
+      |                                 |              |
       |                                 |              |
       +---------------------------------+              |
-      |                                 ^              |
+      |                                 |              |
       |                                 |              |
       |                        +--------+-------+      |
       |                        |                |      |
@@ -2048,6 +2048,8 @@ Change from 05 to 06</h3>
 <li>Split the &lt;launch:timestamp&gt; into &lt;launch:generatedDate&gt; and &lt;launch:acceptedDate&gt; based on feedback from Trung Tran.
 </li>
 <li>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.
+</li>
+<li>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.
 </li>
 </ol>
 

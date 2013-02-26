@@ -311,12 +311,12 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
     | validated |   | invalid +----->| rejected  |  | allocated |
     |           |   |         |       \         /    \         /
     +----+------+   +----+----+        +-------+      +-------+
-         |               |                 ^              ^
-         |               |                 |              |
-         |               +-----------------+              |
+         |                                 ^              ^
+         |                                 |              |
+         |                                 |              |
          |                                 |              |
          +---------------------------------+              |
-         |                                 ^              |
+         |                                 |              |
          |                                 |              |
          |                        +--------+-------+      |
          |                        |                |      |
@@ -2022,6 +2022,8 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    3.  Added the "includeMark" optional attribute to the <launch:info>
        element to enable the client to request whether or not to include
        the mark in the info response.
+   4.  Fixed state diagram to remove redundant transition from "invalid"
+       to "rejected"; thanks Klaus Malorny.
 
 
 7.  IANA Considerations
@@ -2064,8 +2066,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-
 
 
 Tan, et al.              Expires August 18, 2013               [Page 37]
@@ -2073,6 +2073,7 @@ Tan, et al.              Expires August 18, 2013               [Page 37]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               January 2004.
 
    [RFC5730]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)",
@@ -2111,7 +2112,6 @@ Authors' Addresses
    Phone: +44 8700 170 900
    Email: gavin.brown@centralnic.com
    URI:   http://www.centralnic.com
-
 
 
 
