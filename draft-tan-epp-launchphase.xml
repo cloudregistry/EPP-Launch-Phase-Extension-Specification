@@ -96,11 +96,11 @@
           <country>GB</country>
         </postal>
 
-        <phone>+44 8700 170 900</phone>
+        <phone>+44 20 33 88 0600</phone>
 
         <email>gavin.brown@centralnic.com</email>
 
-        <uri>http://www.centralnic.com</uri>
+        <uri>https://www.centralnic.com</uri>
       </address>
     </author>
 
@@ -139,8 +139,8 @@
 
     <abstract>
       <t>This document describes an Extensible Provisioning Protocol (EPP)
-      extension mapping for the provisioning and management of domain names
-      during the launch phase of a domain name registry.</t>
+      extension mapping for the provisioning and management of domain name
+      applications during the launch of a domain name registry.</t>
     </abstract>
   </front>
 
@@ -152,25 +152,23 @@
       implement several common use cases related to the provisioning and
       management of domain name applications during the launch of a domain name registry.</t>
 
-      <t>It is typical for domain registries to operate in special modes
-      within certain periods of time to facilitate allocation of domain names. 
-      This document
-      uses the term "launch phase" and the shorter form "launch" to refer to
-      such a period.</t>
+      <t>It is typical for domain registries to operate in special modes during
+      their initial launch to facilitate allocation of domain names, often according
+      to special rules. This document uses the term "launch phase" and the shorter form
+      "launch" to refer to such a period.</t>
 
       <t>The <xref target="RFC5731">EPP domain name mapping</xref> is designed
-      for the steady state operation of a registry. During the launch, the
-      interface used at each phase of the launch could be different from what
-      is defined in <xref target="RFC5731">EPP domain name mapping</xref>. for
-      example, registries often accept multiple applications for a given
-      domain name during the "sunrise" launch phase, referred to as a launch application.  A launch registration 
-      refers to a registration made during a launch phase when the server uses 
-      a "first-come, first-served" model.  Even in a "first-come, first-served" model, additional steps 
-      and information might be required to support an applciation, like the passing of 
-      trademark information on a create.  In addition, the <eref
+      for the steady-state operation of a registry. During a launch period, the
+      model in place may be different from what is defined in
+      <xref target="RFC5731">EPP domain name mapping</xref>. For example,
+      registries often accept multiple applications for the same domain name during
+      the "Sunrise" launch phase, referred to as a Aaunch Application.  A Launch
+      Registration refers to a registration made during a launch phase when the
+      server uses a "first-come, first-served" model.  Even in a "first-come,
+      first-served" model, additional steps and information might be required to
+      support an application, such as trademark information. In addition, the <eref
       target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/claims-model-26sep12-en.pdf">Proposed Trademark Claims Model</eref> 
-      defines a registry
-      interface for the Trademark Claims or "claims" launch phase that
+      defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
       extension in order to unambiguously manage the various launch phases
@@ -213,16 +211,15 @@
       are described here.</t>
 
       <section anchor="applicationID" title="Application Identifiers">
-        <t>Servers MAY allow multiple applications, referred to as a launch application, 
-        of a given domain name
-        during its launch phase operations. Upon receiving a request to create
-        a domain name, the server creates an application object corresponding
-        to the request and assigns an application identifier for the application
-        and returns it to the client with the &lt;launch:applicationID&gt;
-        element. In order to facilitate correlation, all subsequent launch
-        operations on the application object MUST be qualified by the
-        previously assigned application identifier using the
-        &lt;launch:applicationID&gt; element.</t>
+        <t>Servers MAY allow multiple applications, referred to as a Launch Application, 
+        of the same domain name during its launch phase operations. Upon receiving 
+        a request to create a domain name, the server creates an application
+        object corresponding to the request, assigns an application identifier
+        for the application, and returns it to the client with the
+        &lt;launch:applicationID&gt; element. In order to facilitate
+        correlation, all subsequent launch operations on the application object
+        MUST be qualified by the previously assigned application identifier
+        using the &lt;launch:applicationID&gt; element.</t>
       </section>
 
       <section anchor="phases" title="Launch Phases">
@@ -232,33 +229,33 @@
 
         <t>The following launch phase values are defined: <list
             style="hanging">
-            <t hangText="sunrise">Phase when trademark holders can submit
+            <t hangText="sunrise">The phase during which trademark holders can submit
             registrations or applications with trademark information that can be
             validated by the server.</t>
 
-            <t hangText="landrush">Post sunrise phase when non-trademark
+            <t hangText="landrush">A post-Sunrise phase when non-trademark
             holders are allowed to register domain names with steps taken 
             to address a large volume of initial registrations.</t>
 
-            <t hangText="claims1">Trademark claims phase 1 as defined by 
-            Trademark Clearinghouse model of displaying a full, detailed 
-            claims notice to clients for domain names that match 
-            trademarks.</t>
+            <t hangText="claims1">The Trademark Claims Phase 1, as defined by 
+            Trademark Clearinghouse model, in which a full, detailed 
+            Claims Notice must be displayed to prospective registrants of domain
+            names that match trademarks.</t>
             
-            <t hangText="claims2">Trademark claims phase 2 as defined by 
-            Trademark Clearinghouse model of displaying a short, educational 
-            claims notice to clients for domain names that match 
-            trademarks that opt into the service.</t>
+            <t hangText="claims2">The Trademark Claims Phase 2, as defined by 
+            Trademark Clearinghouse model, in which a short, educational 
+            Claims Notice must be displayed to prospective registrants of domain
+            names that match trademarks that have opted in.</t>
 
-            <t hangText="open">Post launch phase that is also referred to as
+            <t hangText="open">A post-launch phase that is also referred to as
             "steady state". Servers MAY require additional trademark
-            protection with this phase.</t>
+            protection during this phase.</t>
 
             <t hangText="custom">A custom server launch phase that is defined
             using the "name" attribute.</t>
           </list></t>
 
-        <t>For extensibility the &lt;launch:phase&gt; element includes an
+        <t>For extensibility, the &lt;launch:phase&gt; element includes an
         OPTIONAL "name" attribute that can define a sub-phase or the full name
         of the phase when the &lt;launch:phase&gt; element has the "custom"
         value.  For example, the "claims1" launch phase could have two 
@@ -266,7 +263,7 @@
       </section>
 
       <section anchor="statuses" title="Status Values">
-        <t>A launch application object MAY have a status value. The
+        <t>A Launch Application object MAY have a status value. The
         &lt;launch:status&gt; element is used to convey extended status pertaining to
         the application object, beyond what is specified in the object mapping
         for this application object.</t>
@@ -308,13 +305,13 @@
         NOT use the "custom" status value.</t>
 
         <t>Certain status values MAY be combined. For example, an application
-        can be invalid and rejected. Additionally certain statuses MAY be
+        may be both invalid and rejected. Additionally, certain statuses MAY be
         skipped. For example, an application MAY immediately start at the
-        allocated status or an application MAY skip the pendingAuction status
-        if the server does not support an auction. If a &lt;domain:create&gt; processes a request
-        synchronously without the use of an intermediate application, than an
-        <xref target="applicationID">Application Identifier</xref> is not
-        needed along with the application status.</t>
+        "allocated" status or an application MAY skip the "pendingAuction" status
+        if the server does not support an auction model. If the &lt;domain:create&gt;
+        command processes a request synchronously without the use of an intermediate,
+        application, then an <xref target="applicationID">Application
+        Identifier</xref> is not needed along with the application status.</t>
 
         <section title="State Transition">
           <figure align="center" anchor="fsm">
@@ -354,8 +351,8 @@
       </section>
 
       <section anchor="validationModels" title="Mark Validation Models">
-        <t>A server MUST support at least one of the following models for validating the trademark 
-        information:</t>
+        <t>A server MUST support at least one of the following models for validating 
+        trademark information:</t>
 
         <t><list style="hanging">
 
@@ -381,7 +378,7 @@
             signed as described in the <xref target="digitalsignature">Digital Signature</xref>
             section.  The digital signature can be directly validated by the 
             server using the public key
-            of the external party that created the signed mark using it's private key. This model is 
+            of the external party that created the signed mark using its private key. This model is 
             supported using the
             <xref target="signedMark">&lt;smd:signedMark&gt;</xref> and 
             <xref target="encodedSignedMark">&lt;smd:encodedSignedMark&gt;</xref> 
@@ -399,7 +396,7 @@
            <t><list style="hanging">
               <t hangText="&lt;launch:code&gt;:">OPTIONAL mark code used to 
               validate the <xref target="mark">&lt;mark:mark&gt;</xref> information.  The mark code 
-              can be a mark specific secret value that the server can verify 
+              is be a mark-specific secret that the server can verify 
               against a third party.</t>
               <t hangText="&lt;mark:mark&gt;:">OPTIONAL mark information 
               with child elements defined in the <xref target="mark">Mark</xref> 
@@ -487,39 +484,39 @@
         that is used to determine whether or not there are any matching 
         trademarks, in the specified launch phase, for each domain name passed in the command.  
         The availability check information defined in the <xref target="RFC5731">EPP domain name
-      mapping</xref> MUST NOT be returned for the Claims Check Command.  
-        Instead of 
-        returning whether the domain name is available the Claims Check Command will return whether 
+      mapping</xref> MUST NOT be returned for the Claims Check Command.</t>  
+        <t>Instead of 
+        returning whether the domain name is available, the Claims Check Command will return whether 
         or not at least one matching trademark exists for the domain name.  
         If there is at least one matching trademark that exists for the 
-        domain name a &lt;launch:claimKey&gt; element is returned.  
-        The value of the &lt;launch:claimKey&gt; element can 
-        be used with an info service of a third party trademark provider like 
-        the Trademark Clearinghouse (TMCH) for getting the information needed 
-        to generate the trademark claims notice.  The third party trademark 
-        provider should also return a unique notice identifier  
+        domain name, a &lt;launch:claimKey&gt; element is returned.  
+        The client may then use the value of the &lt;launch:claimKey&gt; element
+        to obtain information needed to generate the trademark Claims Notice from
+        a third-party trademark validator such as
+        the Trademark Clearinghouse (TMCH).  The third party trademark 
+        validator should also return a unique notice identifier  
         that can be passed in the &lt;launch:noticeID&gt; element of the extension to the 
-        <xref target="createCommand">Create Command</xref>.
+        <xref target="createCommand">Create Command</xref>.</t>
         
-        The &lt;domain:name&gt; elements in the EPP &lt;check&gt; 
+        <t>The &lt;domain:name&gt; elements in the EPP &lt;check&gt; 
         command of <xref target="RFC5731">EPP domain name mapping</xref> define 
         the domain names to check for matching trademarks.  
         The &lt;launch:check&gt; element contains the following child elements:</t>
 
           <t><list hangIndent="4" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">The phase with the value of
-              "claims1" or "claims2" to indicate it as a Claims Check Command.
+              <t hangText="&lt;launch:phase&gt;">The launch phase, with a value of either
+              "claims1" or "claims2" to indicate that the command is a Claims Check Command.
               The "claims1" Claims Check Command will match the &lt;domain:name&gt;
-              against the full list of trademark labels and the "claims2" 
+              against the full list of trademark labels. The "claims2" 
               Claims Check Command will match the &lt;domain:name&gt; against 
               the list of trademark labels that opted into the "claims2" 
               launch phase.</t>
             </list></t>
           <figure>
-            <preamble>Example Claims Check Command using the &lt;check&gt;
+            <preamble>Example Claims Check command using the &lt;check&gt;
             domain command and the &lt;launch:check&gt; extension to 
             determine if "example1.tld" and "example2.tld" have any 
-            matching trademarks during the "claims1" launch phase.</preamble>
+            matching trademarks during the "claims1" launch phase:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -546,7 +543,7 @@
             <preamble>Example Claims Check Command using the &lt;check&gt;
             domain command and the &lt;launch:check&gt; extension to 
             determine if "example3.tld" and "example4.tld" have any 
-            matching trademarks that opted into the "claims2" launch phase.</preamble>
+            matching trademarks that opted into the "claims2" launch phase:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -571,13 +568,13 @@
           </figure>
 
           <t>If the &lt;check&gt; command has been processed successfully, the EPP 
-          &lt;resData&gt; element MUST contains a child &lt;launch:chkData&gt; element 
+          &lt;resData&gt; element MUST contain a child &lt;launch:chkData&gt; element 
           that identifies the launch namespace.  The &lt;launch:chkData&gt; element 
           contains the following child elements:</t>
 
           <t><list hangIndent="4" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">The phase with a value of
-              "claims1" or "claims2" that matches the associated 
+              <t hangText="&lt;launch:phase&gt;">The launch phase, with a value of
+              either "claims1" or "claims2", which matches the associated 
               Claims Check Command &lt;launch:phase&gt;.</t>
 
               <t hangText="&lt;launch:cd&gt;">One or more &lt;launch:cd&gt; 
@@ -588,15 +585,15 @@
             qualified name of the queried domain name.  This element 
             MUST contain an "exists" attribute whose value 
             indicates if a matching trademark exists for the domain 
-            name.  A value of "1" or "true" means that a matching 
+            name.  A value of "1" (or "true") means that a matching 
             trademark does exist for the claims launch phase.  
-            A value of "0" or "false" means that 
+            A value of "0" (or "false") means that 
             a matching trademark does not exist.</t>
             <t hangText="&lt;launch:claimKey&gt;">An OPTIONAL claim key 
-            that MAY be passed to an info service of a third party 
-            trademark provider like the Trademark Clearinghouse (TMCH) 
-            for getting the information needed to generate the 
-            trademark claims notice.  The &lt;launch:claimKey&gt; is used 
+            that MAY be passed to a third-party 
+            trademark validator such as the Trademark Clearinghouse (TMCH) 
+            for querying the information needed to generate a 
+            Trademark Claims Notice.  The &lt;launch:claimKey&gt; is used 
             as the key for the query in place of the domain name 
             to securely query the service without using a well-known 
             value like a domain name.</t>  
@@ -605,10 +602,10 @@
             </list></t>
 
           <figure>
-            <preamble>Example Claims Check Response when no matching trademarks
+            <preamble>Example Claims Check response when no matching trademarks
              are found for the domain name example1.tld and matching 
              trademarks are found for the domain name example2.tld for the 
-             "claims1" launch phase.</preamble>
+             "claims1" launch phase:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -638,10 +635,10 @@
 </epp>]]></artwork>
           </figure>
           <figure>
-            <preamble>Example Claims Check Response when no matching trademarks
+            <preamble>Example Claims Check response when no matching trademarks
              are found for the domain name example3.tld and matching 
              trademarks are found for the domain name example4.tld for the 
-             "claims2" launch phase.</preamble>
+             "claims2" launch phase:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -681,8 +678,8 @@
         
         <t>The EPP &lt;info&gt; command is used to retrieve information 
         for a launch phase registration or application.  The <xref target="applicationID">Application Identifier</xref> 
-        returned in the &lt;launch:creData&gt; element of the <xref target="createCommand">Create Response</xref> 
-        is used for retrieving information for a launch application.  A &lt;launch:info&gt; element
+        returned in the &lt;launch:creData&gt; element of the <xref target="createCommand">create response</xref> 
+        is used for retrieving information for a Launch Application.  A &lt;launch:info&gt; element
         is sent along with the regular &lt;info&gt; domain command. The &lt;launch:info&gt; element includes 
         an OPTIONAL "includeMark" boolean attribute, with a default value of "false", to indicate whether 
         or not to include the mark in the response.  The
@@ -695,14 +692,14 @@
               Server policy defines the phases that are supported.</t>
 
               <t hangText="&lt;launch:applicationID&gt;">OPTIONAL application
-              identifier of the launch application.</t>
+              identifier of the Launch Application.</t>
             </list></t>
 
           <figure>
             <preamble>Example &lt;info&gt; domain command with the
             &lt;launch:info&gt; extension to retrieve information 
             for the sunrise application for example.tld and application 
-            identifier "abc123".</preamble>
+            identifier "abc123":</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -730,7 +727,7 @@
           <figure>
             <preamble>Example &lt;info&gt; domain command with the
             &lt;launch:info&gt; extension to retrieve information 
-            for the sunrise registration for example.tld.</preamble>
+            for the sunrise registration for example.tld:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -760,13 +757,13 @@
           child elements:</t>
           <t><list hangIndent="4" style="hanging">
               <t hangText="&lt;launch:phase&gt;">The phase during which the
-              application was submitted or is associated with that matches the associated 
+              application was submitted, or is associated with, that matches the associated 
               &lt;info&gt; command &lt;launch:phase&gt;.</t>
 
-              <t hangText="&lt;launch:applicationID&gt;">OPTIONAL application
-              identifier of the launch application.</t>
+              <t hangText="&lt;launch:applicationID&gt;">OPTIONAL Application
+              Identifier of the Launch Application.</t>
 
-              <t hangText="&lt;launch:status&gt;">OPTIONAL status of the launch application
+              <t hangText="&lt;launch:status&gt;">OPTIONAL status of the Launch Application
               using one of the supported <xref target="statuses">status
               values</xref>.</t>
 
@@ -779,7 +776,7 @@
           <figure>
             <preamble>Example &lt;info&gt; domain response using the 
             &lt;launch:infData&gt; extension with the mark
-            information.</preamble>
+            information:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -851,13 +848,13 @@
 
             <t hangText="claims1">The EPP &lt;create&gt; command with the
             "claims1" launch phase is used to pass the information associated 
-            with the presentation and acceptance of the "claims1" claims notice.  The 
+            with the presentation and acceptance of the "claims1" Claims Notice.  The 
             <xref target="claimsCreateForm">Claims Create Form</xref> is used 
             for the "claims1" launch phase.</t>
 
             <t hangText="claims2">The EPP &lt;create&gt; command with the
             "claims2" launch phase is used to pass the information associated 
-            with the presentation of the "claims1" claims notice.  The 
+            with the presentation of the "claims2" Claims Notice.  The 
             <xref target="claimsCreateForm">Claims Create Form</xref> is used 
             for the "claims2" launch phase.</t>
 
@@ -884,8 +881,7 @@
           contains the following child elements:</t>
 
           <t><list hangIndent="4" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">The launch phase for the 
-              create like the "sunrise" launch phase.</t>
+              <t hangText="&lt;launch:phase&gt;">The identifier for the launch phase.</t>
 
               <t
               hangText="&lt;launch:codeMark&gt; or &lt;smd:signedMark&gt; or &lt;smd:encodedSignedMark&gt;">
@@ -914,9 +910,9 @@
 
 
           <figure>
-            <preamble>Following is an example &lt;create&gt; domain command
+            <preamble>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "code" 
-            validation model, with multiple sunrise codes.</preamble>
+            validation model, with multiple sunrise codes:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -956,9 +952,9 @@
 
 
           <figure>
-            <preamble>Following is an example &lt;create&gt; domain command
+            <preamble>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "mark" 
-            validation model, with the mark information.</preamble>
+            validation model, with the mark information:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -996,9 +992,9 @@
 
 
           <figure>
-            <preamble>Following is an example &lt;create&gt; domain command
+            <preamble>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "code with mark" 
-            validation model, with a code and mark information.</preamble>
+            validation model, with a code and mark information:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1035,9 +1031,9 @@
           </figure>
 
           <figure>
-            <preamble>Following is an example &lt;create&gt; domain command
+            <preamble>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "signed mark" 
-            validation model, with the signed mark information.</preamble>
+            validation model, with the signed mark information:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1072,9 +1068,9 @@
 
 
           <figure>
-            <preamble>Following is an example &lt;create&gt; domain command
+            <preamble>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "signed mark" 
-            validation model, with the base64 encoded signed mark information.</preamble>
+            validation model, with the base64 encoded signed mark information:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1111,7 +1107,7 @@
           <t>If the create was successful, the server MAY reply with the
           &lt;launch:creData&gt; element along with the regular EPP
           &lt;resData&gt; to indicate the server generated <xref
-          target="applicationID">Application Identifier</xref> when multiple
+          target="applicationID">Application Identifier</xref>, when multiple
           applications of a given domain name is supported; otherwise no
           extension is included with the regular EPP &lt;resData&gt;. The
           &lt;launch:creData&gt; element contains the following child
@@ -1127,7 +1123,7 @@
 
           <figure>
             <preamble>An example response when multiple overlapping
-            applications are supported by the server.</preamble>
+            applications are supported by the server:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1167,9 +1163,9 @@
         <section anchor="claimsCreateForm" title="Claims Create Form">
           <t>The Claims Create Form of the extension to the <xref
           target="RFC5731">EPP domain name mapping</xref> includes the
-          information related to the acceptance of the claims notice 
-          for the "claims1" launch phase and the display of the claims 
-          notice for the "claims2" launch phase.</t>
+          information related to the registrant's acceptance of the Claims Notice 
+          for the "claims1" launch phase and the display of the Claims 
+          Notice for the "claims2" launch phase.</t>
 
           <t>A &lt;launch:create&gt; element is sent along with the regular
           &lt;create&gt; domain command. The &lt;launch:create&gt; element
@@ -1181,23 +1177,23 @@
               <t hangText="&lt;launch:notice&gt;">
               <list hangIndent="4" style="hanging">
             <t hangText="&lt;launch:noticeID&gt;">Unique notice identifier 
-          generated by the source of the claims notice information 
-          like the Claims Notice Information Service (CNIS).</t>
+          generated by the source of the Claims Notice information 
+          such as the Claims Notice Information Service (CNIS).</t>
                 <t hangText="&lt;launch:generatedDate&gt;">Contains the
-              date and time that the claims notice was generated.</t>
+              date and time that the Claims Notice was generated.</t>
                 <t hangText="&lt;launch:acceptedDate&gt;">Contains the
-              date and time that the claims notice was displayed or accepted.</t>
+              date and time that the Claims Notice was displayed or accepted.</t>
                 <t hangText="&lt;launch:source&gt;">Contains the source 
-              information of the client that was displayed or that accepted the 
-              claims notice like the client IP address.</t>
+              information of the end-user client that was shown, or that accepted, the 
+              Claims Notice, such the end-user client's IP address.</t>
               </list></t>
             </list></t>
 
           <figure>
-            <preamble>Following is an example &lt;create&gt; domain command
+            <preamble>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension with the 
             &lt;launch:notice&gt; information for the "claims1" claims 
-            launch phase.</preamble>
+            launch phase:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1273,10 +1269,10 @@
         target="RFC5731">EPP domain name mapping</xref>.</t>
 
         <figure>
-          <preamble>Following is an example &lt;update&gt; domain command with
+          <preamble>The following is an example &lt;update&gt; domain command with
           the &lt;launch:update&gt; extension to add and remove a name server
           of a sunrise application with the application identifier
-          "abc123".</preamble>
+          "abc123":</preamble>
 
           <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1313,7 +1309,7 @@
 
         <figure>
           <preamble>An example response that corresponds to the above
-          command.</preamble>
+          command:</preamble>
 
           <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1364,8 +1360,8 @@
         target="RFC5731">EPP domain name mapping</xref>.</t>
 
         <figure>
-          <preamble>Following is an example &lt;delete&gt; domain command with
-          the &lt;launch:delete&gt; extension.</preamble>
+          <preamble>The following is an example &lt;delete&gt; domain command with
+          the &lt;launch:delete&gt; extension:</preamble>
 
           <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1392,7 +1388,7 @@
 
         <figure>
           <preamble>An example response that corresponds to the above
-          command.</preamble>
+          command:</preamble>
 
           <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1807,6 +1803,7 @@ END]]></artwork>
         <t>Split the &lt;launch:timestamp&gt; into &lt;launch:generatedDate&gt; and &lt;launch:acceptedDate&gt; based on feedback from Trung Tran.</t>
         <t>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.</t>
         <t>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.</t>
+        <t>Proof-read grammar and spelling.</t>
       </list></t>
     </section>
    </section>
