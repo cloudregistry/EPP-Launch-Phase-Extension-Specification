@@ -34,38 +34,36 @@
          <launch:phase>sunrise</launch:phase>
            <launch:applicationID>abc123</launch:applicationID>
            <launch:status s="pending"/>
-           <mark:mark
-             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
-             xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
-             mark-1.0.xsd">
-             <mark:name>Hello</mark:name>
-             <mark:issuer>IP Clearinghouse</mark:issuer>
-             <mark:number>GE 3933232</mark:number>
-             <mark:type>REG-TM-WORD</mark:type>
-             <mark:entitlement>owner</mark:entitlement>
-             <mark:regDate>2011-09-09T22:00:00.0Z</mark:regDate>
-             <mark:exDate>2013-09-09T22:00:00.0Z</mark:exDate>
-             <mark:country>AU</mark:country>
-             <mark:region>VIC</mark:region>
-             <mark:owner>
-               <mark:org>Example Inc.</mark:org>
-             </mark:owner>
-             <mark:contact>
-               <mark:name>John Doe</mark:name>
-               <mark:org>Example Inc.</mark:org>
-               <mark:addr>
-                 <mark:street>123 Example Dr.</mark:street>
-                 <mark:street>Suite 100</mark:street>
-                 <mark:city>Reston</mark:city>
-                 <mark:sp>VA</mark:sp>
-                 <mark:pc>20190</mark:pc>
-                 <mark:cc>US</mark:cc>
-               </mark:addr>
-               <mark:voice x="1234">+1.7035555555</mark:voice>
-               <mark:fax>+1.7035555556</mark:fax>
-               <mark:email>jdoe@example.tld</mark:email>
-             </mark:contact>
-          </mark:mark>
+				 <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+				  xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
+				  mark-1.0.xsd">
+				  <mark:trademark>
+					<mark:id>1234-2</mark:id>
+					<mark:markName>Example One</mark:markName>
+					<mark:holder entitlement="owner">
+					 <mark:org>Example Inc.</mark:org>
+					 <mark:addr>
+					 <mark:street>123 Example Dr.</mark:street>
+					 <mark:street>Suite 100</mark:street>
+					 <mark:city>Reston</mark:city>
+					 <mark:sp>VA</mark:sp>
+					 <mark:pc>20190</mark:pc>
+					 <mark:cc>US</mark:cc>
+					 </mark:addr>
+					</mark:holder>
+					<mark:jurisdiction>US</mark:jurisdiction>
+					<mark:class>35</mark:class>
+					<mark:class>36</mark:class>
+					<mark:label>example-one</mark:label>
+					<mark:label>exampleone</mark:label>
+					<mark:goodsAndServices>Dirigendas et eiusmodi
+					 featuring infringo in airfare et cartam servicia.
+					</mark:goodsAndServices>
+					<mark:regNum>234235</mark:regNum>
+					<mark:regDate>2009-08-16T09:00:00.0Z</mark:regDate>
+					<mark:exDate>2015-08-16T09:00:00.0Z</mark:exDate>
+				  </mark:trademark>
+				  </mark:mark>
        </launch:infData>
      </extension>
      <trID>

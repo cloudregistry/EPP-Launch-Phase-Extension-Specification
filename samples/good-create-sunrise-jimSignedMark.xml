@@ -24,73 +24,124 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         <launch:phase>sunrise</launch:phase>
-        <jimSM:signedMark id="signedMark"
-         xmlns:jimSM="urn:ietf:params:xml:ns:jimSignedMark-1.0"
-         xsi:schemaLocation="urn:ietf:params:xml:ns:jimSignedMark-1.0
-         jimSignedMark-1.0.xsd" jim="gould">
-          <jimSM:serial>123456</jimSM:serial>
-          <jimSM:exDate>2012-08-16T09:00:00.0Z</jimSM:exDate>
-          <jimMark:mark
-            xmlns:jimMark="urn:ietf:params:xml:ns:jimMark-1.0"
-            xsi:schemaLocation="urn:ietf:params:xml:ns:jimMark-1.0
-            jimMark-1.0.xsd" jim="gould">
-            <jimMark:name>Example One</jimMark:name>
-            <jimMark:label>example-one</jimMark:label>
-            <jimMark:label>exampleone</jimMark:label>
-            <jimMark:issuer>IP Clearinghouse</jimMark:issuer>
-            <jimMark:number>GE 3933232</jimMark:number>
-            <jimMark:type>REG-TM-WORD</jimMark:type>
-            <jimMark:entitlement>owner</jimMark:entitlement>
-            <jimMark:regDate>2011-09-09</jimMark:regDate>
-            <jimMark:exDate>2013-09-09</jimMark:exDate>
-            <jimMark:country>AU</jimMark:country>
-            <jimMark:region>VIC</jimMark:region>
-            <jimMark:owner>
-              <jimMark:org>Example Inc.</jimMark:org>
-            </jimMark:owner>
-            <jimMark:contact>
-              <jimMark:name>John Doe</jimMark:name>
-              <jimMark:org>Example Inc.</jimMark:org>
-              <jimMark:addr>
-                <jimMark:street>123 Example Dr.</jimMark:street>
-                <jimMark:street>Suite 100</jimMark:street>
-                <jimMark:city>Reston</jimMark:city>
-                <jimMark:sp>VA</jimMark:sp>
-                <jimMark:pc>20190</jimMark:pc>
-                <jimMark:cc>US</jimMark:cc>
-              </jimMark:addr>
-              <jimMark:voice x="1234">+1.7035555555</jimMark:voice>
-              <jimMark:fax>+1.7035555556</jimMark:fax>
-              <jimMark:email>jdoe@example.tld</jimMark:email>
-            </jimMark:contact>
-          </jimMark:mark>
-          <dsig:Signature xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
-            <dsig:SignedInfo>
-            <dsig:CanonicalizationMethod 
- Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-            <dsig:SignatureMethod 
- Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-            <dsig:Reference URI="#signedMark">
-                <dsig:Transforms>
-                  <dsig:Transform 
- Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                </dsig:Transforms>
-                <dsig:DigestMethod 
- Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                <dsig:DigestValue>6651T5s9GZgQOxifdCFmDfSIoUc=
-                </dsig:DigestValue>
-            </dsig:Reference>
-          </dsig:SignedInfo>
-            <dsig:SignatureValue>
-Gm7RnEb6jcijKcgmwEmxJ6j1L0vt2wFyXv3oKc9a4b8nMOKdec8S3tG2hSx
-/NZa0RFHvx5zMsH/MjmxzrTBbl5d7W8Qql5VsW4XanSjJ+UgILs9k6XgVtZ
-E2EvffMLBiL4xbCJM48ewRYRY7lVEzoNms91pmm3U5IlNRNjU/YFqZ1pXhh
-rhyhPjSi9Uon8FnAJaiBEfHcjG6815IJV/9RT+MTXri7i0s82CqIS4wDGbG
-pyZAs7/kDY3A3upqSOwTtrFSCFX1F+Craec72lBB/dKJHxmoVkbIO5KQhqI
-Od+E+h2kguE++RHKa4xoBIeyTgWqpWcLuMoFpM+GxwFcpSA==
-			   </dsig:SignatureValue>
-          </dsig:Signature>
-        </jimSM:signedMark>
+  <jsmd:signedMark xmlns:jsmd="urn:ietf:params:xml:ns:jimSignedMark-1.0"
+  	 xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+  xsi:schemaLocation="urn:ietf:params:xml:ns:jimSignedMark-1.0 jimSignedMark-1.0.xsd
+         urn:ietf:params:xml:ns:signedMark-1.0 signedMark-1.0"
+  id="signedMark" jim="gould">
+   <smd:id>1-2</smd:id>
+   <smd:issuerInfo issuerID="2">
+    <smd:org>Example Inc.</smd:org>
+    <smd:email>support@example.tld</smd:email>
+    <smd:url>http://www.example.tld</smd:url>
+    <smd:voice x="1234">+1.7035555555</smd:voice>
+   </smd:issuerInfo>
+   <smd:notBefore>2009-08-16T09:00:00.0Z</smd:notBefore>
+   <smd:notAfter>2010-08-16T09:00:00.0Z</smd:notAfter>
+   <jmark:mark xmlns:jmark="urn:ietf:params:xml:ns:jimMark-1.0"
+   	xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+    xsi:schemaLocation="urn:ietf:params:xml:ns:jimMark-1.0 jimMark-1.0.xsd 
+            urn:ietf:params:xml:ns:mark-1.0 mark-1.0.xsd" 
+            jim="gould">
+    <mark:trademark>
+     <mark:id>1234-2</mark:id>
+     <mark:markName>Example One</mark:markName>
+     <mark:holder entitlement="owner">
+      <mark:org>Example Inc.</mark:org>
+      <mark:addr>
+       <mark:street>123 Example Dr.</mark:street>
+       <mark:street>Suite 100</mark:street>
+       <mark:city>Reston</mark:city>
+       <mark:sp>VA</mark:sp>
+       <mark:pc>20190</mark:pc>
+       <mark:cc>US</mark:cc>
+      </mark:addr>
+     </mark:holder>
+     <mark:jurisdiction>US</mark:jurisdiction>
+     <mark:class>35</mark:class>
+     <mark:class>36</mark:class>
+     <mark:label>example-one</mark:label>
+     <mark:label>exampleone</mark:label>
+     <mark:goodsAndServices>Dirigendas et eiusmodi
+      featuring infringo in airfare et cartam servicia.
+     </mark:goodsAndServices>
+     <mark:regNum>234235</mark:regNum>
+     <mark:regDate>2009-08-16T09:00:00.0Z</mark:regDate>
+     <mark:exDate>2015-08-16T09:00:00.0Z</mark:exDate>
+    </mark:trademark>
+   </jmark:mark>
+   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+     <CanonicalizationMethod
+  Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+     <SignatureMethod
+  Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+     <Reference URI="#signedMark">
+      <Transforms>
+       <Transform
+  Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+      </Transforms>
+      <DigestMethod
+  Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+      <DigestValue>
+       miF4M2aTd1Y3tKOzJtiyl2VpzAnVPnV1Hq7Zax+yzrA=
+      </DigestValue>
+     </Reference>
+    </SignedInfo>
+    <SignatureValue>
+     MELpHTWEVfG1JcsG1/a//o54OnlJ5A864+X5JwfqgGBBeZSzGHNzwzTKFzIyyyfn
+     lGxVwNMoBV5aSvkF7oEKMNVzfcl/P0czNQZ/LJ83p3Ol27/iUNsqgCaGf9Zupw+M
+     XT4Q2lOrIw+qSx5g7q9T83siMLvkD5uEYlU5dPqgsObLTW8/doTQrA14RcxgY4kG
+     a4+t5B1cT+5VaghTOPb8uUSEDKjnOsGdy8p24wgyK9n8h0CTSS2ZQ6Zq/RmQeT7D
+     sbceUHheQ+mkQWIljpMQqsiBjw5XXh4jkEgfAzrb6gkYEF+X8ReuPZuOYC4QjIET
+     yx8ifN4KE3GIbMXeF4LDsA==
+    </SignatureValue>
+    <KeyInfo>
+     <KeyValue>
+      <RSAKeyValue>
+       <Modulus>
+        o/cwvXhbVYl0RDWWvoyeZpETVZVVcMCovUVNg/swWinuMgEWgVQFrz0xA04pEhXC
+        FVv4evbUpekJ5buqU1gmQyOsCKQlhOHTdPjvkC5upDqa51Flk0TMaMkIQjs7aUKC
+        mA4RG4tTTGK/EjR1ix8/D0gHYVRldy1YPrMP+ou75bOVnIos+HifrAtrIv4qEqwL
+        L4FTZAUpaCa2BmgXfy2CSRQbxD5Or1gcSa3vurh5sPMCNxqaXmIXmQipS+DuEBqM
+        M8tldaN7RYojUEKrGVsNk5i9y2/7sjn1zyyUPf7vL4GgDYqhJYWV61DnXgx/Jd6C
+        WxvsnDF6scscQzUTEl+hyw==
+       </Modulus>
+       <Exponent>
+        AQAB
+       </Exponent>
+      </RSAKeyValue>
+     </KeyValue>
+     <X509Data>
+      <X509Certificate>
+       MIIESTCCAzGgAwIBAgIBAjANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEL
+       MAkGA1UECBMCQ0ExFDASBgNVBAcTC0xvcyBBbmdlbGVzMRMwEQYDVQQKEwpJQ0FO
+       TiBUTUNIMRswGQYDVQQDExJJQ0FOTiBUTUNIIFRFU1QgQ0EwHhcNMTMwMjA4MDAw
+       MDAwWhcNMTgwMjA3MjM1OTU5WjBsMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0Ex
+       FDASBgNVBAcTC0xvcyBBbmdlbGVzMRcwFQYDVQQKEw5WYWxpZGF0b3IgVE1DSDEh
+       MB8GA1UEAxMYVmFsaWRhdG9yIFRNQ0ggVEVTVCBDRVJUMIIBIjANBgkqhkiG9w0B
+       AQEFAAOCAQ8AMIIBCgKCAQEAo/cwvXhbVYl0RDWWvoyeZpETVZVVcMCovUVNg/sw
+       WinuMgEWgVQFrz0xA04pEhXCFVv4evbUpekJ5buqU1gmQyOsCKQlhOHTdPjvkC5u
+       pDqa51Flk0TMaMkIQjs7aUKCmA4RG4tTTGK/EjR1ix8/D0gHYVRldy1YPrMP+ou7
+       5bOVnIos+HifrAtrIv4qEqwLL4FTZAUpaCa2BmgXfy2CSRQbxD5Or1gcSa3vurh5
+       sPMCNxqaXmIXmQipS+DuEBqMM8tldaN7RYojUEKrGVsNk5i9y2/7sjn1zyyUPf7v
+       L4GgDYqhJYWV61DnXgx/Jd6CWxvsnDF6scscQzUTEl+hywIDAQABo4H/MIH8MAwG
+       A1UdEwEB/wQCMAAwHQYDVR0OBBYEFPZEcIQcD/Bj2IFz/LERuo2ADJviMIGMBgNV
+       HSMEgYQwgYGAFO0/7kEh3FuEKS+Q/kYHaD/W6wihoWakZDBiMQswCQYDVQQGEwJV
+       UzELMAkGA1UECBMCQ0ExFDASBgNVBAcTC0xvcyBBbmdlbGVzMRMwEQYDVQQKEwpJ
+       Q0FOTiBUTUNIMRswGQYDVQQDExJJQ0FOTiBUTUNIIFRFU1QgQ0GCAQEwDgYDVR0P
+       AQH/BAQDAgeAMC4GA1UdHwQnMCUwI6AhoB+GHWh0dHA6Ly9jcmwuaWNhbm4ub3Jn
+       L3RtY2guY3JsMA0GCSqGSIb3DQEBCwUAA4IBAQB2qSy7ui+43cebKUKwWPrzz9y/
+       IkrMeJGKjo40n+9uekaw3DJ5EqiOf/qZ4pjBD++oR6BJCb6NQuQKwnoAz5lE4Ssu
+       y5+i93oT3HfyVc4gNMIoHm1PS19l7DBKrbwbzAea/0jKWVzrvmV7TBfjxD3AQo1R
+       bU5dBr6IjbdLFlnO5x0G0mrG7x5OUPuurihyiURpFDpwH8KAH1wMcCpXGXFRtGKk
+       wydgyVYAty7otkl/z3bZkCVT34gPvF70sR6+QxUy8u0LzF5A/beYaZpxSYG31amL
+       AdXitTWFipaIGea9lEGFM0L9+Bg7XzNn4nVLXokyEB3bgS4scG6QznX23FGk
+      </X509Certificate>
+     </X509Data>
+    </KeyInfo>
+   </Signature>
+  </jsmd:signedMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
