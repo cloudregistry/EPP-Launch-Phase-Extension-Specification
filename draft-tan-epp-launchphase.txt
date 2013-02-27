@@ -97,7 +97,7 @@ Table of Contents
      6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 36
    7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 37
    8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 37
-   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 37
+   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 38
    Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 38
 
 
@@ -255,11 +255,14 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    The following status values are defined using the required "s"
    attribute:
    pending:  The initial state of a newly-created application object.
+   pendingValidation:  The application requires validation, but the
+      validation process has not yet completed.
    validated:  The application meets relevant registry rules.
    invalid:  The application does not validate according to registry
       rules.
-   pendingAuction:  The application is pending based on results of an
-      auction.
+   pendingAllocation:  The allocation of the application is pending
+      based on the results of some out-of-band process (for example, an
+      auction).
    allocated:  One of two possible end states of an application object;
       the object corresponding to the application has been provisioned.
    rejected:  The other possible end state; the object was not
@@ -270,9 +273,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    text that describes the rationale for the status applied to the
    object.  The OPTIONAL "lang" attribute MAY be present to identify the
    language if the negotiated value is something other than the default
-   value of "en" (English).
-
-   For extensibility the <launch:status> element includes an OPTIONAL
 
 
 
@@ -281,6 +281,9 @@ Tan, et al.              Expires August 30, 2013                [Page 5]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+   value of "en" (English).
+
+   For extensibility the <launch:status> element includes an OPTIONAL
    "name" attribute that can define a sub-status or the full name of the
    status when the status value is "custom".  The server SHOULD NOT use
    the "custom" status value.
@@ -288,8 +291,8 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    Certain status values MAY be combined.  For example, an application
    may be both invalid and rejected.  Additionally, certain statuses MAY
    be skipped.  For example, an application MAY immediately start at the
-   "allocated" status or an application MAY skip the "pendingAuction"
-   status if the server does not support an auction model.  If the
+   "allocated" status or an application MAY skip the "pendingAllocation"
+   status if the server uses a "first-come, first served" model.  If the
    <domain:create> command processes a request synchronously without the
    use of an intermediate, application, then an Application Identifier
    (Section 2.1) is not needed along with the application status.
@@ -297,14 +300,17 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 2.3.1.  State Transition
 
 
-                               | request
-                               v
-                          +---------+
-                          | pending |
-                          +----+----+
-                               |
-                               |
-          +--------------+-----+-----------+--------------+
+                                  | request
+                                  |
+                  +---------------+---------------+
+                  |                               |
+                  v                               v
+        +---------+---------+                +----+----+
+        | pendingValidation |                | pending |
+        +---------+---------+                +----+----+
+                  |                               |
+                  |                               |
+          +-------+------+                 +------+-------+
           |              |                 |              |
           v              v                 v              v
     +-----------+   +---------+        +-------+      +-------+
@@ -314,19 +320,13 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
     +----+------+   +----+----+        +-------+      +-------+
          |                                 ^              ^
          |                                 |              |
-         |                                 |              |
-         |                                 |              |
          +---------------------------------+              |
-         |                                 |              |
-         |                                 |              |
-         |                        +--------+-------+      |
-         |                        |                |      |
-         +----------------------->| pendingAuction +------+
-                                  |                |
-                                  +----------------+
-
-
-                                 Figure 1
+         |                                                |
+         |              +-------------------+             |
+         |              |                   |             |
+         +------------->| pendingAllocation +-------------+
+                        |                   |
+                        +-------------------+
 
 
 
@@ -336,6 +336,8 @@ Tan, et al.              Expires August 30, 2013                [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
+
+                                 Figure 1
 
 2.4.  Mark Validation Models
 
@@ -378,8 +380,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
       secret that the server can verify against a third party.
    <mark:mark>:  OPTIONAL mark information with child elements defined
       in the Mark (Section 2.5) section.
-
-
 
 
 
@@ -872,7 +872,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
            <launch:phase>sunrise</launch:phase>
              <launch:applicationID>abc123</launch:applicationID>
-             <launch:status s="pending"/>
+             <launch:status s="pendingValidation"/>
              <mark:mark
                xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
                 ...
@@ -1749,9 +1749,10 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
        <simpleType name="statusValueType">
        <restriction base="token">
            <enumeration value="pending"/>
+           <enumeration value="pendingValidation"/>
            <enumeration value="validated"/>
            <enumeration value="invalid"/>
-           <enumeration value="pendingAuction"/>
+           <enumeration value="pendingAllocation"/>
            <enumeration value="allocated"/>
            <enumeration value="rejected"/>
            <enumeration value="custom"/>
@@ -1784,7 +1785,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
        <element ref="mark:abstractMark"
          minOccurs="0"/>
      </sequence>
-     </complexType>
 
 
 
@@ -1792,6 +1792,8 @@ Tan, et al.              Expires August 30, 2013               [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
+
+     </complexType>
 
      <!--
      Child elements for the create command
@@ -1839,8 +1841,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
      Child elements of info command.
      -->
      <complexType name="infoType">
-       <sequence>
-         <element name="phase" type="launch:phaseType"/>
 
 
 
@@ -1849,6 +1849,8 @@ Tan, et al.              Expires August 30, 2013               [Page 33]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+       <sequence>
+         <element name="phase" type="launch:phaseType"/>
          <element name="applicationID"
            type="launch:applicationIDType"
            minOccurs="0"/>
@@ -1895,8 +1897,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
      <!--
      <info> response elemenets
      -->
-     <complexType name="infDataType">
-       <sequence>
 
 
 
@@ -1905,6 +1905,8 @@ Tan, et al.              Expires August 30, 2013               [Page 34]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+     <complexType name="infDataType">
+       <sequence>
          <element name="phase" type="launch:phaseType"/>
         <element name="applicationID"
          type="launch:applicationIDType"
@@ -1950,8 +1952,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    3.  Added definition of multiple claim validation models.
    4.  Added the <launch:signedClaim> and <launch:signedNotice>
        elements.
-   5.  Added support for Claims Info Command
-
 
 
 
@@ -1960,6 +1960,8 @@ Tan, et al.              Expires August 30, 2013               [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
+
+   5.  Added support for Claims Info Command
 
 6.3.  Change from 02 to 03
 
@@ -2010,8 +2012,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-
-
 Tan, et al.              Expires August 30, 2013               [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
@@ -2025,6 +2025,8 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    4.  Fixed state diagram to remove redundant transition from "invalid"
        to "rejected"; thanks Klaus Malorny.
    5.  Proof-read grammar and spelling.
+   6.  Changed "pendingAuction" status to "pendingAllocation", and added
+       "pendingValidation" status.
 
 
 7.  IANA Considerations
@@ -2062,9 +2064,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    filtered to include only fields that are publicly accessible.
 
 
-9.  Normative References
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
 
 
 
@@ -2073,6 +2073,9 @@ Tan, et al.              Expires August 30, 2013               [Page 37]
 Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
+9.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
@@ -2114,9 +2117,6 @@ Authors' Addresses
    Phone: +44 20 33 88 0600
    Email: gavin.brown@centralnic.com
    URI:   https://www.centralnic.com
-
-
-
 
 
 

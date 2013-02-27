@@ -273,14 +273,18 @@
             <t hangText="pending:">The initial state of a newly-created
             application object.</t>
 
+            <t hangText="pendingValidation:">The application requires validation,
+            but the validation process has not yet completed.</t>
+
             <t hangText="validated:">The application meets relevant registry
             rules.</t>
 
             <t hangText="invalid:">The application does not validate according
             to registry rules.</t>
 
-            <t hangText="pendingAuction:">The application is pending based on 
-            results of an auction.</t>
+            <t hangText="pendingAllocation:">The allocation of the application
+            is pending based on the results of some out-of-band process (for example,
+            an auction).</t>
 
             <t hangText="allocated:">One of two possible end states of an
             application object; the object corresponding to the application
@@ -307,8 +311,8 @@
         <t>Certain status values MAY be combined. For example, an application
         may be both invalid and rejected. Additionally, certain statuses MAY be
         skipped. For example, an application MAY immediately start at the
-        "allocated" status or an application MAY skip the "pendingAuction" status
-        if the server does not support an auction model. If the &lt;domain:create&gt;
+        "allocated" status or an application MAY skip the "pendingAllocation" status
+        if the server uses a "first-come, first served" model. If the &lt;domain:create&gt;
         command processes a request synchronously without the use of an intermediate,
         application, then an <xref target="applicationID">Application
         Identifier</xref> is not needed along with the application status.</t>
@@ -317,14 +321,17 @@
           <figure align="center" anchor="fsm">
             <artwork align="left"><![CDATA[
 
-                            | request
-                            v
-                       +---------+
-                       | pending |
-                       +----+----+
-                            |
-                            |
-       +--------------+-----+-----------+--------------+
+                               | request
+                               |
+               +---------------+---------------+
+               |                               |
+               v                               v
+     +---------+---------+                +----+----+
+     | pendingValidation |                | pending |
+     +---------+---------+                +----+----+
+               |                               |
+               |                               |
+       +-------+------+                 +------+-------+
        |              |                 |              |
        v              v                 v              v
  +-----------+   +---------+        +-------+      +-------+
@@ -334,16 +341,13 @@
  +----+------+   +----+----+        +-------+      +-------+
       |                                 ^              ^
       |                                 |              |
-      |                                 |              |
-      |                                 |              |
       +---------------------------------+              |
-      |                                 |              |
-      |                                 |              |
-      |                        +--------+-------+      |
-      |                        |                |      |
-      +----------------------->| pendingAuction +------+
-                               |                |
-                               +----------------+
+      |                                                |
+      |              +-------------------+             |
+      |              |                   |             |
+      +------------->| pendingAllocation +-------------+
+                     |                   |
+                     +-------------------+
 
             ]]></artwork>
           </figure>
@@ -807,7 +811,7 @@
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
         <launch:phase>sunrise</launch:phase>
           <launch:applicationID>abc123</launch:applicationID>
-          <launch:status s="pending"/>
+          <launch:status s="pendingValidation"/>
           <mark:mark
             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
              ...
@@ -1586,9 +1590,10 @@ Import common element types.
     <simpleType name="statusValueType">
     <restriction base="token">
         <enumeration value="pending"/>
+        <enumeration value="pendingValidation"/>
         <enumeration value="validated"/>
         <enumeration value="invalid"/>
-        <enumeration value="pendingAuction"/>
+        <enumeration value="pendingAllocation"/>
         <enumeration value="allocated"/>
         <enumeration value="rejected"/>
         <enumeration value="custom"/>
@@ -1804,6 +1809,7 @@ END]]></artwork>
         <t>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.</t>
         <t>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.</t>
         <t>Proof-read grammar and spelling.</t>
+        <t>Changed "pendingAuction" status to "pendingAllocation", and added "pendingValidation" status.</t>
       </list></t>
     </section>
    </section>
