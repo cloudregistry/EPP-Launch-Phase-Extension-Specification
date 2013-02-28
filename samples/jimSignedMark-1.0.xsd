@@ -48,15 +48,7 @@ Import common element types.
   -->
   <complexType name="signedMarkType">
     <complexContent>
-      <extension base="smd:abstractSignedMarkType">
-        <sequence>
-          <element name="serial" type="token"/>
-          <element name="exDate" type="dateTime" 
-            minOccurs="0"/>
-          <element ref="jimMark:mark"/>
-          <element ref="dsig:Signature"/>
-        </sequence>
-        <attribute name="id" type="ID" use="required"/>
+      <extension base="smd:signedMarkType">
         <attribute name="jim" type="token" 
           default="gould"/>
       </extension>

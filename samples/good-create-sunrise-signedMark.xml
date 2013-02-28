@@ -24,11 +24,9 @@
        xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
        launch-1.0.xsd">
         <launch:phase>sunrise</launch:phase>
-  <jsmd:signedMark xmlns:jsmd="urn:ietf:params:xml:ns:jimSignedMark-1.0"
-  	 xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
-  xsi:schemaLocation="urn:ietf:params:xml:ns:jimSignedMark-1.0 jimSignedMark-1.0.xsd
-         urn:ietf:params:xml:ns:signedMark-1.0 signedMark-1.0"
-  id="signedMark" jim="gould">
+  <smd:signedMark xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+  xsi:schemaLocation="urn:ietf:params:xml:ns:signedMark-1.0 signedMark-1.0"
+  id="signedMark">
    <smd:id>1-2</smd:id>
    <smd:issuerInfo issuerID="2">
     <smd:org>Example Inc.</smd:org>
@@ -141,7 +139,7 @@
      </X509Data>
     </KeyInfo>
    </Signature>
-  </jsmd:signedMark>
+  </smd:signedMark>
       </launch:create>
     </extension>
     <clTRID>ABC-12345</clTRID>
