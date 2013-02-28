@@ -270,10 +270,8 @@
 
         <t>The following status values are defined using the 
         required "s" attribute: <list style="hanging">
-            <t hangText="pending:">The initial state of a newly-created
-            application object.</t>
-
-            <t hangText="pendingValidation:">The application requires validation,
+            <t hangText="pendingValidation:">The initial state of a newly-created
+            application object. The application requires validation,
             but the validation process has not yet completed.</t>
 
             <t hangText="validated:">The application meets relevant registry
@@ -312,7 +310,9 @@
         may be both invalid and rejected. Additionally, certain statuses MAY be
         skipped. For example, an application MAY immediately start at the
         "allocated" status or an application MAY skip the "pendingAllocation" status
-        if the server uses a "first-come, first served" model. If the &lt;domain:create&gt;
+        if the server uses a "first-come, first served" model. If the launch phase does
+        not require validation of a request, an application MAY immediately skip to
+        "pendingAllocation". If the &lt;domain:create&gt;
         command processes a request synchronously without the use of an intermediate,
         application, then an <xref target="applicationID">Application
         Identifier</xref> is not needed along with the application status.</t>
@@ -321,33 +321,44 @@
           <figure align="center" anchor="fsm">
             <artwork align="left"><![CDATA[
 
-                               | request
-                               |
-               +---------------+---------------+
-               |                               |
-               v                               v
-     +---------+---------+                +----+----+
-     | pendingValidation |                | pending |
-     +---------+---------+                +----+----+
-               |                               |
-               |                               |
-       +-------+------+                 +------+-------+
-       |              |                 |              |
-       v              v                 v              v
- +-----------+   +---------+        +-------+      +-------+
- |           |   |         |       /         \    /         \
- | validated |   | invalid +----->| rejected  |  | allocated |
- |           |   |         |       \         /    \         /
- +----+------+   +----+----+        +-------+      +-------+
-      |                                 ^              ^
-      |                                 |              |
-      +---------------------------------+              |
-      |                                                |
-      |              +-------------------+             |
-      |              |                   |             |
-      +------------->| pendingAllocation +-------------+
-                     |                   |
-                     +-------------------+
+                                       | request
+                                       |
+                                       v
+                             +-------------------+
+                             |                   |
+                             | pendingValidation |
+                             |                   |
+                             +---------+---------+
+                                       |
+                                       |
+                           +-----------+-----------+
+                           |                       |
+                           |                       |
+                           v                       v
+                     +-----------+            +---------+
+                     |           |            |         |
+                     | validated |            | invalid |
+                     |           |            |         |
+                     +-----+-----+            +----+----+
+                           |                       |
+                           |                       |
+                           v                       |
+                 +-------------------+             |
+                 |                   |             |
+                 | pendingAllocation |             |
+                 |                   |             |
+                 +-------------------+             |
+                           |                       |
+                           |                       |
+                           +-----------------------+
+                           |                       |
+                           |                       |
+                           v                       v
+                      +---------+             +--------+
+                     /           \           /          \
+                     | allocated |           | rejected |
+                     \           /           \          /
+                      +---------+             +--------+
 
             ]]></artwork>
           </figure>
@@ -1809,7 +1820,7 @@ END]]></artwork>
         <t>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.</t>
         <t>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.</t>
         <t>Proof-read grammar and spelling.</t>
-        <t>Changed "pendingAuction" status to "pendingAllocation", and added "pendingValidation" status.</t>
+        <t>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, redrew state diagram.</t>
       </list></t>
     </section>
    </section>
