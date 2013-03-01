@@ -106,10 +106,10 @@ Import common element types.
   -->
     <simpleType name="statusValueType">
     <restriction base="token">
-        <enumeration value="pending"/>
+        <enumeration value="pendingValidation"/>
         <enumeration value="validated"/>
         <enumeration value="invalid"/>
-        <enumeration value="pendingAuction"/>
+        <enumeration value="pendingAllocation"/>
         <enumeration value="allocated"/>
         <enumeration value="rejected"/>
         <enumeration value="custom"/>

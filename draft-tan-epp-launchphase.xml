@@ -38,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-06" ipr="trust200902">
+<rfc category="std" docName="draft-tan-epp-launchphase-07" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="26" month="February" year="2013"/>
+    <date day="1" month="March" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -1600,7 +1600,6 @@ Import common element types.
   -->
     <simpleType name="statusValueType">
     <restriction base="token">
-        <enumeration value="pending"/>
         <enumeration value="pendingValidation"/>
         <enumeration value="validated"/>
         <enumeration value="invalid"/>
@@ -1759,7 +1758,7 @@ END]]></artwork>
       Jeff Eckhaus, and Will Shorter.</t>
       <t>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,
+      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran, Rubens Kuhl, 
       Ulrich Wisser and Sharon Wodjenski.</t>
     </section>
     
@@ -1819,8 +1818,12 @@ END]]></artwork>
         <t>Split the &lt;launch:timestamp&gt; into &lt;launch:generatedDate&gt; and &lt;launch:acceptedDate&gt; based on feedback from Trung Tran.</t>
         <t>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.</t>
         <t>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.</t>
+      </list></t>
+    </section>
+    <section title="Change from 06 to 07" anchor="change-06-to-07">
+      <t><list style="numbers">
         <t>Proof-read grammar and spelling.</t>
-        <t>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, redrew state diagram.</t>
+        <t>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, per proposal from Trung Tran and seconded by Rubens Kuhl.</t>
       </list></t>
     </section>
    </section>

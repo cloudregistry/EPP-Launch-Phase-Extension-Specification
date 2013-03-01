@@ -4,14 +4,14 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Standards Track                                G. Brown
-Expires: August 30, 2013                                  CentralNic Ltd
+Expires: September 2, 2013                                CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                       February 26, 2013
+                                                           March 1, 2013
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
-                      draft-tan-epp-launchphase-06
+                      draft-tan-epp-launchphase-07
 
 Abstract
 
@@ -34,7 +34,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 30, 2013.
+   This Internet-Draft will expire on September 2, 2013.
 
 Copyright Notice
 
@@ -52,9 +52,9 @@ Copyright Notice
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 1]
+Tan, et al.             Expires September 2, 2013               [Page 1]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    described in the Simplified BSD License.
@@ -95,6 +95,7 @@ Table of Contents
      6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 37
      6.5.  Change from 04 to 05 . . . . . . . . . . . . . . . . . . . 37
      6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 37
+     6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 38
    7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 38
    8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 38
    9.  Normative References . . . . . . . . . . . . . . . . . . . . . 39
@@ -107,10 +108,9 @@ Table of Contents
 
 
 
-
-Tan, et al.              Expires August 30, 2013                [Page 2]
+Tan, et al.             Expires September 2, 2013               [Page 2]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 1.  Introduction
@@ -164,9 +164,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 3]
+Tan, et al.             Expires September 2, 2013               [Page 3]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    "signedMark-1.0" is used as an abbreviation for
@@ -220,9 +220,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 4]
+Tan, et al.             Expires September 2, 2013               [Page 4]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    claims1  The Trademark Claims Phase 1, as defined by Trademark
@@ -276,9 +276,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 5]
+Tan, et al.             Expires September 2, 2013               [Page 5]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    value of "en" (English).
@@ -332,9 +332,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 6]
+Tan, et al.             Expires September 2, 2013               [Page 6]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 2.3.1.  State Transition
@@ -388,9 +388,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 7]
+Tan, et al.             Expires September 2, 2013               [Page 7]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 2.4.  Mark Validation Models
@@ -444,9 +444,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 8]
+Tan, et al.             Expires September 2, 2013               [Page 8]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    The following is an example <launch:codeMark> element with both a
@@ -500,9 +500,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013                [Page 9]
+Tan, et al.             Expires September 2, 2013               [Page 9]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 3.  EPP Command Mapping
@@ -556,9 +556,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 10]
+Tan, et al.             Expires September 2, 2013              [Page 10]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    <launch:phase>  The launch phase, with a value of either "claims1" or
@@ -612,9 +612,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 11]
+Tan, et al.             Expires September 2, 2013              [Page 11]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    Example Claims Check Command using the <check> domain command and the
@@ -668,9 +668,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 12]
+Tan, et al.             Expires September 2, 2013              [Page 12]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
            securely query the service without using a well-known value
@@ -724,9 +724,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 13]
+Tan, et al.             Expires September 2, 2013              [Page 13]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    Example Claims Check response when no matching trademarks are found
@@ -780,9 +780,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 14]
+Tan, et al.             Expires September 2, 2013              [Page 14]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    <launch:phase>  The phase during which the application or
@@ -836,9 +836,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 15]
+Tan, et al.             Expires September 2, 2013              [Page 15]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    Example <info> domain command with the <launch:info> extension to
@@ -892,9 +892,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 16]
+Tan, et al.             Expires September 2, 2013              [Page 16]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    Example <info> domain response using the <launch:infData> extension
@@ -948,9 +948,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 17]
+Tan, et al.             Expires September 2, 2013              [Page 17]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 3.3.  EPP <create> Command
@@ -1004,9 +1004,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 18]
+Tan, et al.             Expires September 2, 2013              [Page 18]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
        <launch:codeMark>  Zero or more <launch:codeMark> elements.  The
@@ -1060,9 +1060,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 19]
+Tan, et al.             Expires September 2, 2013              [Page 19]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    The following is an example <create> domain command using the
@@ -1116,9 +1116,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 20]
+Tan, et al.             Expires September 2, 2013              [Page 20]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    The following is an example <create> domain command using the
@@ -1172,9 +1172,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 21]
+Tan, et al.             Expires September 2, 2013              [Page 21]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    The following is an example <create> domain command using the
@@ -1228,9 +1228,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 22]
+Tan, et al.             Expires September 2, 2013              [Page 22]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    The following is an example <create> domain command using the
@@ -1284,9 +1284,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 23]
+Tan, et al.             Expires September 2, 2013              [Page 23]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    An example response when multiple overlapping applications are
@@ -1340,9 +1340,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 24]
+Tan, et al.             Expires September 2, 2013              [Page 24]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    <launch:phase>  MUST contain the value of "claims1" or "claim2" to
@@ -1396,9 +1396,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 25]
+Tan, et al.             Expires September 2, 2013              [Page 25]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1452,9 +1452,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 26]
+Tan, et al.             Expires September 2, 2013              [Page 26]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    object by submitting an EPP <update> command along with a <launch:
@@ -1508,9 +1508,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 27]
+Tan, et al.             Expires September 2, 2013              [Page 27]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    An example response that corresponds to the above command:
@@ -1564,9 +1564,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 28]
+Tan, et al.             Expires September 2, 2013              [Page 28]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    The following is an example <delete> domain command with the <launch:
@@ -1620,9 +1620,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 29]
+Tan, et al.             Expires September 2, 2013              [Page 29]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    [RFC5731].
@@ -1676,9 +1676,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 30]
+Tan, et al.             Expires September 2, 2013              [Page 30]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    <schema
@@ -1732,9 +1732,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 31]
+Tan, et al.             Expires September 2, 2013              [Page 31]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
      <!--
@@ -1788,9 +1788,9 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 32]
+Tan, et al.             Expires September 2, 2013              [Page 32]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
      <simpleType name="noticeIDType">
@@ -1804,7 +1804,6 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
      -->
        <simpleType name="statusValueType">
        <restriction base="token">
-           <enumeration value="pending"/>
            <enumeration value="pendingValidation"/>
            <enumeration value="validated"/>
            <enumeration value="invalid"/>
@@ -1841,15 +1840,14 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
        <element ref="mark:abstractMark"
          minOccurs="0"/>
      </sequence>
-
-
-
-Tan, et al.              Expires August 30, 2013               [Page 33]
-
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
-
-
      </complexType>
+
+
+
+Tan, et al.             Expires September 2, 2013              [Page 33]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
 
      <!--
      Child elements for the create command
@@ -1897,16 +1895,16 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
      Child elements of info command.
      -->
      <complexType name="infoType">
-
-
-
-Tan, et al.              Expires August 30, 2013               [Page 34]
-
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
-
-
        <sequence>
          <element name="phase" type="launch:phaseType"/>
+
+
+
+Tan, et al.             Expires September 2, 2013              [Page 34]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
          <element name="applicationID"
            type="launch:applicationIDType"
            minOccurs="0"/>
@@ -1953,16 +1951,16 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
      <!--
      <info> response elemenets
      -->
-
-
-
-Tan, et al.              Expires August 30, 2013               [Page 35]
-
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
-
-
      <complexType name="infDataType">
        <sequence>
+
+
+
+Tan, et al.             Expires September 2, 2013              [Page 35]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
          <element name="phase" type="launch:phaseType"/>
         <element name="applicationID"
          type="launch:applicationIDType"
@@ -1988,7 +1986,7 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    Special suggestions that have been incorporated into this document
    were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo
    Lozano, Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer,
-   Trung Tran, Ulrich Wisser and Sharon Wodjenski.
+   Trung Tran, Rubens Kuhl, Ulrich Wisser and Sharon Wodjenski.
 
 
 6.  Change History
@@ -2008,16 +2006,16 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    3.  Added definition of multiple claim validation models.
    4.  Added the <launch:signedClaim> and <launch:signedNotice>
        elements.
-
-
-
-
-Tan, et al.              Expires August 30, 2013               [Page 36]
-
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
-
-
    5.  Added support for Claims Info Command
+
+
+
+
+
+Tan, et al.             Expires September 2, 2013              [Page 36]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
 
 6.3.  Change from 02 to 03
 
@@ -2068,9 +2066,11 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 37]
+
+
+Tan, et al.             Expires September 2, 2013              [Page 37]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    2.  Split the <launch:timestamp> into <launch:generatedDate> and
@@ -2080,9 +2080,13 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
        the mark in the info response.
    4.  Fixed state diagram to remove redundant transition from "invalid"
        to "rejected"; thanks Klaus Malorny.
-   5.  Proof-read grammar and spelling.
-   6.  Changed "pendingAuction" status to "pendingAllocation", and added
-       "pendingValidation" status.
+
+6.7.  Change from 06 to 07
+
+   1.  Proof-read grammar and spelling.
+   2.  Changed "pendingAuction" status to "pendingAllocation", changed
+       "pending" to "pendingValidation" status, per proposal from Trung
+       Tran and seconded by Rubens Kuhl.
 
 
 7.  IANA Considerations
@@ -2117,16 +2121,15 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
    auhorization error.  Server policy may allow <info> operation with
    filtered output by clients other than the sponsoring client, in which
    case the <domain:infData> and <launch:infData> response SHOULD be
-   filtered to include only fields that are publicly accessible.
 
 
 
-
-
-
-Tan, et al.              Expires August 30, 2013               [Page 38]
+Tan, et al.             Expires September 2, 2013              [Page 38]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
+   filtered to include only fields that are publicly accessible.
 
 
 9.  Normative References
@@ -2177,12 +2180,9 @@ Authors' Addresses
 
 
 
-
-
-
-Tan, et al.              Expires August 30, 2013               [Page 39]
+Tan, et al.             Expires September 2, 2013              [Page 39]
 
-Internet-Draft        Launch Phase Mapping for EPP         February 2013
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    James Gould
@@ -2236,5 +2236,5 @@ Internet-Draft        Launch Phase Mapping for EPP         February 2013
 
 
 
-Tan, et al.              Expires August 30, 2013               [Page 40]
+Tan, et al.             Expires September 2, 2013              [Page 40]
 

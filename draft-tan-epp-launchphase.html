@@ -148,13 +148,13 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: August 30, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: September 2, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">February 26, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">March 1, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
-    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-06</h1>
+    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-07</h1>
 
 <h3>Abstract</h3>
 
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on August 30, 2013.</p>
+This Internet-Draft will expire on September 2, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -262,6 +262,8 @@ Change from 03 to 04<br />
 Change from 04 to 05<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-05-to-06">6.6.</a>&nbsp;
 Change from 05 to 06<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-06-to-07">6.7.</a>&nbsp;
+Change from 06 to 07<br />
 <a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
 <a href="#Security">8.</a>&nbsp;
@@ -425,9 +427,10 @@ Status Values</h3>
 <p>The following status values are defined using the 
         required "s" attribute: </p>
 <blockquote class="text"><dl>
-<dt>pending:</dt>
+<dt>pendingValidation:</dt>
 <dd>The initial state of a newly-created
-            application object.
+            application object. The application requires validation,
+            but the validation process has not yet completed.
 </dd>
 <dt>validated:</dt>
 <dd>The application meets relevant registry
@@ -437,9 +440,10 @@ Status Values</h3>
 <dd>The application does not validate according
             to registry rules.
 </dd>
-<dt>pendingAuction:</dt>
-<dd>The application is pending based on 
-            results of an auction.
+<dt>pendingAllocation:</dt>
+<dd>The allocation of the application
+            is pending based on the results of some out-of-band process (for example,
+            an auction).
 </dd>
 <dt>allocated:</dt>
 <dd>One of two possible end states of an
@@ -470,8 +474,10 @@ Status Values</h3>
 <p>Certain status values MAY be combined. For example, an application
         may be both invalid and rejected. Additionally, certain statuses MAY be
         skipped. For example, an application MAY immediately start at the
-        "allocated" status or an application MAY skip the "pendingAuction" status
-        if the server does not support an auction model. If the &lt;domain:create&gt;
+        "allocated" status or an application MAY skip the "pendingAllocation" status
+        if the server uses a "first-come, first served" model. If the launch phase does
+        not require validation of a request, an application MAY immediately skip to
+        "pendingAllocation". If the &lt;domain:create&gt;
         command processes a request synchronously without the use of an intermediate,
         application, then an <a class='info' href='#applicationID'>Application
         Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> is not needed along with the application status.
@@ -484,33 +490,44 @@ State Transition</h3>
 <a name="fsm"></a>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 
-                            | request
-                            v
-                       +---------+
-                       | pending |
-                       +----+----+
-                            |
-                            |
-       +--------------+-----+-----------+--------------+
-       |              |                 |              |
-       v              v                 v              v
- +-----------+   +---------+        +-------+      +-------+
- |           |   |         |       /         \    /         \
- | validated |   | invalid +-----&gt;| rejected  |  | allocated |
- |           |   |         |       \         /    \         /
- +----+------+   +----+----+        +-------+      +-------+
-      |                                 ^              ^
-      |                                 |              |
-      |                                 |              |
-      |                                 |              |
-      +---------------------------------+              |
-      |                                 |              |
-      |                                 |              |
-      |                        +--------+-------+      |
-      |                        |                |      |
-      +-----------------------&gt;| pendingAuction +------+
-                               |                |
-                               +----------------+
+                                       | request
+                                       |
+                                       v
+                             +-------------------+
+                             |                   |
+                             | pendingValidation |
+                             |                   |
+                             +---------+---------+
+                                       |
+                                       |
+                           +-----------+-----------+
+                           |                       |
+                           |                       |
+                           v                       v
+                     +-----------+            +---------+
+                     |           |            |         |
+                     | validated |            | invalid |
+                     |           |            |         |
+                     +-----+-----+            +----+----+
+                           |                       |
+                           |                       |
+                           v                       |
+                 +-------------------+             |
+                 |                   |             |
+                 | pendingAllocation |             |
+                 |                   |             |
+                 +-------------------+             |
+                           |                       |
+                           |                       |
+                           +-----------------------+
+                           |                       |
+                           |                       |
+                           v                       v
+                      +---------+             +--------+
+                     /           \           /          \
+                     | allocated |           | rejected |
+                     \           /           \          /
+                      +---------+             +--------+
 
 </pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;1&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
 
@@ -1002,7 +1019,7 @@ EPP &lt;info&gt; Command</h3>
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
           &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="pending"/&gt;
+          &lt;launch:status s="pendingValidation"/&gt;
           &lt;mark:mark
             xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
              ...
@@ -1767,10 +1784,10 @@ Import common element types.
   --&gt;
     &lt;simpleType name="statusValueType"&gt;
     &lt;restriction base="token"&gt;
-        &lt;enumeration value="pending"/&gt;
+        &lt;enumeration value="pendingValidation"/&gt;
         &lt;enumeration value="validated"/&gt;
         &lt;enumeration value="invalid"/&gt;
-        &lt;enumeration value="pendingAuction"/&gt;
+        &lt;enumeration value="pendingAllocation"/&gt;
         &lt;enumeration value="allocated"/&gt;
         &lt;enumeration value="rejected"/&gt;
         &lt;enumeration value="custom"/&gt;
@@ -1926,7 +1943,7 @@ Acknowledgements</h3>
 </p>
 <p>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,
+      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran, Rubens Kuhl, 
       Ulrich Wisser and Sharon Wodjenski.
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -2049,7 +2066,18 @@ Change from 05 to 06</h3>
 </li>
 <li>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.
 </li>
+</ol>
+
+<a name="change-06-to-07"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.7"></a><h3>6.7.&nbsp;
+Change from 06 to 07</h3>
+
+<p></p>
+<ol class="text">
 <li>Proof-read grammar and spelling.
+</li>
+<li>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, per proposal from Trung Tran and seconded by Rubens Kuhl.
 </li>
 </ol>
 
