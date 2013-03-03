@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: September 2, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: September 4, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">March 1, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">March 3, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-07</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on September 2, 2013.</p>
+This Internet-Draft will expire on September 4, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -203,24 +203,26 @@ Conventions Used in This Document<br />
 <a href="#attrs">2.</a>&nbsp;
 Object Attributes<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#applicationID">2.1.</a>&nbsp;
-Application Identifiers<br />
+Application Identifier<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#phases">2.2.</a>&nbsp;
 Launch Phases<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#statuses">2.3.</a>&nbsp;
 Status Values<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">2.3.1.</a>&nbsp;
 State Transition<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#validationModels">2.4.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#pollMessaging">2.4.</a>&nbsp;
+Poll Messaging<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#validationModels">2.5.</a>&nbsp;
 Mark Validation Models<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#codeMark">2.4.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#codeMark">2.5.1.</a>&nbsp;
 &lt;launch:codeMark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#mark">2.5.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#mark">2.6.</a>&nbsp;
 Mark<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.6.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.7.</a>&nbsp;
 Digital Signature<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedMark">2.6.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedMark">2.7.1.</a>&nbsp;
 &lt;smd:signedMark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#encodedSignedMark">2.6.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#encodedSignedMark">2.7.2.</a>&nbsp;
 &lt;smd:encodedSignedMark&gt; element<br />
 <a href="#commands">3.</a>&nbsp;
 EPP Command Mapping<br />
@@ -352,15 +354,16 @@ Object Attributes</h3>
 <a name="applicationID"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.1"></a><h3>2.1.&nbsp;
-Application Identifiers</h3>
+Application Identifier</h3>
 
 <p>Servers MAY allow multiple applications, referred to as a Launch Application, 
         of the same domain name during its launch phase operations. Upon receiving 
-        a request to create a domain name, the server creates an application
-        object corresponding to the request, assigns an application identifier
-        for the application, and returns it to the client with the
+        a valid request to create a Launch Application, the server MUST create an application
+        object corresponding to the request, assign an application identifier
+        for the Launch Application, set the <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> pendingCreate status, 
+        and return the application identifier to the client with the
         &lt;launch:applicationID&gt; element. In order to facilitate
-        correlation, all subsequent launch operations on the application object
+        correlation, all subsequent launch operations on the Launch Application
         MUST be qualified by the previously assigned application identifier
         using the &lt;launch:applicationID&gt; element.
 </p>
@@ -478,9 +481,9 @@ Status Values</h3>
         if the server uses a "first-come, first served" model. If the launch phase does
         not require validation of a request, an application MAY immediately skip to
         "pendingAllocation". If the &lt;domain:create&gt;
-        command processes a request synchronously without the use of an intermediate,
+        command processes a request synchronously without the use of an intermediate 
         application, then an <a class='info' href='#applicationID'>Application
-        Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> is not needed along with the application status.
+        Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> is not needed along with the application status.
 </p>
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -531,9 +534,97 @@ State Transition</h3>
 
 </pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;1&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
 
-<a name="validationModels"></a><br /><hr />
+<a name="pollMessaging"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.4"></a><h3>2.4.&nbsp;
+Poll Messaging</h3>
+
+<p>A Launch Application is handled as a domain name of <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> 
+        in "pendingCreate" status, with the Launch Application status values defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>.  
+        As a Launch Application transitions between the status values 
+        defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>, the server SHOULD insert poll messages, per <a class='info' href='#RFC5730'>[RFC5730]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP),&rdquo; August&nbsp;2009.</span><span>)</span></a>,
+        for the applicable intermediate statuses, including the 
+        "pendingValidation", "validated", "pendingAllocation, and "invalid" statuses, using the 
+        &lt;domain:infData&gt; element with the &lt;launch:infData&gt; extension.  The 
+        server MUST insert a &lt;domain:panData&gt; poll message, per <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a>, 
+        with the &lt;launch:infData&gt; extension for the final statuses, including the 
+        "allocated" and "rejected" statuses.
+</p>
+<p>The following is an example poll message for a Launch Application 
+        that has transitioned to the "pendingAllocation" state.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;response&gt;
+    &lt;result code="1301"&gt;
+      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
+    &lt;/result&gt;
+    &lt;msgQ count="5" id="12345"&gt;
+      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
+      &lt;msg&gt;Application pendingAllocation.&lt;/msg&gt;
+    &lt;/msgQ&gt;
+    &lt;resData&gt;
+      &lt;domain:infData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+        ...
+      &lt;/domain:infData&gt;
+    &lt;/resData&gt;
+    &lt;extension&gt;
+      &lt;launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+          &lt;launch:status s="pendingAllocation"/&gt;
+      &lt;/launch:infData&gt;
+    &lt;/extension&gt;
+    &lt;trID&gt;
+      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+      &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+    &lt;/trID&gt;
+  &lt;/response&gt;
+&lt;/epp&gt;</pre></div>
+<p>The following is an example &lt;domain:panData&gt; poll message for 
+        an "allocated" Launch Application.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;response&gt;
+    &lt;result code="1301"&gt;
+      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
+    &lt;/result&gt;
+    &lt;msgQ count="5" id="12345"&gt;
+      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
+      &lt;msg&gt;Application successfully allocated.&lt;/msg&gt;
+    &lt;/msgQ&gt;
+    &lt;resData&gt;
+      &lt;domain:panData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name paResult="1"&gt;example.tld&lt;/domain:name&gt;
+        &lt;domain:paTRID&gt;
+          &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+          &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+        &lt;/domain:paTRID&gt;
+        &lt;domain:paDate&gt;2013-04-04T22:00:00.0Z&lt;/domain:paDate&gt;
+      &lt;/domain:panData&gt;
+    &lt;/resData&gt;
+    &lt;extension&gt;
+      &lt;launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+          &lt;launch:status s="allocated"/&gt;
+      &lt;/launch:infData&gt;
+    &lt;/extension&gt;
+    &lt;trID&gt;
+      &lt;clTRID&gt;BCD-23456&lt;/clTRID&gt;
+      &lt;svTRID&gt;65432-WXY&lt;/svTRID&gt;
+    &lt;/trID&gt;
+  &lt;/response&gt;
+&lt;/epp&gt;</pre></div>
+<a name="validationModels"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.5"></a><h3>2.5.&nbsp;
 Mark Validation Models</h3>
 
 <p>A server MUST support at least one of the following models for validating 
@@ -581,7 +672,7 @@ Mark Validation Models</h3>
 </p>
 <a name="codeMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.4.1"></a><h3>2.4.1.&nbsp;
+<a name="rfc.section.2.5.1"></a><h3>2.5.1.&nbsp;
 &lt;launch:codeMark&gt; element</h3>
 
 <p>The &lt;launch:codeMark&gt; element that is used by the "code", "mark", 
@@ -615,7 +706,7 @@ Mark Validation Models</h3>
 &lt;/launch:codeMark&gt;</pre></div>
 <a name="mark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.5"></a><h3>2.5.&nbsp;
+<a name="rfc.section.2.6"></a><h3>2.6.&nbsp;
 Mark</h3>
 
 <p>A &lt;mark:mark&gt; element describes an applicant's prior right
@@ -628,7 +719,7 @@ Mark</h3>
 </p>
 <a name="digitalsignature"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.6"></a><h3>2.6.&nbsp;
+<a name="rfc.section.2.7"></a><h3>2.7.&nbsp;
 Digital Signature</h3>
 
 <p>Digital signatures MAY be used by the server to validate either 
@@ -638,7 +729,7 @@ Digital Signature</h3>
 </p>
 <a name="signedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.6.1"></a><h3>2.6.1.&nbsp;
+<a name="rfc.section.2.7.1"></a><h3>2.7.1.&nbsp;
 &lt;smd:signedMark&gt; element</h3>
 
 <p>The &lt;smd:signedMark&gt; element contains the digitally signed mark information.  The &lt;smd:signedMark&gt; 
@@ -650,7 +741,7 @@ Digital Signature</h3>
 </p>
 <a name="encodedSignedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.6.2"></a><h3>2.6.2.&nbsp;
+<a name="rfc.section.2.7.2"></a><h3>2.7.2.&nbsp;
 &lt;smd:encodedSignedMark&gt; element</h3>
 
 <p>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
@@ -890,7 +981,7 @@ EPP &lt;info&gt; Command</h3>
         <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
 </p>
 <p>The EPP &lt;info&gt; command is used to retrieve information 
-        for a launch phase registration or application.  The <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> 
+        for a launch phase registration or application.  The <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> 
         returned in the &lt;launch:creData&gt; element of the <a class='info' href='#createCommand'>create response<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a> 
         is used for retrieving information for a Launch Application.  A &lt;launch:info&gt; element
         is sent along with the regular &lt;info&gt; domain command. The &lt;launch:info&gt; element includes 
@@ -1050,7 +1141,7 @@ EPP &lt;create&gt; Command</h3>
             Optionally, the server can support multiple overlapping
             applications that are chosen asynchronously with a server
             generated <a class='info' href='#applicationID'>Application
-            Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> for later reference.
+            Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> for later reference.
 </dd>
 <dt>landrush</dt>
 <dd>The EPP &lt;create&gt; command with the
@@ -1304,7 +1395,7 @@ Sunrise Create Form</h3>
 &lt;/epp&gt;</pre></div>
 <p>If the create was successful, the server MAY reply with the
           &lt;launch:creData&gt; element along with the regular EPP
-          &lt;resData&gt; to indicate the server generated <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a>, when multiple
+          &lt;resData&gt; to indicate the server generated <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a>, when multiple
           applications of a given domain name is supported; otherwise no
           extension is included with the regular EPP &lt;resData&gt;. The
           &lt;launch:creData&gt; element contains the following child
@@ -1453,7 +1544,7 @@ EPP &lt;update&gt; Command</h3>
 </p>
 <p>A server that does not support multiple applications of a
         given domain name with an <a class='info' href='#applicationID'>Application
-        Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> during its launch phase operations MUST return an
+        Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> during its launch phase operations MUST return an
         EPP error result code of 2102.
 </p>
 <p>Registry policies permitting, clients may update an application
@@ -1540,7 +1631,7 @@ EPP &lt;delete&gt; Command</h3>
 </p>
 <p>A server that does not support multiple applications of a
         given domain name with an <a class='info' href='#applicationID'>Application
-        Identifier<span> (</span><span class='info'>Application Identifiers</span><span>)</span></a> during its launch phase operations MUST return an
+        Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> during its launch phase operations MUST return an
         EPP error result code of 2102.
 </p>
 <p>Registry policies permitting, clients MAY withdraw an application
@@ -1942,8 +2033,8 @@ Acknowledgements</h3>
       Jeff Eckhaus, and Will Shorter.
 </p>
 <p>Special suggestions that have been incorporated into this document 
-      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran, Rubens Kuhl, 
+      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Gustavo Lozano,
+      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -2078,6 +2169,10 @@ Change from 06 to 07</h3>
 <li>Proof-read grammar and spelling.
 </li>
 <li>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, per proposal from Trung Tran and seconded by Rubens Kuhl.
+</li>
+<li>Added text related to the use of RFC 5731 pendingCreate to the Application Identifier section.
+</li>
+<li>Added the Poll Messaging section to define the use of poll messaging for intermediate state transitions and pending action poll messaging for final state transitions.
 </li>
 </ol>
 

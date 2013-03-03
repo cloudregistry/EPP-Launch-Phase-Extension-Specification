@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="1" month="March" year="2013"/>
+    <date day="3" month="March" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -210,14 +210,15 @@
       target="RFC5731">EPP domain name mapping</xref>. Only those new elements
       are described here.</t>
 
-      <section anchor="applicationID" title="Application Identifiers">
+      <section anchor="applicationID" title="Application Identifier">
         <t>Servers MAY allow multiple applications, referred to as a Launch Application, 
         of the same domain name during its launch phase operations. Upon receiving 
-        a request to create a domain name, the server creates an application
-        object corresponding to the request, assigns an application identifier
-        for the application, and returns it to the client with the
+        a valid request to create a Launch Application, the server MUST create an application
+        object corresponding to the request, assign an application identifier
+        for the Launch Application, set the <xref target="RFC5731"/> pendingCreate status, 
+        and return the application identifier to the client with the
         &lt;launch:applicationID&gt; element. In order to facilitate
-        correlation, all subsequent launch operations on the application object
+        correlation, all subsequent launch operations on the Launch Application
         MUST be qualified by the previously assigned application identifier
         using the &lt;launch:applicationID&gt; element.</t>
       </section>
@@ -313,7 +314,7 @@
         if the server uses a "first-come, first served" model. If the launch phase does
         not require validation of a request, an application MAY immediately skip to
         "pendingAllocation". If the &lt;domain:create&gt;
-        command processes a request synchronously without the use of an intermediate,
+        command processes a request synchronously without the use of an intermediate 
         application, then an <xref target="applicationID">Application
         Identifier</xref> is not needed along with the application status.</t>
 
@@ -364,6 +365,100 @@
           </figure>
         </section>
       </section>
+
+      <section anchor="pollMessaging" title="Poll Messaging">
+        <t>A Launch Application is handled as a domain name of <xref target="RFC5731"/> 
+        in "pendingCreate" status, with the Launch Application status values defined in <xref target="statuses"/>.  
+        As a Launch Application transitions between the status values 
+        defined in <xref target="statuses"/>, the server SHOULD insert poll messages, per <xref target="RFC5730"/>,
+        for the applicable intermediate statuses, including the 
+        "pendingValidation", "validated", "pendingAllocation, and "invalid" statuses, using the 
+        &lt;domain:infData&gt; element with the &lt;launch:infData&gt; extension.  The 
+        server MUST insert a &lt;domain:panData&gt; poll message, per <xref target="RFC5731"/>, 
+        with the &lt;launch:infData&gt; extension for the final statuses, including the 
+        "allocated" and "rejected" statuses.</t>
+        
+        <figure>
+        <preamble>The following is an example poll message for a Launch Application 
+        that has transitioned to the "pendingAllocation" state.</preamble>
+        <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>2013-04-04T22:01:00.0Z</qDate>
+      <msg>Application pendingAllocation.</msg>
+    </msgQ>
+    <resData>
+      <domain:infData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+        ...
+      </domain:infData>
+    </resData>
+    <extension>
+      <launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+        <launch:phase>sunrise</launch:phase>
+          <launch:applicationID>abc123</launch:applicationID>
+          <launch:status s="pendingAllocation"/>
+      </launch:infData>
+    </extension>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54322-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>]]></artwork>
+	</figure>
+        
+        
+        <figure>
+        <preamble>The following is an example &lt;domain:panData&gt; poll message for 
+        an "allocated" Launch Application.</preamble>
+        <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>2013-04-04T22:01:00.0Z</qDate>
+      <msg>Application successfully allocated.</msg>
+    </msgQ>
+    <resData>
+      <domain:panData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name paResult="1">example.tld</domain:name>
+        <domain:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54321-XYZ</svTRID>
+        </domain:paTRID>
+        <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
+      </domain:panData>
+    </resData>
+    <extension>
+      <launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+        <launch:phase>sunrise</launch:phase>
+          <launch:applicationID>abc123</launch:applicationID>
+          <launch:status s="allocated"/>
+      </launch:infData>
+    </extension>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>]]></artwork>
+	</figure>
+	
+     	</section>
+
 
       <section anchor="validationModels" title="Mark Validation Models">
         <t>A server MUST support at least one of the following models for validating 
@@ -1757,8 +1852,8 @@ END]]></artwork>
       changes to this document, which include Chris Wright, Jeff Neuman, 
       Jeff Eckhaus, and Will Shorter.</t>
       <t>Special suggestions that have been incorporated into this document 
-      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran, Rubens Kuhl, 
+      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Gustavo Lozano,
+      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.</t>
     </section>
     
@@ -1824,6 +1919,8 @@ END]]></artwork>
       <t><list style="numbers">
         <t>Proof-read grammar and spelling.</t>
         <t>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, per proposal from Trung Tran and seconded by Rubens Kuhl.</t>
+        <t>Added text related to the use of RFC 5731 pendingCreate to the Application Identifier section.</t>
+        <t>Added the Poll Messaging section to define the use of poll messaging for intermediate state transitions and pending action poll messaging for final state transitions.</t>
       </list></t>
     </section>
    </section>

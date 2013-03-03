@@ -4,10 +4,10 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Standards Track                                G. Brown
-Expires: September 2, 2013                                CentralNic Ltd
+Expires: September 4, 2013                                CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                           March 1, 2013
+                                                           March 3, 2013
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -34,7 +34,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 2, 2013.
+   This Internet-Draft will expire on September 4, 2013.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Tan, et al.             Expires September 2, 2013               [Page 1]
+Tan, et al.             Expires September 4, 2013               [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -65,41 +65,42 @@ Table of Contents
    1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  3
      1.1.  Conventions Used in This Document  . . . . . . . . . . . .  3
    2.  Object Attributes  . . . . . . . . . . . . . . . . . . . . . .  4
-     2.1.  Application Identifiers  . . . . . . . . . . . . . . . . .  4
+     2.1.  Application Identifier . . . . . . . . . . . . . . . . . .  4
      2.2.  Launch Phases  . . . . . . . . . . . . . . . . . . . . . .  4
      2.3.  Status Values  . . . . . . . . . . . . . . . . . . . . . .  5
        2.3.1.  State Transition . . . . . . . . . . . . . . . . . . .  7
-     2.4.  Mark Validation Models . . . . . . . . . . . . . . . . . .  8
-       2.4.1.  <launch:codeMark> element  . . . . . . . . . . . . . .  8
-     2.5.  Mark . . . . . . . . . . . . . . . . . . . . . . . . . . .  9
-     2.6.  Digital Signature  . . . . . . . . . . . . . . . . . . . .  9
-       2.6.1.  <smd:signedMark> element . . . . . . . . . . . . . . .  9
-       2.6.2.  <smd:encodedSignedMark> element  . . . . . . . . . . .  9
-   3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . . 10
-     3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . . 10
-     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 14
-     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 18
-       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 18
-       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 24
-     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 26
-     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 28
-     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 29
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 29
-   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 30
-     4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 30
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 36
-   6.  Change History . . . . . . . . . . . . . . . . . . . . . . . . 36
-     6.1.  Change from 00 to 01 . . . . . . . . . . . . . . . . . . . 36
-     6.2.  Change from 01 to 02 . . . . . . . . . . . . . . . . . . . 36
-     6.3.  Change from 02 to 03 . . . . . . . . . . . . . . . . . . . 37
-     6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 37
-     6.5.  Change from 04 to 05 . . . . . . . . . . . . . . . . . . . 37
-     6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 37
-     6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 38
-   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 38
-   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 38
-   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 39
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 39
+     2.4.  Poll Messaging . . . . . . . . . . . . . . . . . . . . . .  8
+     2.5.  Mark Validation Models . . . . . . . . . . . . . . . . . .  9
+       2.5.1.  <launch:codeMark> element  . . . . . . . . . . . . . . 10
+     2.6.  Mark . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+     2.7.  Digital Signature  . . . . . . . . . . . . . . . . . . . . 11
+       2.7.1.  <smd:signedMark> element . . . . . . . . . . . . . . . 11
+       2.7.2.  <smd:encodedSignedMark> element  . . . . . . . . . . . 11
+   3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . . 11
+     3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . . 12
+     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 16
+     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 20
+       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 20
+       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 26
+     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 28
+     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 30
+     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 31
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 31
+   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 32
+     4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 32
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 38
+   6.  Change History . . . . . . . . . . . . . . . . . . . . . . . . 38
+     6.1.  Change from 00 to 01 . . . . . . . . . . . . . . . . . . . 38
+     6.2.  Change from 01 to 02 . . . . . . . . . . . . . . . . . . . 38
+     6.3.  Change from 02 to 03 . . . . . . . . . . . . . . . . . . . 39
+     6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 39
+     6.5.  Change from 04 to 05 . . . . . . . . . . . . . . . . . . . 39
+     6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 39
+     6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 40
+   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 40
+   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 40
+   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 41
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 41
 
 
 
@@ -107,8 +108,7 @@ Table of Contents
 
 
 
-
-Tan, et al.             Expires September 2, 2013               [Page 2]
+Tan, et al.             Expires September 4, 2013               [Page 2]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -164,7 +164,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013               [Page 3]
+Tan, et al.             Expires September 4, 2013               [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -189,17 +189,19 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    This extension adds additional elements to the EPP domain name
    mapping [RFC5731].  Only those new elements are described here.
 
-2.1.  Application Identifiers
+2.1.  Application Identifier
 
    Servers MAY allow multiple applications, referred to as a Launch
    Application, of the same domain name during its launch phase
-   operations.  Upon receiving a request to create a domain name, the
-   server creates an application object corresponding to the request,
-   assigns an application identifier for the application, and returns it
-   to the client with the <launch:applicationID> element.  In order to
-   facilitate correlation, all subsequent launch operations on the
-   application object MUST be qualified by the previously assigned
-   application identifier using the <launch:applicationID> element.
+   operations.  Upon receiving a valid request to create a Launch
+   Application, the server MUST create an application object
+   corresponding to the request, assign an application identifier for
+   the Launch Application, set the [RFC5731] pendingCreate status, and
+   return the application identifier to the client with the <launch:
+   applicationID> element.  In order to facilitate correlation, all
+   subsequent launch operations on the Launch Application MUST be
+   qualified by the previously assigned application identifier using the
+   <launch:applicationID> element.
 
 2.2.  Launch Phases
 
@@ -211,20 +213,21 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    sunrise  The phase during which trademark holders can submit
       registrations or applications with trademark information that can
       be validated by the server.
-   landrush  A post-Sunrise phase when non-trademark holders are allowed
-      to register domain names with steps taken to address a large
-      volume of initial registrations.
 
 
 
 
 
 
-Tan, et al.             Expires September 2, 2013               [Page 4]
+
+Tan, et al.             Expires September 4, 2013               [Page 4]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
+   landrush  A post-Sunrise phase when non-trademark holders are allowed
+      to register domain names with steps taken to address a large
+      volume of initial registrations.
    claims1  The Trademark Claims Phase 1, as defined by Trademark
       Clearinghouse model, in which a full, detailed Claims Notice must
       be displayed to prospective registrants of domain names that match
@@ -267,20 +270,23 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
       the object corresponding to the application has been provisioned.
    rejected:  The other possible end state; the object was not
       provisioned.
+
+
+
+
+
+
+Tan, et al.             Expires September 4, 2013               [Page 5]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
    custom:  A custom status that is defined using the "name" attribute.
 
    Each status value MAY be accompanied by a string of human-readable
    text that describes the rationale for the status applied to the
    object.  The OPTIONAL "lang" attribute MAY be present to identify the
    language if the negotiated value is something other than the default
-
-
-
-Tan, et al.             Expires September 2, 2013               [Page 5]
-
-Internet-Draft        Launch Phase Mapping for EPP            March 2013
-
-
    value of "en" (English).
 
    For extensibility the <launch:status> element includes an OPTIONAL
@@ -296,7 +302,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    launch phase does not require validation of a request, an application
    MAY immediately skip to "pendingAllocation".  If the <domain:create>
    command processes a request synchronously without the use of an
-   intermediate, application, then an Application Identifier
+   intermediate application, then an Application Identifier
    (Section 2.1) is not needed along with the application status.
 
 
@@ -326,13 +332,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-
-
-
-
-
-
-Tan, et al.             Expires September 2, 2013               [Page 6]
+Tan, et al.             Expires September 4, 2013               [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -388,15 +388,122 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013               [Page 7]
+Tan, et al.             Expires September 4, 2013               [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
-2.4.  Mark Validation Models
+2.4.  Poll Messaging
+
+   A Launch Application is handled as a domain name of [RFC5731] in
+   "pendingCreate" status, with the Launch Application status values
+   defined in Section 2.3.  As a Launch Application transitions between
+   the status values defined in Section 2.3, the server SHOULD insert
+   poll messages, per [RFC5730], for the applicable intermediate
+   statuses, including the "pendingValidation", "validated",
+   "pendingAllocation, and "invalid" statuses, using the <domain:
+   infData> element with the <launch:infData> extension.  The server
+   MUST insert a <domain:panData> poll message, per [RFC5731], with the
+   <launch:infData> extension for the final statuses, including the
+   "allocated" and "rejected" statuses.
+
+   The following is an example poll message for a Launch Application
+   that has transitioned to the "pendingAllocation" state.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+     <response>
+       <result code="1301">
+         <msg>Command completed successfully; ack to dequeue</msg>
+       </result>
+       <msgQ count="5" id="12345">
+         <qDate>2013-04-04T22:01:00.0Z</qDate>
+         <msg>Application pendingAllocation.</msg>
+       </msgQ>
+       <resData>
+         <domain:infData
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+           <domain:name>example.tld</domain:name>
+           ...
+         </domain:infData>
+       </resData>
+       <extension>
+         <launch:infData
+          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+           <launch:phase>sunrise</launch:phase>
+             <launch:applicationID>abc123</launch:applicationID>
+             <launch:status s="pendingAllocation"/>
+         </launch:infData>
+       </extension>
+       <trID>
+         <clTRID>ABC-12345</clTRID>
+         <svTRID>54322-XYZ</svTRID>
+       </trID>
+     </response>
+   </epp>
+
+
+
+Tan, et al.             Expires September 4, 2013               [Page 8]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
+   The following is an example <domain:panData> poll message for an
+   "allocated" Launch Application.
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+     <response>
+       <result code="1301">
+         <msg>Command completed successfully; ack to dequeue</msg>
+       </result>
+       <msgQ count="5" id="12345">
+         <qDate>2013-04-04T22:01:00.0Z</qDate>
+         <msg>Application successfully allocated.</msg>
+       </msgQ>
+       <resData>
+         <domain:panData
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+           <domain:name paResult="1">example.tld</domain:name>
+           <domain:paTRID>
+             <clTRID>ABC-12345</clTRID>
+             <svTRID>54321-XYZ</svTRID>
+           </domain:paTRID>
+           <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
+         </domain:panData>
+       </resData>
+       <extension>
+         <launch:infData
+          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+           <launch:phase>sunrise</launch:phase>
+             <launch:applicationID>abc123</launch:applicationID>
+             <launch:status s="allocated"/>
+         </launch:infData>
+       </extension>
+       <trID>
+         <clTRID>BCD-23456</clTRID>
+         <svTRID>65432-WXY</svTRID>
+       </trID>
+     </response>
+   </epp>
+
+2.5.  Mark Validation Models
 
    A server MUST support at least one of the following models for
    validating trademark information:
+
+
+
+
+
+
+
+
+Tan, et al.             Expires September 4, 2013               [Page 9]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
 
    code  Use of a mark code by itself to validate that the mark matches
       the domain name.  This model is supported using the <launch:
@@ -405,52 +512,38 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
       element.  The server will use some custom form of validation to
       validate that the mark information is authentic.  This model is
       supported using the <launch:codeMark> element with just the <mark:
-      mark> (Section 2.5) element.
+      mark> (Section 2.6) element.
    code with mark:  A code is used along with the mark information by
       the server to validate the mark utilizing an external party.  The
       code represents some form of secret that matches the mark
       information passed.  This model is supported using the <launch:
       codeMark> element that contains both the <launch:code> and the
-      <mark:mark> (Section 2.5) elements.
+      <mark:mark> (Section 2.6) elements.
    signed mark:  The mark information is digitally signed as described
-      in the Digital Signature (Section 2.6) section.  The digital
+      in the Digital Signature (Section 2.7) section.  The digital
       signature can be directly validated by the server using the public
       key of the external party that created the signed mark using its
       private key.  This model is supported using the <smd:signedMark>
-      (Section 2.6.1) and <smd:encodedSignedMark> (Section 2.6.2)
+      (Section 2.7.1) and <smd:encodedSignedMark> (Section 2.7.2)
       elements.
 
-   More than one <launch:codeMark>, <smd:signedMark> (Section 2.6.1), or
-   <smd:encodedSignedMark> (Section 2.6.2) element MAY be specified.
+   More than one <launch:codeMark>, <smd:signedMark> (Section 2.7.1), or
+   <smd:encodedSignedMark> (Section 2.7.2) element MAY be specified.
    The maximum number of marks per domain name is up to server policy.
 
-2.4.1.  <launch:codeMark> element
+2.5.1.  <launch:codeMark> element
 
    The <launch:codeMark> element that is used by the "code", "mark", and
    "code with mark" validation models, has the following child elements:
 
    <launch:code>:  OPTIONAL mark code used to validate the <mark:mark>
-      (Section 2.5) information.  The mark code is be a mark-specific
+      (Section 2.6) information.  The mark code is be a mark-specific
       secret that the server can verify against a third party.
    <mark:mark>:  OPTIONAL mark information with child elements defined
-      in the Mark (Section 2.5) section.
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires September 2, 2013               [Page 8]
-
-Internet-Draft        Launch Phase Mapping for EPP            March 2013
-
+      in the Mark (Section 2.6) section.
 
    The following is an example <launch:codeMark> element with both a
-   <launch:code> and <mark:mark> (Section 2.5) element.
+   <launch:code> and <mark:mark> (Section 2.6) element.
 
    <launch:codeMark>
      <launch:code>49FD46E6C4B45C55D4AC</launch:code>
@@ -459,7 +552,16 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
      </mark:mark>
    </launch:codeMark>
 
-2.5.  Mark
+
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 10]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
+2.6.  Mark
 
    A <mark:mark> element describes an applicant's prior right to a given
    domain name that is used with the "mark", "mark with code", and the
@@ -469,14 +571,14 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    substitutes for the <mark:abstractMark> element from
    [draft-lozano-smd].
 
-2.6.  Digital Signature
+2.7.  Digital Signature
 
    Digital signatures MAY be used by the server to validate either the
    mark information, when using the "signed mark" validation model with
-   the <smd:signedMark> (Section 2.6.1) element or the <smd:
-   encodedSignedMark> (Section 2.6.2) element.
+   the <smd:signedMark> (Section 2.7.1) element or the <smd:
+   encodedSignedMark> (Section 2.7.2) element.
 
-2.6.1.  <smd:signedMark> element
+2.7.1.  <smd:signedMark> element
 
    The <smd:signedMark> element contains the digitally signed mark
    information.  The <smd:signedMark> element is defined in
@@ -485,24 +587,15 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    that substitutes for the <smd:abstractSignedMark> element from
    [draft-lozano-smd].
 
-2.6.2.  <smd:encodedSignedMark> element
+2.7.2.  <smd:encodedSignedMark> element
 
    The <smd:encodedSignedMark> element contains an encoded form of the
-   digitally signed <smd:signedMark> (Section 2.6.1) element.  The <smd:
+   digitally signed <smd:signedMark> (Section 2.7.1) element.  The <smd:
    encodedSignedMark> element is defined in [draft-lozano-smd].  A new
    encoded signed mark format can be supported by creating a new XML
    schema for the encoded signed mark that has an element that
    substitutes for the <smd:encodedSignedMark> element from
    [draft-lozano-smd].
-
-
-
-
-
-
-Tan, et al.             Expires September 2, 2013               [Page 9]
-
-Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 3.  EPP Command Mapping
@@ -516,6 +609,14 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    of required elements.
 
    While it is meant to serve several use cases, it does not prescribe
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 11]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
    any interpretation by the client or server.  Such processing is
    typically highly policy-dependent and therefore specific to
    implementations.
@@ -554,19 +655,23 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    trademarks.  The <launch:check> element contains the following child
    elements:
 
-
-
-Tan, et al.             Expires September 2, 2013              [Page 10]
-
-Internet-Draft        Launch Phase Mapping for EPP            March 2013
-
-
    <launch:phase>  The launch phase, with a value of either "claims1" or
        "claims2" to indicate that the command is a Claims Check Command.
        The "claims1" Claims Check Command will match the <domain:name>
        against the full list of trademark labels.  The "claims2" Claims
        Check Command will match the <domain:name> against the list of
        trademark labels that opted into the "claims2" launch phase.
+
+
+
+
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 12]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
 
    Example Claims Check command using the <check> domain command and the
    <launch:check> extension to determine if "example1.tld" and
@@ -593,30 +698,6 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
      </command>
    </epp>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires September 2, 2013              [Page 11]
-
-Internet-Draft        Launch Phase Mapping for EPP            March 2013
-
-
    Example Claims Check Command using the <check> domain command and the
    <launch:check> extension to determine if "example3.tld" and
    "example4.tld" have any matching trademarks that opted into the
@@ -640,6 +721,14 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
       </extension>
       <clTRID>ABC-12345</clTRID>
      </command>
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 13]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
    </epp>
 
    If the <check> command has been processed successfully, the EPP
@@ -665,16 +754,36 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
            Clearinghouse (TMCH) for querying the information needed to
            generate a Trademark Claims Notice.  The <launch:claimKey> is
            used as the key for the query in place of the domain name to
+           securely query the service without using a well-known value
+           like a domain name.
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
-
-           securely query the service without using a well-known value
-           like a domain name.
 
    Example Claims Check response when no matching trademarks are found
    for the domain name example1.tld and matching trademarks are found
@@ -724,7 +833,10 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 13]
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -780,7 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 14]
+Tan, et al.             Expires September 4, 2013              [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -836,7 +948,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 15]
+Tan, et al.             Expires September 4, 2013              [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -874,7 +986,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
        Application.
    <launch:status>  OPTIONAL status of the Launch Application using one
        of the supported status values (Section 2.3).
-   <mark:mark>  Zero or more <mark:mark> (Section 2.5) elements.
+   <mark:mark>  Zero or more <mark:mark> (Section 2.6) elements.
 
 
 
@@ -892,7 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 16]
+Tan, et al.             Expires September 4, 2013              [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -948,7 +1060,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 17]
+Tan, et al.             Expires September 4, 2013              [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -988,7 +1100,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    mapping [RFC5731] includes the verifiable trademark information that
    the server uses to match against the domain name to authorize the
    domain create.  A server MUST support one of four models in Claim
-   Validation Models (Section 2.4) to verify the trademark information
+   Validation Models (Section 2.5) to verify the trademark information
    passed by the client.
 
    A <launch:create> element is sent along with the regular <create>
@@ -1004,21 +1116,21 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 18]
+Tan, et al.             Expires September 4, 2013              [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
        <launch:codeMark>  Zero or more <launch:codeMark> elements.  The
            <launch:codeMark> child elements are defined in the <launch:
-           codeMark> element (Section 2.4.1) section.
+           codeMark> element (Section 2.5.1) section.
        <smd:signedMark>  Zero or more <smd:signedMark> elements.  The
            <smd:signedMark> child elements are defined in the <smd:
-           signedMark> element (Section 2.6.1) section.
+           signedMark> element (Section 2.7.1) section.
        <smd:encodedSignedMark>  Zero or more <smd:encodedSignedMark>
            elements.  The <smd:encodedSignedMark> child elements are
            defined in the <smd:encodedSignedMark> element
-           (Section 2.6.2) section.
+           (Section 2.7.2) section.
 
    The following is an example <create> domain command using the
    <launch:create> extension, following the "code" validation model,
@@ -1060,7 +1172,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 19]
+Tan, et al.             Expires September 4, 2013              [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1116,7 +1228,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 20]
+Tan, et al.             Expires September 4, 2013              [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1172,7 +1284,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 21]
+Tan, et al.             Expires September 4, 2013              [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1228,7 +1340,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 22]
+Tan, et al.             Expires September 4, 2013              [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1284,7 +1396,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 23]
+Tan, et al.             Expires September 4, 2013              [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1340,7 +1452,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 24]
+Tan, et al.             Expires September 4, 2013              [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1396,7 +1508,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 25]
+Tan, et al.             Expires September 4, 2013              [Page 27]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1452,7 +1564,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 26]
+Tan, et al.             Expires September 4, 2013              [Page 28]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1508,7 +1620,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 27]
+Tan, et al.             Expires September 4, 2013              [Page 29]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1564,7 +1676,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 28]
+Tan, et al.             Expires September 4, 2013              [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1620,7 +1732,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 29]
+Tan, et al.             Expires September 4, 2013              [Page 31]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1676,7 +1788,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 30]
+Tan, et al.             Expires September 4, 2013              [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1732,7 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 31]
+Tan, et al.             Expires September 4, 2013              [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1788,7 +1900,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 32]
+Tan, et al.             Expires September 4, 2013              [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1844,7 +1956,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 33]
+Tan, et al.             Expires September 4, 2013              [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1900,7 +2012,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 34]
+Tan, et al.             Expires September 4, 2013              [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1956,7 +2068,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 35]
+Tan, et al.             Expires September 4, 2013              [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -1984,9 +2096,9 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    Jeff Eckhaus, and Will Shorter.
 
    Special suggestions that have been incorporated into this document
-   were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Gustavo
-   Lozano, Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer,
-   Trung Tran, Rubens Kuhl, Ulrich Wisser and Sharon Wodjenski.
+   were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens
+   Kuhl, Gustavo Lozano, Klaus Malorny, Patrick Mevzek, Bernhard
+   Reutner-Fischer, Trung Tran, Ulrich Wisser and Sharon Wodjenski.
 
 
 6.  Change History
@@ -2012,7 +2124,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 36]
+Tan, et al.             Expires September 4, 2013              [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -2068,7 +2180,7 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-Tan, et al.             Expires September 2, 2013              [Page 37]
+Tan, et al.             Expires September 4, 2013              [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
@@ -2087,6 +2199,11 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
    2.  Changed "pendingAuction" status to "pendingAllocation", changed
        "pending" to "pendingValidation" status, per proposal from Trung
        Tran and seconded by Rubens Kuhl.
+   3.  Added text related to the use of RFC 5731 pendingCreate to the
+       Application Identifier section.
+   4.  Added the Poll Messaging section to define the use of poll
+       messaging for intermediate state transitions and pending action
+       poll messaging for final state transitions.
 
 
 7.  IANA Considerations
@@ -2116,19 +2233,19 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
    As information contained within an application, or even the mere fact
    that an application exists may be confidential.  Any attempt to
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 40]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
    operate on an application object by an unauthorized client MUST be
    rejected with an EPP 2303 (object does not exist) or an appropriate
    auhorization error.  Server policy may allow <info> operation with
    filtered output by clients other than the sponsoring client, in which
    case the <domain:infData> and <launch:infData> response SHOULD be
-
-
-
-Tan, et al.             Expires September 2, 2013              [Page 38]
-
-Internet-Draft        Launch Phase Mapping for EPP            March 2013
-
-
    filtered to include only fields that are publicly accessible.
 
 
@@ -2167,6 +2284,19 @@ Authors' Addresses
    URI:   http://www.cloudregistry.net
 
 
+
+
+
+
+
+
+
+
+Tan, et al.             Expires September 4, 2013              [Page 41]
+
+Internet-Draft        Launch Phase Mapping for EPP            March 2013
+
+
    Gavin Brown
    CentralNic Ltd
    35-39 Mooregate
@@ -2176,13 +2306,6 @@ Authors' Addresses
    Phone: +44 20 33 88 0600
    Email: gavin.brown@centralnic.com
    URI:   https://www.centralnic.com
-
-
-
-
-Tan, et al.             Expires September 2, 2013              [Page 39]
-
-Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
    James Gould
@@ -2225,16 +2348,5 @@ Internet-Draft        Launch Phase Mapping for EPP            March 2013
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires September 2, 2013              [Page 40]
+Tan, et al.             Expires September 4, 2013              [Page 42]
 
