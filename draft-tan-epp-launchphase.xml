@@ -38,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-07" ipr="trust200902">
+<rfc category="std" docName="draft-tan-epp-launchphase-08" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="12" month="March" year="2013"/>
+    <date day="14" month="March" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -264,32 +264,32 @@
       </section>
 
       <section anchor="statuses" title="Status Values">
-        <t>A Launch Application object MAY have a status value. The
-        &lt;launch:status&gt; element is used to convey extended status pertaining to
-        the application object, beyond what is specified in the object mapping
-        for this application object.</t>
+        <t>A Launch Application or Launch Registration object MAY have a launch status value. The
+        &lt;launch:status&gt; element is used to convey the launch status pertaining to
+        the object, beyond what is specified in the object mapping.  A Launch Application or Launch Registration MUST set the <xref target="RFC5731"/> pendingCreate status if 
+        a launch status is supported and the launch status is not one of the final statuses, including the "allocated" and "rejected" statuses.</t>  
 
         <t>The following status values are defined using the 
         required "s" attribute: <list style="hanging">
             <t hangText="pendingValidation:">The initial state of a newly-created
-            application object. The application requires validation,
+            application or registration object. The application or registration requires validation,
             but the validation process has not yet completed.</t>
 
-            <t hangText="validated:">The application meets relevant registry
+            <t hangText="validated:">The application or registration meets relevant registry
             rules.</t>
 
-            <t hangText="invalid:">The application does not validate according
+            <t hangText="invalid:">The application or registration does not validate according
             to registry rules.</t>
 
-            <t hangText="pendingAllocation:">The allocation of the application
+            <t hangText="pendingAllocation:">The allocation of the application or registration 
             is pending based on the results of some out-of-band process (for example,
             an auction).</t>
 
             <t hangText="allocated:">One of two possible end states of an
-            application object; the object corresponding to the application
+            application or registration object; the object corresponding to the application or registration 
             has been provisioned.</t>
 
-            <t hangText="rejected:">The other possible end state; the object
+            <t hangText="rejected:">The other possible end state; the application or registration object
             was not provisioned.</t>
 
             <t hangText="custom:">A custom status that is defined using the 
@@ -307,16 +307,16 @@
         of the status when the status value is "custom".  The server SHOULD 
         NOT use the "custom" status value.</t>
 
-        <t>Certain status values MAY be combined. For example, an application
+        <t>Certain status values MAY be combined. For example, an application or registration 
         may be both invalid and rejected. Additionally, certain statuses MAY be
-        skipped. For example, an application MAY immediately start at the
-        "allocated" status or an application MAY skip the "pendingAllocation" status
-        if the server uses a "first-come, first served" model. If the launch phase does
-        not require validation of a request, an application MAY immediately skip to
+        skipped. For example, an application or registration MAY immediately start at the
+        "allocated" status or an application or registration MAY skip the "pendingAllocation" status. 
+        If the launch phase does
+        not require validation of a request, an application or registration MAY immediately skip to
         "pendingAllocation". If the &lt;domain:create&gt;
         command processes a request synchronously without the use of an intermediate 
         application, then an <xref target="applicationID">Application
-        Identifier</xref> is not needed along with the application status.</t>
+        Identifier</xref> MAY not be needed along with the application status.</t>
 
         <section title="State Transition">
           <figure align="center" anchor="fsm">
@@ -367,9 +367,9 @@
       </section>
 
       <section anchor="pollMessaging" title="Poll Messaging">
-        <t>A Launch Application is handled as a domain name of <xref target="RFC5731"/> 
-        in "pendingCreate" status, with the Launch Application status values defined in <xref target="statuses"/>.  
-        As a Launch Application transitions between the status values 
+        <t>A Launch Application MUST and a Launch Registration MAY be handled as a domain name of <xref target="RFC5731"/> 
+        in "pendingCreate" status, with the launch status values defined in <xref target="statuses"/>.  
+        As a Launch Application or Launch Registration transitions between the status values 
         defined in <xref target="statuses"/>, the server SHOULD insert poll messages, per <xref target="RFC5730"/>,
         for the applicable intermediate statuses, including the 
         "pendingValidation", "validated", "pendingAllocation, and "invalid" statuses, using the 
@@ -446,6 +446,46 @@
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
         <launch:phase>sunrise</launch:phase>
           <launch:applicationID>abc123</launch:applicationID>
+          <launch:status s="allocated"/>
+      </launch:infData>
+    </extension>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>]]></artwork>
+	</figure>
+	
+        <figure>
+        <preamble>The following is an example &lt;domain:panData&gt; poll message for 
+        an "allocated" Launch Registration.</preamble>
+        <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>2013-04-04T22:01:00.0Z</qDate>
+      <msg>Registration successfully allocated.</msg>
+    </msgQ>
+    <resData>
+      <domain:panData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name paResult="1">example.tld</domain:name>
+        <domain:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54321-XYZ</svTRID>
+        </domain:paTRID>
+        <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
+      </domain:panData>
+    </resData>
+    <extension>
+      <launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+        <launch:phase>sunrise</launch:phase>
           <launch:status s="allocated"/>
       </launch:infData>
     </extension>
@@ -1921,6 +1961,11 @@ END]]></artwork>
         <t>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, per proposal from Trung Tran and seconded by Rubens Kuhl.</t>
         <t>Added text related to the use of RFC 5731 pendingCreate to the Application Identifier section.</t>
         <t>Added the Poll Messaging section to define the use of poll messaging for intermediate state transitions and pending action poll messaging for final state transitions.</t>
+      </list></t>
+    </section>
+    <section title="Change from 07 to 08" anchor="change-07-to-08">
+      <t><list style="numbers">
+        <t>Added support for use of the launch statuses and poll messaging for Launch Registrations based on feedback from Sharon Wodjenski and Trung Tran.</t>
       </list></t>
     </section>
    </section>

@@ -148,13 +148,13 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: September 13, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: September 15, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">March 12, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">March 14, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
-    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-07</h1>
+    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-08</h1>
 
 <h3>Abstract</h3>
 
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on September 13, 2013.</p>
+This Internet-Draft will expire on September 15, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -266,6 +266,8 @@ Change from 04 to 05<br />
 Change from 05 to 06<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-06-to-07">6.7.</a>&nbsp;
 Change from 06 to 07<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-07-to-08">6.8.</a>&nbsp;
+Change from 07 to 08<br />
 <a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
 <a href="#Security">8.</a>&nbsp;
@@ -422,39 +424,39 @@ Launch Phases</h3>
 <a name="rfc.section.2.3"></a><h3>2.3.&nbsp;
 Status Values</h3>
 
-<p>A Launch Application object MAY have a status value. The
-        &lt;launch:status&gt; element is used to convey extended status pertaining to
-        the application object, beyond what is specified in the object mapping
-        for this application object.
+<p>A Launch Application or Launch Registration object MAY have a launch status value. The
+        &lt;launch:status&gt; element is used to convey the launch status pertaining to
+        the object, beyond what is specified in the object mapping.  A Launch Application or Launch Registration MUST set the <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> pendingCreate status if 
+        a launch status is supported and the launch status is not one of the final statuses, including the "allocated" and "rejected" statuses.
 </p>
 <p>The following status values are defined using the 
         required "s" attribute: </p>
 <blockquote class="text"><dl>
 <dt>pendingValidation:</dt>
 <dd>The initial state of a newly-created
-            application object. The application requires validation,
+            application or registration object. The application or registration requires validation,
             but the validation process has not yet completed.
 </dd>
 <dt>validated:</dt>
-<dd>The application meets relevant registry
+<dd>The application or registration meets relevant registry
             rules.
 </dd>
 <dt>invalid:</dt>
-<dd>The application does not validate according
+<dd>The application or registration does not validate according
             to registry rules.
 </dd>
 <dt>pendingAllocation:</dt>
-<dd>The allocation of the application
+<dd>The allocation of the application or registration 
             is pending based on the results of some out-of-band process (for example,
             an auction).
 </dd>
 <dt>allocated:</dt>
 <dd>One of two possible end states of an
-            application object; the object corresponding to the application
+            application or registration object; the object corresponding to the application or registration 
             has been provisioned.
 </dd>
 <dt>rejected:</dt>
-<dd>The other possible end state; the object
+<dd>The other possible end state; the application or registration object
             was not provisioned.
 </dd>
 <dt>custom:</dt>
@@ -474,16 +476,16 @@ Status Values</h3>
         of the status when the status value is "custom".  The server SHOULD 
         NOT use the "custom" status value.
 </p>
-<p>Certain status values MAY be combined. For example, an application
+<p>Certain status values MAY be combined. For example, an application or registration 
         may be both invalid and rejected. Additionally, certain statuses MAY be
-        skipped. For example, an application MAY immediately start at the
-        "allocated" status or an application MAY skip the "pendingAllocation" status
-        if the server uses a "first-come, first served" model. If the launch phase does
-        not require validation of a request, an application MAY immediately skip to
+        skipped. For example, an application or registration MAY immediately start at the
+        "allocated" status or an application or registration MAY skip the "pendingAllocation" status. 
+        If the launch phase does
+        not require validation of a request, an application or registration MAY immediately skip to
         "pendingAllocation". If the &lt;domain:create&gt;
         command processes a request synchronously without the use of an intermediate 
         application, then an <a class='info' href='#applicationID'>Application
-        Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> is not needed along with the application status.
+        Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> MAY not be needed along with the application status.
 </p>
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -539,9 +541,9 @@ State Transition</h3>
 <a name="rfc.section.2.4"></a><h3>2.4.&nbsp;
 Poll Messaging</h3>
 
-<p>A Launch Application is handled as a domain name of <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> 
-        in "pendingCreate" status, with the Launch Application status values defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>.  
-        As a Launch Application transitions between the status values 
+<p>A Launch Application MUST and a Launch Registration MAY be handled as a domain name of <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> 
+        in "pendingCreate" status, with the launch status values defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>.  
+        As a Launch Application or Launch Registration transitions between the status values 
         defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>, the server SHOULD insert poll messages, per <a class='info' href='#RFC5730'>[RFC5730]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP),&rdquo; August&nbsp;2009.</span><span>)</span></a>,
         for the applicable intermediate statuses, including the 
         "pendingValidation", "validated", "pendingAllocation, and "invalid" statuses, using the 
@@ -613,6 +615,43 @@ Poll Messaging</h3>
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
           &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+          &lt;launch:status s="allocated"/&gt;
+      &lt;/launch:infData&gt;
+    &lt;/extension&gt;
+    &lt;trID&gt;
+      &lt;clTRID&gt;BCD-23456&lt;/clTRID&gt;
+      &lt;svTRID&gt;65432-WXY&lt;/svTRID&gt;
+    &lt;/trID&gt;
+  &lt;/response&gt;
+&lt;/epp&gt;</pre></div>
+<p>The following is an example &lt;domain:panData&gt; poll message for 
+        an "allocated" Launch Registration.
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;response&gt;
+    &lt;result code="1301"&gt;
+      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
+    &lt;/result&gt;
+    &lt;msgQ count="5" id="12345"&gt;
+      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
+      &lt;msg&gt;Registration successfully allocated.&lt;/msg&gt;
+    &lt;/msgQ&gt;
+    &lt;resData&gt;
+      &lt;domain:panData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name paResult="1"&gt;example.tld&lt;/domain:name&gt;
+        &lt;domain:paTRID&gt;
+          &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+          &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+        &lt;/domain:paTRID&gt;
+        &lt;domain:paDate&gt;2013-04-04T22:00:00.0Z&lt;/domain:paDate&gt;
+      &lt;/domain:panData&gt;
+    &lt;/resData&gt;
+    &lt;extension&gt;
+      &lt;launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
           &lt;launch:status s="allocated"/&gt;
       &lt;/launch:infData&gt;
     &lt;/extension&gt;
@@ -2173,6 +2212,17 @@ Change from 06 to 07</h3>
 <li>Added text related to the use of RFC 5731 pendingCreate to the Application Identifier section.
 </li>
 <li>Added the Poll Messaging section to define the use of poll messaging for intermediate state transitions and pending action poll messaging for final state transitions.
+</li>
+</ol>
+
+<a name="change-07-to-08"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.8"></a><h3>6.8.&nbsp;
+Change from 07 to 08</h3>
+
+<p></p>
+<ol class="text">
+<li>Added support for use of the launch statuses and poll messaging for Launch Registrations based on feedback from Sharon Wodjenski and Trung Tran.
 </li>
 </ol>
 

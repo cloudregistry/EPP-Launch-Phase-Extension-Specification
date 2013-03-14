@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0
+     epp-1.0.xsd">
+  <response>
+    <result code="1301">
+      <msg>Command completed successfully; ack to dequeue</msg>
+    </result>
+    <msgQ count="5" id="12345">
+      <qDate>2013-04-04T22:01:00.0Z</qDate>
+      <msg>Application successfully allocated.</msg>
+    </msgQ>
+    <resData>
+      <domain:panData
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0
+       domain-1.0.xsd">
+        <domain:name paResult="1">example.tld</domain:name>
+        <domain:paTRID>
+          <clTRID>ABC-12345</clTRID>
+          <svTRID>54321-XYZ</svTRID>
+        </domain:paTRID>
+        <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
+      </domain:panData>
+    </resData>
+    <extension>
+      <launch:infData
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
+       launch-1.0.xsd">
+        <launch:phase>sunrise</launch:phase>
+          <launch:applicationID>abc123</launch:applicationID>
+          <launch:status s="allocated"/>
+      </launch:infData>
+    </extension>
+    <trID>
+      <clTRID>BCD-23456</clTRID>
+      <svTRID>65432-WXY</svTRID>
+    </trID>
+  </response>
+</epp>
