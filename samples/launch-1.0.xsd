@@ -169,9 +169,8 @@ Import common element types.
   <complexType name="createNoticeType">
     <sequence>
       <element name="noticeID" type="launch:noticeIDType"/>
-      <element name="generatedDate" type="dateTime"/>
+      <element name="notAfter" type="dateTime"/>
       <element name="acceptedDate" type="dateTime"/>
-      <element name="source" type="token"/>
     </sequence>
   </complexType>
 

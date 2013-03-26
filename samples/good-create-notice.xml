@@ -26,9 +26,8 @@
         <launch:phase>claims1</launch:phase>
         <launch:notice>
           <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-          <launch:generatedDate>2012-06-19T09:00:00.0Z</launch:generatedDate>
+          <launch:notAfter>2012-06-19T10:00:00.0Z</launch:notAfter>
           <launch:acceptedDate>2012-06-19T09:00:00.0Z</launch:acceptedDate>
-          <launch:source>192.0.2.29</launch:source>
         </launch:notice>
       </launch:create>
     </extension>
