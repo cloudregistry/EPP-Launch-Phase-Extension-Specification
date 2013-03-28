@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="26" month="March" year="2013"/>
+    <date day="28" month="March" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -167,7 +167,7 @@
       server uses a "first-come, first-served" model.  Even in a "first-come,
       first-served" model, additional steps and information might be required to
       support an application, such as trademark information. In addition, the <eref
-      target="http://newgtlds.icann.org/en/about/trademark-clearinghouse/claims-model-26sep12-en.pdf">Proposed Trademark Claims Model</eref> 
+      target="http://tools.ietf.org/html/draft-lozano-tmch-func-spec">TMCH Functional Specification</eref> 
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
@@ -308,7 +308,7 @@
         NOT use the "custom" status value.</t>
 
         <t>Certain status values MAY be combined. For example, an application or registration 
-        may be both invalid and rejected. Additionally, certain statuses MAY be
+        may be both "invalid" and "rejected". Additionally, certain statuses MAY be
         skipped. For example, an application or registration MAY immediately start at the
         "allocated" status or an application or registration MAY skip the "pendingAllocation" status. 
         If the launch phase does
