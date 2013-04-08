@@ -38,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-08" ipr="trust200902">
+<rfc category="std" docName="draft-tan-epp-launchphase-09" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="28" month="March" year="2013"/>
+    <date day="8" month="April" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -226,7 +226,10 @@
       <section anchor="phases" title="Launch Phases">
         <t>The server MAY support multiple launch phases sequentially or
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
-        the client to define the target launch phase of the command.</t>
+        the client to define the target launch phase of the command.  
+        The server SHOULD validate the &lt;launch:phase&gt; element 
+        against the active phase of the server or the phase that the object was 
+        created, and return an EPP error result code of 2004 if there is a mismatch.</t>
 
         <t>The following launch phase values are defined: <list
             style="hanging">
@@ -373,10 +376,12 @@
         defined in <xref target="statuses"/>, the server SHOULD insert poll messages, per <xref target="RFC5730"/>,
         for the applicable intermediate statuses, including the 
         "pendingValidation", "validated", "pendingAllocation, and "invalid" statuses, using the 
-        &lt;domain:infData&gt; element with the &lt;launch:infData&gt; extension.  The 
-        server MUST insert a &lt;domain:panData&gt; poll message, per <xref target="RFC5731"/>, 
-        with the &lt;launch:infData&gt; extension for the final statuses, including the 
-        "allocated" and "rejected" statuses.</t>
+        &lt;domain:infData&gt; element with the &lt;launch:infData&gt; extension.  The &lt;domain:infData&gt; element 
+        MAY contain non-mandatory information, like contact and name server information.  Also, 
+        further extensions that would normally be included in the response of a &lt;domain:info&gt; command, 
+        per <xref target="RFC5731"/>, MAY be included.  For the final statuses, including the 
+        "allocated" and "rejected" statuses, the server MUST insert a &lt;domain:panData&gt; poll message, per <xref target="RFC5731"/>, 
+        with the &lt;launch:infData&gt; extension.</t>
         
         <figure>
         <preamble>The following is an example poll message for a Launch Application 
@@ -977,36 +982,37 @@
       <!-- end INFO command -->
 
       <section anchor="createCommand" title="EPP &lt;create&gt; Command">
-        <t>There are two forms of the extension to the EPP &lt;create&gt;
-        command that are dependent on the supported <xref
-        target="phases">launch phases</xref> as defined below:</t>
+        <t>There are three forms of the extension to the EPP &lt;create&gt;
+        command that include the <xref target="sunriseCreateForm">
+            Sunrise Create Form</xref>, the <xref target="claimsCreateForm">Claims Create Form</xref>, 
+            and the <xref target="generalCreateForm">General Create Form</xref>.  
+        The form is dependent on the supported <xref target="phases">launch phases</xref> as defined below.  
+        </t>
 
         <t><list style="hanging">
             <t hangText="sunrise">The EPP &lt;create&gt; command with the
             "sunrise" launch phase is used to submit a registration with trademark
             information that can be verified by the server with the
             &lt;domain:name&gt; value. The <xref target="sunriseCreateForm">
-            Sunrise Create Form</xref> is used for the "sunrise" launch phase.
-            Optionally, the server can support multiple overlapping
-            applications that are chosen asynchronously with a server
-            generated <xref target="applicationID">Application
-            Identifier</xref> for later reference.</t>
+            Sunrise Create Form</xref> is used for the "sunrise" launch phase.</t>
 
             <t hangText="landrush">The EPP &lt;create&gt; command with the
-            "landrush" launch phase is undefined but the form supported is up to
-            server policy.</t>
+            "landrush" launch phase MAY use the <xref target="generalCreateForm">
+            General Create Form</xref> to explictly specify the phase and 
+            optionally define the expected type of object to create.</t>
 
             <t hangText="claims1">The EPP &lt;create&gt; command with the
             "claims1" launch phase is used to pass the information associated 
             with the presentation and acceptance of the "claims1" Claims Notice.  The 
-            <xref target="claimsCreateForm">Claims Create Form</xref> is used 
+            <xref target="claimsCreateForm">Claims Create Form</xref> is used and the <xref target="generalCreateForm">
+            General Create Form</xref> MAY be used
             for the "claims1" launch phase.</t>
 
             <t hangText="claims2">The EPP &lt;create&gt; command with the
             "claims2" launch phase is used to pass the information associated 
             with the presentation of the "claims2" Claims Notice.  The 
-            <xref target="claimsCreateForm">Claims Create Form</xref> is used 
-            for the "claims2" launch phase.</t>
+            <xref target="claimsCreateForm">Claims Create Form</xref> is used and the <xref target="generalCreateForm">
+            General Create Form</xref> MAY be used for the "claims2" launch phase.</t>
 
             <t hangText="open">The EPP &lt;create&gt; command with the "open"
             launch phase is undefined but the form supported is up to server
@@ -1027,7 +1033,11 @@
           verify the trademark information passed by the client.</t>
 
           <t>A &lt;launch:create&gt; element is sent along with the regular
-          &lt;create&gt; domain command. The &lt;launch:create&gt; element
+          &lt;create&gt; domain command.  The &lt;launch:create&gt; element 
+        has an OPTIONAL "type" attribute that defines the expected type of object 
+        ("application" or "registration") to create.  The server SHOULD validate the 
+        "type" attribute, when passed, against the type of object that will be created.  
+          The &lt;launch:create&gt; element
           contains the following child elements:</t>
 
           <t><list hangIndent="4" style="hanging">
@@ -1183,7 +1193,8 @@
           <figure>
             <preamble>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "signed mark" 
-            validation model, with the signed mark information:</preamble>
+            validation model, with the signed mark information for 
+            a sunrise application:</preamble>
 
             <artwork><![CDATA[
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -1203,7 +1214,8 @@
     </create>
     <extension>
       <launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application">
         <launch:phase>sunrise</launch:phase>
         <smd:signedMark id="signedMark"
          xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"> 
@@ -1253,60 +1265,6 @@
 </epp>]]></artwork>
           </figure>
 
-
-          <t>If the create was successful, the server MAY reply with the
-          &lt;launch:creData&gt; element along with the regular EPP
-          &lt;resData&gt; to indicate the server generated <xref
-          target="applicationID">Application Identifier</xref>, when multiple
-          applications of a given domain name is supported; otherwise no
-          extension is included with the regular EPP &lt;resData&gt;. The
-          &lt;launch:creData&gt; element contains the following child
-          elements:</t>
-          <t><list hangIndent="4" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">The phase of the application
-              that mirrors the &lt;launch:phase&gt; element included in the
-              &lt;launch:create&gt;.</t>
-
-              <t hangText="&lt;launch:applicationID&gt;">The application
-              identifier of the application.</t>
-            </list></t>
-
-          <figure>
-            <preamble>An example response when multiple overlapping
-            applications are supported by the server:</preamble>
-
-            <artwork><![CDATA[
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1001">
-      <msg>Command completed successfully; action pending</msg>
-    </result>
-    <resData>
-      <domain:creData
-         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-       <domain:name>example.tld</domain:name>
-       <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
-       <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
-      </domain:creData>
-    </resData>
-    <extension>
-      <launch:creData 
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-        <launch:phase>sunrise</launch:phase>
-        <launch:applicationID>2393-9323-E08C-03B1
-        </launch:applicationID>
-      </launch:creData>
-    </extension>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
-</epp>
-    ]]></artwork>
-          </figure>
-
           <!-- end example sunrise create cmd -->
         </section>
 
@@ -1318,8 +1276,11 @@
           Notice for the "claims2" launch phase.</t>
 
           <t>A &lt;launch:create&gt; element is sent along with the regular
-          &lt;create&gt; domain command. The &lt;launch:create&gt; element
-          contains the following child elements:</t>
+          &lt;create&gt; domain command.  The &lt;launch:create&gt; element 
+        has an OPTIONAL "type" attribute that defines the expected type of object 
+        ("application" or "registration") to create.  The server SHOULD validate the 
+        "type" attribute, when passed, against the type of object that will be created. 
+        The &lt;launch:create&gt; element contains the following child elements:</t>
 
           <t><list hangIndent="4" style="hanging">
               <t hangText="&lt;launch:phase&gt;">MUST contain the value of
@@ -1374,12 +1335,121 @@
 </epp>]]></artwork>
           </figure>
           
-        <t>This extension does not define any extension to the response of a
-        &lt;create&gt; domain command for the Claims Create Form. After processing the command, the
-        server replies with a standard EPP response as defined in the <xref
-        target="RFC5731">EPP domain name mapping</xref>.</t>
+        </section>
+        
+        
+        <section anchor="generalCreateForm" title="General Create Form">
+          <t>The General Create Form of the extension to the <xref
+          target="RFC5731">EPP domain name mapping</xref> includes the
+          launch phase and optionally the object 
+          type to create.  The OPTIONAL "type" attribute defines the 
+          expected type of object ("application" or "registration") to create.  
+          The server SHOULD validate the "type" attribute, when passed, against 
+          the type of object that will be created.</t>
+
+          <t>A &lt;launch:create&gt; element is sent along with the regular
+          &lt;create&gt; domain command. The &lt;launch:create&gt; element
+          contains the following child elements:</t>
+
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">Contains the value of the active 
+              launch phase of the server.  The server SHOULD validate the value against the 
+              active server launch phase.</t>
+            </list></t>
+
+          <figure>
+            <preamble>The following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension for a "landrush" 
+            launch phase application:</preamble>
+
+            <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>example.tld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application">
+        <launch:phase>landrush</launch:phase>
+      </launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>]]></artwork>
+          </figure>
           
         </section>
+        
+        <section anchor="createResponse" title="Create Response">
+        
+          <t>If the create was successful, the server MAY reply with the
+          &lt;launch:creData&gt; element along with the regular EPP
+          &lt;resData&gt; to indicate the server generated <xref
+          target="applicationID">Application Identifier</xref>, when multiple
+          applications of a given domain name is supported; otherwise no
+          extension is included with the regular EPP &lt;resData&gt;. The
+          &lt;launch:creData&gt; element contains the following child
+          elements:</t>
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">The phase of the application
+              that mirrors the &lt;launch:phase&gt; element included in the
+              &lt;launch:create&gt;.</t>
+
+              <t hangText="&lt;launch:applicationID&gt;">The application
+              identifier of the application.</t>
+            </list></t>
+
+          <figure>
+            <preamble>An example response when multiple overlapping
+            applications are supported by the server:</preamble>
+
+            <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <response>
+    <result code="1001">
+      <msg>Command completed successfully; action pending</msg>
+    </result>
+    <resData>
+      <domain:creData
+         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+       <domain:name>example.tld</domain:name>
+       <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
+       <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
+      </domain:creData>
+    </resData>
+    <extension>
+      <launch:creData 
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+        <launch:phase>sunrise</launch:phase>
+        <launch:applicationID>2393-9323-E08C-03B1
+        </launch:applicationID>
+      </launch:creData>
+    </extension>
+    <trID>
+      <clTRID>ABC-12345</clTRID>
+      <svTRID>54321-XYZ</svTRID>
+    </trID>
+  </response>
+</epp>
+    ]]></artwork>
+          </figure>
+        
+        
+        </section>
+        
       </section>
 
       <!-- end CREATE command -->
@@ -1773,7 +1843,7 @@ Import common element types.
   <complexType name="createType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
-      <choice>
+      <choice minOccurs="0">
         <element name="codeMark" type="launch:codeMarkType"
           maxOccurs="unbounded"/>
         <element ref="smd:abstractSignedMark" 
@@ -1784,7 +1854,19 @@ Import common element types.
           type="launch:createNoticeType"/> 
       </choice>
     </sequence>
+    <attribute name="type" type="launch:objectType"/>
   </complexType>
+
+  <!--
+  Type of launch object
+  -->
+  <simpleType name="objectType">
+      <restriction base="token">
+        <enumeration value="application"/>
+        <enumeration value="registration"/>
+    </restriction>
+  </simpleType>
+  
   
   <!-- 
   Child elements of the create notice element. 
@@ -1885,7 +1967,7 @@ END]]></artwork>
       changes to this document, which include Chris Wright, Jeff Neuman, 
       Jeff Eckhaus, and Will Shorter.</t>
       <t>Special suggestions that have been incorporated into this document 
-      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Gustavo Lozano,
+      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
       Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.</t>
     </section>
@@ -1966,6 +2048,15 @@ END]]></artwork>
         		<t>Added the &lt;launch:notAfter&gt; element based on the required &lt;tmNotice:notAfter&gt; element.</t>
         	</list>
         </t>
+      </list></t>
+    </section>
+    <section title="Change from 08 to 09" anchor="change-08-to-09">
+      <t><list style="numbers">
+        <t>Made &lt;choice&gt; element optional in &lt;launch:create&gt; to allow passing just the &lt;launch:phase&gt; in &lt;launch:create&gt; per request from Ben Levac.</t>
+        <t>Added optional "type" attribute in &lt;launch:create&gt; to enable the client to explicitly define the desired type of object (application or registration) to create to all forms of the create extension.</t>
+        <t>Added text that the server SHOULD validate the &lt;launch:phase&gt; element in the Launch Phases section.</t>
+        <t>Add the "General Create Form" to the create command extension to support the request from Ben Levac.</t>
+        <t>Updated the text for the Poll Messaging section based on feedback from Klaus Malorny.</t>
       </list></t>
     </section>
    </section>

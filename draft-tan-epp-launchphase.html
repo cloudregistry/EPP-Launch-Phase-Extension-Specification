@@ -148,13 +148,13 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: September 29, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: October 10, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">March 28, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 8, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
-    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-08</h1>
+    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-09</h1>
 
 <h3>Abstract</h3>
 
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on September 29, 2013.</p>
+This Internet-Draft will expire on October 10, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -236,6 +236,10 @@ EPP &lt;create&gt; Command<br />
 Sunrise Create Form<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#claimsCreateForm">3.3.2.</a>&nbsp;
 Claims Create Form<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#generalCreateForm">3.3.3.</a>&nbsp;
+General Create Form<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#createResponse">3.3.4.</a>&nbsp;
+Create Response<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#updateCommand">3.4.</a>&nbsp;
 EPP &lt;update&gt; Command<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#deleteCommand">3.5.</a>&nbsp;
@@ -268,6 +272,8 @@ Change from 05 to 06<br />
 Change from 06 to 07<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-07-to-08">6.8.</a>&nbsp;
 Change from 07 to 08<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-08-to-09">6.9.</a>&nbsp;
+Change from 08 to 09<br />
 <a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
 <a href="#Security">8.</a>&nbsp;
@@ -376,7 +382,10 @@ Launch Phases</h3>
 
 <p>The server MAY support multiple launch phases sequentially or
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
-        the client to define the target launch phase of the command.
+        the client to define the target launch phase of the command.  
+        The server SHOULD validate the &lt;launch:phase&gt; element 
+        against the active phase of the server or the phase that the object was 
+        created, and return an EPP error result code of 2004 if there is a mismatch.
 </p>
 <p>The following launch phase values are defined: </p>
 <blockquote class="text"><dl>
@@ -547,10 +556,12 @@ Poll Messaging</h3>
         defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>, the server SHOULD insert poll messages, per <a class='info' href='#RFC5730'>[RFC5730]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP),&rdquo; August&nbsp;2009.</span><span>)</span></a>,
         for the applicable intermediate statuses, including the 
         "pendingValidation", "validated", "pendingAllocation, and "invalid" statuses, using the 
-        &lt;domain:infData&gt; element with the &lt;launch:infData&gt; extension.  The 
-        server MUST insert a &lt;domain:panData&gt; poll message, per <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a>, 
-        with the &lt;launch:infData&gt; extension for the final statuses, including the 
-        "allocated" and "rejected" statuses.
+        &lt;domain:infData&gt; element with the &lt;launch:infData&gt; extension.  The &lt;domain:infData&gt; element 
+        MAY contain non-mandatory information, like contact and name server information.  Also, 
+        further extensions that would normally be included in the response of a &lt;domain:info&gt; command, 
+        per <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a>, MAY be included.  For the final statuses, including the 
+        "allocated" and "rejected" statuses, the server MUST insert a &lt;domain:panData&gt; poll message, per <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a>, 
+        with the &lt;launch:infData&gt; extension.
 </p>
 <p>The following is an example poll message for a Launch Application 
         that has transitioned to the "pendingAllocation" state.
@@ -1167,8 +1178,11 @@ EPP &lt;info&gt; Command</h3>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
 EPP &lt;create&gt; Command</h3>
 
-<p>There are two forms of the extension to the EPP &lt;create&gt;
-        command that are dependent on the supported <a class='info' href='#phases'>launch phases<span> (</span><span class='info'>Launch Phases</span><span>)</span></a> as defined below:
+<p>There are three forms of the extension to the EPP &lt;create&gt;
+        command that include the <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a>, the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a>, 
+            and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a>.  
+        The form is dependent on the supported <a class='info' href='#phases'>launch phases<span> (</span><span class='info'>Launch Phases</span><span>)</span></a> as defined below.  
+        
 </p>
 <p></p>
 <blockquote class="text"><dl>
@@ -1177,29 +1191,24 @@ EPP &lt;create&gt; Command</h3>
             "sunrise" launch phase is used to submit a registration with trademark
             information that can be verified by the server with the
             &lt;domain:name&gt; value. The <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> is used for the "sunrise" launch phase.
-            Optionally, the server can support multiple overlapping
-            applications that are chosen asynchronously with a server
-            generated <a class='info' href='#applicationID'>Application
-            Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> for later reference.
 </dd>
 <dt>landrush</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "landrush" launch phase is undefined but the form supported is up to
-            server policy.
+            "landrush" launch phase MAY use the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> to explictly specify the phase and 
+            optionally define the expected type of object to create.
 </dd>
 <dt>claims1</dt>
 <dd>The EPP &lt;create&gt; command with the
             "claims1" launch phase is used to pass the information associated 
             with the presentation and acceptance of the "claims1" Claims Notice.  The 
-            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used 
+            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> MAY be used
             for the "claims1" launch phase.
 </dd>
 <dt>claims2</dt>
 <dd>The EPP &lt;create&gt; command with the
             "claims2" launch phase is used to pass the information associated 
             with the presentation of the "claims2" Claims Notice.  The 
-            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used 
-            for the "claims2" launch phase.
+            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> MAY be used for the "claims2" launch phase.
 </dd>
 <dt>open</dt>
 <dd>The EPP &lt;create&gt; command with the "open"
@@ -1225,7 +1234,11 @@ Sunrise Create Form</h3>
           verify the trademark information passed by the client.
 </p>
 <p>A &lt;launch:create&gt; element is sent along with the regular
-          &lt;create&gt; domain command. The &lt;launch:create&gt; element
+          &lt;create&gt; domain command.  The &lt;launch:create&gt; element 
+        has an OPTIONAL "type" attribute that defines the expected type of object 
+        ("application" or "registration") to create.  The server SHOULD validate the 
+        "type" attribute, when passed, against the type of object that will be created.  
+          The &lt;launch:create&gt; element
           contains the following child elements:
 </p>
 <p></p>
@@ -1370,7 +1383,8 @@ Sunrise Create Form</h3>
 &lt;/epp&gt;</pre></div>
 <p>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "signed mark" 
-            validation model, with the signed mark information:
+            validation model, with the signed mark information for 
+            a sunrise application:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -1389,7 +1403,8 @@ Sunrise Create Form</h3>
     &lt;/create&gt;
     &lt;extension&gt;
       &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application"&gt;
         &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
         &lt;smd:signedMark id="signedMark"
          xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
@@ -1432,59 +1447,6 @@ Sunrise Create Form</h3>
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
 &lt;/epp&gt;</pre></div>
-<p>If the create was successful, the server MAY reply with the
-          &lt;launch:creData&gt; element along with the regular EPP
-          &lt;resData&gt; to indicate the server generated <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a>, when multiple
-          applications of a given domain name is supported; otherwise no
-          extension is included with the regular EPP &lt;resData&gt;. The
-          &lt;launch:creData&gt; element contains the following child
-          elements:
-</p>
-<p></p>
-<blockquote class="text"><dl>
-<dt>&lt;launch:phase&gt;</dt>
-<dd>The phase of the application
-              that mirrors the &lt;launch:phase&gt; element included in the
-              &lt;launch:create&gt;.
-</dd>
-<dt>&lt;launch:applicationID&gt;</dt>
-<dd>The application
-              identifier of the application.
-</dd>
-</dl></blockquote>
-
-<p>An example response when multiple overlapping
-            applications are supported by the server:
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1001"&gt;
-      &lt;msg&gt;Command completed successfully; action pending&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;resData&gt;
-      &lt;domain:creData
-         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-       &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-       &lt;domain:crDate&gt;2010-08-10T15:38:26.623854Z&lt;/domain:crDate&gt;
-       &lt;domain:exDate&gt;2012-08-10T15:38:26.623854Z&lt;/domain:exDate&gt;
-      &lt;/domain:creData&gt;
-    &lt;/resData&gt;
-    &lt;extension&gt;
-      &lt;launch:creData
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;launch:applicationID&gt;2393-9323-E08C-03B1
-        &lt;/launch:applicationID&gt;
-      &lt;/launch:creData&gt;
-    &lt;/extension&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;
-</pre></div>
 <a name="claimsCreateForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.2"></a><h3>3.3.2.&nbsp;
@@ -1496,8 +1458,11 @@ Claims Create Form</h3>
           Notice for the "claims2" launch phase.
 </p>
 <p>A &lt;launch:create&gt; element is sent along with the regular
-          &lt;create&gt; domain command. The &lt;launch:create&gt; element
-          contains the following child elements:
+          &lt;create&gt; domain command.  The &lt;launch:create&gt; element 
+        has an OPTIONAL "type" attribute that defines the expected type of object 
+        ("application" or "registration") to create.  The server SHOULD validate the 
+        "type" attribute, when passed, against the type of object that will be created. 
+        The &lt;launch:create&gt; element contains the following child elements:
 </p>
 <p></p>
 <blockquote class="text"><dl>
@@ -1560,10 +1525,118 @@ Claims Create Form</h3>
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
 &lt;/epp&gt;</pre></div>
-<p>This extension does not define any extension to the response of a
-        &lt;create&gt; domain command for the Claims Create Form. After processing the command, the
-        server replies with a standard EPP response as defined in the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
+<a name="generalCreateForm"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.3.3"></a><h3>3.3.3.&nbsp;
+General Create Form</h3>
+
+<p>The General Create Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] includes the
+          launch phase and optionally the object 
+          type to create.  The OPTIONAL "type" attribute defines the 
+          expected type of object ("application" or "registration") to create.  
+          The server SHOULD validate the "type" attribute, when passed, against 
+          the type of object that will be created.
 </p>
+<p>A &lt;launch:create&gt; element is sent along with the regular
+          &lt;create&gt; domain command. The &lt;launch:create&gt; element
+          contains the following child elements:
+</p>
+<p></p>
+<blockquote class="text"><dl>
+<dt>&lt;launch:phase&gt;</dt>
+<dd>Contains the value of the active 
+              launch phase of the server.  The server SHOULD validate the value against the 
+              active server launch phase.
+</dd>
+</dl></blockquote>
+
+<p>The following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension for a "landrush" 
+            launch phase application:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;command&gt;
+    &lt;create&gt;
+      &lt;domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:authInfo&gt;
+          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+        &lt;/domain:authInfo&gt;
+      &lt;/domain:create&gt;
+    &lt;/create&gt;
+    &lt;extension&gt;
+      &lt;launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application"&gt;
+        &lt;launch:phase&gt;landrush&lt;/launch:phase&gt;
+      &lt;/launch:create&gt;
+    &lt;/extension&gt;
+    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+  &lt;/command&gt;
+&lt;/epp&gt;</pre></div>
+<a name="createResponse"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.3.4"></a><h3>3.3.4.&nbsp;
+Create Response</h3>
+
+<p>If the create was successful, the server MAY reply with the
+          &lt;launch:creData&gt; element along with the regular EPP
+          &lt;resData&gt; to indicate the server generated <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a>, when multiple
+          applications of a given domain name is supported; otherwise no
+          extension is included with the regular EPP &lt;resData&gt;. The
+          &lt;launch:creData&gt; element contains the following child
+          elements:
+</p>
+<p></p>
+<blockquote class="text"><dl>
+<dt>&lt;launch:phase&gt;</dt>
+<dd>The phase of the application
+              that mirrors the &lt;launch:phase&gt; element included in the
+              &lt;launch:create&gt;.
+</dd>
+<dt>&lt;launch:applicationID&gt;</dt>
+<dd>The application
+              identifier of the application.
+</dd>
+</dl></blockquote>
+
+<p>An example response when multiple overlapping
+            applications are supported by the server:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;response&gt;
+    &lt;result code="1001"&gt;
+      &lt;msg&gt;Command completed successfully; action pending&lt;/msg&gt;
+    &lt;/result&gt;
+    &lt;resData&gt;
+      &lt;domain:creData
+         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+       &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+       &lt;domain:crDate&gt;2010-08-10T15:38:26.623854Z&lt;/domain:crDate&gt;
+       &lt;domain:exDate&gt;2012-08-10T15:38:26.623854Z&lt;/domain:exDate&gt;
+      &lt;/domain:creData&gt;
+    &lt;/resData&gt;
+    &lt;extension&gt;
+      &lt;launch:creData
+        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+        &lt;launch:applicationID&gt;2393-9323-E08C-03B1
+        &lt;/launch:applicationID&gt;
+      &lt;/launch:creData&gt;
+    &lt;/extension&gt;
+    &lt;trID&gt;
+      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+    &lt;/trID&gt;
+  &lt;/response&gt;
+&lt;/epp&gt;
+</pre></div>
 <a name="updateCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.4"></a><h3>3.4.&nbsp;
@@ -1950,7 +2023,7 @@ Import common element types.
   &lt;complexType name="createType"&gt;
     &lt;sequence&gt;
       &lt;element name="phase" type="launch:phaseType"/&gt;
-      &lt;choice&gt;
+      &lt;choice minOccurs="0"&gt;
         &lt;element name="codeMark" type="launch:codeMarkType"
           maxOccurs="unbounded"/&gt;
         &lt;element ref="smd:abstractSignedMark"
@@ -1961,7 +2034,19 @@ Import common element types.
           type="launch:createNoticeType"/&gt;
       &lt;/choice&gt;
     &lt;/sequence&gt;
+    &lt;attribute name="type" type="launch:objectType"/&gt;
   &lt;/complexType&gt;
+
+  &lt;!--
+  Type of launch object
+  --&gt;
+  &lt;simpleType name="objectType"&gt;
+      &lt;restriction base="token"&gt;
+        &lt;enumeration value="application"/&gt;
+        &lt;enumeration value="registration"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+
 
   &lt;!--
   Child elements of the create notice element.
@@ -2063,7 +2148,7 @@ Acknowledgements</h3>
       Jeff Eckhaus, and Will Shorter.
 </p>
 <p>Special suggestions that have been incorporated into this document 
-      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Gustavo Lozano,
+      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
       Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.
 </p>
@@ -2226,6 +2311,25 @@ Change from 07 to 08</h3>
 </li>
 </ol>
         
+</li>
+</ol>
+
+<a name="change-08-to-09"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.9"></a><h3>6.9.&nbsp;
+Change from 08 to 09</h3>
+
+<p></p>
+<ol class="text">
+<li>Made &lt;choice&gt; element optional in &lt;launch:create&gt; to allow passing just the &lt;launch:phase&gt; in &lt;launch:create&gt; per request from Ben Levac.
+</li>
+<li>Added optional "type" attribute in &lt;launch:create&gt; to enable the client to explicitly define the desired type of object (application or registration) to create to all forms of the create extension.
+</li>
+<li>Added text that the server SHOULD validate the &lt;launch:phase&gt; element in the Launch Phases section.
+</li>
+<li>Add the "General Create Form" to the create command extension to support the request from Ben Levac.
+</li>
+<li>Updated the text for the Poll Messaging section based on feedback from Klaus Malorny.
 </li>
 </ol>
 

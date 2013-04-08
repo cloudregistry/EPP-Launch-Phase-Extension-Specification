@@ -150,7 +150,7 @@ Import common element types.
   <complexType name="createType">
     <sequence>
       <element name="phase" type="launch:phaseType"/>
-      <choice>
+      <choice minOccurs="0">
         <element name="codeMark" type="launch:codeMarkType"
           maxOccurs="unbounded"/>
         <element ref="smd:abstractSignedMark" 
@@ -161,7 +161,19 @@ Import common element types.
           type="launch:createNoticeType"/> 
       </choice>
     </sequence>
+    <attribute name="type" type="launch:objectType"/>
   </complexType>
+
+  <!--
+  Type of launch object
+  -->
+  <simpleType name="objectType">
+      <restriction base="token">
+        <enumeration value="application"/>
+        <enumeration value="registration"/>
+    </restriction>
+  </simpleType>
+  
   
   <!-- 
   Child elements of the create notice element. 
