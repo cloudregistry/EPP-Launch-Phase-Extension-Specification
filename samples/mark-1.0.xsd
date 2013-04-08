@@ -55,6 +55,7 @@ Empty type for use in extending for a mark
 	 <element name="addr" type="mark:addrType"/>
 	 <element name="voice" type="mark:e164Type" minOccurs="0"/>
 	 <element name="fax" type="mark:e164Type" minOccurs="0"/>
+	 <element name="email" type="mark:minTokenType" minOccurs="0"/>
   </sequence>
   <attribute name="entitlement" type="mark:entitlementType"/>
 </complexType>
@@ -85,9 +86,9 @@ Empty type for use in extending for a mark
 	 <element name="label" type="mark:labelType" minOccurs="0"
 		maxOccurs="unbounded"/>
 	 <element name="goodsAndServices" type="token" />
-	 <element name="apId" type="mark:idType" minOccurs="0"/>
+	 <element name="apId" type="token" minOccurs="0"/>
 	 <element name="apDate" type="dateTime" minOccurs="0"/>
-	 <element name="regNum" type="long"/>
+	 <element name="regNum" type="token"/>
 	 <element name="regDate" type="dateTime"/>
 	 <element name="exDate" type="dateTime" minOccurs="0"/>
   </sequence>
@@ -106,7 +107,7 @@ Empty type for use in extending for a mark
 	 <element name="label" type="mark:labelType" minOccurs="0"
 		maxOccurs="unbounded"/>
 	 <element name="goodsAndServices" type="token" />
-	 <element name="refNum" type="long"/>
+	 <element name="refNum" type="token"/>
 	 <element name="proDate" type="dateTime"/>
 	 <element name="title" type="token"/>
 	 <element name="execDate" type="dateTime"/>
@@ -124,7 +125,7 @@ Empty type for use in extending for a mark
 	 <element name="label" type="mark:labelType" minOccurs="0"
 		maxOccurs="unbounded"/>
 	 <element name="goodsAndServices" type="token" />
-	 <element name="refNum" type="long"/>
+	 <element name="refNum" type="token"/>
 	 <element name="proDate" type="dateTime"/>
 	 <element name="cc" type="mark:ccType"/>
 	 <element name="region" type="token" minOccurs="0"
@@ -153,8 +154,9 @@ Address (<mark:addr>) child elements
   <sequence>
 	 <element name="cc" type="mark:ccType"/>
 	 <element name="region" type="token" minOccurs="0"/>
+	 <element name="ruling" type="mark:ccType"
+		minOccurs="0" maxOccurs="unbounded"/>
   </sequence>
-  <attribute name="ruling" type="mark:ccType"/>
 </complexType>
 
 <!--
