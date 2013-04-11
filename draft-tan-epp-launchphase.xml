@@ -948,6 +948,61 @@
             "custom" launch phase is undefined but the form supported is up to server
             policy.</t>
           </list></t>
+          
+        <t>A server MAY support a mix of the create forms, where for example the 
+        <xref target="sunriseCreateForm">Sunrise Create Form</xref> and the <xref target="claimsCreateForm">Claims Create Form</xref> MAY be supported in a single 
+        command by including both the verified trademark information and the
+        information related to the registrant's acceptance of the Claims Notice. The 
+        "custom" launch phase SHOULD be used when using a mix of the create forms.
+        </t>
+        <figure>
+            <preamble>The following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension, with using a mix of 
+            the  <xref target="sunriseCreateForm">Sunrise Create Form</xref> 
+            and the <xref target="claimsCreateForm">Claims Create Form</xref> by 
+            including both a mark and a notice:</preamble>
+
+            <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>exampleone.tld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application">
+        <launch:phase name="non-tmch-sunrise">custom</launch:phase>
+        <launch:codeMark>
+          <mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+            ...
+          </mark:mark>
+        </launch:codeMark>
+        <launch:notice>
+          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+          <launch:notAfter>2012-06-19T10:00:10.0Z
+          </launch:notAfter>
+          <launch:acceptedDate>2012-06-19T09:01:30.0Z
+          </launch:acceptedDate>
+        </launch:notice>
+      </launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>]]></artwork>
+          </figure>
+
 
         <section anchor="sunriseCreateForm" title="Sunrise Create Form">
           <t>The Sunrise Create Form of the extension to the <xref
@@ -1774,9 +1829,9 @@ Import common element types.
          maxOccurs="unbounded"/>
         <element ref="smd:encodedSignedMark" 
          maxOccurs="unbounded"/>
-          <element name="notice" 
-          type="launch:createNoticeType"/> 
       </choice>
+      <element name="notice" minOccurs="0"
+       type="launch:createNoticeType"/> 
     </sequence>
     <attribute name="type" type="launch:objectType"/>
   </complexType>
@@ -1891,8 +1946,8 @@ END]]></artwork>
       changes to this document, which include Chris Wright, Jeff Neuman, 
       Jeff Eckhaus, and Will Shorter.</t>
       <t>Special suggestions that have been incorporated into this document 
-      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,  
+      were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
+      Klaus Malorny, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.</t>
     </section>
     
@@ -1982,6 +2037,7 @@ END]]></artwork>
         <t>Add the "General Create Form" to the create command extension to support the request from Ben Levac.</t>
         <t>Updated the text for the Poll Messaging section based on feedback from Klaus Malorny.</t>
         <t>Replaced the "claims1" and "claims2" phases with the "claims" phase based on discussion on the provreg list.</t>
+        <t>Added support for a mixed create model (Sunrise Create Model and Claims Create Model), where a trademark (encoded signed mark, etc.) and notice can be passed, based on a request from James Mitchell.</t>
       </list></t>
     </section>
    </section>

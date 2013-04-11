@@ -1153,6 +1153,57 @@ EPP &lt;create&gt; Command</h3>
 </dd>
 </dl></blockquote>
 
+<p>A server MAY support a mix of the create forms, where for example the 
+        <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> and the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> MAY be supported in a single 
+        command by including both the verified trademark information and the
+        information related to the registrant's acceptance of the Claims Notice. The 
+        "custom" launch phase SHOULD be used when using a mix of the create forms.
+        
+</p>
+<p>The following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension, with using a mix of 
+            the  <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> 
+            and the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> by 
+            including both a mark and a notice:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;command&gt;
+    &lt;create&gt;
+      &lt;domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
+        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:authInfo&gt;
+          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+        &lt;/domain:authInfo&gt;
+      &lt;/domain:create&gt;
+    &lt;/create&gt;
+    &lt;extension&gt;
+      &lt;launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application"&gt;
+        &lt;launch:phase name="non-tmch-sunrise"&gt;custom&lt;/launch:phase&gt;
+        &lt;launch:codeMark&gt;
+          &lt;mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+            ...
+          &lt;/mark:mark&gt;
+        &lt;/launch:codeMark&gt;
+        &lt;launch:notice&gt;
+          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
+          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
+          &lt;/launch:notAfter&gt;
+          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
+          &lt;/launch:acceptedDate&gt;
+        &lt;/launch:notice&gt;
+      &lt;/launch:create&gt;
+    &lt;/extension&gt;
+    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+  &lt;/command&gt;
+&lt;/epp&gt;</pre></div>
 <a name="sunriseCreateForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.1"></a><h3>3.3.1.&nbsp;
@@ -1959,9 +2010,9 @@ Import common element types.
          maxOccurs="unbounded"/&gt;
         &lt;element ref="smd:encodedSignedMark"
          maxOccurs="unbounded"/&gt;
-          &lt;element name="notice"
-          type="launch:createNoticeType"/&gt;
       &lt;/choice&gt;
+      &lt;element name="notice" minOccurs="0"
+       type="launch:createNoticeType"/&gt;
     &lt;/sequence&gt;
     &lt;attribute name="type" type="launch:objectType"/&gt;
   &lt;/complexType&gt;
@@ -2077,8 +2128,8 @@ Acknowledgements</h3>
       Jeff Eckhaus, and Will Shorter.
 </p>
 <p>Special suggestions that have been incorporated into this document 
-      were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, Bernhard Reutner-Fischer, Trung Tran,  
+      were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
+      Klaus Malorny, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -2261,6 +2312,8 @@ Change from 08 to 09</h3>
 <li>Updated the text for the Poll Messaging section based on feedback from Klaus Malorny.
 </li>
 <li>Replaced the "claims1" and "claims2" phases with the "claims" phase based on discussion on the provreg list.
+</li>
+<li>Added support for a mixed create model (Sunrise Create Model and Claims Create Model), where a trademark (encoded signed mark, etc.) and notice can be passed, based on a request from James Mitchell.
 </li>
 </ol>
 

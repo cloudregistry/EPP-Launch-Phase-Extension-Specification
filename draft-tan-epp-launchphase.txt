@@ -80,31 +80,31 @@ Table of Contents
      3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . . 14
      3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 16
      3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 20
-       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 20
-       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 26
-       3.3.3.  General Create Form  . . . . . . . . . . . . . . . . . 28
-       3.3.4.  Create Response  . . . . . . . . . . . . . . . . . . . 29
-     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 30
-     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 32
-     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 33
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 33
-   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 34
-     4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 34
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 40
-   6.  Change History . . . . . . . . . . . . . . . . . . . . . . . . 40
-     6.1.  Change from 00 to 01 . . . . . . . . . . . . . . . . . . . 40
-     6.2.  Change from 01 to 02 . . . . . . . . . . . . . . . . . . . 41
-     6.3.  Change from 02 to 03 . . . . . . . . . . . . . . . . . . . 41
-     6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 41
-     6.5.  Change from 04 to 05 . . . . . . . . . . . . . . . . . . . 41
-     6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 42
-     6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 42
-     6.8.  Change from 07 to 08 . . . . . . . . . . . . . . . . . . . 42
-     6.9.  Change from 08 to 09 . . . . . . . . . . . . . . . . . . . 42
-   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 43
-   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 43
-   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 44
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 44
+       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 21
+       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 27
+       3.3.3.  General Create Form  . . . . . . . . . . . . . . . . . 29
+       3.3.4.  Create Response  . . . . . . . . . . . . . . . . . . . 30
+     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 31
+     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 33
+     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 34
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 34
+   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 35
+     4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 35
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 41
+   6.  Change History . . . . . . . . . . . . . . . . . . . . . . . . 41
+     6.1.  Change from 00 to 01 . . . . . . . . . . . . . . . . . . . 41
+     6.2.  Change from 01 to 02 . . . . . . . . . . . . . . . . . . . 42
+     6.3.  Change from 02 to 03 . . . . . . . . . . . . . . . . . . . 42
+     6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 42
+     6.5.  Change from 04 to 05 . . . . . . . . . . . . . . . . . . . 42
+     6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 43
+     6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 43
+     6.8.  Change from 07 to 08 . . . . . . . . . . . . . . . . . . . 43
+     6.9.  Change from 08 to 09 . . . . . . . . . . . . . . . . . . . 43
+   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 44
+   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 44
+   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 45
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 45
 
 
 
@@ -1092,22 +1092,22 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    custom  The EPP <create> command with the "custom" launch phase is
       undefined but the form supported is up to server policy.
 
-3.3.1.  Sunrise Create Form
+   A server MAY support a mix of the create forms, where for example the
+   Sunrise Create Form (Section 3.3.1) and the Claims Create Form
+   (Section 3.3.2) MAY be supported in a single command by including
+   both the verified trademark information and the information related
+   to the registrant's acceptance of the Claims Notice.  The "custom"
+   launch phase SHOULD be used when using a mix of the create forms.
 
-   The Sunrise Create Form of the extension to the EPP domain name
-   mapping [RFC5731] includes the verifiable trademark information that
-   the server uses to match against the domain name to authorize the
-   domain create.  A server MUST support one of four models in Claim
-   Validation Models (Section 2.5) to verify the trademark information
-   passed by the client.
 
-   A <launch:create> element is sent along with the regular <create>
-   domain command.  The <launch:create> element has an OPTIONAL "type"
-   attribute that defines the expected type of object ("application" or
-   "registration") to create.  The server SHOULD validate the "type"
-   attribute, when passed, against the type of object that will be
-   created.  The <launch:create> element contains the following child
-   elements:
+
+
+
+
+
+
+
+
 
 
 
@@ -1120,6 +1120,75 @@ Tan, et al.             Expires October 13, 2013               [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
+
+   The following is an example <create> domain command using the
+   <launch:create> extension, with using a mix of the Sunrise Create
+   Form (Section 3.3.1) and the Claims Create Form (Section 3.3.2) by
+   including both a mark and a notice:
+
+   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+     <command>
+       <create>
+         <domain:create
+          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+           <domain:name>exampleone.tld</domain:name>
+           <domain:registrant>jd1234</domain:registrant>
+           <domain:contact type="admin">sh8013</domain:contact>
+           <domain:contact type="tech">sh8013</domain:contact>
+           <domain:authInfo>
+             <domain:pw>2fooBAR</domain:pw>
+           </domain:authInfo>
+         </domain:create>
+       </create>
+       <extension>
+         <launch:create
+          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+          type="application">
+           <launch:phase name="non-tmch-sunrise">custom</launch:phase>
+           <launch:codeMark>
+             <mark:mark
+               xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+               ...
+             </mark:mark>
+           </launch:codeMark>
+           <launch:notice>
+             <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+             <launch:notAfter>2012-06-19T10:00:10.0Z
+             </launch:notAfter>
+             <launch:acceptedDate>2012-06-19T09:01:30.0Z
+             </launch:acceptedDate>
+           </launch:notice>
+         </launch:create>
+       </extension>
+       <clTRID>ABC-12345</clTRID>
+     </command>
+   </epp>
+
+3.3.1.  Sunrise Create Form
+
+   The Sunrise Create Form of the extension to the EPP domain name
+   mapping [RFC5731] includes the verifiable trademark information that
+
+
+
+Tan, et al.             Expires October 13, 2013               [Page 21]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
+   the server uses to match against the domain name to authorize the
+   domain create.  A server MUST support one of four models in Claim
+   Validation Models (Section 2.5) to verify the trademark information
+   passed by the client.
+
+   A <launch:create> element is sent along with the regular <create>
+   domain command.  The <launch:create> element has an OPTIONAL "type"
+   attribute that defines the expected type of object ("application" or
+   "registration") to create.  The server SHOULD validate the "type"
+   attribute, when passed, against the type of object that will be
+   created.  The <launch:create> element contains the following child
+   elements:
 
    <launch:phase>  The identifier for the launch phase.
    <launch:codeMark> or <smd:signedMark> or <smd:encodedSignedMark>
@@ -1134,9 +1203,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
            defined in the <smd:encodedSignedMark> element
            (Section 2.7.2) section.
 
-   The following is an example <create> domain command using the
-   <launch:create> extension, following the "code" validation model,
-   with multiple sunrise codes:
 
 
 
@@ -1162,20 +1228,14 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires October 13, 2013               [Page 21]
+Tan, et al.             Expires October 13, 2013               [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
+
+   The following is an example <create> domain command using the
+   <launch:create> extension, following the "code" validation model,
+   with multiple sunrise codes:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1224,11 +1284,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-
-
-
-Tan, et al.             Expires October 13, 2013               [Page 22]
+Tan, et al.             Expires October 13, 2013               [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1284,7 +1340,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 23]
+Tan, et al.             Expires October 13, 2013               [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1340,7 +1396,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 24]
+Tan, et al.             Expires October 13, 2013               [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1396,7 +1452,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 25]
+Tan, et al.             Expires October 13, 2013               [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1452,7 +1508,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 26]
+Tan, et al.             Expires October 13, 2013               [Page 27]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1508,7 +1564,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 27]
+Tan, et al.             Expires October 13, 2013               [Page 28]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1564,7 +1620,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 28]
+Tan, et al.             Expires October 13, 2013               [Page 29]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1620,7 +1676,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 29]
+Tan, et al.             Expires October 13, 2013               [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1676,7 +1732,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 30]
+Tan, et al.             Expires October 13, 2013               [Page 31]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1732,7 +1788,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 31]
+Tan, et al.             Expires October 13, 2013               [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1788,7 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 32]
+Tan, et al.             Expires October 13, 2013               [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1844,7 +1900,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 33]
+Tan, et al.             Expires October 13, 2013               [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1900,7 +1956,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 34]
+Tan, et al.             Expires October 13, 2013               [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1956,7 +2012,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 35]
+Tan, et al.             Expires October 13, 2013               [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2012,7 +2068,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 36]
+Tan, et al.             Expires October 13, 2013               [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2068,7 +2124,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 37]
+Tan, et al.             Expires October 13, 2013               [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2086,9 +2142,9 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
             maxOccurs="unbounded"/>
            <element ref="smd:encodedSignedMark"
             maxOccurs="unbounded"/>
-             <element name="notice"
-             type="launch:createNoticeType"/>
          </choice>
+         <element name="notice" minOccurs="0"
+          type="launch:createNoticeType"/>
        </sequence>
        <attribute name="type" type="launch:objectType"/>
      </complexType>
@@ -2124,7 +2180,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 38]
+Tan, et al.             Expires October 13, 2013               [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2180,7 +2236,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 39]
+Tan, et al.             Expires October 13, 2013               [Page 40]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2219,10 +2275,10 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    Jeff Eckhaus, and Will Shorter.
 
    Special suggestions that have been incorporated into this document
-   were provided by Jothan Frakes, Keith Gaughan, Jan Jansen, Rubens
-   Kuhl, Ben Levac, Gustavo Lozano, Klaus Malorny, Patrick Mevzek,
-   Bernhard Reutner-Fischer, Trung Tran, Ulrich Wisser and Sharon
-   Wodjenski.
+   were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan
+   Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano, Klaus Malorny,
+   Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,
+   Ulrich Wisser and Sharon Wodjenski.
 
 
 6.  Change History
@@ -2236,7 +2292,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 40]
+Tan, et al.             Expires October 13, 2013               [Page 41]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2292,7 +2348,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 41]
+Tan, et al.             Expires October 13, 2013               [Page 42]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2348,7 +2404,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 42]
+Tan, et al.             Expires October 13, 2013               [Page 43]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2368,6 +2424,10 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
        from Klaus Malorny.
    6.  Replaced the "claims1" and "claims2" phases with the "claims"
        phase based on discussion on the provreg list.
+   7.  Added support for a mixed create model (Sunrise Create Model and
+       Claims Create Model), where a trademark (encoded signed mark,
+       etc.) and notice can be passed, based on a request from James
+       Mitchell.
 
 
 7.  IANA Considerations
@@ -2397,18 +2457,18 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
    As information contained within an application, or even the mere fact
    that an application exists may be confidential.  Any attempt to
-   operate on an application object by an unauthorized client MUST be
-   rejected with an EPP 2303 (object does not exist) or an appropriate
-   auhorization error.  Server policy may allow <info> operation with
-   filtered output by clients other than the sponsoring client, in which
 
 
 
-Tan, et al.             Expires October 13, 2013               [Page 43]
+Tan, et al.             Expires October 13, 2013               [Page 44]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
+   operate on an application object by an unauthorized client MUST be
+   rejected with an EPP 2303 (object does not exist) or an appropriate
+   auhorization error.  Server policy may allow <info> operation with
+   filtered output by clients other than the sponsoring client, in which
    case the <domain:infData> and <launch:infData> response SHOULD be
    filtered to include only fields that are publicly accessible.
 
@@ -2447,6 +2507,20 @@ Authors' Addresses
    URI:   http://www.cloudregistry.net
 
 
+
+
+
+
+
+
+
+
+
+Tan, et al.             Expires October 13, 2013               [Page 45]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
    Gavin Brown
    CentralNic Ltd
    35-39 Mooregate
@@ -2456,13 +2530,6 @@ Authors' Addresses
    Phone: +44 20 33 88 0600
    Email: gavin.brown@centralnic.com
    URI:   https://www.centralnic.com
-
-
-
-
-Tan, et al.             Expires October 13, 2013               [Page 44]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
    James Gould
@@ -2505,16 +2572,5 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires October 13, 2013               [Page 45]
+Tan, et al.             Expires October 13, 2013               [Page 46]
 
