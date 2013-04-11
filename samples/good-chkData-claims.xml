@@ -12,7 +12,7 @@
       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
       xsi:schemaLocation="urn:ietf:params:xml:ns:launch-1.0
       launch-1.0.xsd">
-      <launch:phase>claims1</launch:phase>
+      <launch:phase>claims</launch:phase>
       <launch:cd>
         <launch:name exists="0">example1.tld</launch:name>
       </launch:cd>

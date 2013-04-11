@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: October 10, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: October 13, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">April 8, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 11, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-09</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on October 10, 2013.</p>
+This Internet-Draft will expire on October 13, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -399,17 +399,11 @@ Launch Phases</h3>
             holders are allowed to register domain names with steps taken 
             to address a large volume of initial registrations.
 </dd>
-<dt>claims1</dt>
-<dd>The Trademark Claims Phase 1, as defined by 
-            Trademark Clearinghouse model, in which a full, detailed 
-            Claims Notice must be displayed to prospective registrants of domain
-            names that match trademarks.
-</dd>
-<dt>claims2</dt>
-<dd>The Trademark Claims Phase 2, as defined by 
-            Trademark Clearinghouse model, in which a short, educational 
-            Claims Notice must be displayed to prospective registrants of domain
-            names that match trademarks that have opted in.
+<dt>claims</dt>
+<dd>The Trademark Claims Phase, as defined by 
+            Trademark Clearinghouse model, in which a 
+            Claims Notice must be displayed to a prospective registrant of a domain
+            name that matches trademarks.
 </dd>
 <dt>open</dt>
 <dd>A post-launch phase that is also referred to as
@@ -425,7 +419,7 @@ Launch Phases</h3>
 <p>For extensibility, the &lt;launch:phase&gt; element includes an
         OPTIONAL "name" attribute that can define a sub-phase or the full name
         of the phase when the &lt;launch:phase&gt; element has the "custom"
-        value.  For example, the "claims1" launch phase could have two 
+        value.  For example, the "claims" launch phase could have two 
         sub-phases that include "landrush" and "open".
 </p>
 <a name="statuses"></a><br /><hr />
@@ -860,20 +854,17 @@ EPP &lt;check&gt; Command</h3>
 <p></p>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
-<dd>The launch phase, with a value of either
-              "claims1" or "claims2" to indicate that the command is a Claims Check Command.
-              The "claims1" Claims Check Command will match the &lt;domain:name&gt;
-              against the full list of trademark labels. The "claims2" 
-              Claims Check Command will match the &lt;domain:name&gt; against 
-              the list of trademark labels that opted into the "claims2" 
-              launch phase.
+<dd>The launch phase, with a value of 
+              "claims" to indicate that the command is a Claims Check Command.
+              The "claims" Claims Check Command will match the &lt;domain:name&gt;
+              against the list of trademark labels.
 </dd>
 </dl></blockquote>
 
 <p>Example Claims Check command using the &lt;check&gt;
             domain command and the &lt;launch:check&gt; extension to 
             determine if "example1.tld" and "example2.tld" have any 
-            matching trademarks during the "claims1" launch phase:
+            matching trademarks during the "claims" launch phase:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -888,31 +879,7 @@ EPP &lt;check&gt; Command</h3>
    &lt;extension&gt;
     &lt;launch:check
      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims1&lt;/launch:phase&gt;
-    &lt;/launch:check&gt;
-   &lt;/extension&gt;
-   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
-<p>Example Claims Check Command using the &lt;check&gt;
-            domain command and the &lt;launch:check&gt; extension to 
-            determine if "example3.tld" and "example4.tld" have any 
-            matching trademarks that opted into the "claims2" launch phase:
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-   &lt;check&gt;
-    &lt;domain:check
-     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-      &lt;domain:name&gt;example3.tld&lt;/domain:name&gt;
-      &lt;domain:name&gt;example4.tld&lt;/domain:name&gt;
-    &lt;/domain:check&gt;
-   &lt;/check&gt;
-   &lt;extension&gt;
-    &lt;launch:check
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims2&lt;/launch:phase&gt;
+      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
     &lt;/launch:check&gt;
    &lt;/extension&gt;
    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
@@ -927,7 +894,7 @@ EPP &lt;check&gt; Command</h3>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>The launch phase, with a value of
-              either "claims1" or "claims2", which matches the associated 
+              "claims" that matches the associated 
               Claims Check Command &lt;launch:phase&gt;.
 </dd>
 <dt>&lt;launch:cd&gt;</dt>
@@ -964,7 +931,7 @@ EPP &lt;check&gt; Command</h3>
 <p>Example Claims Check response when no matching trademarks
              are found for the domain name example1.tld and matching 
              trademarks are found for the domain name example2.tld for the 
-             "claims1" launch phase:
+             "claims" launch phase:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
 &lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
@@ -975,42 +942,12 @@ EPP &lt;check&gt; Command</h3>
     &lt;resData&gt;
      &lt;launch:chkData
       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims1&lt;/launch:phase&gt;
+      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
       &lt;launch:cd&gt;
         &lt;launch:name exists="0"&gt;example1.tld&lt;/launch:name&gt;
       &lt;/launch:cd&gt;
       &lt;launch:cd&gt;
         &lt;launch:name exists="1"&gt;example2.tld&lt;/launch:name&gt;
-        &lt;launch:claimKey&gt;abc123&lt;/launch:claimKey&gt;
-      &lt;/launch:cd&gt;
-     &lt;/launch:chkData&gt;
-    &lt;/resData&gt;
-    &lt;trID&gt;
-     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-     &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;</pre></div>
-<p>Example Claims Check response when no matching trademarks
-             are found for the domain name example3.tld and matching 
-             trademarks are found for the domain name example4.tld for the 
-             "claims2" launch phase:
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1000"&gt;
-     &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;resData&gt;
-     &lt;launch:chkData
-      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims2&lt;/launch:phase&gt;
-      &lt;launch:cd&gt;
-        &lt;launch:name exists="0"&gt;example3.tld&lt;/launch:name&gt;
-      &lt;/launch:cd&gt;
-      &lt;launch:cd&gt;
-        &lt;launch:name exists="1"&gt;example4.tld&lt;/launch:name&gt;
         &lt;launch:claimKey&gt;abc123&lt;/launch:claimKey&gt;
       &lt;/launch:cd&gt;
      &lt;/launch:chkData&gt;
@@ -1197,18 +1134,12 @@ EPP &lt;create&gt; Command</h3>
             "landrush" launch phase MAY use the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> to explictly specify the phase and 
             optionally define the expected type of object to create.
 </dd>
-<dt>claims1</dt>
+<dt>claims</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "claims1" launch phase is used to pass the information associated 
-            with the presentation and acceptance of the "claims1" Claims Notice.  The 
+            "claims" launch phase is used to pass the information associated 
+            with the presentation and acceptance of the Claims Notice.  The 
             <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> MAY be used
-            for the "claims1" launch phase.
-</dd>
-<dt>claims2</dt>
-<dd>The EPP &lt;create&gt; command with the
-            "claims2" launch phase is used to pass the information associated 
-            with the presentation of the "claims2" Claims Notice.  The 
-            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> MAY be used for the "claims2" launch phase.
+            for the "claims" launch phase.
 </dd>
 <dt>open</dt>
 <dd>The EPP &lt;create&gt; command with the "open"
@@ -1454,8 +1385,7 @@ Claims Create Form</h3>
 
 <p>The Claims Create Form of the extension to the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] includes the
           information related to the registrant's acceptance of the Claims Notice 
-          for the "claims1" launch phase and the display of the Claims 
-          Notice for the "claims2" launch phase.
+          for the "claims" launch phase.
 </p>
 <p>A &lt;launch:create&gt; element is sent along with the regular
           &lt;create&gt; domain command.  The &lt;launch:create&gt; element 
@@ -1468,7 +1398,7 @@ Claims Create Form</h3>
 <blockquote class="text"><dl>
 <dt>&lt;launch:phase&gt;</dt>
 <dd>MUST contain the value of
-              "claims1" or "claim2" to indicate the claims launch phase.
+              "claims" to indicate the claims launch phase.
 </dd>
 <dt>&lt;launch:notice&gt;</dt>
 <dd>
@@ -1491,7 +1421,7 @@ Claims Create Form</h3>
 
 <p>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension with the 
-            &lt;launch:notice&gt; information for the "claims1" claims 
+            &lt;launch:notice&gt; information for the "claims"  
             launch phase:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
@@ -1512,7 +1442,7 @@ Claims Create Form</h3>
     &lt;extension&gt;
       &lt;launch:create
        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;claims1&lt;/launch:phase&gt;
+        &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
         &lt;launch:notice&gt;
           &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
           &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
@@ -1948,8 +1878,7 @@ Import common element types.
       &lt;restriction base="token"&gt;
         &lt;enumeration value="sunrise"/&gt;
         &lt;enumeration value="landrush"/&gt;
-        &lt;enumeration value="claims1"/&gt;
-        &lt;enumeration value="claims2"/&gt;
+        &lt;enumeration value="claims"/&gt;
         &lt;enumeration value="open"/&gt;
         &lt;enumeration value="custom"/&gt;
     &lt;/restriction&gt;
@@ -2330,6 +2259,8 @@ Change from 08 to 09</h3>
 <li>Add the "General Create Form" to the create command extension to support the request from Ben Levac.
 </li>
 <li>Updated the text for the Poll Messaging section based on feedback from Klaus Malorny.
+</li>
+<li>Replaced the "claims1" and "claims2" phases with the "claims" phase based on discussion on the provreg list.
 </li>
 </ol>
 

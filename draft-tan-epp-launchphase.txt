@@ -4,10 +4,10 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Standards Track                                G. Brown
-Expires: October 10, 2013                                 CentralNic Ltd
+Expires: October 13, 2013                                 CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                           April 8, 2013
+                                                          April 11, 2013
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -34,7 +34,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 10, 2013.
+   This Internet-Draft will expire on October 13, 2013.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 1]
+Tan, et al.             Expires October 13, 2013                [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -78,37 +78,37 @@ Table of Contents
        2.7.2.  <smd:encodedSignedMark> element  . . . . . . . . . . . 13
    3.  EPP Command Mapping  . . . . . . . . . . . . . . . . . . . . . 13
      3.1.  EPP <check> Command  . . . . . . . . . . . . . . . . . . . 14
-     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 18
-     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 22
-       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 22
-       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 28
-       3.3.3.  General Create Form  . . . . . . . . . . . . . . . . . 30
-       3.3.4.  Create Response  . . . . . . . . . . . . . . . . . . . 31
-     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 32
-     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 34
-     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 35
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 35
-   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 36
-     4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 36
-   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 42
-   6.  Change History . . . . . . . . . . . . . . . . . . . . . . . . 42
-     6.1.  Change from 00 to 01 . . . . . . . . . . . . . . . . . . . 42
-     6.2.  Change from 01 to 02 . . . . . . . . . . . . . . . . . . . 43
-     6.3.  Change from 02 to 03 . . . . . . . . . . . . . . . . . . . 43
-     6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 43
-     6.5.  Change from 04 to 05 . . . . . . . . . . . . . . . . . . . 43
-     6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 44
-     6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 44
-     6.8.  Change from 07 to 08 . . . . . . . . . . . . . . . . . . . 44
-     6.9.  Change from 08 to 09 . . . . . . . . . . . . . . . . . . . 44
-   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 45
-   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 45
-   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 46
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 46
+     3.2.  EPP <info> Command . . . . . . . . . . . . . . . . . . . . 16
+     3.3.  EPP <create> Command . . . . . . . . . . . . . . . . . . . 20
+       3.3.1.  Sunrise Create Form  . . . . . . . . . . . . . . . . . 20
+       3.3.2.  Claims Create Form . . . . . . . . . . . . . . . . . . 26
+       3.3.3.  General Create Form  . . . . . . . . . . . . . . . . . 28
+       3.3.4.  Create Response  . . . . . . . . . . . . . . . . . . . 29
+     3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 30
+     3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 32
+     3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 33
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 33
+   4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 34
+     4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 34
+   5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 40
+   6.  Change History . . . . . . . . . . . . . . . . . . . . . . . . 40
+     6.1.  Change from 00 to 01 . . . . . . . . . . . . . . . . . . . 40
+     6.2.  Change from 01 to 02 . . . . . . . . . . . . . . . . . . . 41
+     6.3.  Change from 02 to 03 . . . . . . . . . . . . . . . . . . . 41
+     6.4.  Change from 03 to 04 . . . . . . . . . . . . . . . . . . . 41
+     6.5.  Change from 04 to 05 . . . . . . . . . . . . . . . . . . . 41
+     6.6.  Change from 05 to 06 . . . . . . . . . . . . . . . . . . . 42
+     6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 42
+     6.8.  Change from 07 to 08 . . . . . . . . . . . . . . . . . . . 42
+     6.9.  Change from 08 to 09 . . . . . . . . . . . . . . . . . . . 42
+   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 43
+   8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 43
+   9.  Normative References . . . . . . . . . . . . . . . . . . . . . 44
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 44
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 2]
+Tan, et al.             Expires October 13, 2013                [Page 2]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -164,7 +164,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 3]
+Tan, et al.             Expires October 13, 2013                [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -220,7 +220,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 4]
+Tan, et al.             Expires October 13, 2013                [Page 4]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -231,14 +231,9 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    landrush  A post-Sunrise phase when non-trademark holders are allowed
       to register domain names with steps taken to address a large
       volume of initial registrations.
-   claims1  The Trademark Claims Phase 1, as defined by Trademark
-      Clearinghouse model, in which a full, detailed Claims Notice must
-      be displayed to prospective registrants of domain names that match
-      trademarks.
-   claims2  The Trademark Claims Phase 2, as defined by Trademark
-      Clearinghouse model, in which a short, educational Claims Notice
-      must be displayed to prospective registrants of domain names that
-      match trademarks that have opted in.
+   claims  The Trademark Claims Phase, as defined by Trademark
+      Clearinghouse model, in which a Claims Notice must be displayed to
+      a prospective registrant of a domain name that matches trademarks.
    open  A post-launch phase that is also referred to as "steady state".
       Servers MAY require additional trademark protection during this
       phase.
@@ -248,7 +243,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    For extensibility, the <launch:phase> element includes an OPTIONAL
    "name" attribute that can define a sub-phase or the full name of the
    phase when the <launch:phase> element has the "custom" value.  For
-   example, the "claims1" launch phase could have two sub-phases that
+   example, the "claims" launch phase could have two sub-phases that
    include "landrush" and "open".
 
 2.3.  Status Values
@@ -270,23 +265,22 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
       rules.
    invalid:  The application or registration does not validate according
       to registry rules.
-
-
-
-
-
-
-Tan, et al.             Expires October 10, 2013                [Page 5]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
-
-
    pendingAllocation:  The allocation of the application or registration
       is pending based on the results of some out-of-band process (for
       example, an auction).
    allocated:  One of two possible end states of an application or
       registration object; the object corresponding to the application
       or registration has been provisioned.
+
+
+
+
+
+Tan, et al.             Expires October 13, 2013                [Page 5]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
    rejected:  The other possible end state; the application or
       registration object was not provisioned.
    custom:  A custom status that is defined using the "name" attribute.
@@ -332,7 +326,13 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 6]
+
+
+
+
+
+
+Tan, et al.             Expires October 13, 2013                [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -388,7 +388,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 7]
+Tan, et al.             Expires October 13, 2013                [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -444,7 +444,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 8]
+Tan, et al.             Expires October 13, 2013                [Page 8]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -500,7 +500,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013                [Page 9]
+Tan, et al.             Expires October 13, 2013                [Page 9]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -556,7 +556,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 10]
+Tan, et al.             Expires October 13, 2013               [Page 10]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -612,7 +612,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 11]
+Tan, et al.             Expires October 13, 2013               [Page 11]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -668,7 +668,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 12]
+Tan, et al.             Expires October 13, 2013               [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -724,7 +724,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 13]
+Tan, et al.             Expires October 13, 2013               [Page 13]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -763,12 +763,10 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    trademarks.  The <launch:check> element contains the following child
    elements:
 
-   <launch:phase>  The launch phase, with a value of either "claims1" or
-       "claims2" to indicate that the command is a Claims Check Command.
-       The "claims1" Claims Check Command will match the <domain:name>
-       against the full list of trademark labels.  The "claims2" Claims
-       Check Command will match the <domain:name> against the list of
-       trademark labels that opted into the "claims2" launch phase.
+   <launch:phase>  The launch phase, with a value of "claims" to
+       indicate that the command is a Claims Check Command.  The
+       "claims" Claims Check Command will match the <domain:name>
+       against the list of trademark labels.
 
 
 
@@ -780,14 +778,16 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 14]
+
+
+Tan, et al.             Expires October 13, 2013               [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
    Example Claims Check command using the <check> domain command and the
    <launch:check> extension to determine if "example1.tld" and
-   "example2.tld" have any matching trademarks during the "claims1"
+   "example2.tld" have any matching trademarks during the "claims"
    launch phase:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -803,44 +803,11 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
       <extension>
        <launch:check
         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims1</launch:phase>
+         <launch:phase>claims</launch:phase>
        </launch:check>
       </extension>
       <clTRID>ABC-12345</clTRID>
      </command>
-   </epp>
-
-   Example Claims Check Command using the <check> domain command and the
-   <launch:check> extension to determine if "example3.tld" and
-   "example4.tld" have any matching trademarks that opted into the
-   "claims2" launch phase:
-
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-      <check>
-       <domain:check
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example3.tld</domain:name>
-         <domain:name>example4.tld</domain:name>
-       </domain:check>
-      </check>
-      <extension>
-       <launch:check
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims2</launch:phase>
-       </launch:check>
-      </extension>
-      <clTRID>ABC-12345</clTRID>
-     </command>
-
-
-
-Tan, et al.             Expires October 10, 2013               [Page 15]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
-
-
    </epp>
 
    If the <check> command has been processed successfully, the EPP
@@ -848,9 +815,8 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    identifies the launch namespace.  The <launch:chkData> element
    contains the following child elements:
 
-   <launch:phase>  The launch phase, with a value of either "claims1" or
-       "claims2", which matches the associated Claims Check Command
-       <launch:phase>.
+   <launch:phase>  The launch phase, with a value of "claims" that
+       matches the associated Claims Check Command <launch:phase>.
    <launch:cd>  One or more <launch:cd> elements that contain the
        following child elements:
 
@@ -867,39 +833,19 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
            generate a Trademark Claims Notice.  The <launch:claimKey> is
            used as the key for the query in place of the domain name to
            securely query the service without using a well-known value
-           like a domain name.
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires October 10, 2013               [Page 16]
+Tan, et al.             Expires October 13, 2013               [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
+           like a domain name.
+
    Example Claims Check response when no matching trademarks are found
    for the domain name example1.tld and matching trademarks are found
-   for the domain name example2.tld for the "claims1" launch phase:
+   for the domain name example2.tld for the "claims" launch phase:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -910,68 +856,12 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
        <resData>
         <launch:chkData
          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims1</launch:phase>
+         <launch:phase>claims</launch:phase>
          <launch:cd>
            <launch:name exists="0">example1.tld</launch:name>
          </launch:cd>
          <launch:cd>
            <launch:name exists="1">example2.tld</launch:name>
-           <launch:claimKey>abc123</launch:claimKey>
-         </launch:cd>
-        </launch:chkData>
-       </resData>
-       <trID>
-        <clTRID>ABC-12345</clTRID>
-        <svTRID>54321-XYZ</svTRID>
-       </trID>
-     </response>
-   </epp>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires October 10, 2013               [Page 17]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
-
-
-   Example Claims Check response when no matching trademarks are found
-   for the domain name example3.tld and matching trademarks are found
-   for the domain name example4.tld for the "claims2" launch phase:
-
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1000">
-        <msg>Command completed successfully</msg>
-       </result>
-       <resData>
-        <launch:chkData
-         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims2</launch:phase>
-         <launch:cd>
-           <launch:name exists="0">example3.tld</launch:name>
-         </launch:cd>
-         <launch:cd>
-           <launch:name exists="1">example4.tld</launch:name>
            <launch:claimKey>abc123</launch:claimKey>
          </launch:cd>
         </launch:chkData>
@@ -1002,9 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-
-Tan, et al.             Expires October 10, 2013               [Page 18]
+Tan, et al.             Expires October 13, 2013               [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1060,7 +948,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 19]
+Tan, et al.             Expires October 13, 2013               [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1116,7 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 20]
+Tan, et al.             Expires October 13, 2013               [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1172,7 +1060,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 21]
+Tan, et al.             Expires October 13, 2013               [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1194,16 +1082,11 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
       MAY use the General Create Form (Section 3.3.3) to explictly
       specify the phase and optionally define the expected type of
       object to create.
-   claims1  The EPP <create> command with the "claims1" launch phase is
+   claims  The EPP <create> command with the "claims" launch phase is
       used to pass the information associated with the presentation and
-      acceptance of the "claims1" Claims Notice.  The Claims Create Form
+      acceptance of the Claims Notice.  The Claims Create Form
       (Section 3.3.2) is used and the General Create Form
-      (Section 3.3.3) MAY be used for the "claims1" launch phase.
-   claims2  The EPP <create> command with the "claims2" launch phase is
-      used to pass the information associated with the presentation of
-      the "claims2" Claims Notice.  The Claims Create Form
-      (Section 3.3.2) is used and the General Create Form
-      (Section 3.3.3) MAY be used for the "claims2" launch phase.
+      (Section 3.3.3) MAY be used for the "claims" launch phase.
    open  The EPP <create> command with the "open" launch phase is
       undefined but the form supported is up to server policy.
    custom  The EPP <create> command with the "custom" launch phase is
@@ -1228,7 +1111,12 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 22]
+
+
+
+
+
+Tan, et al.             Expires October 13, 2013               [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1284,7 +1172,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 23]
+Tan, et al.             Expires October 13, 2013               [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1340,7 +1228,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 24]
+Tan, et al.             Expires October 13, 2013               [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1396,7 +1284,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 25]
+Tan, et al.             Expires October 13, 2013               [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1452,7 +1340,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 26]
+Tan, et al.             Expires October 13, 2013               [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1508,7 +1396,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 27]
+Tan, et al.             Expires October 13, 2013               [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1550,8 +1438,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
    The Claims Create Form of the extension to the EPP domain name
    mapping [RFC5731] includes the information related to the
-   registrant's acceptance of the Claims Notice for the "claims1" launch
-   phase and the display of the Claims Notice for the "claims2" launch
+   registrant's acceptance of the Claims Notice for the "claims" launch
    phase.
 
    A <launch:create> element is sent along with the regular <create>
@@ -1564,13 +1451,14 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 28]
+
+Tan, et al.             Expires October 13, 2013               [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
-   <launch:phase>  MUST contain the value of "claims1" or "claim2" to
-       indicate the claims launch phase.
+   <launch:phase>  MUST contain the value of "claims" to indicate the
+       claims launch phase.
    <launch:notice>
        <launch:noticeID>  Unique notice identifier generated by the
            source of the Claims Notice information.
@@ -1580,7 +1468,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
    The following is an example <create> domain command using the
    <launch:create> extension with the <launch:notice> information for
-   the "claims1" claims launch phase:
+   the "claims" launch phase:
 
    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
    <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
@@ -1600,7 +1488,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
        <extension>
          <launch:create
           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>claims1</launch:phase>
+           <launch:phase>claims</launch:phase>
            <launch:notice>
              <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
              <launch:notAfter>2012-06-19T10:00:10.0Z
@@ -1620,7 +1508,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 29]
+Tan, et al.             Expires October 13, 2013               [Page 27]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1676,7 +1564,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 30]
+Tan, et al.             Expires October 13, 2013               [Page 28]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1732,7 +1620,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 31]
+Tan, et al.             Expires October 13, 2013               [Page 29]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1788,7 +1676,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 32]
+Tan, et al.             Expires October 13, 2013               [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1844,7 +1732,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 33]
+Tan, et al.             Expires October 13, 2013               [Page 31]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1900,7 +1788,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 34]
+Tan, et al.             Expires October 13, 2013               [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1956,7 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 35]
+Tan, et al.             Expires October 13, 2013               [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2012,7 +1900,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 36]
+Tan, et al.             Expires October 13, 2013               [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2068,7 +1956,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 37]
+Tan, et al.             Expires October 13, 2013               [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2101,8 +1989,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
          <restriction base="token">
            <enumeration value="sunrise"/>
            <enumeration value="landrush"/>
-           <enumeration value="claims1"/>
-           <enumeration value="claims2"/>
+           <enumeration value="claims"/>
            <enumeration value="open"/>
            <enumeration value="custom"/>
        </restriction>
@@ -2121,15 +2008,15 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
      <!--
      Definition for the notice identifier
      -->
+     <simpleType name="noticeIDType">
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 38]
+Tan, et al.             Expires October 13, 2013               [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
-     <simpleType name="noticeIDType">
        <restriction base="base64Binary">
          <minLength value="1"/>
        </restriction>
@@ -2180,7 +2067,8 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 39]
+
+Tan, et al.             Expires October 13, 2013               [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2236,7 +2124,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 40]
+Tan, et al.             Expires October 13, 2013               [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2292,7 +2180,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 41]
+Tan, et al.             Expires October 13, 2013               [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2348,7 +2236,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 42]
+Tan, et al.             Expires October 13, 2013               [Page 40]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2404,7 +2292,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 43]
+Tan, et al.             Expires October 13, 2013               [Page 41]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2460,7 +2348,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 44]
+Tan, et al.             Expires October 13, 2013               [Page 42]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2478,6 +2366,8 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
        support the request from Ben Levac.
    5.  Updated the text for the Poll Messaging section based on feedback
        from Klaus Malorny.
+   6.  Replaced the "claims1" and "claims2" phases with the "claims"
+       phase based on discussion on the provreg list.
 
 
 7.  IANA Considerations
@@ -2511,14 +2401,16 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    rejected with an EPP 2303 (object does not exist) or an appropriate
    auhorization error.  Server policy may allow <info> operation with
    filtered output by clients other than the sponsoring client, in which
-   case the <domain:infData> and <launch:infData> response SHOULD be
-   filtered to include only fields that are publicly accessible.
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 45]
+Tan, et al.             Expires October 13, 2013               [Page 43]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
+   case the <domain:infData> and <launch:infData> response SHOULD be
+   filtered to include only fields that are publicly accessible.
 
 
 9.  Normative References
@@ -2568,11 +2460,7 @@ Authors' Addresses
 
 
 
-
-
-
-
-Tan, et al.             Expires October 10, 2013               [Page 46]
+Tan, et al.             Expires October 13, 2013               [Page 44]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2628,5 +2516,5 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 10, 2013               [Page 47]
+Tan, et al.             Expires October 13, 2013               [Page 45]
 

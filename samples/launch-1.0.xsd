@@ -75,8 +75,7 @@ Import common element types.
       <restriction base="token">
         <enumeration value="sunrise"/>
         <enumeration value="landrush"/>
-        <enumeration value="claims1"/>
-        <enumeration value="claims2"/>
+        <enumeration value="claims"/>
         <enumeration value="open"/>
         <enumeration value="custom"/>
     </restriction>
