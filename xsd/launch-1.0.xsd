@@ -193,7 +193,21 @@ Import common element types.
     <sequence>
       <element name="phase" type="launch:phaseType"/>
     </sequence>
+    <attribute name="type" type="launch:checkFormType" 
+    default="claims"/>
   </complexType>
+
+
+  <!--
+  Type of check form 
+  (claims check or availability check)
+  -->
+  <simpleType name="checkFormType">
+      <restriction base="token">
+        <enumeration value="claims"/>
+        <enumeration value="avail"/>
+    </restriction>
+  </simpleType>
 
 
   <!-- 

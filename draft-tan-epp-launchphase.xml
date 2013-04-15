@@ -635,11 +635,25 @@
       operations.</t>
 
       <section anchor="checkCommand" title="EPP &lt;check&gt; Command">
-        <t>This extension defines additional elements to extend the EPP
+       <t>There are two forms of the extension to the EPP &lt;check&gt; command 
+       that include the <xref target="claimsCheckForm">Claims Check Form</xref> 
+       and the <xref target="availCheckForm">Availability Check Form</xref>.  The 
+       &lt;launch:check&gt; element "type" attribute defines the form, 
+       with the value of "claims" for the <xref target="claimsCheckForm">Claims Check Form</xref> 
+       and with the value of "avail" for the <xref target="availCheckForm">Availability Check Form</xref>.  
+       The default value of the "type" attribute is "claims".  It is up to server policy the check 
+       forms supported.  The server MUST return an EPP error result code of 2307 
+       if it receives a check form that is not supported.</t>  
+       
+       <section anchor="claimsCheckForm" title="Claims Check Form">
+        <t>The Claims Check Form defines additional elements to extend the EPP
         &lt;check&gt; command and response to be used in conjunction with the
-        <xref target="RFC5731">EPP domain name mapping</xref>.</t>
-        
-        <t>This extension defines a new command called the Claims Check Command 
+        <xref target="RFC5731">EPP domain name mapping</xref>.  This form is the default form and MAY be 
+        explicitly identified by setting the &lt;launch:check&gt; "type" attribute to "claims".
+        </t>
+        <t>
+        The Claims Check Form defines 
+        a new command called the Claims Check Command 
         that is used to determine whether or not there are any matching 
         trademarks, in the specified launch phase, for each domain name passed in the command.  
         The availability check information defined in the <xref target="RFC5731">EPP domain name
@@ -663,14 +677,13 @@
         The &lt;launch:check&gt; element contains the following child elements:</t>
 
           <t><list hangIndent="4" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">The launch phase, with a value of 
-              "claims" to indicate that the command is a Claims Check Command.
-              The "claims" Claims Check Command will match the &lt;domain:name&gt;
-              against the list of trademark labels.</t>
+              <t hangText="&lt;launch:phase&gt;">The launch phase that SHOULD be 
+              "claims".</t>
             </list></t>
           <figure>
             <preamble>Example Claims Check command using the &lt;check&gt;
-            domain command and the &lt;launch:check&gt; extension to 
+            domain command and the &lt;launch:check&gt; extension with 
+            the "type" explicitly set to "claims", to  
             determine if "example1.tld" and "example2.tld" have any 
             matching trademarks during the "claims" launch phase:</preamble>
 
@@ -687,7 +700,8 @@
    </check>
    <extension>
     <launch:check
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+     type="claims">
       <launch:phase>claims</launch:phase>
     </launch:check>
    </extension>
@@ -702,9 +716,8 @@
           contains the following child elements:</t>
 
           <t><list hangIndent="4" style="hanging">
-              <t hangText="&lt;launch:phase&gt;">The launch phase, with a value of
-              "claims" that matches the associated 
-              Claims Check Command &lt;launch:phase&gt;.</t>
+              <t hangText="&lt;launch:phase&gt;">The launch phase that SHOULD be 
+              "claims".</t>
 
               <t hangText="&lt;launch:cd&gt;">One or more &lt;launch:cd&gt; 
               elements that contain the following child elements:</t>
@@ -763,6 +776,67 @@
   </response>
 </epp>]]></artwork>
           </figure>
+      
+        </section>    
+        
+        
+       <section anchor="availCheckForm" title="Availability Check Form">
+        <t>The Availability Check Form defines additional elements to extend the EPP
+        &lt;check&gt; command described in the 
+        <xref target="RFC5731">EPP domain name mapping</xref>.  No additional 
+        elements are defined for the EPP &lt;check&gt; response.  This form MUST be 
+        identified by setting the &lt;launch:check&gt; "type" attribute to "avail".
+        </t>
+        <t>
+        The EPP &lt;check&gt; command is used to determine if an object 
+        can be provisioned within a repository.  Domain names may be made 
+        available only in unique launch phases, whilst remaining unavailable 
+        for concurrent launch phases.  In addition to the elements 
+        expressed in the &lt;domain:check&gt;, the command is extensed with 
+        the &lt;launch:check&gt; element that contains the following child elements:</t>
+        
+          <t><list hangIndent="4" style="hanging">
+              <t hangText="&lt;launch:phase&gt;">The launch phase to which 
+              domain name availability should be determined.</t>
+            </list></t>
+          <figure>
+            <preamble>Example Availability Check Form command using the &lt;check&gt;
+            domain command and the &lt;launch:check&gt; extension with 
+            the "type" set to "avail", to determine  
+            the availability of two domain names in the 
+            "idn-release" custom launch phase:</preamble>
+
+            <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+   <check>
+    <domain:check
+     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+      <domain:name>example1.tld</domain:name>
+      <domain:name>example2.tld</domain:name>
+    </domain:check>
+   </check>
+   <extension>
+    <launch:check
+     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+     type="avail">
+      <launch:phase name="idn-release">custom</launch:phase>
+    </launch:check>
+   </extension>
+   <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>]]></artwork>
+          </figure>
+          
+        <t>The Availability Check Form does not define any extension to the response of an
+        &lt;check&gt; domain command. After processing the command, the
+        server replies with a standard EPP response as defined in the <xref
+        target="RFC5731">EPP domain name mapping</xref>.</t>
+        
+        </section>    
+        
+        
       </section>
 
       <!-- end CHECK command -->
@@ -1466,11 +1540,6 @@
             identifier for which the client wishes to update.</t>
           </list></t>
 
-        <t>This extension does not define any extension to the response of an
-        &lt;update&gt; domain command. After processing the command, the
-        server replies with a standard EPP response as defined in the <xref
-        target="RFC5731">EPP domain name mapping</xref>.</t>
-
         <figure>
           <preamble>The following is an example &lt;update&gt; domain command with
           the &lt;launch:update&gt; extension to add and remove a name server
@@ -1531,6 +1600,12 @@
         </figure>
 
         <!-- example update cmd -->
+        
+        <t>This extension does not define any extension to the response of an
+        &lt;update&gt; domain command. After processing the command, the
+        server replies with a standard EPP response as defined in the <xref
+        target="RFC5731">EPP domain name mapping</xref>.</t>        
+        
       </section>
       <!-- end UPDATE command -->
 
@@ -1556,11 +1631,6 @@
             <t hangText="&lt;launch:applicationID&gt;">The application
             identifier for which the client wishes to delete.</t>
           </list></t>
-
-        <t>This extension does not define any extension to the response of a
-        &lt;delete&gt; domain command. After processing the command, the
-        server replies with a standard EPP response as defined in the <xref
-        target="RFC5731">EPP domain name mapping</xref>.</t>
 
         <figure>
           <preamble>The following is an example &lt;delete&gt; domain command with
@@ -1610,6 +1680,12 @@
         </figure>
 
         <!-- example delete cmd -->
+        
+        <t>This extension does not define any extension to the response of a
+        &lt;delete&gt; domain command. After processing the command, the
+        server replies with a standard EPP response as defined in the <xref
+        target="RFC5731">EPP domain name mapping</xref>.</t>
+        
       </section>
       <!-- end DELETE command -->
 
@@ -1875,7 +1951,21 @@ Import common element types.
     <sequence>
       <element name="phase" type="launch:phaseType"/>
     </sequence>
+    <attribute name="type" type="launch:checkFormType" 
+    default="claims"/>
   </complexType>
+
+
+  <!--
+  Type of check form 
+  (claims check or availability check)
+  -->
+  <simpleType name="checkFormType">
+      <restriction base="token">
+        <enumeration value="claims"/>
+        <enumeration value="avail"/>
+    </restriction>
+  </simpleType>
 
 
   <!-- 
@@ -2048,6 +2138,7 @@ END]]></artwork>
         <t>Replaced the "claims1" and "claims2" phases with the "claims" phase based on discussion on the provreg list.</t>
         <t>Added support for a mixed create model (Sunrise Create Model and Claims Create Model), where a trademark (encoded signed mark, etc.) and notice can be passed, based on a request from James Mitchell.</t>
         <t>Added text for the handling of the overlapping "claims" and "landrush" launch phases.</t>
+        <t>Added support for two check forms (claims check form and availability check form) based on a request from James Mitchell.  The availability check form was based on the text in draft-rbp-application-epp-mapping.</t>
       </list></t>
     </section>
    </section>
