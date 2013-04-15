@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="11" month="April" year="2013"/>
+    <date day="15" month="April" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -241,8 +241,9 @@
             holders are allowed to register domain names with steps taken 
             to address a large volume of initial registrations.</t>
 
-            <t hangText="claims">The Trademark Claims Phase, as defined by 
-            Trademark Clearinghouse model, in which a 
+            <t hangText="claims">The Trademark Claims phase, as defined in the  
+            <eref
+      target="http://tools.ietf.org/html/draft-lozano-tmch-func-spec">TMCH Functional Specification</eref>, in which a 
             Claims Notice must be displayed to a prospective registrant of a domain
             name that matches trademarks.</t>
             
@@ -259,6 +260,14 @@
         of the phase when the &lt;launch:phase&gt; element has the "custom"
         value.  For example, the "claims" launch phase could have two 
         sub-phases that include "landrush" and "open".</t>
+        
+        <t>Launch phases MAY overlap to support the "claims" launch phase, defined in the <eref
+      target="http://tools.ietf.org/html/draft-lozano-tmch-func-spec">TMCH Functional Specification</eref>, and to support 
+      a traditional "landrush" launch phase.  The overlap of the "claims" and "landrush" launch phases 
+      SHOULD be handled by setting "claims" as the &lt;launch:phase&gt; value and setting 
+      "landrush" as the sub-phase with the "name" attribute.  For example, the &lt;launch:phase&gt; 
+      element SHOULD be &lt;launch:phase name="landrush"&gt;claims&lt;/launch:phase&gt;.
+        </t>
       </section>
 
       <section anchor="statuses" title="Status Values">
@@ -2038,6 +2047,7 @@ END]]></artwork>
         <t>Updated the text for the Poll Messaging section based on feedback from Klaus Malorny.</t>
         <t>Replaced the "claims1" and "claims2" phases with the "claims" phase based on discussion on the provreg list.</t>
         <t>Added support for a mixed create model (Sunrise Create Model and Claims Create Model), where a trademark (encoded signed mark, etc.) and notice can be passed, based on a request from James Mitchell.</t>
+        <t>Added text for the handling of the overlapping "claims" and "landrush" launch phases.</t>
       </list></t>
     </section>
    </section>

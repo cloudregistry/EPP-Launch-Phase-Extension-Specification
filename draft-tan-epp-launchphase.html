@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: October 13, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: October 17, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">April 11, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 15, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-09</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on October 13, 2013.</p>
+This Internet-Draft will expire on October 17, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -400,8 +400,8 @@ Launch Phases</h3>
             to address a large volume of initial registrations.
 </dd>
 <dt>claims</dt>
-<dd>The Trademark Claims Phase, as defined by 
-            Trademark Clearinghouse model, in which a 
+<dd>The Trademark Claims phase, as defined in the  
+            <a href='http://tools.ietf.org/html/draft-lozano-tmch-func-spec'>TMCH Functional Specification</a>, in which a 
             Claims Notice must be displayed to a prospective registrant of a domain
             name that matches trademarks.
 </dd>
@@ -421,6 +421,13 @@ Launch Phases</h3>
         of the phase when the &lt;launch:phase&gt; element has the "custom"
         value.  For example, the "claims" launch phase could have two 
         sub-phases that include "landrush" and "open".
+</p>
+<p>Launch phases MAY overlap to support the "claims" launch phase, defined in the <a href='http://tools.ietf.org/html/draft-lozano-tmch-func-spec'>TMCH Functional Specification</a>, and to support 
+      a traditional "landrush" launch phase.  The overlap of the "claims" and "landrush" launch phases 
+      SHOULD be handled by setting "claims" as the &lt;launch:phase&gt; value and setting 
+      "landrush" as the sub-phase with the "name" attribute.  For example, the &lt;launch:phase&gt; 
+      element SHOULD be &lt;launch:phase name="landrush"&gt;claims&lt;/launch:phase&gt;.
+        
 </p>
 <a name="statuses"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -2314,6 +2321,8 @@ Change from 08 to 09</h3>
 <li>Replaced the "claims1" and "claims2" phases with the "claims" phase based on discussion on the provreg list.
 </li>
 <li>Added support for a mixed create model (Sunrise Create Model and Claims Create Model), where a trademark (encoded signed mark, etc.) and notice can be passed, based on a request from James Mitchell.
+</li>
+<li>Added text for the handling of the overlapping "claims" and "landrush" launch phases.
 </li>
 </ol>
 
