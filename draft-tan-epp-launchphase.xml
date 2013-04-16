@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="15" month="April" year="2013"/>
+    <date day="16" month="April" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -140,7 +140,7 @@
     <abstract>
       <t>This document describes an Extensible Provisioning Protocol (EPP)
       extension mapping for the provisioning and management of domain name
-      applications during the launch of a domain name registry.</t>
+      registrations and kapplications during the launch of a domain name registry.</t>
     </abstract>
   </front>
 
@@ -150,7 +150,7 @@
       <xref target="RFC5730">Extensible Provisioning Protocol (EPP)</xref>.
       This EPP mapping specifies a flexible schema that can be used to
       implement several common use cases related to the provisioning and
-      management of domain name applications during the launch of a domain name registry.</t>
+      management of domain name registrations and applications during the launch of a domain name registry.</t>
 
       <t>It is typical for domain registries to operate in special modes during
       their initial launch to facilitate allocation of domain names, often according
@@ -160,13 +160,12 @@
       <t>The <xref target="RFC5731">EPP domain name mapping</xref> is designed
       for the steady-state operation of a registry. During a launch period, the
       model in place may be different from what is defined in
-      <xref target="RFC5731">EPP domain name mapping</xref>. For example,
+      the <xref target="RFC5731">EPP domain name mapping</xref>. For example,
       registries often accept multiple applications for the same domain name during
       the "Sunrise" launch phase, referred to as a Launch Application.  A Launch
       Registration refers to a registration made during a launch phase when the
       server uses a "first-come, first-served" model.  Even in a "first-come,
-      first-served" model, additional steps and information might be required to
-      support an application, such as trademark information. In addition, the <eref
+      first-served" model, additional steps and information might be required, such as trademark information. In addition, the <eref
       target="http://tools.ietf.org/html/draft-lozano-tmch-func-spec">TMCH Functional Specification</eref> 
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
@@ -228,8 +227,8 @@
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
         the client to define the target launch phase of the command.  
         The server SHOULD validate the &lt;launch:phase&gt; element 
-        against the active phase of the server or the phase that the object was 
-        created, and return an EPP error result code of 2004 if there is a mismatch.</t>
+        against the active phase of the server for a create command, 
+        and return an EPP error result code of 2004 if there is a mismatch.</t>
 
         <t>The following launch phase values are defined: <list
             style="hanging">
@@ -641,8 +640,8 @@
        &lt;launch:check&gt; element "type" attribute defines the form, 
        with the value of "claims" for the <xref target="claimsCheckForm">Claims Check Form</xref> 
        and with the value of "avail" for the <xref target="availCheckForm">Availability Check Form</xref>.  
-       The default value of the "type" attribute is "claims".  It is up to server policy the check 
-       forms supported.  The server MUST return an EPP error result code of 2307 
+       The default value of the "type" attribute is "claims".  The check forms supported is up to server policy.  
+       The server MUST return an EPP error result code of 2307 
        if it receives a check form that is not supported.</t>  
        
        <section anchor="claimsCheckForm" title="Claims Check Form">
@@ -1579,26 +1578,6 @@
 ]]></artwork>
         </figure>
 
-        <figure>
-          <preamble>An example response that corresponds to the above
-          command:</preamble>
-
-          <artwork><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
-</epp>
-    ]]></artwork>
-        </figure>
-
         <!-- example update cmd -->
         
         <t>This extension does not define any extension to the response of an
@@ -1657,26 +1636,6 @@
   </command>
 </epp>    
 ]]></artwork>
-        </figure>
-
-        <figure>
-          <preamble>An example response that corresponds to the above
-          command:</preamble>
-
-          <artwork><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <response>
-    <result code="1000">
-      <msg>Command completed successfully</msg>
-    </result>
-    <trID>
-      <clTRID>ABC-12345</clTRID>
-      <svTRID>54321-XYZ</svTRID>
-    </trID>
-  </response>
-</epp>
-    ]]></artwork>
         </figure>
 
         <!-- example delete cmd -->

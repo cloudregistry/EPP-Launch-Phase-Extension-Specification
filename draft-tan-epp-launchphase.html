@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">W. Tan</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">G. Brown</td></tr>
-<tr><td class="header">Expires: October 17, 2013</td><td class="header">CentralNic Ltd</td></tr>
+<tr><td class="header">Expires: October 18, 2013</td><td class="header">CentralNic Ltd</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">VeriSign, Inc.</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">April 15, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 16, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-09</h1>
@@ -160,7 +160,7 @@
 
 <p>This document describes an Extensible Provisioning Protocol (EPP)
       extension mapping for the provisioning and management of domain name
-      applications during the launch of a domain name registry.
+      registrations and kapplications during the launch of a domain name registry.
 </p>
 <h3>Status of this Memo</h3>
 <p>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on October 17, 2013.</p>
+This Internet-Draft will expire on October 18, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -298,7 +298,7 @@ Introduction</h3>
       <a class='info' href='#RFC5730'>Extensible Provisioning Protocol (EPP)<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP),&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5730].
       This EPP mapping specifies a flexible schema that can be used to
       implement several common use cases related to the provisioning and
-      management of domain name applications during the launch of a domain name registry.
+      management of domain name registrations and applications during the launch of a domain name registry.
 </p>
 <p>It is typical for domain registries to operate in special modes during
       their initial launch to facilitate allocation of domain names, often according
@@ -308,13 +308,12 @@ Introduction</h3>
 <p>The <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] is designed
       for the steady-state operation of a registry. During a launch period, the
       model in place may be different from what is defined in
-      <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. For example,
+      the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. For example,
       registries often accept multiple applications for the same domain name during
       the "Sunrise" launch phase, referred to as a Launch Application.  A Launch
       Registration refers to a registration made during a launch phase when the
       server uses a "first-come, first-served" model.  Even in a "first-come,
-      first-served" model, additional steps and information might be required to
-      support an application, such as trademark information. In addition, the <a href='http://tools.ietf.org/html/draft-lozano-tmch-func-spec'>TMCH Functional Specification</a> 
+      first-served" model, additional steps and information might be required, such as trademark information. In addition, the <a href='http://tools.ietf.org/html/draft-lozano-tmch-func-spec'>TMCH Functional Specification</a> 
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
@@ -388,8 +387,8 @@ Launch Phases</h3>
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
         the client to define the target launch phase of the command.  
         The server SHOULD validate the &lt;launch:phase&gt; element 
-        against the active phase of the server or the phase that the object was 
-        created, and return an EPP error result code of 2004 if there is a mismatch.
+        against the active phase of the server for a create command, 
+        and return an EPP error result code of 2004 if there is a mismatch.
 </p>
 <p>The following launch phase values are defined: </p>
 <blockquote class="text"><dl>
@@ -840,8 +839,8 @@ EPP &lt;check&gt; Command</h3>
        &lt;launch:check&gt; element "type" attribute defines the form, 
        with the value of "claims" for the <a class='info' href='#claimsCheckForm'>Claims Check Form<span> (</span><span class='info'>Claims Check Form</span><span>)</span></a> 
        and with the value of "avail" for the <a class='info' href='#availCheckForm'>Availability Check Form<span> (</span><span class='info'>Availability Check Form</span><span>)</span></a>.  
-       The default value of the "type" attribute is "claims".  It is up to server policy the check 
-       forms supported.  The server MUST return an EPP error result code of 2307 
+       The default value of the "type" attribute is "claims".  The check forms supported is up to server policy.  
+       The server MUST return an EPP error result code of 2307 
        if it receives a check form that is not supported.
 </p>
 <a name="claimsCheckForm"></a><br /><hr />
@@ -1772,22 +1771,6 @@ EPP &lt;update&gt; Command</h3>
   &lt;/command&gt;
 &lt;/epp&gt;
 </pre></div>
-<p>An example response that corresponds to the above
-          command:
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1000"&gt;
-      &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;
-</pre></div>
 <p>This extension does not define any extension to the response of an
         &lt;update&gt; domain command. After processing the command, the
         server replies with a standard EPP response as defined in the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
@@ -1845,22 +1828,6 @@ EPP &lt;delete&gt; Command</h3>
    &lt;/extension&gt;
    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
-&lt;/epp&gt;
-</pre></div>
-<p>An example response that corresponds to the above
-          command:
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1000"&gt;
-      &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
 &lt;/epp&gt;
 </pre></div>
 <p>This extension does not define any extension to the response of a
