@@ -216,13 +216,13 @@ Poll Messaging<br />
 Mark Validation Models<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#codeMark">2.5.1.</a>&nbsp;
 &lt;launch:codeMark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#mark">2.6.</a>&nbsp;
-Mark<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.7.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#mark">2.5.2.</a>&nbsp;
+&lt;mark:mark&gt; element<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.5.3.</a>&nbsp;
 Digital Signature<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedMark">2.7.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedMark">2.5.3.1.</a>&nbsp;
 &lt;smd:signedMark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#encodedSignedMark">2.7.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#encodedSignedMark">2.5.3.2.</a>&nbsp;
 &lt;smd:encodedSignedMark&gt; element<br />
 <a href="#commands">3.</a>&nbsp;
 EPP Command Mapping<br />
@@ -242,7 +242,9 @@ Sunrise Create Form<br />
 Claims Create Form<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#generalCreateForm">3.3.3.</a>&nbsp;
 General Create Form<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#createResponse">3.3.4.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#mixedCreateForm">3.3.4.</a>&nbsp;
+Mixed Create Form<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#createResponse">3.3.5.</a>&nbsp;
 Create Response<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#updateCommand">3.4.</a>&nbsp;
 EPP &lt;update&gt; Command<br />
@@ -380,6 +382,10 @@ Application Identifier</h3>
         MUST be qualified by the previously assigned application identifier
         using the &lt;launch:applicationID&gt; element.
 </p>
+<p>If the &lt;domain:create&gt;
+        command processes a request synchronously without the use of an intermediate 
+        Launch Application, then an application identifier MAY not be needed.
+</p>
 <a name="phases"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.2"></a><h3>2.2.&nbsp;
@@ -388,9 +394,9 @@ Launch Phases</h3>
 <p>The server MAY support multiple launch phases sequentially or
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
         the client to define the target launch phase of the command.  
-        The server SHOULD validate the &lt;launch:phase&gt; element 
-        against the active phase of the server for a create command, 
-        and return an EPP error result code of 2004 if there is a mismatch.
+        The server SHOULD validate the phase and MAY validate the sub-phase of the &lt;launch:phase&gt; element 
+        against the active phase and OPTIONAL sub-phase of the server on a create command, 
+        and return an EPP error result code of 2306 if there is a mismatch.
 </p>
 <p>The following launch phase values are defined: </p>
 <blockquote class="text"><dl>
@@ -498,10 +504,7 @@ Status Values</h3>
         "allocated" status or an application or registration MAY skip the "pendingAllocation" status. 
         If the launch phase does
         not require validation of a request, an application or registration MAY immediately skip to
-        "pendingAllocation". If the &lt;domain:create&gt;
-        command processes a request synchronously without the use of an intermediate 
-        application, then an <a class='info' href='#applicationID'>Application
-        Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a> MAY not be needed along with the application status.
+        "pendingAllocation".
 </p>
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -700,7 +703,7 @@ Mark Validation Models</h3>
             other validation element. The server will use some custom form of
             validation to validate that the mark information is authentic. This
             model is supported using the &lt;launch:codeMark&gt; element with 
-            just the <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>Mark</span><span>)</span></a> element.
+            just the <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>&lt;mark:mark&gt; element</span><span>)</span></a> element.
 </dd>
 <dt>code with mark:</dt>
 <dd>A code is used along with the mark
@@ -708,7 +711,7 @@ Mark Validation Models</h3>
             The code represents some form of
             secret that matches the mark information passed. This model is
             supported using the &lt;launch:codeMark&gt; element that contains both the
-            &lt;launch:code&gt; and the <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>Mark</span><span>)</span></a> elements.
+            &lt;launch:code&gt; and the <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>&lt;mark:mark&gt; element</span><span>)</span></a> elements.
 </dd>
 <dt>signed mark:</dt>
 <dd>The mark information is digitally
@@ -740,19 +743,19 @@ Mark Validation Models</h3>
 <blockquote class="text"><dl>
 <dt>&lt;launch:code&gt;:</dt>
 <dd>OPTIONAL mark code used to 
-              validate the <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>Mark</span><span>)</span></a> information.  The mark code 
+              validate the <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>&lt;mark:mark&gt; element</span><span>)</span></a> information.  The mark code 
               is be a mark-specific secret that the server can verify 
               against a third party.
 </dd>
 <dt>&lt;mark:mark&gt;:</dt>
 <dd>OPTIONAL mark information 
-              with child elements defined in the <a class='info' href='#mark'>Mark<span> (</span><span class='info'>Mark</span><span>)</span></a> 
+              with child elements defined in the <a class='info' href='#mark'>Mark<span> (</span><span class='info'>&lt;mark:mark&gt; element</span><span>)</span></a> 
               section.
 </dd>
 </dl></blockquote>
 
 <p>The following is an example &lt;launch:codeMark&gt;
-            element with both a &lt;launch:code&gt; and <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>Mark</span><span>)</span></a> element.
+            element with both a &lt;launch:code&gt; and <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>&lt;mark:mark&gt; element</span><span>)</span></a> element.
             
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;launch:codeMark&gt;
@@ -763,8 +766,8 @@ Mark Validation Models</h3>
 &lt;/launch:codeMark&gt;</pre></div>
 <a name="mark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.6"></a><h3>2.6.&nbsp;
-Mark</h3>
+<a name="rfc.section.2.5.2"></a><h3>2.5.2.&nbsp;
+&lt;mark:mark&gt; element</h3>
 
 <p>A &lt;mark:mark&gt; element describes an applicant's prior right
         to a given domain name that is used with the "mark", "mark with code", and 
@@ -776,7 +779,7 @@ Mark</h3>
 </p>
 <a name="digitalsignature"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.7"></a><h3>2.7.&nbsp;
+<a name="rfc.section.2.5.3"></a><h3>2.5.3.&nbsp;
 Digital Signature</h3>
 
 <p>Digital signatures MAY be used by the server to validate either 
@@ -786,7 +789,7 @@ Digital Signature</h3>
 </p>
 <a name="signedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.7.1"></a><h3>2.7.1.&nbsp;
+<a name="rfc.section.2.5.3.1"></a><h3>2.5.3.1.&nbsp;
 &lt;smd:signedMark&gt; element</h3>
 
 <p>The &lt;smd:signedMark&gt; element contains the digitally signed mark information.  The &lt;smd:signedMark&gt; 
@@ -798,7 +801,7 @@ Digital Signature</h3>
 </p>
 <a name="encodedSignedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.7.2"></a><h3>2.7.2.&nbsp;
+<a name="rfc.section.2.5.3.2"></a><h3>2.5.3.2.&nbsp;
 &lt;smd:encodedSignedMark&gt; element</h3>
 
 <p>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
@@ -828,7 +831,7 @@ EPP Command Mapping</h3>
 </p>
 <p>Operations on application objects are done via one or more of the
       existing EPP verbs defined in the <a class='info' href='#RFC5731'>EPP domain name
-      mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. Registries may choose to support a subset of the
+      mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731]. Registries MAY choose to support a subset of the
       operations.
 </p>
 <a name="checkCommand"></a><br /><hr />
@@ -851,19 +854,14 @@ EPP &lt;check&gt; Command</h3>
 <a name="rfc.section.3.1.1"></a><h3>3.1.1.&nbsp;
 Claims Check Form</h3>
 
-<p>The Claims Check Form defines additional elements to extend the EPP
-        &lt;check&gt; command and response to be used in conjunction with the
-        <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].  This form is the default form and MAY be 
-        explicitly identified by setting the &lt;launch:check&gt; "type" attribute to "claims".
-        
-</p>
 <p>
         The Claims Check Form defines 
         a new command called the Claims Check Command 
         that is used to determine whether or not there are any matching 
         trademarks, in the specified launch phase, for each domain name passed in the command.  
         The availability check information defined in the <a class='info' href='#RFC5731'>EPP domain name
-      mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] MUST NOT be returned for the Claims Check Command.
+      mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] MUST NOT be returned for the Claims Check Command.  This form is the default form and MAY be 
+        explicitly identified by setting the &lt;launch:check&gt; "type" attribute to "claims".
 </p>
 <p>Instead of 
         returning whether the domain name is available, the Claims Check Command will return whether 
@@ -1006,7 +1004,7 @@ Availability Check Form</h3>
         can be provisioned within a repository.  Domain names may be made 
         available only in unique launch phases, whilst remaining unavailable 
         for concurrent launch phases.  In addition to the elements 
-        expressed in the &lt;domain:check&gt;, the command is extensed with 
+        expressed in the &lt;domain:check&gt;, the command is extended with 
         the &lt;launch:check&gt; element that contains the following child elements:
 </p>
 <p></p>
@@ -1149,7 +1147,7 @@ EPP &lt;info&gt; Command</h3>
 </dd>
 <dt>&lt;mark:mark&gt;</dt>
 <dd>Zero or more
-              <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>Mark</span><span>)</span></a> elements.
+              <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>&lt;mark:mark&gt; element</span><span>)</span></a> elements.
               
 </dd>
 </dl></blockquote>
@@ -1204,9 +1202,10 @@ EPP &lt;info&gt; Command</h3>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
 EPP &lt;create&gt; Command</h3>
 
-<p>There are three forms of the extension to the EPP &lt;create&gt;
+<p>There are four forms of the extension to the EPP &lt;create&gt;
         command that include the <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a>, the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a>, 
-            and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a>.  
+            the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a>, 
+            and the <a class='info' href='#mixedCreateForm'>Mixed Create Form<span> (</span><span class='info'>Mixed Create Form</span><span>)</span></a>.  
         The form is dependent on the supported <a class='info' href='#phases'>launch phases<span> (</span><span class='info'>Launch Phases</span><span>)</span></a> as defined below.  
         
 </p>
@@ -1227,7 +1226,8 @@ EPP &lt;create&gt; Command</h3>
 <dd>The EPP &lt;create&gt; command with the
             "claims" launch phase is used to pass the information associated 
             with the presentation and acceptance of the Claims Notice.  The 
-            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> MAY be used
+            <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> is used 
+            and the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> MAY be used
             for the "claims" launch phase.
 </dd>
 <dt>open</dt>
@@ -1242,57 +1242,6 @@ EPP &lt;create&gt; Command</h3>
 </dd>
 </dl></blockquote>
 
-<p>A server MAY support a mix of the create forms, where for example the 
-        <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> and the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> MAY be supported in a single 
-        command by including both the verified trademark information and the
-        information related to the registrant's acceptance of the Claims Notice. The 
-        "custom" launch phase SHOULD be used when using a mix of the create forms.
-        
-</p>
-<p>The following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension, with using a mix of 
-            the  <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> 
-            and the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> by 
-            including both a mark and a notice:
-</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       type="application"&gt;
-        &lt;launch:phase name="non-tmch-sunrise"&gt;custom&lt;/launch:phase&gt;
-        &lt;launch:codeMark&gt;
-          &lt;mark:mark
-            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
-            ...
-          &lt;/mark:mark&gt;
-        &lt;/launch:codeMark&gt;
-        &lt;launch:notice&gt;
-          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
-          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
-          &lt;/launch:notAfter&gt;
-          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
-          &lt;/launch:acceptedDate&gt;
-        &lt;/launch:notice&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
 <a name="sunriseCreateForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.1"></a><h3>3.3.1.&nbsp;
@@ -1553,7 +1502,7 @@ Claims Create Form</h3>
 </dd>
 <dt>&lt;launch:acceptedDate&gt;</dt>
 <dd>Contains the
-              date and time that the Claims Notice was displayed or accepted.
+              date and time that the Claims Notice was accepted.
 </dd>
 </dl></blockquote>
 </dd>
@@ -1649,15 +1598,71 @@ General Create Form</h3>
     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
   &lt;/command&gt;
 &lt;/epp&gt;</pre></div>
-<a name="createResponse"></a><br /><hr />
+<a name="mixedCreateForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.4"></a><h3>3.3.4.&nbsp;
+Mixed Create Form</h3>
+
+<p>The Mixed Create Form supports a mix of the create forms, where for example the 
+        <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> and the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> MAY be supported in a single 
+        command by including both the verified trademark information and the
+        information related to the registrant's acceptance of the Claims Notice. The server MAY support the Mixed Create Form. 
+        The "custom" launch phase SHOULD be used when using the Mixed Create Form.
+        
+</p>
+<p>The following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension, with using a mix of 
+            the  <a class='info' href='#sunriseCreateForm'>Sunrise Create Form<span> (</span><span class='info'>Sunrise Create Form</span><span>)</span></a> 
+            and the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> by 
+            including both a mark and a notice:
+</p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+  &lt;command&gt;
+    &lt;create&gt;
+      &lt;domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
+        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+        &lt;domain:authInfo&gt;
+          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+        &lt;/domain:authInfo&gt;
+      &lt;/domain:create&gt;
+    &lt;/create&gt;
+    &lt;extension&gt;
+      &lt;launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application"&gt;
+        &lt;launch:phase name="non-tmch-sunrise"&gt;custom&lt;/launch:phase&gt;
+        &lt;launch:codeMark&gt;
+          &lt;mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+            ...
+          &lt;/mark:mark&gt;
+        &lt;/launch:codeMark&gt;
+        &lt;launch:notice&gt;
+          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
+          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
+          &lt;/launch:notAfter&gt;
+          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
+          &lt;/launch:acceptedDate&gt;
+        &lt;/launch:notice&gt;
+      &lt;/launch:create&gt;
+    &lt;/extension&gt;
+    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+  &lt;/command&gt;
+&lt;/epp&gt;</pre></div>
+<a name="createResponse"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3.3.5"></a><h3>3.3.5.&nbsp;
 Create Response</h3>
 
 <p>If the create was successful, the server MAY reply with the
           &lt;launch:creData&gt; element along with the regular EPP
           &lt;resData&gt; to indicate the server generated <a class='info' href='#applicationID'>Application Identifier<span> (</span><span class='info'>Application Identifier</span><span>)</span></a>, when multiple
-          applications of a given domain name is supported; otherwise no
+          applications of a given domain name are supported; otherwise no
           extension is included with the regular EPP &lt;resData&gt;. The
           &lt;launch:creData&gt; element contains the following child
           elements:
@@ -2200,7 +2205,7 @@ Acknowledgements</h3>
 </p>
 <p>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
+      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -2412,6 +2417,22 @@ Change from 09 to 10</h3>
 </li>
 <li>Changed description of "allocated" and "rejected" statuses.
 </li>
+<li>Moved sentence on a synchronous &lt;domain:create&gt; command without the use of an intermediate application, then an Application Identifier MAY not be needed to the Application Identifier section.
+</li>
+<li>Restructured the Mark Validation Models section to include the "&lt;launch:codeMark&gt; element" sub-section, the "&lt;mark:mark&gt; element" sub-section, and the Digital Signature sub-section.
+</li>
+<li>Changed "Registries may" to "Registries MAY".
+</li>
+<li>Changed "extensed" to "extended" in "Availability Check Form" section.
+</li>
+<li>Broke the mix of create forms in the "EPP &lt;create&gt; Command" section to a fourth "Mixed Create Form" with its own sub-section.
+</li>
+<li>Removed "displayed or" from "displayed or accepted" in the &lt;launch:acceptedDate&gt; description.
+</li>
+<li>Replaced "given domain name is supported" with "given domain name are supported" in the "Create Response" section.
+</li>
+<li>Changed the reference of 2303 (object does not exist) in the "Security Considerations" section to 2201 (authorization error).
+</li>
 </ol>
         
 </li>
@@ -2459,8 +2480,7 @@ Security Considerations</h3>
 <p>As information contained within an application, or even the mere fact
       that an application exists may be confidential. Any attempt to operate
       on an application object by an unauthorized client MUST be rejected with
-      an EPP 2303 (object does not exist) or an appropriate auhorization
-      error. Server policy may allow &lt;info&gt; operation with filtered
+      an EPP 2201 (authorization error) return code. Server policy may allow &lt;info&gt; operation with filtered
       output by clients other than the sponsoring client, in which case the
       &lt;domain:infData&gt; and &lt;launch:infData&gt; response SHOULD be
       filtered to include only fields that are publicly accessible.

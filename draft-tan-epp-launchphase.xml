@@ -220,15 +220,18 @@
         correlation, all subsequent launch operations on the Launch Application
         MUST be qualified by the previously assigned application identifier
         using the &lt;launch:applicationID&gt; element.</t>
+        <t>If the &lt;domain:create&gt;
+        command processes a request synchronously without the use of an intermediate 
+        Launch Application, then an application identifier MAY not be needed.</t>
       </section>
 
       <section anchor="phases" title="Launch Phases">
         <t>The server MAY support multiple launch phases sequentially or
         simultaneously. The &lt;launch:phase&gt; element MUST be included by
         the client to define the target launch phase of the command.  
-        The server SHOULD validate the &lt;launch:phase&gt; element 
-        against the active phase of the server for a create command, 
-        and return an EPP error result code of 2004 if there is a mismatch.</t>
+        The server SHOULD validate the phase and MAY validate the sub-phase of the &lt;launch:phase&gt; element 
+        against the active phase and OPTIONAL sub-phase of the server on a create command, 
+        and return an EPP error result code of 2306 if there is a mismatch.</t>
 
         <t>The following launch phase values are defined: <list
             style="hanging">
@@ -320,10 +323,7 @@
         "allocated" status or an application or registration MAY skip the "pendingAllocation" status. 
         If the launch phase does
         not require validation of a request, an application or registration MAY immediately skip to
-        "pendingAllocation". If the &lt;domain:create&gt;
-        command processes a request synchronously without the use of an intermediate 
-        application, then an <xref target="applicationID">Application
-        Identifier</xref> MAY not be needed along with the application status.</t>
+        "pendingAllocation".</t>
 
         <section title="State Transition">
           <figure align="center" anchor="fsm">
@@ -576,9 +576,8 @@
           </figure>
            
         </section>
-      </section>
 
-      <section anchor="mark" title="Mark">
+      <section anchor="mark" title="&lt;mark:mark&gt; element">
         <t>A &lt;mark:mark&gt; element describes an applicant's prior right
         to a given domain name that is used with the "mark", "mark with code", and 
         the "signed mark" validation models.  The &lt;mark:mark&gt; element is defined 
@@ -613,6 +612,7 @@
         </section>
         
       </section>
+      </section>
       
     </section>
 
@@ -631,7 +631,7 @@
 
       <t>Operations on application objects are done via one or more of the
       existing EPP verbs defined in the <xref target="RFC5731">EPP domain name
-      mapping</xref>. Registries may choose to support a subset of the
+      mapping</xref>. Registries MAY choose to support a subset of the
       operations.</t>
 
       <section anchor="checkCommand" title="EPP &lt;check&gt; Command">
@@ -646,18 +646,14 @@
        if it receives a check form that is not supported.</t>  
        
        <section anchor="claimsCheckForm" title="Claims Check Form">
-        <t>The Claims Check Form defines additional elements to extend the EPP
-        &lt;check&gt; command and response to be used in conjunction with the
-        <xref target="RFC5731">EPP domain name mapping</xref>.  This form is the default form and MAY be 
-        explicitly identified by setting the &lt;launch:check&gt; "type" attribute to "claims".
-        </t>
         <t>
         The Claims Check Form defines 
         a new command called the Claims Check Command 
         that is used to determine whether or not there are any matching 
         trademarks, in the specified launch phase, for each domain name passed in the command.  
         The availability check information defined in the <xref target="RFC5731">EPP domain name
-      mapping</xref> MUST NOT be returned for the Claims Check Command.</t>  
+      mapping</xref> MUST NOT be returned for the Claims Check Command.  This form is the default form and MAY be 
+        explicitly identified by setting the &lt;launch:check&gt; "type" attribute to "claims".</t>  
         <t>Instead of 
         returning whether the domain name is available, the Claims Check Command will return whether 
         or not at least one matching trademark exists for the domain name.  
@@ -792,7 +788,7 @@
         can be provisioned within a repository.  Domain names may be made 
         available only in unique launch phases, whilst remaining unavailable 
         for concurrent launch phases.  In addition to the elements 
-        expressed in the &lt;domain:check&gt;, the command is extensed with 
+        expressed in the &lt;domain:check&gt;, the command is extended with 
         the &lt;launch:check&gt; element that contains the following child elements:</t>
         
           <t><list hangIndent="4" style="hanging">
@@ -997,10 +993,11 @@
       <!-- end INFO command -->
 
       <section anchor="createCommand" title="EPP &lt;create&gt; Command">
-        <t>There are three forms of the extension to the EPP &lt;create&gt;
+        <t>There are four forms of the extension to the EPP &lt;create&gt;
         command that include the <xref target="sunriseCreateForm">
             Sunrise Create Form</xref>, the <xref target="claimsCreateForm">Claims Create Form</xref>, 
-            and the <xref target="generalCreateForm">General Create Form</xref>.  
+            the <xref target="generalCreateForm">General Create Form</xref>, 
+            and the <xref target="mixedCreateForm">Mixed Create Form</xref>.  
         The form is dependent on the supported <xref target="phases">launch phases</xref> as defined below.  
         </t>
 
@@ -1019,7 +1016,8 @@
             <t hangText="claims">The EPP &lt;create&gt; command with the
             "claims" launch phase is used to pass the information associated 
             with the presentation and acceptance of the Claims Notice.  The 
-            <xref target="claimsCreateForm">Claims Create Form</xref> is used and the <xref target="generalCreateForm">
+            <xref target="claimsCreateForm">Claims Create Form</xref> is used 
+            and the <xref target="generalCreateForm">
             General Create Form</xref> MAY be used
             for the "claims" launch phase.</t>
 
@@ -1031,61 +1029,6 @@
             "custom" launch phase is undefined but the form supported is up to server
             policy.</t>
           </list></t>
-          
-        <t>A server MAY support a mix of the create forms, where for example the 
-        <xref target="sunriseCreateForm">Sunrise Create Form</xref> and the <xref target="claimsCreateForm">Claims Create Form</xref> MAY be supported in a single 
-        command by including both the verified trademark information and the
-        information related to the registrant's acceptance of the Claims Notice. The 
-        "custom" launch phase SHOULD be used when using a mix of the create forms.
-        </t>
-        <figure>
-            <preamble>The following is an example &lt;create&gt; domain command
-            using the &lt;launch:create&gt; extension, with using a mix of 
-            the  <xref target="sunriseCreateForm">Sunrise Create Form</xref> 
-            and the <xref target="claimsCreateForm">Claims Create Form</xref> by 
-            including both a mark and a notice:</preamble>
-
-            <artwork><![CDATA[
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-  <command>
-    <create>
-      <domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-        <domain:name>exampleone.tld</domain:name>
-        <domain:registrant>jd1234</domain:registrant>
-        <domain:contact type="admin">sh8013</domain:contact>
-        <domain:contact type="tech">sh8013</domain:contact>
-        <domain:authInfo>
-          <domain:pw>2fooBAR</domain:pw>
-        </domain:authInfo>
-      </domain:create>
-    </create>
-    <extension>
-      <launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       type="application">
-        <launch:phase name="non-tmch-sunrise">custom</launch:phase>
-        <launch:codeMark>
-          <mark:mark
-            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-            ...
-          </mark:mark>
-        </launch:codeMark>
-        <launch:notice>
-          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-          <launch:notAfter>2012-06-19T10:00:10.0Z
-          </launch:notAfter>
-          <launch:acceptedDate>2012-06-19T09:01:30.0Z
-          </launch:acceptedDate>
-        </launch:notice>
-      </launch:create>
-    </extension>
-    <clTRID>ABC-12345</clTRID>
-  </command>
-</epp>]]></artwork>
-          </figure>
-
 
         <section anchor="sunriseCreateForm" title="Sunrise Create Form">
           <t>The Sunrise Create Form of the extension to the <xref
@@ -1354,7 +1297,7 @@
           generated by the source of the Claims Notice information.</t>
                 <t hangText="&lt;launch:notAfter&gt;">Expiry of the claims notice.</t>
                 <t hangText="&lt;launch:acceptedDate&gt;">Contains the
-              date and time that the Claims Notice was displayed or accepted.</t>
+              date and time that the Claims Notice was accepted.</t>
               </list></t>
             </list></t>
 
@@ -1455,13 +1398,70 @@
           
         </section>
         
+        <section anchor="mixedCreateForm" title="Mixed Create Form">
+        <t>The Mixed Create Form supports a mix of the create forms, where for example the 
+        <xref target="sunriseCreateForm">Sunrise Create Form</xref> and the <xref target="claimsCreateForm">Claims Create Form</xref> MAY be supported in a single 
+        command by including both the verified trademark information and the
+        information related to the registrant's acceptance of the Claims Notice. The server MAY support the Mixed Create Form. 
+        The "custom" launch phase SHOULD be used when using the Mixed Create Form.
+        </t>
+        <figure>
+            <preamble>The following is an example &lt;create&gt; domain command
+            using the &lt;launch:create&gt; extension, with using a mix of 
+            the  <xref target="sunriseCreateForm">Sunrise Create Form</xref> 
+            and the <xref target="claimsCreateForm">Claims Create Form</xref> by 
+            including both a mark and a notice:</preamble>
+
+            <artwork><![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <create>
+      <domain:create
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>exampleone.tld</domain:name>
+        <domain:registrant>jd1234</domain:registrant>
+        <domain:contact type="admin">sh8013</domain:contact>
+        <domain:contact type="tech">sh8013</domain:contact>
+        <domain:authInfo>
+          <domain:pw>2fooBAR</domain:pw>
+        </domain:authInfo>
+      </domain:create>
+    </create>
+    <extension>
+      <launch:create
+       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+       type="application">
+        <launch:phase name="non-tmch-sunrise">custom</launch:phase>
+        <launch:codeMark>
+          <mark:mark
+            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+            ...
+          </mark:mark>
+        </launch:codeMark>
+        <launch:notice>
+          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+          <launch:notAfter>2012-06-19T10:00:10.0Z
+          </launch:notAfter>
+          <launch:acceptedDate>2012-06-19T09:01:30.0Z
+          </launch:acceptedDate>
+        </launch:notice>
+      </launch:create>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>]]></artwork>
+          </figure>
+       </section>
+        
+        
         <section anchor="createResponse" title="Create Response">
         
           <t>If the create was successful, the server MAY reply with the
           &lt;launch:creData&gt; element along with the regular EPP
           &lt;resData&gt; to indicate the server generated <xref
           target="applicationID">Application Identifier</xref>, when multiple
-          applications of a given domain name is supported; otherwise no
+          applications of a given domain name are supported; otherwise no
           extension is included with the regular EPP &lt;resData&gt;. The
           &lt;launch:creData&gt; element contains the following child
           elements:</t>
@@ -2006,7 +2006,7 @@ END]]></artwork>
       Jeff Eckhaus, and Will Shorter.</t>
       <t>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
+      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.</t>
     </section>
     
@@ -2110,8 +2110,14 @@ END]]></artwork>
              <t>Changed "extension to the domain name extension" to "extension to the domain name mapping".</t>
              <t>Changed use of 2004 return code to 2306 return code when phase passed mismatches active phase and sub-phase.</t>
              <t>Changed description of "allocated" and "rejected" statuses.</t>
-             
-             
+             <t>Moved sentence on a synchronous &lt;domain:create&gt; command without the use of an intermediate application, then an Application Identifier MAY not be needed to the Application Identifier section.</t>    
+             <t>Restructured the Mark Validation Models section to include the "&lt;launch:codeMark&gt; element" sub-section, the "&lt;mark:mark&gt; element" sub-section, and the Digital Signature sub-section.</t> 
+             <t>Changed "Registries may" to "Registries MAY".</t>
+             <t>Changed "extensed" to "extended" in "Availability Check Form" section.</t>
+             <t>Broke the mix of create forms in the "EPP &lt;create&gt; Command" section to a fourth "Mixed Create Form" with its own sub-section.</t>
+             <t>Removed "displayed or" from "displayed or accepted" in the &lt;launch:acceptedDate&gt; description.</t>
+             <t>Replaced "given domain name is supported" with "given domain name are supported" in the "Create Response" section.</t>
+             <t>Changed the reference of 2303 (object does not exist) in the "Security Considerations" section to 2201 (authorization error).</t>
           </list>
         </t>
       </list></t>
@@ -2151,8 +2157,7 @@ END]]></artwork>
       <t>As information contained within an application, or even the mere fact
       that an application exists may be confidential. Any attempt to operate
       on an application object by an unauthorized client MUST be rejected with
-      an EPP 2303 (object does not exist) or an appropriate auhorization
-      error. Server policy may allow &lt;info&gt; operation with filtered
+      an EPP 2201 (authorization error) return code. Server policy may allow &lt;info&gt; operation with filtered
       output by clients other than the sponsoring client, in which case the
       &lt;domain:infData&gt; and &lt;launch:infData&gt; response SHOULD be
       filtered to include only fields that are publicly accessible.</t>
