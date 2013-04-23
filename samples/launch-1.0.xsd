@@ -86,7 +86,7 @@ Import common element types.
   Definition for the sunrise code   
   -->
   <simpleType name="codeType">
-    <restriction base="base64Binary">
+    <restriction base="token">
       <minLength value="1"/>
     </restriction>
   </simpleType>
@@ -95,7 +95,7 @@ Import common element types.
   Definition for the notice identifier   
   -->
   <simpleType name="noticeIDType">
-    <restriction base="base64Binary">
+    <restriction base="token">
       <minLength value="1"/>
     </restriction>
   </simpleType>

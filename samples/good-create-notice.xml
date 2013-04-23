@@ -25,7 +25,7 @@
        launch-1.0.xsd">
         <launch:phase>claims</launch:phase>
         <launch:notice>
-          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+          <launch:noticeID>370d0b7c9223372036854775807</launch:noticeID>
           <launch:notAfter>2012-06-19T10:00:00.0Z</launch:notAfter>
           <launch:acceptedDate>2012-06-19T09:00:00.0Z</launch:acceptedDate>
         </launch:notice>

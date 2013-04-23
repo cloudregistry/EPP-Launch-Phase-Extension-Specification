@@ -4,14 +4,14 @@
 Internet Engineering Task Force                                   W. Tan
 Internet-Draft                                            Cloud Registry
 Intended status: Standards Track                                G. Brown
-Expires: October 19, 2013                                 CentralNic Ltd
+Expires: October 24, 2013                                 CentralNic Ltd
                                                                 J. Gould
                                                           VeriSign, Inc.
-                                                          April 17, 2013
+                                                          April 22, 2013
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
-                      draft-tan-epp-launchphase-09
+                      draft-tan-epp-launchphase-10
 
 Abstract
 
@@ -35,7 +35,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 19, 2013.
+   This Internet-Draft will expire on October 24, 2013.
 
 Copyright Notice
 
@@ -52,65 +52,13 @@ Copyright Notice
 
 
 
-Tan, et al.             Expires October 19, 2013                [Page 1]
+Tan, et al.             Expires October 24, 2013                [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires October 19, 2013                [Page 2]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 Table of Contents
@@ -156,7 +104,16 @@ Table of Contents
      6.7.  Change from 06 to 07 . . . . . . . . . . . . . . . . . . . 44
      6.8.  Change from 07 to 08 . . . . . . . . . . . . . . . . . . . 45
      6.9.  Change from 08 to 09 . . . . . . . . . . . . . . . . . . . 45
-   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 45
+     6.10. Change from 09 to 10 . . . . . . . . . . . . . . . . . . . 45
+
+
+
+Tan, et al.             Expires October 24, 2013                [Page 2]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
+   7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 46
    8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 46
    9.  Normative References . . . . . . . . . . . . . . . . . . . . . 46
    Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 47
@@ -164,7 +121,50 @@ Table of Contents
 
 
 
-Tan, et al.             Expires October 19, 2013                [Page 3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Tan, et al.             Expires October 24, 2013                [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -197,8 +197,8 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    Functional Specification [1] defines a registry interface for the
    Trademark Claims or "claims" launch phase that includes support for
    presenting a Trademark Claims Notice to the Registrant.  This
-   document proposes an extension to the domain name extension in order
-   to unambiguously manage the various launch phases known.
+   document proposes an extension to the domain name mapping in order to
+   unambiguously manage the various launch phases known.
 
 1.1.  Conventions Used in This Document
 
@@ -220,7 +220,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013                [Page 4]
+Tan, et al.             Expires October 24, 2013                [Page 4]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -276,7 +276,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013                [Page 5]
+Tan, et al.             Expires October 24, 2013                [Page 5]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -316,7 +316,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    status value.  The <launch:status> element is used to convey the
    launch status pertaining to the object, beyond what is specified in
    the object mapping.  A Launch Application or Launch Registration MUST
-   set the [RFC5731] pendingCreate status if a launch status is
+   set the [RFC5731] "pendingCreate" status if a launch status is
    supported and the launch status is not one of the final statuses,
    including the "allocated" and "rejected" statuses.
 
@@ -332,7 +332,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013                [Page 6]
+Tan, et al.             Expires October 24, 2013                [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -344,11 +344,12 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    pendingAllocation:  The allocation of the application or registration
       is pending based on the results of some out-of-band process (for
       example, an auction).
-   allocated:  One of two possible end states of an application or
-      registration object; the object corresponding to the application
-      or registration has been provisioned.
-   rejected:  The other possible end state; the application or
-      registration object was not provisioned.
+   allocated:  The object corresponding to the application or
+      registration has been provisioned.  Is a possible end state of an
+      application or registration object.
+   rejected:  The application or registration object was not
+      provisioned.  Is a possible end state of an application or
+      registration object.
    custom:  A custom status that is defined using the "name" attribute.
 
    Each status value MAY be accompanied by a string of human-readable
@@ -387,8 +388,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-Tan, et al.             Expires October 19, 2013                [Page 7]
+Tan, et al.             Expires October 24, 2013                [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -444,7 +444,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013                [Page 8]
+Tan, et al.             Expires October 24, 2013                [Page 8]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -500,7 +500,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013                [Page 9]
+Tan, et al.             Expires October 24, 2013                [Page 9]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -556,7 +556,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 10]
+Tan, et al.             Expires October 24, 2013               [Page 10]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -612,7 +612,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 11]
+Tan, et al.             Expires October 24, 2013               [Page 11]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -668,7 +668,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 12]
+Tan, et al.             Expires October 24, 2013               [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -724,7 +724,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 13]
+Tan, et al.             Expires October 24, 2013               [Page 13]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -780,7 +780,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 14]
+Tan, et al.             Expires October 24, 2013               [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -836,7 +836,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 15]
+Tan, et al.             Expires October 24, 2013               [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -892,7 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 16]
+Tan, et al.             Expires October 24, 2013               [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -948,7 +948,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 17]
+Tan, et al.             Expires October 24, 2013               [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1004,7 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 18]
+Tan, et al.             Expires October 24, 2013               [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1060,7 +1060,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 19]
+Tan, et al.             Expires October 24, 2013               [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1116,7 +1116,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 20]
+Tan, et al.             Expires October 24, 2013               [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1172,7 +1172,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 21]
+Tan, et al.             Expires October 24, 2013               [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1228,7 +1228,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 22]
+Tan, et al.             Expires October 24, 2013               [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1284,7 +1284,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 23]
+Tan, et al.             Expires October 24, 2013               [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1340,7 +1340,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 24]
+Tan, et al.             Expires October 24, 2013               [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1396,7 +1396,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 25]
+Tan, et al.             Expires October 24, 2013               [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1452,7 +1452,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 26]
+Tan, et al.             Expires October 24, 2013               [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1508,7 +1508,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 27]
+Tan, et al.             Expires October 24, 2013               [Page 27]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1564,7 +1564,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 28]
+Tan, et al.             Expires October 24, 2013               [Page 28]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1620,7 +1620,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 29]
+Tan, et al.             Expires October 24, 2013               [Page 29]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1676,7 +1676,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 30]
+Tan, et al.             Expires October 24, 2013               [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1732,7 +1732,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 31]
+Tan, et al.             Expires October 24, 2013               [Page 31]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1788,7 +1788,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 32]
+Tan, et al.             Expires October 24, 2013               [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1844,7 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 33]
+Tan, et al.             Expires October 24, 2013               [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1900,7 +1900,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 34]
+Tan, et al.             Expires October 24, 2013               [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1956,7 +1956,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 35]
+Tan, et al.             Expires October 24, 2013               [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2012,7 +2012,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 36]
+Tan, et al.             Expires October 24, 2013               [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2068,7 +2068,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 37]
+Tan, et al.             Expires October 24, 2013               [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2112,7 +2112,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
      Definition for the sunrise code
      -->
      <simpleType name="codeType">
-       <restriction base="base64Binary">
+       <restriction base="token">
          <minLength value="1"/>
        </restriction>
      </simpleType>
@@ -2124,12 +2124,12 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 38]
+Tan, et al.             Expires October 24, 2013               [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
-       <restriction base="base64Binary">
+       <restriction base="token">
          <minLength value="1"/>
        </restriction>
      </simpleType>
@@ -2180,7 +2180,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 39]
+Tan, et al.             Expires October 24, 2013               [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2236,7 +2236,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 40]
+Tan, et al.             Expires October 24, 2013               [Page 40]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2292,7 +2292,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 41]
+Tan, et al.             Expires October 24, 2013               [Page 41]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2348,7 +2348,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 42]
+Tan, et al.             Expires October 24, 2013               [Page 42]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2404,7 +2404,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 43]
+Tan, et al.             Expires October 24, 2013               [Page 43]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2460,7 +2460,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Tan, et al.             Expires October 19, 2013               [Page 44]
+Tan, et al.             Expires October 24, 2013               [Page 44]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2505,6 +2505,28 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
        The availability check form was based on the text in
        draft-rbp-application-epp-mapping.
 
+6.10.  Change from 09 to 10
+
+   1.  Changed noticeIDType from base64Binary to be compatible with
+       draft-lozano-tmch-func-spec-05.
+   2.  Changed codeType from base64Binary to token to be more generic.
+   3.  Updated based on feedback from Alexander Mayrhofer, which
+       include:
+
+
+
+
+Tan, et al.             Expires October 24, 2013               [Page 45]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
+       1.  Changed "extension to the domain name extension" to
+           "extension to the domain name mapping".
+       2.  Changed use of 2004 return code to 2306 return code when
+           phase passed mismatches active phase and sub-phase.
+       3.  Changed description of "allocated" and "rejected" statuses.
+
 
 7.  IANA Considerations
 
@@ -2513,13 +2535,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    assignments have been registered by the IANA.
 
    Registration request for the Launch namespace:
-
-
-
-Tan, et al.             Expires October 19, 2013               [Page 45]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
-
 
       URI: urn:ietf:params:xml:ns:launch-1.0
       Registrant Contact: See the "Author's Address" section of this
@@ -2554,6 +2569,14 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+
+
+
+Tan, et al.             Expires October 24, 2013               [Page 46]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
               January 2004.
 
    [RFC5730]  Hollenbeck, S., "Extensible Provisioning Protocol (EPP)",
@@ -2566,15 +2589,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
               Lozano, G., "Mark and Signed Mark Objects Mapping".
 
    [1]  <http://tools.ietf.org/html/draft-lozano-tmch-func-spec>
-
-
-
-
-
-
-Tan, et al.             Expires October 19, 2013               [Page 46]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 Authors' Addresses
@@ -2614,19 +2628,5 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tan, et al.             Expires October 19, 2013               [Page 47]
+Tan, et al.             Expires October 24, 2013               [Page 47]
 

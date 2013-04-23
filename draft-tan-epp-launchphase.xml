@@ -38,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-09" ipr="trust200902">
+<rfc category="std" docName="draft-tan-epp-launchphase-10" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="17" month="April" year="2013"/>
+    <date day="22" month="April" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -170,7 +170,7 @@
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
-      extension in order to unambiguously manage the various launch phases
+      mapping in order to unambiguously manage the various launch phases
       known.</t>
 
       <section title="Conventions Used in This Document">
@@ -272,7 +272,7 @@
       <section anchor="statuses" title="Status Values">
         <t>A Launch Application or Launch Registration object MAY have a launch status value. The
         &lt;launch:status&gt; element is used to convey the launch status pertaining to
-        the object, beyond what is specified in the object mapping.  A Launch Application or Launch Registration MUST set the <xref target="RFC5731"/> pendingCreate status if 
+        the object, beyond what is specified in the object mapping.  A Launch Application or Launch Registration MUST set the <xref target="RFC5731"/> "pendingCreate" status if 
         a launch status is supported and the launch status is not one of the final statuses, including the "allocated" and "rejected" statuses.</t>  
 
         <t>The following status values are defined using the 
@@ -291,12 +291,13 @@
             is pending based on the results of some out-of-band process (for example,
             an auction).</t>
 
-            <t hangText="allocated:">One of two possible end states of an
-            application or registration object; the object corresponding to the application or registration 
-            has been provisioned.</t>
+            <t hangText="allocated:">The object corresponding to the application or registration 
+            has been provisioned.  Is a possible end state of an
+            application or registration object.</t>
 
-            <t hangText="rejected:">The other possible end state; the application or registration object
-            was not provisioned.</t>
+            <t hangText="rejected:">The application or registration object
+            was not provisioned.  Is a possible end state of an
+            application or registration object.</t>
 
             <t hangText="custom:">A custom status that is defined using the 
             "name" attribute.</t>
@@ -1803,7 +1804,7 @@ Import common element types.
   Definition for the sunrise code   
   -->
   <simpleType name="codeType">
-    <restriction base="base64Binary">
+    <restriction base="token">
       <minLength value="1"/>
     </restriction>
   </simpleType>
@@ -1812,7 +1813,7 @@ Import common element types.
   Definition for the notice identifier   
   -->
   <simpleType name="noticeIDType">
-    <restriction base="base64Binary">
+    <restriction base="token">
       <minLength value="1"/>
     </restriction>
   </simpleType>
@@ -2098,6 +2099,21 @@ END]]></artwork>
         <t>Added support for a mixed create model (Sunrise Create Model and Claims Create Model), where a trademark (encoded signed mark, etc.) and notice can be passed, based on a request from James Mitchell.</t>
         <t>Added text for the handling of the overlapping "claims" and "landrush" launch phases.</t>
         <t>Added support for two check forms (claims check form and availability check form) based on a request from James Mitchell.  The availability check form was based on the text in draft-rbp-application-epp-mapping.</t>
+      </list></t>
+    </section>
+    <section title="Change from 09 to 10" anchor="change-09-to-10">
+      <t><list style="numbers">
+        <t>Changed noticeIDType from base64Binary to be compatible with draft-lozano-tmch-func-spec-05.</t>
+        <t>Changed codeType from base64Binary to token to be more generic.</t>
+        <t>Updated based on feedback from Alexander Mayrhofer, which include:
+          <list>
+             <t>Changed "extension to the domain name extension" to "extension to the domain name mapping".</t>
+             <t>Changed use of 2004 return code to 2306 return code when phase passed mismatches active phase and sub-phase.</t>
+             <t>Changed description of "allocated" and "rejected" statuses.</t>
+             
+             
+          </list>
+        </t>
       </list></t>
     </section>
    </section>
