@@ -54,6 +54,28 @@
 
     <!-- Another author who claims to be an editor -->
 
+    <author fullname="James Gould" initials="J.G" surname="Gould">
+      <organization>VeriSign, Inc.</organization>
+
+      <address>
+        <postal>
+          <street>12061 Bluemont Way</street>
+
+          <city>Reston</city>
+
+          <region>VA</region>
+
+          <code>20190</code>
+
+          <country>US</country>
+        </postal>
+
+        <email>jgould@verisign.com</email>
+
+        <uri>http://www.verisigninc.com</uri>
+      </address>
+    </author>
+
     <author fullname="Wil Tan" initials="W.T." surname="Tan">
       <organization>Cloud Registry</organization>
 
@@ -104,29 +126,7 @@
       </address>
     </author>
 
-    <author fullname="James Gould" initials="J.G" surname="Gould">
-      <organization>VeriSign, Inc.</organization>
-
-      <address>
-        <postal>
-          <street>12061 Bluemont Way</street>
-
-          <city>Reston</city>
-
-          <region>VA</region>
-
-          <code>20190</code>
-
-          <country>US</country>
-        </postal>
-
-        <email>jgould@verisign.com</email>
-
-        <uri>http://www.verisigninc.com</uri>
-      </address>
-    </author>
-
-    <date day="22" month="April" year="2013"/>
+    <date day="23" month="April" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
