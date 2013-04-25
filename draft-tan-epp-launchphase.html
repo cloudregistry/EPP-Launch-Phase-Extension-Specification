@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">VeriSign, Inc.</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">W. Tan</td></tr>
-<tr><td class="header">Expires: October 25, 2013</td><td class="header">Cloud Registry</td></tr>
+<tr><td class="header">Expires: October 27, 2013</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">G. Brown</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">April 23, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 25, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-10</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on October 25, 2013.</p>
+This Internet-Draft will expire on October 27, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -538,12 +538,12 @@ State Transition</h3>
                            v                       |
                  +-------------------+             |
                  |                   |             |
-                 | pendingAllocation |             |
+                 | pendingAllocation |&lt;------------+
                  |                   |             |
                  +-------------------+             |
-                           |                       |
-                           |                       |
-                           +-----------------------+
+                           |     |                 |
+                           |     |                 |
+                           |     +----------------&gt;+
                            |                       |
                            |                       |
                            v                       v
@@ -2432,6 +2432,8 @@ Change from 09 to 10</h3>
 <li>Replaced "given domain name is supported" with "given domain name are supported" in the "Create Response" section.
 </li>
 <li>Changed the reference of 2303 (object does not exist) in the "Security Considerations" section to 2201 (authorization error).
+</li>
+<li>Added arrow from "invalid" status to "pendingAllocation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.
 </li>
 </ol>
         
