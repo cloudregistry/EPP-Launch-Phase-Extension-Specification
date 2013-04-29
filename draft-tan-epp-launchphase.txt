@@ -4,10 +4,10 @@
 Internet Engineering Task Force                                 J. Gould
 Internet-Draft                                            VeriSign, Inc.
 Intended status: Standards Track                                  W. Tan
-Expires: October 28, 2013                                 Cloud Registry
+Expires: October 31, 2013                                 Cloud Registry
                                                                 G. Brown
                                                           CentralNic Ltd
-                                                          April 26, 2013
+                                                          April 29, 2013
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
@@ -35,7 +35,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 28, 2013.
+   This Internet-Draft will expire on October 31, 2013.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Gould, et al.           Expires October 28, 2013                [Page 1]
+Gould, et al.           Expires October 31, 2013                [Page 1]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Gould, et al.           Expires October 28, 2013                [Page 2]
+Gould, et al.           Expires October 31, 2013                [Page 2]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -164,7 +164,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013                [Page 3]
+Gould, et al.           Expires October 31, 2013                [Page 3]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -211,19 +211,24 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    character case presented in order to develop a conforming
    implementation.
 
+   In examples, "C:" represents lines sent by a protocol client and "S:"
+   represents lines returned by a protocol server.  Indentation and
+   white space in examples are provided only to illustrate element
+   relationships and are not a REQUIRED feature of this protocol.
+
    "launch-1.0" is used as an abbreviation for
+
+
+
+Gould, et al.           Expires October 31, 2013                [Page 4]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
    "urn:ietf:params:xml:ns:launch-1.0".  The XML namespace prefix
    "launch" is used, but implementations MUST NOT depend on it and
    instead employ a proper namespace-aware XML parser and serializer to
    interpret and output the XML documents.
-
-
-
-
-Gould, et al.           Expires October 28, 2013                [Page 4]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
-
 
    "signedMark-1.0" is used as an abbreviation for
    "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in
@@ -268,18 +273,18 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    The server MAY support multiple launch phases sequentially or
    simultaneously.  The <launch:phase> element MUST be included by the
    client to define the target launch phase of the command.  The server
+
+
+
+Gould, et al.           Expires October 31, 2013                [Page 5]
+
+Internet-Draft        Launch Phase Mapping for EPP            April 2013
+
+
    SHOULD validate the phase and MAY validate the sub-phase of the
    <launch:phase> element against the active phase and OPTIONAL sub-
    phase of the server on a create command, and return an EPP error
    result code of 2306 if there is a mismatch.
-
-
-
-
-Gould, et al.           Expires October 28, 2013                [Page 5]
-
-Internet-Draft        Launch Phase Mapping for EPP            April 2013
-
 
    The following launch phase values are defined:
    sunrise  The phase during which trademark holders can submit
@@ -323,27 +328,22 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
    The following status values are defined using the required "s"
    attribute:
-   pendingValidation:  The initial state of a newly-created application
-      or registration object.  The application or registration requires
-      validation, but the validation process has not yet completed.
 
 
 
 
-
-
-Gould, et al.           Expires October 28, 2013                [Page 6]
+Gould, et al.           Expires October 31, 2013                [Page 6]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
+   pendingValidation:  The initial state of a newly-created application
+      or registration object.  The application or registration requires
+      validation, but the validation process has not yet completed.
    validated:  The application or registration meets relevant registry
       rules.
    invalid:  The application or registration does not validate according
-      to registry rules.  Server policies permitting, it may transition
-      back into "pendingValidation" for revalidation, after
-      modifications are made to ostensibly correct attributes that
-      caused the validation failure.
+      to registry rules.
    pendingAllocation:  The allocation of the application or registration
       is pending based on the results of some out-of-band process (for
       example, an auction).
@@ -388,7 +388,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013                [Page 7]
+Gould, et al.           Expires October 31, 2013                [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -396,43 +396,44 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 2.3.1.  State Transition
 
 
-                      | request
-                      |
-                      |     +--------------------------+
-                      |     |                          |
-                      v     v                          |
-            +-------------------+                      |
-            |                   |                      |
-            | pendingValidation +--------------+       |
-            |                   |              |       |
-            +---------+---------+              |       |
-                      |                        |       |
-                      |                        |       |
-                      v                        v       |
-                +-----------+             +---------+  |
-                |           |             |         |  |
-                | validated |             | invalid +--+
-                |           |             |         |
-                +-----+-----+             +----+----+
-                      |                        |
-                      |                        |
-                      v                        |
-            +-------------------+              |
-            |                   |              |
-            | pendingAllocation +-----------+  |
-            |                   |           |  |
-            +---------+---------+           |  |
-                      |                     |  |
-                      |                     |  |
-                      |                     |  |
-                      |                     |  |
-                      |                     |  |
-                      v                     v  v
-                 +---------+             +--------+
-                /           \           /          \
-                | allocated |           | rejected |
-                \           /           \          /
-                 +---------+             +--------+
+                                          | request
+                                          |
+                                          v
+                                +-------------------+
+                                |                   |
+                                | pendingValidation |
+                                |                   |
+                                +---------+---------+
+                                          |
+                                          |
+                              +-----------+-----------+
+                              |                       |
+                              |                       |
+                              v                       v
+                        +-----------+            +---------+
+                        |           |            |         |
+                        | validated |            | invalid |
+                        |           |            |         |
+                        +-----+-----+            +--+--+---+
+                              |                     |  |
+                              |                     |  |
+                              v                     |  |
+                    +-------------------+           |  |
+                    |                   |           |  |
+                    | pendingAllocation |<----------+  |
+                    |                   |              |
+                    +-------------------+              |
+                              |     |                  |
+                              |     |                  |
+                              |     +---------------+  |
+                              |                     |  |
+                              |                     |  |
+                              v                     v  v
+                         +---------+             +--------+
+                        /           \           /          \
+                        | allocated |           | rejected |
+                        \           /           \          /
+                         +---------+             +--------+
 
 
                                  Figure 1
@@ -443,8 +444,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-Gould, et al.           Expires October 28, 2013                [Page 8]
+Gould, et al.           Expires October 31, 2013                [Page 8]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -500,7 +500,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013                [Page 9]
+Gould, et al.           Expires October 31, 2013                [Page 9]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -508,37 +508,37 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    The following is an example poll message for a Launch Application
    that has transitioned to the "pendingAllocation" state.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1301">
-         <msg>Command completed successfully; ack to dequeue</msg>
-       </result>
-       <msgQ count="5" id="12345">
-         <qDate>2013-04-04T22:01:00.0Z</qDate>
-         <msg>Application pendingAllocation.</msg>
-       </msgQ>
-       <resData>
-         <domain:infData
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           ...
-         </domain:infData>
-       </resData>
-       <extension>
-         <launch:infData
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-             <launch:applicationID>abc123</launch:applicationID>
-             <launch:status s="pendingAllocation"/>
-         </launch:infData>
-       </extension>
-       <trID>
-         <clTRID>ABC-12345</clTRID>
-         <svTRID>54322-XYZ</svTRID>
-       </trID>
-     </response>
-   </epp>
+   S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   S:  <response>
+   S:    <result code="1301">
+   S:      <msg>Command completed successfully; ack to dequeue</msg>
+   S:    </result>
+   S:    <msgQ count="5" id="12345">
+   S:      <qDate>2013-04-04T22:01:00.0Z</qDate>
+   S:      <msg>Application pendingAllocation.</msg>
+   S:    </msgQ>
+   S:    <resData>
+   S:      <domain:infData
+   S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   S:        <domain:name>example.tld</domain:name>
+   S:        ...
+   S:      </domain:infData>
+   S:    </resData>
+   S:    <extension>
+   S:      <launch:infData
+   S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   S:        <launch:phase>sunrise</launch:phase>
+   S:          <launch:applicationID>abc123</launch:applicationID>
+   S:          <launch:status s="pendingAllocation"/>
+   S:      </launch:infData>
+   S:    </extension>
+   S:    <trID>
+   S:      <clTRID>ABC-12345</clTRID>
+   S:      <svTRID>54322-XYZ</svTRID>
+   S:    </trID>
+   S:  </response>
+   S:</epp>
 
 
 
@@ -556,7 +556,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 10]
+Gould, et al.           Expires October 31, 2013               [Page 10]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -564,41 +564,41 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    The following is an example <domain:panData> poll message for an
    "allocated" Launch Application.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1301">
-         <msg>Command completed successfully; ack to dequeue</msg>
-       </result>
-       <msgQ count="5" id="12345">
-         <qDate>2013-04-04T22:01:00.0Z</qDate>
-         <msg>Application successfully allocated.</msg>
-       </msgQ>
-       <resData>
-         <domain:panData
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name paResult="1">example.tld</domain:name>
-           <domain:paTRID>
-             <clTRID>ABC-12345</clTRID>
-             <svTRID>54321-XYZ</svTRID>
-           </domain:paTRID>
-           <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
-         </domain:panData>
-       </resData>
-       <extension>
-         <launch:infData
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-             <launch:applicationID>abc123</launch:applicationID>
-             <launch:status s="allocated"/>
-         </launch:infData>
-       </extension>
-       <trID>
-         <clTRID>BCD-23456</clTRID>
-         <svTRID>65432-WXY</svTRID>
-       </trID>
-     </response>
-   </epp>
+   S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   S:  <response>
+   S:    <result code="1301">
+   S:      <msg>Command completed successfully; ack to dequeue</msg>
+   S:    </result>
+   S:    <msgQ count="5" id="12345">
+   S:      <qDate>2013-04-04T22:01:00.0Z</qDate>
+   S:      <msg>Application successfully allocated.</msg>
+   S:    </msgQ>
+   S:    <resData>
+   S:      <domain:panData
+   S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   S:        <domain:name paResult="1">example.tld</domain:name>
+   S:        <domain:paTRID>
+   S:          <clTRID>ABC-12345</clTRID>
+   S:          <svTRID>54321-XYZ</svTRID>
+   S:        </domain:paTRID>
+   S:        <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
+   S:      </domain:panData>
+   S:    </resData>
+   S:    <extension>
+   S:      <launch:infData
+   S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   S:        <launch:phase>sunrise</launch:phase>
+   S:          <launch:applicationID>abc123</launch:applicationID>
+   S:          <launch:status s="allocated"/>
+   S:      </launch:infData>
+   S:    </extension>
+   S:    <trID>
+   S:      <clTRID>BCD-23456</clTRID>
+   S:      <svTRID>65432-WXY</svTRID>
+   S:    </trID>
+   S:  </response>
+   S:</epp>
 
 
 
@@ -612,7 +612,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 11]
+Gould, et al.           Expires October 31, 2013               [Page 11]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -620,40 +620,40 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    The following is an example <domain:panData> poll message for an
    "allocated" Launch Registration.
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1301">
-         <msg>Command completed successfully; ack to dequeue</msg>
-       </result>
-       <msgQ count="5" id="12345">
-         <qDate>2013-04-04T22:01:00.0Z</qDate>
-         <msg>Registration successfully allocated.</msg>
-       </msgQ>
-       <resData>
-         <domain:panData
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name paResult="1">example.tld</domain:name>
-           <domain:paTRID>
-             <clTRID>ABC-12345</clTRID>
-             <svTRID>54321-XYZ</svTRID>
-           </domain:paTRID>
-           <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
-         </domain:panData>
-       </resData>
-       <extension>
-         <launch:infData
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-             <launch:status s="allocated"/>
-         </launch:infData>
-       </extension>
-       <trID>
-         <clTRID>BCD-23456</clTRID>
-         <svTRID>65432-WXY</svTRID>
-       </trID>
-     </response>
-   </epp>
+   S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   S:  <response>
+   S:    <result code="1301">
+   S:      <msg>Command completed successfully; ack to dequeue</msg>
+   S:    </result>
+   S:    <msgQ count="5" id="12345">
+   S:      <qDate>2013-04-04T22:01:00.0Z</qDate>
+   S:      <msg>Registration successfully allocated.</msg>
+   S:    </msgQ>
+   S:    <resData>
+   S:      <domain:panData
+   S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   S:        <domain:name paResult="1">example.tld</domain:name>
+   S:        <domain:paTRID>
+   S:          <clTRID>ABC-12345</clTRID>
+   S:          <svTRID>54321-XYZ</svTRID>
+   S:        </domain:paTRID>
+   S:        <domain:paDate>2013-04-04T22:00:00.0Z</domain:paDate>
+   S:      </domain:panData>
+   S:    </resData>
+   S:    <extension>
+   S:      <launch:infData
+   S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   S:        <launch:phase>sunrise</launch:phase>
+   S:          <launch:status s="allocated"/>
+   S:      </launch:infData>
+   S:    </extension>
+   S:    <trID>
+   S:      <clTRID>BCD-23456</clTRID>
+   S:      <svTRID>65432-WXY</svTRID>
+   S:    </trID>
+   S:  </response>
+   S:</epp>
 
 2.5.  Mark Validation Models
 
@@ -668,7 +668,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 12]
+Gould, et al.           Expires October 31, 2013               [Page 12]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -724,7 +724,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 13]
+Gould, et al.           Expires October 31, 2013               [Page 13]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -780,7 +780,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 14]
+Gould, et al.           Expires October 31, 2013               [Page 14]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -836,7 +836,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 15]
+Gould, et al.           Expires October 31, 2013               [Page 15]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -848,26 +848,26 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    to determine if "example1.tld" and "example2.tld" have any matching
    trademarks during the "claims" launch phase:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-      <check>
-       <domain:check
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example1.tld</domain:name>
-         <domain:name>example2.tld</domain:name>
-       </domain:check>
-      </check>
-      <extension>
-       <launch:check
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-        type="claims">
-         <launch:phase>claims</launch:phase>
-       </launch:check>
-      </extension>
-      <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:   <check>
+   C:    <domain:check
+   C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:      <domain:name>example1.tld</domain:name>
+   C:      <domain:name>example2.tld</domain:name>
+   C:    </domain:check>
+   C:   </check>
+   C:   <extension>
+   C:    <launch:check
+   C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+   C:     type="claims">
+   C:      <launch:phase>claims</launch:phase>
+   C:    </launch:check>
+   C:   </extension>
+   C:   <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
    If the <check> command has been processed successfully, the EPP
    <resData> element MUST contain a child <launch:chkData> element that
@@ -892,7 +892,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 16]
+Gould, et al.           Expires October 31, 2013               [Page 16]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -909,31 +909,31 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    for the domain name example1.tld and matching trademarks are found
    for the domain name example2.tld for the "claims" launch phase:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1000">
-        <msg>Command completed successfully</msg>
-       </result>
-       <resData>
-        <launch:chkData
-         xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>claims</launch:phase>
-         <launch:cd>
-           <launch:name exists="0">example1.tld</launch:name>
-         </launch:cd>
-         <launch:cd>
-           <launch:name exists="1">example2.tld</launch:name>
-           <launch:claimKey>abc123</launch:claimKey>
-         </launch:cd>
-        </launch:chkData>
-       </resData>
-       <trID>
-        <clTRID>ABC-12345</clTRID>
-        <svTRID>54321-XYZ</svTRID>
-       </trID>
-     </response>
-   </epp>
+   S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   S:  <response>
+   S:    <result code="1000">
+   S:     <msg>Command completed successfully</msg>
+   S:    </result>
+   S:    <resData>
+   S:     <launch:chkData
+   S:      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   S:      <launch:phase>claims</launch:phase>
+   S:      <launch:cd>
+   S:        <launch:name exists="0">example1.tld</launch:name>
+   S:      </launch:cd>
+   S:      <launch:cd>
+   S:        <launch:name exists="1">example2.tld</launch:name>
+   S:        <launch:claimKey>abc123</launch:claimKey>
+   S:      </launch:cd>
+   S:     </launch:chkData>
+   S:    </resData>
+   S:    <trID>
+   S:     <clTRID>ABC-12345</clTRID>
+   S:     <svTRID>54321-XYZ</svTRID>
+   S:    </trID>
+   S:  </response>
+   S:</epp>
 
 3.1.2.  Availability Check Form
 
@@ -948,7 +948,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 17]
+Gould, et al.           Expires October 31, 2013               [Page 17]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -966,26 +966,26 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    "avail", to determine the availability of two domain names in the
    "idn-release" custom launch phase:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-      <check>
-       <domain:check
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example1.tld</domain:name>
-         <domain:name>example2.tld</domain:name>
-       </domain:check>
-      </check>
-      <extension>
-       <launch:check
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-        type="avail">
-         <launch:phase name="idn-release">custom</launch:phase>
-       </launch:check>
-      </extension>
-      <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:   <check>
+   C:    <domain:check
+   C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:      <domain:name>example1.tld</domain:name>
+   C:      <domain:name>example2.tld</domain:name>
+   C:    </domain:check>
+   C:   </check>
+   C:   <extension>
+   C:    <launch:check
+   C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+   C:     type="avail">
+   C:      <launch:phase name="idn-release">custom</launch:phase>
+   C:    </launch:check>
+   C:   </extension>
+   C:   <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
    The Availability Check Form does not define any extension to the
    response of an <check> domain command.  After processing the command,
@@ -1004,7 +1004,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 18]
+Gould, et al.           Expires October 31, 2013               [Page 18]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1027,26 +1027,26 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    retrieve information for the sunrise application for example.tld and
    application identifier "abc123":
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-      <info>
-       <domain:info
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.tld</domain:name>
-       </domain:info>
-      </info>
-      <extension>
-       <launch:info
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-          includeMark="true">
-         <launch:phase>sunrise</launch:phase>
-         <launch:applicationID>abc123</launch:applicationID>
-       </launch:info>
-      </extension>
-      <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:   <info>
+   C:    <domain:info
+   C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:      <domain:name>example.tld</domain:name>
+   C:    </domain:info>
+   C:   </info>
+   C:   <extension>
+   C:    <launch:info
+   C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+   C:       includeMark="true">
+   C:      <launch:phase>sunrise</launch:phase>
+   C:      <launch:applicationID>abc123</launch:applicationID>
+   C:    </launch:info>
+   C:   </extension>
+   C:   <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 
 
@@ -1060,7 +1060,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 19]
+Gould, et al.           Expires October 31, 2013               [Page 19]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1068,24 +1068,24 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    Example <info> domain command with the <launch:info> extension to
    retrieve information for the sunrise registration for example.tld:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-      <info>
-       <domain:info
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.tld</domain:name>
-       </domain:info>
-      </info>
-      <extension>
-       <launch:info
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>sunrise</launch:phase>
-       </launch:info>
-      </extension>
-      <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:   <info>
+   C:    <domain:info
+   C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:      <domain:name>example.tld</domain:name>
+   C:    </domain:info>
+   C:   </info>
+   C:   <extension>
+   C:    <launch:info
+   C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:      <launch:phase>sunrise</launch:phase>
+   C:    </launch:info>
+   C:   </extension>
+   C:   <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
    If the query was successful, the server replies with a <launch:
    infData> element along with the regular EPP <resData>.  The <launch:
@@ -1116,7 +1116,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 20]
+Gould, et al.           Expires October 31, 2013               [Page 20]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1124,47 +1124,47 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    Example <info> domain response using the <launch:infData> extension
    with the mark information:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1000">
-         <msg>Command completed successfully</msg>
-       </result>
-       <resData>
-         <domain:infData
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:roid>EXAMPLE1-REP</domain:roid>
-           <domain:status s="pendingCreate"/>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:clID>ClientX</domain:clID>
-           <domain:crID>ClientY</domain:crID>
-           <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:infData>
-       </resData>
-       <extension>
-         <launch:infData
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-             <launch:applicationID>abc123</launch:applicationID>
-             <launch:status s="pendingValidation"/>
-             <mark:mark
-               xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-                ...
-            </mark:mark>
-         </launch:infData>
-       </extension>
-       <trID>
-         <clTRID>ABC-12345</clTRID>
-         <svTRID>54321-XYZ</svTRID>
-       </trID>
-     </response>
-   </epp>
+   S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   S:  <response>
+   S:    <result code="1000">
+   S:      <msg>Command completed successfully</msg>
+   S:    </result>
+   S:    <resData>
+   S:      <domain:infData
+   S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   S:        <domain:name>example.tld</domain:name>
+   S:        <domain:roid>EXAMPLE1-REP</domain:roid>
+   S:        <domain:status s="pendingCreate"/>
+   S:        <domain:registrant>jd1234</domain:registrant>
+   S:        <domain:contact type="admin">sh8013</domain:contact>
+   S:        <domain:contact type="tech">sh8013</domain:contact>
+   S:        <domain:clID>ClientX</domain:clID>
+   S:        <domain:crID>ClientY</domain:crID>
+   S:        <domain:crDate>2012-04-03T22:00:00.0Z</domain:crDate>
+   S:        <domain:authInfo>
+   S:          <domain:pw>2fooBAR</domain:pw>
+   S:        </domain:authInfo>
+   S:      </domain:infData>
+   S:    </resData>
+   S:    <extension>
+   S:      <launch:infData
+   S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   S:        <launch:phase>sunrise</launch:phase>
+   S:          <launch:applicationID>abc123</launch:applicationID>
+   S:          <launch:status s="pendingValidation"/>
+   S:          <mark:mark
+   S:            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+   S:             ...
+   S:         </mark:mark>
+   S:      </launch:infData>
+   S:    </extension>
+   S:    <trID>
+   S:      <clTRID>ABC-12345</clTRID>
+   S:      <svTRID>54321-XYZ</svTRID>
+   S:    </trID>
+   S:  </response>
+   S:</epp>
 
 
 
@@ -1172,7 +1172,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 21]
+Gould, et al.           Expires October 31, 2013               [Page 21]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1228,7 +1228,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 22]
+Gould, et al.           Expires October 31, 2013               [Page 22]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1284,44 +1284,44 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 23]
+Gould, et al.           Expires October 31, 2013               [Page 23]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-           <launch:codeMark>
-             <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-           </launch:codeMark>
-           <launch:codeMark>
-             <launch:code>49FD46E6C4B45C55D4AD</launch:code>
-           </launch:codeMark>
-           <launch:codeMark>
-             <launch:code>49FD46E6C4B45C55D4AE</launch:code>
-           </launch:codeMark>
-        </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>example.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:        <launch:phase>sunrise</launch:phase>
+   C:        <launch:codeMark>
+   C:          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+   C:        </launch:codeMark>
+   C:        <launch:codeMark>
+   C:          <launch:code>49FD46E6C4B45C55D4AD</launch:code>
+   C:        </launch:codeMark>
+   C:        <launch:codeMark>
+   C:          <launch:code>49FD46E6C4B45C55D4AE</launch:code>
+   C:        </launch:codeMark>
+   C:     </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 
 
@@ -1340,7 +1340,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 24]
+Gould, et al.           Expires October 31, 2013               [Page 24]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1349,36 +1349,36 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    <launch:create> extension, following the "mark" validation model,
    with the mark information:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>exampleone.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-           <launch:codeMark>
-             <mark:mark
-               xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-               ...
-             </mark:mark>
-           </launch:codeMark>
-         </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>exampleone.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:        <launch:phase>sunrise</launch:phase>
+   C:        <launch:codeMark>
+   C:          <mark:mark
+   C:            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+   C:            ...
+   C:          </mark:mark>
+   C:        </launch:codeMark>
+   C:      </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 
 
@@ -1396,7 +1396,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 25]
+Gould, et al.           Expires October 31, 2013               [Page 25]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1405,37 +1405,37 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    <launch:create> extension, following the "code with mark" validation
    model, with a code and mark information:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-           <launch:codeMark>
-             <launch:code>49FD46E6C4B45C55D4AC</launch:code>
-             <mark:mark
-              xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-              ...
-             </mark:mark>
-           </launch:codeMark>
-         </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>example.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:        <launch:phase>sunrise</launch:phase>
+   C:        <launch:codeMark>
+   C:          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+   C:          <mark:mark
+   C:           xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+   C:           ...
+   C:          </mark:mark>
+   C:        </launch:codeMark>
+   C:      </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 
 
@@ -1452,7 +1452,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 26]
+Gould, et al.           Expires October 31, 2013               [Page 26]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1461,35 +1461,35 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    <launch:create> extension, following the "signed mark" validation
    model, with the signed mark information for a sunrise application:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>exampleone.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-          type="application">
-           <launch:phase>sunrise</launch:phase>
-           <smd:signedMark id="signedMark"
-            xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
-            ...
-           </smd:signedMark>
-         </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>exampleone.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+   C:       type="application">
+   C:        <launch:phase>sunrise</launch:phase>
+   C:        <smd:signedMark id="signedMark"
+   C:         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
+   C:         ...
+   C:        </smd:signedMark>
+   C:      </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 
 
@@ -1508,7 +1508,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 27]
+Gould, et al.           Expires October 31, 2013               [Page 27]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1517,34 +1517,34 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    <launch:create> extension, following the "signed mark" validation
    model, with the base64 encoded signed mark information:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>exampleone.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-           <smd:encodedSignedMark
-            xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
-            ...
-           </smd:encodedSignedMark>
-         </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>exampleone.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:        <launch:phase>sunrise</launch:phase>
+   C:        <smd:encodedSignedMark
+   C:         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0">
+   C:         ...
+   C:        </smd:encodedSignedMark>
+   C:      </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 3.3.2.  Claims Create Form
 
@@ -1564,7 +1564,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 28]
+Gould, et al.           Expires October 31, 2013               [Page 28]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1582,37 +1582,37 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    <launch:create> extension with the <launch:notice> information for
    the "claims" launch phase:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>claims</launch:phase>
-           <launch:notice>
-             <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-             <launch:notAfter>2012-06-19T10:00:10.0Z
-             </launch:notAfter>
-             <launch:acceptedDate>2012-06-19T09:01:30.0Z
-             </launch:acceptedDate>
-           </launch:notice>
-         </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>example.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:        <launch:phase>claims</launch:phase>
+   C:        <launch:notice>
+   C:          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+   C:          <launch:notAfter>2012-06-19T10:00:10.0Z
+   C:          </launch:notAfter>
+   C:          <launch:acceptedDate>2012-06-19T09:01:30.0Z
+   C:          </launch:acceptedDate>
+   C:        </launch:notice>
+   C:      </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 
 
@@ -1620,7 +1620,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 29]
+Gould, et al.           Expires October 31, 2013               [Page 29]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1645,38 +1645,38 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    The following is an example <create> domain command using the
    <launch:create> extension for a "landrush" launch phase application:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-          type="application">
-           <launch:phase>landrush</launch:phase>
-         </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>example.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+   C:       type="application">
+   C:        <launch:phase>landrush</launch:phase>
+   C:      </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 
 
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 30]
+Gould, et al.           Expires October 31, 2013               [Page 30]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1732,7 +1732,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 31]
+Gould, et al.           Expires October 31, 2013               [Page 31]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1742,44 +1742,44 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    Form (Section 3.3.1) and the Claims Create Form (Section 3.3.2) by
    including both a mark and a notice:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <create>
-         <domain:create
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>exampleone.tld</domain:name>
-           <domain:registrant>jd1234</domain:registrant>
-           <domain:contact type="admin">sh8013</domain:contact>
-           <domain:contact type="tech">sh8013</domain:contact>
-           <domain:authInfo>
-             <domain:pw>2fooBAR</domain:pw>
-           </domain:authInfo>
-         </domain:create>
-       </create>
-       <extension>
-         <launch:create
-          xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-          type="application">
-           <launch:phase name="non-tmch-sunrise">custom</launch:phase>
-           <launch:codeMark>
-             <mark:mark
-               xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
-               ...
-             </mark:mark>
-           </launch:codeMark>
-           <launch:notice>
-             <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
-             <launch:notAfter>2012-06-19T10:00:10.0Z
-             </launch:notAfter>
-             <launch:acceptedDate>2012-06-19T09:01:30.0Z
-             </launch:acceptedDate>
-           </launch:notice>
-         </launch:create>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <create>
+   C:      <domain:create
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>exampleone.tld</domain:name>
+   C:        <domain:registrant>jd1234</domain:registrant>
+   C:        <domain:contact type="admin">sh8013</domain:contact>
+   C:        <domain:contact type="tech">sh8013</domain:contact>
+   C:        <domain:authInfo>
+   C:          <domain:pw>2fooBAR</domain:pw>
+   C:        </domain:authInfo>
+   C:      </domain:create>
+   C:    </create>
+   C:    <extension>
+   C:      <launch:create
+   C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+   C:       type="application">
+   C:        <launch:phase name="non-tmch-sunrise">custom</launch:phase>
+   C:        <launch:codeMark>
+   C:          <mark:mark
+   C:            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
+   C:            ...
+   C:          </mark:mark>
+   C:        </launch:codeMark>
+   C:        <launch:notice>
+   C:          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+   C:          <launch:notAfter>2012-06-19T10:00:10.0Z
+   C:          </launch:notAfter>
+   C:          <launch:acceptedDate>2012-06-19T09:01:30.0Z
+   C:          </launch:acceptedDate>
+   C:        </launch:notice>
+   C:      </launch:create>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
 3.3.5.  Create Response
 
@@ -1788,7 +1788,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 32]
+Gould, et al.           Expires October 31, 2013               [Page 32]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1806,34 +1806,34 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    An example response when multiple overlapping applications are
    supported by the server:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <response>
-       <result code="1001">
-         <msg>Command completed successfully; action pending</msg>
-       </result>
-       <resData>
-         <domain:creData
-            xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-          <domain:name>example.tld</domain:name>
-          <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
-          <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
-         </domain:creData>
-       </resData>
-       <extension>
-         <launch:creData
-           xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-           <launch:phase>sunrise</launch:phase>
-           <launch:applicationID>2393-9323-E08C-03B1
-           </launch:applicationID>
-         </launch:creData>
-       </extension>
-       <trID>
-         <clTRID>ABC-12345</clTRID>
-         <svTRID>54321-XYZ</svTRID>
-       </trID>
-     </response>
-   </epp>
+   S:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   S:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   S:  <response>
+   S:    <result code="1001">
+   S:      <msg>Command completed successfully; action pending</msg>
+   S:    </result>
+   S:    <resData>
+   S:      <domain:creData
+   S:         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   S:       <domain:name>example.tld</domain:name>
+   S:       <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
+   S:       <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
+   S:      </domain:creData>
+   S:    </resData>
+   S:    <extension>
+   S:      <launch:creData
+   S:        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   S:        <launch:phase>sunrise</launch:phase>
+   S:        <launch:applicationID>2393-9323-E08C-03B1
+   S:        </launch:applicationID>
+   S:      </launch:creData>
+   S:    </extension>
+   S:    <trID>
+   S:      <clTRID>ABC-12345</clTRID>
+   S:      <svTRID>54321-XYZ</svTRID>
+   S:    </trID>
+   S:  </response>
+   S:</epp>
 
 3.4.  EPP <update> Command
 
@@ -1844,7 +1844,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 33]
+Gould, et al.           Expires October 31, 2013               [Page 33]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1866,41 +1866,41 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    update> extension to add and remove a name server of a sunrise
    application with the application identifier "abc123":
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-       <update>
-         <domain:update
-          xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-           <domain:name>example.tld</domain:name>
-           <domain:add>
-               <domain:ns>
-                 <domain:hostObj>ns2.example.tld</domain:hostObj>
-               </domain:ns>
-             </domain:add>
-             <domain:rem>
-               <domain:ns>
-                 <domain:hostObj>ns1.example.tld</domain:hostObj>
-               </domain:ns>
-             </domain:rem>
-         </domain:update>
-       </update>
-       <extension>
-       <launch:update
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>sunrise</launch:phase>
-         <launch:applicationID>abc123</launch:applicationID>
-       </launch:update>
-       </extension>
-       <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:    <update>
+   C:      <domain:update
+   C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:        <domain:name>example.tld</domain:name>
+   C:        <domain:add>
+   C:            <domain:ns>
+   C:              <domain:hostObj>ns2.example.tld</domain:hostObj>
+   C:            </domain:ns>
+   C:          </domain:add>
+   C:          <domain:rem>
+   C:            <domain:ns>
+   C:              <domain:hostObj>ns1.example.tld</domain:hostObj>
+   C:            </domain:ns>
+   C:          </domain:rem>
+   C:      </domain:update>
+   C:    </update>
+   C:    <extension>
+   C:    <launch:update
+   C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:      <launch:phase>sunrise</launch:phase>
+   C:      <launch:applicationID>abc123</launch:applicationID>
+   C:    </launch:update>
+   C:    </extension>
+   C:    <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
    This extension does not define any extension to the response of an
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 34]
+Gould, et al.           Expires October 31, 2013               [Page 34]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -1931,32 +1931,32 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    The following is an example <delete> domain command with the <launch:
    delete> extension:
 
-   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-   <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
-     <command>
-      <delete>
-       <domain:delete
-        xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
-         <domain:name>example.tld</domain:name>
-       </domain:delete>
-      </delete>
-      <extension>
-       <launch:delete
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
-         <launch:phase>sunrise</launch:phase>
-         <launch:applicationID>abc123</launch:applicationID>
-       </launch:delete>
-      </extension>
-      <clTRID>ABC-12345</clTRID>
-     </command>
-   </epp>
+   C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+   C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+   C:  <command>
+   C:   <delete>
+   C:    <domain:delete
+   C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+   C:      <domain:name>example.tld</domain:name>
+   C:    </domain:delete>
+   C:   </delete>
+   C:   <extension>
+   C:    <launch:delete
+   C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
+   C:      <launch:phase>sunrise</launch:phase>
+   C:      <launch:applicationID>abc123</launch:applicationID>
+   C:    </launch:delete>
+   C:   </extension>
+   C:   <clTRID>ABC-12345</clTRID>
+   C:  </command>
+   C:</epp>
 
    This extension does not define any extension to the response of a
    <delete> domain command.  After processing the command, the server
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 35]
+Gould, et al.           Expires October 31, 2013               [Page 35]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2012,7 +2012,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 36]
+Gould, et al.           Expires October 31, 2013               [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2068,7 +2068,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 37]
+Gould, et al.           Expires October 31, 2013               [Page 37]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2124,7 +2124,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 38]
+Gould, et al.           Expires October 31, 2013               [Page 38]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2180,7 +2180,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 39]
+Gould, et al.           Expires October 31, 2013               [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2236,7 +2236,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 40]
+Gould, et al.           Expires October 31, 2013               [Page 40]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2292,7 +2292,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 41]
+Gould, et al.           Expires October 31, 2013               [Page 41]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2348,7 +2348,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 42]
+Gould, et al.           Expires October 31, 2013               [Page 42]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2404,7 +2404,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 43]
+Gould, et al.           Expires October 31, 2013               [Page 43]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2460,7 +2460,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 44]
+Gould, et al.           Expires October 31, 2013               [Page 44]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2516,7 +2516,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 45]
+Gould, et al.           Expires October 31, 2013               [Page 45]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2554,9 +2554,11 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
        11.  Changed the reference of 2303 (object does not exist) in the
             "Security Considerations" section to 2201 (authorization
             error).
-       12.  Added arrow from "invalid" status to "pendingValidation"
+       12.  Added arrow from "invalid" status to "pendingAllocation"
             status and "pendingAllocation" status to "rejected" status
             in the State Transition Diagram.
+   4.  Added the "C:" and "S:" example prefixes and related text in the
+       "Conventions Used in This Document" section.
 
 
 7.  IANA Considerations
@@ -2570,9 +2572,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-
-Gould, et al.           Expires October 28, 2013               [Page 46]
+Gould, et al.           Expires October 31, 2013               [Page 46]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2628,7 +2628,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 47]
+Gould, et al.           Expires October 31, 2013               [Page 47]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
@@ -2684,5 +2684,5 @@ Authors' Addresses
 
 
 
-Gould, et al.           Expires October 28, 2013               [Page 48]
+Gould, et al.           Expires October 31, 2013               [Page 48]
 

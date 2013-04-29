@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">VeriSign, Inc.</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">W. Tan</td></tr>
-<tr><td class="header">Expires: October 28, 2013</td><td class="header">Cloud Registry</td></tr>
+<tr><td class="header">Expires: October 31, 2013</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">G. Brown</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">April 26, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 29, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-10</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on October 28, 2013.</p>
+This Internet-Draft will expire on October 31, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -338,6 +338,11 @@ Conventions Used in This Document</h3>
         character case presented in order to develop a conforming
         implementation.
 </p>
+<p>In examples, "C:" represents lines sent by a protocol client and "S:" represents lines returned by a protocol server.  
+        Indentation and white space in examples are provided only to illustrate element relationships 
+        and are not a REQUIRED feature of this protocol.        
+        
+</p>
 <p>"launch-1.0" is used as an abbreviation for
         "urn:ietf:params:xml:ns:launch-1.0". The XML namespace prefix "launch"
         is used, but implementations MUST NOT depend on it and instead employ
@@ -464,10 +469,7 @@ Status Values</h3>
 </dd>
 <dt>invalid:</dt>
 <dd>The application or registration does not validate according
-              to registry rules. Server policies permitting, it may transition back into "pendingValidation"
-              for revalidation, after modifications are made to ostensibly correct attributes that
-              caused the validation failure.
-            
+            to registry rules.
 </dd>
 <dt>pendingAllocation:</dt>
 <dd>The allocation of the application or registration 
@@ -517,43 +519,44 @@ State Transition</h3>
 <a name="fsm"></a>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 
-                   | request
-                   |
-                   |     +--------------------------+
-                   |     |                          |
-                   v     v                          |
-         +-------------------+                      |
-         |                   |                      |
-         | pendingValidation +--------------+       |
-         |                   |              |       |
-         +---------+---------+              |       |
-                   |                        |       |
-                   |                        |       |
-                   v                        v       |
-             +-----------+             +---------+  |
-             |           |             |         |  |
-             | validated |             | invalid +--+
-             |           |             |         |
-             +-----+-----+             +----+----+
-                   |                        |
-                   |                        |
-                   v                        |
-         +-------------------+              |
-         |                   |              |
-         | pendingAllocation +-----------+  |
-         |                   |           |  |
-         +---------+---------+           |  |
-                   |                     |  |
-                   |                     |  |
-                   |                     |  |
-                   |                     |  |
-                   |                     |  |
-                   v                     v  v
-              +---------+             +--------+
-             /           \           /          \
-             | allocated |           | rejected |
-             \           /           \          /
-              +---------+             +--------+           
+                                       | request
+                                       |
+                                       v
+                             +-------------------+
+                             |                   |
+                             | pendingValidation |
+                             |                   |
+                             +---------+---------+
+                                       |
+                                       |
+                           +-----------+-----------+
+                           |                       |
+                           |                       |
+                           v                       v
+                     +-----------+            +---------+
+                     |           |            |         |
+                     | validated |            | invalid |
+                     |           |            |         |
+                     +-----+-----+            +--+--+---+
+                           |                     |  |
+                           |                     |  |
+                           v                     |  |
+                 +-------------------+           |  |
+                 |                   |           |  |
+                 | pendingAllocation |&lt;----------+  |
+                 |                   |              |
+                 +-------------------+              |
+                           |     |                  |
+                           |     |                  |
+                           |     +---------------+  |
+                           |                     |  |
+                           |                     |  |
+                           v                     v  v
+                      +---------+             +--------+
+                     /           \           /          \
+                     | allocated |           | rejected |
+                     \           /           \          /
+                      +---------+             +--------+
 
 </pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;1&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
 
@@ -578,112 +581,112 @@ Poll Messaging</h3>
 <p>The following is an example poll message for a Launch Application 
         that has transitioned to the "pendingAllocation" state.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1301"&gt;
-      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;msgQ count="5" id="12345"&gt;
-      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
-      &lt;msg&gt;Application pendingAllocation.&lt;/msg&gt;
-    &lt;/msgQ&gt;
-    &lt;resData&gt;
-      &lt;domain:infData
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        ...
-      &lt;/domain:infData&gt;
-    &lt;/resData&gt;
-    &lt;extension&gt;
-      &lt;launch:infData
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="pendingAllocation"/&gt;
-      &lt;/launch:infData&gt;
-    &lt;/extension&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-      &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;</pre></div>
+S:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+S:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:  &lt;response&gt;
+S:    &lt;result code="1301"&gt;
+S:      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
+S:    &lt;/result&gt;
+S:    &lt;msgQ count="5" id="12345"&gt;
+S:      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
+S:      &lt;msg&gt;Application pendingAllocation.&lt;/msg&gt;
+S:    &lt;/msgQ&gt;
+S:    &lt;resData&gt;
+S:      &lt;domain:infData
+S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+S:        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+S:        ...
+S:      &lt;/domain:infData&gt;
+S:    &lt;/resData&gt;
+S:    &lt;extension&gt;
+S:      &lt;launch:infData
+S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+S:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+S:          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+S:          &lt;launch:status s="pendingAllocation"/&gt;
+S:      &lt;/launch:infData&gt;
+S:    &lt;/extension&gt;
+S:    &lt;trID&gt;
+S:      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:      &lt;svTRID&gt;54322-XYZ&lt;/svTRID&gt;
+S:    &lt;/trID&gt;
+S:  &lt;/response&gt;
+S:&lt;/epp&gt;</pre></div>
 <p>The following is an example &lt;domain:panData&gt; poll message for 
         an "allocated" Launch Application.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1301"&gt;
-      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;msgQ count="5" id="12345"&gt;
-      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
-      &lt;msg&gt;Application successfully allocated.&lt;/msg&gt;
-    &lt;/msgQ&gt;
-    &lt;resData&gt;
-      &lt;domain:panData
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name paResult="1"&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:paTRID&gt;
-          &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-          &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-        &lt;/domain:paTRID&gt;
-        &lt;domain:paDate&gt;2013-04-04T22:00:00.0Z&lt;/domain:paDate&gt;
-      &lt;/domain:panData&gt;
-    &lt;/resData&gt;
-    &lt;extension&gt;
-      &lt;launch:infData
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="allocated"/&gt;
-      &lt;/launch:infData&gt;
-    &lt;/extension&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;BCD-23456&lt;/clTRID&gt;
-      &lt;svTRID&gt;65432-WXY&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;</pre></div>
+S:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+S:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:  &lt;response&gt;
+S:    &lt;result code="1301"&gt;
+S:      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
+S:    &lt;/result&gt;
+S:    &lt;msgQ count="5" id="12345"&gt;
+S:      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
+S:      &lt;msg&gt;Application successfully allocated.&lt;/msg&gt;
+S:    &lt;/msgQ&gt;
+S:    &lt;resData&gt;
+S:      &lt;domain:panData
+S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+S:        &lt;domain:name paResult="1"&gt;example.tld&lt;/domain:name&gt;
+S:        &lt;domain:paTRID&gt;
+S:          &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:          &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+S:        &lt;/domain:paTRID&gt;
+S:        &lt;domain:paDate&gt;2013-04-04T22:00:00.0Z&lt;/domain:paDate&gt;
+S:      &lt;/domain:panData&gt;
+S:    &lt;/resData&gt;
+S:    &lt;extension&gt;
+S:      &lt;launch:infData
+S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+S:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+S:          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+S:          &lt;launch:status s="allocated"/&gt;
+S:      &lt;/launch:infData&gt;
+S:    &lt;/extension&gt;
+S:    &lt;trID&gt;
+S:      &lt;clTRID&gt;BCD-23456&lt;/clTRID&gt;
+S:      &lt;svTRID&gt;65432-WXY&lt;/svTRID&gt;
+S:    &lt;/trID&gt;
+S:  &lt;/response&gt;
+S:&lt;/epp&gt;</pre></div>
 <p>The following is an example &lt;domain:panData&gt; poll message for 
         an "allocated" Launch Registration.
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1301"&gt;
-      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;msgQ count="5" id="12345"&gt;
-      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
-      &lt;msg&gt;Registration successfully allocated.&lt;/msg&gt;
-    &lt;/msgQ&gt;
-    &lt;resData&gt;
-      &lt;domain:panData
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name paResult="1"&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:paTRID&gt;
-          &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-          &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-        &lt;/domain:paTRID&gt;
-        &lt;domain:paDate&gt;2013-04-04T22:00:00.0Z&lt;/domain:paDate&gt;
-      &lt;/domain:panData&gt;
-    &lt;/resData&gt;
-    &lt;extension&gt;
-      &lt;launch:infData
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:status s="allocated"/&gt;
-      &lt;/launch:infData&gt;
-    &lt;/extension&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;BCD-23456&lt;/clTRID&gt;
-      &lt;svTRID&gt;65432-WXY&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;</pre></div>
+S:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+S:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:  &lt;response&gt;
+S:    &lt;result code="1301"&gt;
+S:      &lt;msg&gt;Command completed successfully; ack to dequeue&lt;/msg&gt;
+S:    &lt;/result&gt;
+S:    &lt;msgQ count="5" id="12345"&gt;
+S:      &lt;qDate&gt;2013-04-04T22:01:00.0Z&lt;/qDate&gt;
+S:      &lt;msg&gt;Registration successfully allocated.&lt;/msg&gt;
+S:    &lt;/msgQ&gt;
+S:    &lt;resData&gt;
+S:      &lt;domain:panData
+S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+S:        &lt;domain:name paResult="1"&gt;example.tld&lt;/domain:name&gt;
+S:        &lt;domain:paTRID&gt;
+S:          &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:          &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+S:        &lt;/domain:paTRID&gt;
+S:        &lt;domain:paDate&gt;2013-04-04T22:00:00.0Z&lt;/domain:paDate&gt;
+S:      &lt;/domain:panData&gt;
+S:    &lt;/resData&gt;
+S:    &lt;extension&gt;
+S:      &lt;launch:infData
+S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+S:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+S:          &lt;launch:status s="allocated"/&gt;
+S:      &lt;/launch:infData&gt;
+S:    &lt;/extension&gt;
+S:    &lt;trID&gt;
+S:      &lt;clTRID&gt;BCD-23456&lt;/clTRID&gt;
+S:      &lt;svTRID&gt;65432-WXY&lt;/svTRID&gt;
+S:    &lt;/trID&gt;
+S:  &lt;/response&gt;
+S:&lt;/epp&gt;</pre></div>
 <a name="validationModels"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.5"></a><h3>2.5.&nbsp;
@@ -897,26 +900,26 @@ Claims Check Form</h3>
             determine if "example1.tld" and "example2.tld" have any 
             matching trademarks during the "claims" launch phase:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-   &lt;check&gt;
-    &lt;domain:check
-     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-      &lt;domain:name&gt;example1.tld&lt;/domain:name&gt;
-      &lt;domain:name&gt;example2.tld&lt;/domain:name&gt;
-    &lt;/domain:check&gt;
-   &lt;/check&gt;
-   &lt;extension&gt;
-    &lt;launch:check
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-     type="claims"&gt;
-      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
-    &lt;/launch:check&gt;
-   &lt;/extension&gt;
-   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:   &lt;check&gt;
+C:    &lt;domain:check
+C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:      &lt;domain:name&gt;example1.tld&lt;/domain:name&gt;
+C:      &lt;domain:name&gt;example2.tld&lt;/domain:name&gt;
+C:    &lt;/domain:check&gt;
+C:   &lt;/check&gt;
+C:   &lt;extension&gt;
+C:    &lt;launch:check
+C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+C:     type="claims"&gt;
+C:      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
+C:    &lt;/launch:check&gt;
+C:   &lt;/extension&gt;
+C:   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>If the &lt;check&gt; command has been processed successfully, the EPP 
           &lt;resData&gt; element MUST contain a child &lt;launch:chkData&gt; element 
           that identifies the launch namespace.  The &lt;launch:chkData&gt; element 
@@ -964,31 +967,31 @@ Claims Check Form</h3>
              trademarks are found for the domain name example2.tld for the 
              "claims" launch phase:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1000"&gt;
-     &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;resData&gt;
-     &lt;launch:chkData
-      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
-      &lt;launch:cd&gt;
-        &lt;launch:name exists="0"&gt;example1.tld&lt;/launch:name&gt;
-      &lt;/launch:cd&gt;
-      &lt;launch:cd&gt;
-        &lt;launch:name exists="1"&gt;example2.tld&lt;/launch:name&gt;
-        &lt;launch:claimKey&gt;abc123&lt;/launch:claimKey&gt;
-      &lt;/launch:cd&gt;
-     &lt;/launch:chkData&gt;
-    &lt;/resData&gt;
-    &lt;trID&gt;
-     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-     &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;</pre></div>
+S:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+S:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:  &lt;response&gt;
+S:    &lt;result code="1000"&gt;
+S:     &lt;msg&gt;Command completed successfully&lt;/msg&gt;
+S:    &lt;/result&gt;
+S:    &lt;resData&gt;
+S:     &lt;launch:chkData
+S:      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+S:      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
+S:      &lt;launch:cd&gt;
+S:        &lt;launch:name exists="0"&gt;example1.tld&lt;/launch:name&gt;
+S:      &lt;/launch:cd&gt;
+S:      &lt;launch:cd&gt;
+S:        &lt;launch:name exists="1"&gt;example2.tld&lt;/launch:name&gt;
+S:        &lt;launch:claimKey&gt;abc123&lt;/launch:claimKey&gt;
+S:      &lt;/launch:cd&gt;
+S:     &lt;/launch:chkData&gt;
+S:    &lt;/resData&gt;
+S:    &lt;trID&gt;
+S:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:     &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+S:    &lt;/trID&gt;
+S:  &lt;/response&gt;
+S:&lt;/epp&gt;</pre></div>
 <a name="availCheckForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.1.2"></a><h3>3.1.2.&nbsp;
@@ -1023,26 +1026,26 @@ Availability Check Form</h3>
             the availability of two domain names in the 
             "idn-release" custom launch phase:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-   &lt;check&gt;
-    &lt;domain:check
-     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-      &lt;domain:name&gt;example1.tld&lt;/domain:name&gt;
-      &lt;domain:name&gt;example2.tld&lt;/domain:name&gt;
-    &lt;/domain:check&gt;
-   &lt;/check&gt;
-   &lt;extension&gt;
-    &lt;launch:check
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-     type="avail"&gt;
-      &lt;launch:phase name="idn-release"&gt;custom&lt;/launch:phase&gt;
-    &lt;/launch:check&gt;
-   &lt;/extension&gt;
-   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:   &lt;check&gt;
+C:    &lt;domain:check
+C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:      &lt;domain:name&gt;example1.tld&lt;/domain:name&gt;
+C:      &lt;domain:name&gt;example2.tld&lt;/domain:name&gt;
+C:    &lt;/domain:check&gt;
+C:   &lt;/check&gt;
+C:   &lt;extension&gt;
+C:    &lt;launch:check
+C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+C:     type="avail"&gt;
+C:      &lt;launch:phase name="idn-release"&gt;custom&lt;/launch:phase&gt;
+C:    &lt;/launch:check&gt;
+C:   &lt;/extension&gt;
+C:   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>The Availability Check Form does not define any extension to the response of an
         &lt;check&gt; domain command. After processing the command, the
         server replies with a standard EPP response as defined in the <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731].
@@ -1084,48 +1087,48 @@ EPP &lt;info&gt; Command</h3>
             for the sunrise application for example.tld and application 
             identifier "abc123":
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-   &lt;info&gt;
-    &lt;domain:info
-     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-      &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-    &lt;/domain:info&gt;
-   &lt;/info&gt;
-   &lt;extension&gt;
-    &lt;launch:info
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       includeMark="true"&gt;
-      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-      &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-    &lt;/launch:info&gt;
-   &lt;/extension&gt;
-   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:   &lt;info&gt;
+C:    &lt;domain:info
+C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:      &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:    &lt;/domain:info&gt;
+C:   &lt;/info&gt;
+C:   &lt;extension&gt;
+C:    &lt;launch:info
+C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+C:       includeMark="true"&gt;
+C:      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:      &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+C:    &lt;/launch:info&gt;
+C:   &lt;/extension&gt;
+C:   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>Example &lt;info&gt; domain command with the
             &lt;launch:info&gt; extension to retrieve information 
             for the sunrise registration for example.tld:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-   &lt;info&gt;
-    &lt;domain:info
-     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-      &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-    &lt;/domain:info&gt;
-   &lt;/info&gt;
-   &lt;extension&gt;
-    &lt;launch:info
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-    &lt;/launch:info&gt;
-   &lt;/extension&gt;
-   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:   &lt;info&gt;
+C:    &lt;domain:info
+C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:      &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:    &lt;/domain:info&gt;
+C:   &lt;/info&gt;
+C:   &lt;extension&gt;
+C:    &lt;launch:info
+C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:    &lt;/launch:info&gt;
+C:   &lt;/extension&gt;
+C:   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>If the query was successful, the server replies with a
           &lt;launch:infData&gt; element along with the regular EPP
           &lt;resData&gt;. The &lt;launch:infData&gt; contains the following
@@ -1158,47 +1161,47 @@ EPP &lt;info&gt; Command</h3>
             &lt;launch:infData&gt; extension with the mark
             information:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1000"&gt;
-      &lt;msg&gt;Command completed successfully&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;resData&gt;
-      &lt;domain:infData
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
-        &lt;domain:status s="pendingCreate"/&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:clID&gt;ClientX&lt;/domain:clID&gt;
-        &lt;domain:crID&gt;ClientY&lt;/domain:crID&gt;
-        &lt;domain:crDate&gt;2012-04-03T22:00:00.0Z&lt;/domain:crDate&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:infData&gt;
-    &lt;/resData&gt;
-    &lt;extension&gt;
-      &lt;launch:infData
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-          &lt;launch:status s="pendingValidation"/&gt;
-          &lt;mark:mark
-            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
-             ...
-         &lt;/mark:mark&gt;
-      &lt;/launch:infData&gt;
-    &lt;/extension&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;</pre></div>
+S:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+S:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:  &lt;response&gt;
+S:    &lt;result code="1000"&gt;
+S:      &lt;msg&gt;Command completed successfully&lt;/msg&gt;
+S:    &lt;/result&gt;
+S:    &lt;resData&gt;
+S:      &lt;domain:infData
+S:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+S:        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+S:        &lt;domain:roid&gt;EXAMPLE1-REP&lt;/domain:roid&gt;
+S:        &lt;domain:status s="pendingCreate"/&gt;
+S:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+S:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+S:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+S:        &lt;domain:clID&gt;ClientX&lt;/domain:clID&gt;
+S:        &lt;domain:crID&gt;ClientY&lt;/domain:crID&gt;
+S:        &lt;domain:crDate&gt;2012-04-03T22:00:00.0Z&lt;/domain:crDate&gt;
+S:        &lt;domain:authInfo&gt;
+S:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+S:        &lt;/domain:authInfo&gt;
+S:      &lt;/domain:infData&gt;
+S:    &lt;/resData&gt;
+S:    &lt;extension&gt;
+S:      &lt;launch:infData
+S:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+S:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+S:          &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+S:          &lt;launch:status s="pendingValidation"/&gt;
+S:          &lt;mark:mark
+S:            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+S:             ...
+S:         &lt;/mark:mark&gt;
+S:      &lt;/launch:infData&gt;
+S:    &lt;/extension&gt;
+S:    &lt;trID&gt;
+S:      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+S:    &lt;/trID&gt;
+S:  &lt;/response&gt;
+S:&lt;/epp&gt;</pre></div>
 <a name="createCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3"></a><h3>3.3.&nbsp;
@@ -1301,174 +1304,174 @@ Sunrise Create Form</h3>
             using the &lt;launch:create&gt; extension, following the "code" 
             validation model, with multiple sunrise codes:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;launch:codeMark&gt;
-          &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-        &lt;/launch:codeMark&gt;
-        &lt;launch:codeMark&gt;
-          &lt;launch:code&gt;49FD46E6C4B45C55D4AD&lt;/launch:code&gt;
-        &lt;/launch:codeMark&gt;
-        &lt;launch:codeMark&gt;
-          &lt;launch:code&gt;49FD46E6C4B45C55D4AE&lt;/launch:code&gt;
-        &lt;/launch:codeMark&gt;
-     &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:        &lt;launch:codeMark&gt;
+C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+C:        &lt;/launch:codeMark&gt;
+C:        &lt;launch:codeMark&gt;
+C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AD&lt;/launch:code&gt;
+C:        &lt;/launch:codeMark&gt;
+C:        &lt;launch:codeMark&gt;
+C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AE&lt;/launch:code&gt;
+C:        &lt;/launch:codeMark&gt;
+C:     &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "mark" 
             validation model, with the mark information:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;launch:codeMark&gt;
-          &lt;mark:mark
-            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
-            ...
-          &lt;/mark:mark&gt;
-        &lt;/launch:codeMark&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:        &lt;launch:codeMark&gt;
+C:          &lt;mark:mark
+C:            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+C:            ...
+C:          &lt;/mark:mark&gt;
+C:        &lt;/launch:codeMark&gt;
+C:      &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "code with mark" 
             validation model, with a code and mark information:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;launch:codeMark&gt;
-          &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
-          &lt;mark:mark
-           xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
-           ...
-          &lt;/mark:mark&gt;
-        &lt;/launch:codeMark&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:        &lt;launch:codeMark&gt;
+C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+C:          &lt;mark:mark
+C:           xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+C:           ...
+C:          &lt;/mark:mark&gt;
+C:        &lt;/launch:codeMark&gt;
+C:      &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "signed mark" 
             validation model, with the signed mark information for 
             a sunrise application:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       type="application"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;smd:signedMark id="signedMark"
-         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
-         ...
-        &lt;/smd:signedMark&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+C:       type="application"&gt;
+C:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:        &lt;smd:signedMark id="signedMark"
+C:         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
+C:         ...
+C:        &lt;/smd:signedMark&gt;
+C:      &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <p>The following is an example &lt;create&gt; domain command
             using the &lt;launch:create&gt; extension, following the "signed mark" 
             validation model, with the base64 encoded signed mark information:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;smd:encodedSignedMark
-         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
-         ...
-        &lt;/smd:encodedSignedMark&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:        &lt;smd:encodedSignedMark
+C:         xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"&gt;
+C:         ...
+C:        &lt;/smd:encodedSignedMark&gt;
+C:      &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <a name="claimsCreateForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.2"></a><h3>3.3.2.&nbsp;
@@ -1515,37 +1518,37 @@ Claims Create Form</h3>
             &lt;launch:notice&gt; information for the "claims"  
             launch phase:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
-        &lt;launch:notice&gt;
-          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
-          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
-          &lt;/launch:notAfter&gt;
-          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
-          &lt;/launch:acceptedDate&gt;
-        &lt;/launch:notice&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:        &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
+C:        &lt;launch:notice&gt;
+C:          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
+C:          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
+C:          &lt;/launch:notAfter&gt;
+C:          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
+C:          &lt;/launch:acceptedDate&gt;
+C:        &lt;/launch:notice&gt;
+C:      &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <a name="generalCreateForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.3"></a><h3>3.3.3.&nbsp;
@@ -1575,31 +1578,31 @@ General Create Form</h3>
             using the &lt;launch:create&gt; extension for a "landrush" 
             launch phase application:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       type="application"&gt;
-        &lt;launch:phase&gt;landrush&lt;/launch:phase&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+C:       type="application"&gt;
+C:        &lt;launch:phase&gt;landrush&lt;/launch:phase&gt;
+C:      &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <a name="mixedCreateForm"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.4"></a><h3>3.3.4.&nbsp;
@@ -1618,44 +1621,44 @@ Mixed Create Form</h3>
             and the <a class='info' href='#claimsCreateForm'>Claims Create Form<span> (</span><span class='info'>Claims Create Form</span><span>)</span></a> by 
             including both a mark and a notice:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;create&gt;
-      &lt;domain:create
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
-        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
-        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
-        &lt;domain:authInfo&gt;
-          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
-        &lt;/domain:authInfo&gt;
-      &lt;/domain:create&gt;
-    &lt;/create&gt;
-    &lt;extension&gt;
-      &lt;launch:create
-       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
-       type="application"&gt;
-        &lt;launch:phase name="non-tmch-sunrise"&gt;custom&lt;/launch:phase&gt;
-        &lt;launch:codeMark&gt;
-          &lt;mark:mark
-            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
-            ...
-          &lt;/mark:mark&gt;
-        &lt;/launch:codeMark&gt;
-        &lt;launch:notice&gt;
-          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
-          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
-          &lt;/launch:notAfter&gt;
-          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
-          &lt;/launch:acceptedDate&gt;
-        &lt;/launch:notice&gt;
-      &lt;/launch:create&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;</pre></div>
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;create&gt;
+C:      &lt;domain:create
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;exampleone.tld&lt;/domain:name&gt;
+C:        &lt;domain:registrant&gt;jd1234&lt;/domain:registrant&gt;
+C:        &lt;domain:contact type="admin"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:contact type="tech"&gt;sh8013&lt;/domain:contact&gt;
+C:        &lt;domain:authInfo&gt;
+C:          &lt;domain:pw&gt;2fooBAR&lt;/domain:pw&gt;
+C:        &lt;/domain:authInfo&gt;
+C:      &lt;/domain:create&gt;
+C:    &lt;/create&gt;
+C:    &lt;extension&gt;
+C:      &lt;launch:create
+C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
+C:       type="application"&gt;
+C:        &lt;launch:phase name="non-tmch-sunrise"&gt;custom&lt;/launch:phase&gt;
+C:        &lt;launch:codeMark&gt;
+C:          &lt;mark:mark
+C:            xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
+C:            ...
+C:          &lt;/mark:mark&gt;
+C:        &lt;/launch:codeMark&gt;
+C:        &lt;launch:notice&gt;
+C:          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
+C:          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
+C:          &lt;/launch:notAfter&gt;
+C:          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
+C:          &lt;/launch:acceptedDate&gt;
+C:        &lt;/launch:notice&gt;
+C:      &lt;/launch:create&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;</pre></div>
 <a name="createResponse"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.3.3.5"></a><h3>3.3.5.&nbsp;
@@ -1685,34 +1688,34 @@ Create Response</h3>
 <p>An example response when multiple overlapping
             applications are supported by the server:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;response&gt;
-    &lt;result code="1001"&gt;
-      &lt;msg&gt;Command completed successfully; action pending&lt;/msg&gt;
-    &lt;/result&gt;
-    &lt;resData&gt;
-      &lt;domain:creData
-         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-       &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-       &lt;domain:crDate&gt;2010-08-10T15:38:26.623854Z&lt;/domain:crDate&gt;
-       &lt;domain:exDate&gt;2012-08-10T15:38:26.623854Z&lt;/domain:exDate&gt;
-      &lt;/domain:creData&gt;
-    &lt;/resData&gt;
-    &lt;extension&gt;
-      &lt;launch:creData
-        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-        &lt;launch:applicationID&gt;2393-9323-E08C-03B1
-        &lt;/launch:applicationID&gt;
-      &lt;/launch:creData&gt;
-    &lt;/extension&gt;
-    &lt;trID&gt;
-      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
-    &lt;/trID&gt;
-  &lt;/response&gt;
-&lt;/epp&gt;
+S:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+S:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+S:  &lt;response&gt;
+S:    &lt;result code="1001"&gt;
+S:      &lt;msg&gt;Command completed successfully; action pending&lt;/msg&gt;
+S:    &lt;/result&gt;
+S:    &lt;resData&gt;
+S:      &lt;domain:creData
+S:         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+S:       &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+S:       &lt;domain:crDate&gt;2010-08-10T15:38:26.623854Z&lt;/domain:crDate&gt;
+S:       &lt;domain:exDate&gt;2012-08-10T15:38:26.623854Z&lt;/domain:exDate&gt;
+S:      &lt;/domain:creData&gt;
+S:    &lt;/resData&gt;
+S:    &lt;extension&gt;
+S:      &lt;launch:creData
+S:        xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+S:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+S:        &lt;launch:applicationID&gt;2393-9323-E08C-03B1
+S:        &lt;/launch:applicationID&gt;
+S:      &lt;/launch:creData&gt;
+S:    &lt;/extension&gt;
+S:    &lt;trID&gt;
+S:      &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+S:      &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
+S:    &lt;/trID&gt;
+S:  &lt;/response&gt;
+S:&lt;/epp&gt;
 </pre></div>
 <a name="updateCommand"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -1751,35 +1754,35 @@ EPP &lt;update&gt; Command</h3>
           of a sunrise application with the application identifier
           "abc123":
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-    &lt;update&gt;
-      &lt;domain:update
-       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-        &lt;domain:add&gt;
-            &lt;domain:ns&gt;
-              &lt;domain:hostObj&gt;ns2.example.tld&lt;/domain:hostObj&gt;
-            &lt;/domain:ns&gt;
-          &lt;/domain:add&gt;
-          &lt;domain:rem&gt;
-            &lt;domain:ns&gt;
-              &lt;domain:hostObj&gt;ns1.example.tld&lt;/domain:hostObj&gt;
-            &lt;/domain:ns&gt;
-          &lt;/domain:rem&gt;
-      &lt;/domain:update&gt;
-    &lt;/update&gt;
-    &lt;extension&gt;
-    &lt;launch:update
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-      &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-    &lt;/launch:update&gt;
-    &lt;/extension&gt;
-    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:    &lt;update&gt;
+C:      &lt;domain:update
+C:       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:        &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:        &lt;domain:add&gt;
+C:            &lt;domain:ns&gt;
+C:              &lt;domain:hostObj&gt;ns2.example.tld&lt;/domain:hostObj&gt;
+C:            &lt;/domain:ns&gt;
+C:          &lt;/domain:add&gt;
+C:          &lt;domain:rem&gt;
+C:            &lt;domain:ns&gt;
+C:              &lt;domain:hostObj&gt;ns1.example.tld&lt;/domain:hostObj&gt;
+C:            &lt;/domain:ns&gt;
+C:          &lt;/domain:rem&gt;
+C:      &lt;/domain:update&gt;
+C:    &lt;/update&gt;
+C:    &lt;extension&gt;
+C:    &lt;launch:update
+C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:      &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+C:    &lt;/launch:update&gt;
+C:    &lt;/extension&gt;
+C:    &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;
 </pre></div>
 <p>This extension does not define any extension to the response of an
         &lt;update&gt; domain command. After processing the command, the
@@ -1820,25 +1823,25 @@ EPP &lt;delete&gt; Command</h3>
 <p>The following is an example &lt;delete&gt; domain command with
           the &lt;launch:delete&gt; extension:
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
-&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
-&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
-  &lt;command&gt;
-   &lt;delete&gt;
-    &lt;domain:delete
-     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
-      &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
-    &lt;/domain:delete&gt;
-   &lt;/delete&gt;
-   &lt;extension&gt;
-    &lt;launch:delete
-     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
-      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
-      &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
-    &lt;/launch:delete&gt;
-   &lt;/extension&gt;
-   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
-  &lt;/command&gt;
-&lt;/epp&gt;
+C:&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;
+C:&lt;epp xmlns="urn:ietf:params:xml:ns:epp-1.0"&gt;
+C:  &lt;command&gt;
+C:   &lt;delete&gt;
+C:    &lt;domain:delete
+C:     xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"&gt;
+C:      &lt;domain:name&gt;example.tld&lt;/domain:name&gt;
+C:    &lt;/domain:delete&gt;
+C:   &lt;/delete&gt;
+C:   &lt;extension&gt;
+C:    &lt;launch:delete
+C:     xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
+C:      &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
+C:      &lt;launch:applicationID&gt;abc123&lt;/launch:applicationID&gt;
+C:    &lt;/launch:delete&gt;
+C:   &lt;/extension&gt;
+C:   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
+C:  &lt;/command&gt;
+C:&lt;/epp&gt;
 </pre></div>
 <p>This extension does not define any extension to the response of a
         &lt;delete&gt; domain command. After processing the command, the
@@ -2435,10 +2438,12 @@ Change from 09 to 10</h3>
 </li>
 <li>Changed the reference of 2303 (object does not exist) in the "Security Considerations" section to 2201 (authorization error).
 </li>
-<li>Added arrow from "invalid" status to "pendingValidation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.
+<li>Added arrow from "invalid" status to "pendingAllocation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.
 </li>
 </ol>
         
+</li>
+<li>Added the "C:" and "S:" example prefixes and related text in the "Conventions Used in This Document" section.
 </li>
 </ol>
 
