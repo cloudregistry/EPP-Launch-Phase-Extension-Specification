@@ -340,7 +340,10 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    validated:  The application or registration meets relevant registry
       rules.
    invalid:  The application or registration does not validate according
-      to registry rules.
+      to registry rules.  Server policies permitting, it may transition
+      back into "pendingValidation" for revalidation, after
+      modifications are made to ostensibly correct attributes that
+      caused the validation failure.
    pendingAllocation:  The allocation of the application or registration
       is pending based on the results of some out-of-band process (for
       example, an auction).
@@ -385,9 +388,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
 
-
-
-
 Gould, et al.           Expires October 28, 2013                [Page 7]
 
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
@@ -396,47 +396,47 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 2.3.1.  State Transition
 
 
-                                          | request
-                                          |
-                                          v
-                                +-------------------+
-                                |                   |
-                                | pendingValidation |
-                                |                   |
-                                +---------+---------+
-                                          |
-                                          |
-                              +-----------+-----------+
-                              |                       |
-                              |                       |
-                              v                       v
-                        +-----------+            +---------+
-                        |           |            |         |
-                        | validated |            | invalid |
-                        |           |            |         |
-                        +-----+-----+            +--+--+---+
-                              |                     |  |
-                              |                     |  |
-                              v                     |  |
-                    +-------------------+           |  |
-                    |                   |           |  |
-                    | pendingAllocation |<----------+  |
-                    |                   |              |
-                    +-------------------+              |
-                              |     |                  |
-                              |     |                  |
-                              |     +---------------+  |
-                              |                     |  |
-                              |                     |  |
-                              v                     v  v
-                         +---------+             +--------+
-                        /           \           /          \
-                        | allocated |           | rejected |
-                        \           /           \          /
-                         +---------+             +--------+
+                      | request
+                      |
+                      |     +--------------------------+
+                      |     |                          |
+                      v     v                          |
+            +-------------------+                      |
+            |                   |                      |
+            | pendingValidation +--------------+       |
+            |                   |              |       |
+            +---------+---------+              |       |
+                      |                        |       |
+                      |                        |       |
+                      v                        v       |
+                +-----------+             +---------+  |
+                |           |             |         |  |
+                | validated |             | invalid +--+
+                |           |             |         |
+                +-----+-----+             +----+----+
+                      |                        |
+                      |                        |
+                      v                        |
+            +-------------------+              |
+            |                   |              |
+            | pendingAllocation +-----------+  |
+            |                   |           |  |
+            +---------+---------+           |  |
+                      |                     |  |
+                      |                     |  |
+                      |                     |  |
+                      |                     |  |
+                      |                     |  |
+                      v                     v  v
+                 +---------+             +--------+
+                /           \           /          \
+                | allocated |           | rejected |
+                \           /           \          /
+                 +---------+             +--------+
 
 
                                  Figure 1
+
 
 
 
@@ -2554,7 +2554,7 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
        11.  Changed the reference of 2303 (object does not exist) in the
             "Security Considerations" section to 2201 (authorization
             error).
-       12.  Added arrow from "invalid" status to "pendingAllocation"
+       12.  Added arrow from "invalid" status to "pendingValidation"
             status and "pendingAllocation" status to "rejected" status
             in the State Transition Diagram.
 
