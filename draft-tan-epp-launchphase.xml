@@ -170,8 +170,8 @@
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
-      mapping in order to unambiguously manage the various launch phases
-      known.</t>
+      mapping in order to provide a uniform interface for the management of Launch 
+      Applications and Launch Registrations in launch phases.</t>
 
       <section title="Conventions Used in This Document">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -642,13 +642,13 @@ S:</epp>]]></artwork>
       operations.</t>
 
       <section anchor="checkCommand" title="EPP &lt;check&gt; Command">
-       <t>There are two forms of the extension to the EPP &lt;check&gt; command 
-       that include the <xref target="claimsCheckForm">Claims Check Form</xref> 
+       <t>There are two forms of the extension to the EPP &lt;check&gt; command:  
+       the <xref target="claimsCheckForm">Claims Check Form</xref> 
        and the <xref target="availCheckForm">Availability Check Form</xref>.  The 
        &lt;launch:check&gt; element "type" attribute defines the form, 
        with the value of "claims" for the <xref target="claimsCheckForm">Claims Check Form</xref> 
        and with the value of "avail" for the <xref target="availCheckForm">Availability Check Form</xref>.  
-       The default value of the "type" attribute is "claims".  The check forms supported is up to server policy.  
+       The default value of the "type" attribute is "claims".  The forms supported by the server is determined by server policy.  
        The server MUST return an EPP error result code of 2307 
        if it receives a check form that is not supported.</t>  
        

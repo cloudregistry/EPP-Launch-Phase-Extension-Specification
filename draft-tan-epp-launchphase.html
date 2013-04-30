@@ -321,8 +321,8 @@ Introduction</h3>
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
-      mapping in order to unambiguously manage the various launch phases
-      known.
+      mapping in order to provide a uniform interface for the management of Launch 
+      Applications and Launch Registrations in launch phases.
 </p>
 <a name="anchor2"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -846,13 +846,13 @@ EPP Command Mapping</h3>
 <a name="rfc.section.3.1"></a><h3>3.1.&nbsp;
 EPP &lt;check&gt; Command</h3>
 
-<p>There are two forms of the extension to the EPP &lt;check&gt; command 
-       that include the <a class='info' href='#claimsCheckForm'>Claims Check Form<span> (</span><span class='info'>Claims Check Form</span><span>)</span></a> 
+<p>There are two forms of the extension to the EPP &lt;check&gt; command:  
+       the <a class='info' href='#claimsCheckForm'>Claims Check Form<span> (</span><span class='info'>Claims Check Form</span><span>)</span></a> 
        and the <a class='info' href='#availCheckForm'>Availability Check Form<span> (</span><span class='info'>Availability Check Form</span><span>)</span></a>.  The 
        &lt;launch:check&gt; element "type" attribute defines the form, 
        with the value of "claims" for the <a class='info' href='#claimsCheckForm'>Claims Check Form<span> (</span><span class='info'>Claims Check Form</span><span>)</span></a> 
        and with the value of "avail" for the <a class='info' href='#availCheckForm'>Availability Check Form<span> (</span><span class='info'>Availability Check Form</span><span>)</span></a>.  
-       The default value of the "type" attribute is "claims".  The check forms supported is up to server policy.  
+       The default value of the "type" attribute is "claims".  The forms supported by the server is determined by server policy.  
        The server MUST return an EPP error result code of 2307 
        if it receives a check form that is not supported.
 </p>

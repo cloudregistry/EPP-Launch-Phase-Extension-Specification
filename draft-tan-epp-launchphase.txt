@@ -198,7 +198,8 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    Trademark Claims or "claims" launch phase that includes support for
    presenting a Trademark Claims Notice to the Registrant.  This
    document proposes an extension to the domain name mapping in order to
-   unambiguously manage the various launch phases known.
+   provide a uniform interface for the management of Launch Applications
+   and Launch Registrations in launch phases.
 
 1.1.  Conventions Used in This Document
 
@@ -216,7 +217,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    white space in examples are provided only to illustrate element
    relationships and are not a REQUIRED feature of this protocol.
 
-   "launch-1.0" is used as an abbreviation for
 
 
 
@@ -225,6 +225,7 @@ Gould, et al.           Expires November 1, 2013                [Page 4]
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
+   "launch-1.0" is used as an abbreviation for
    "urn:ietf:params:xml:ns:launch-1.0".  The XML namespace prefix
    "launch" is used, but implementations MUST NOT depend on it and
    instead employ a proper namespace-aware XML parser and serializer to
@@ -272,7 +273,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
    The server MAY support multiple launch phases sequentially or
    simultaneously.  The <launch:phase> element MUST be included by the
-   client to define the target launch phase of the command.  The server
 
 
 
@@ -281,6 +281,7 @@ Gould, et al.           Expires November 1, 2013                [Page 5]
 Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 
+   client to define the target launch phase of the command.  The server
    SHOULD validate the phase and MAY validate the sub-phase of the
    <launch:phase> element against the active phase and OPTIONAL sub-
    phase of the server on a create command, and return an EPP error
@@ -328,7 +329,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
    The following status values are defined using the required "s"
    attribute:
-
 
 
 
@@ -795,15 +795,16 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
 
 3.1.  EPP <check> Command
 
-   There are two forms of the extension to the EPP <check> command that
-   include the Claims Check Form (Section 3.1.1) and the Availability
-   Check Form (Section 3.1.2).  The <launch:check> element "type"
-   attribute defines the form, with the value of "claims" for the Claims
-   Check Form (Section 3.1.1) and with the value of "avail" for the
-   Availability Check Form (Section 3.1.2).  The default value of the
-   "type" attribute is "claims".  The check forms supported is up to
-   server policy.  The server MUST return an EPP error result code of
-   2307 if it receives a check form that is not supported.
+   There are two forms of the extension to the EPP <check> command: the
+   Claims Check Form (Section 3.1.1) and the Availability Check Form
+   (Section 3.1.2).  The <launch:check> element "type" attribute defines
+   the form, with the value of "claims" for the Claims Check Form
+   (Section 3.1.1) and with the value of "avail" for the Availability
+   Check Form (Section 3.1.2).  The default value of the "type"
+   attribute is "claims".  The forms supported by the server is
+   determined by server policy.  The server MUST return an EPP error
+   result code of 2307 if it receives a check form that is not
+   supported.
 
 3.1.1.  Claims Check Form
 
@@ -832,7 +833,6 @@ Internet-Draft        Launch Phase Mapping for EPP            April 2013
    name mapping [RFC5731] define the domain names to check for matching
    trademarks.  The <launch:check> element contains the following child
    elements:
-
 
 
 
