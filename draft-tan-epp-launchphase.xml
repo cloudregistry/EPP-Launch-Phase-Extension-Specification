@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="29" month="April" year="2013"/>
+    <date day="30" month="April" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -293,7 +293,10 @@
             rules.</t>
 
             <t hangText="invalid:">The application or registration does not validate according
-            to registry rules.</t>
+              to registry rules. Server policies permitting, it may transition back into "pendingValidation"
+              for revalidation, after modifications are made to ostensibly correct attributes that
+              caused the validation failure.
+            </t>
 
             <t hangText="pendingAllocation:">The allocation of the application or registration 
             is pending based on the results of some out-of-band process (for example,
@@ -334,44 +337,43 @@
           <figure align="center" anchor="fsm">
             <artwork align="left"><![CDATA[
 
-                                       | request
-                                       |
-                                       v
-                             +-------------------+
-                             |                   |
-                             | pendingValidation |
-                             |                   |
-                             +---------+---------+
-                                       |
-                                       |
-                           +-----------+-----------+
-                           |                       |
-                           |                       |
-                           v                       v
-                     +-----------+            +---------+
-                     |           |            |         |
-                     | validated |            | invalid |
-                     |           |            |         |
-                     +-----+-----+            +--+--+---+
-                           |                     |  |
-                           |                     |  |
-                           v                     |  |
-                 +-------------------+           |  |
-                 |                   |           |  |
-                 | pendingAllocation |<----------+  |
-                 |                   |              |
-                 +-------------------+              |
-                           |     |                  |
-                           |     |                  |
-                           |     +---------------+  |
-                           |                     |  |
-                           |                     |  |
-                           v                     v  v
-                      +---------+             +--------+
-                     /           \           /          \
-                     | allocated |           | rejected |
-                     \           /           \          /
-                      +---------+             +--------+
+                   | request                               
+                   |                                       
+                   |     +--------------------------+      
+                   |     |                          |      
+                   v     v                          |      
+         +-------------------+                      |      
+         |                   |                      |      
+         | pendingValidation +--------------+       |      
+         |                   |              |       |      
+         +---------+---------+              |       |      
+                   |                        |       |      
+                   |                        |       |      
+                   v                        v       |      
+             +-----------+             +---------+  |      
+             |           |             |         |  |      
+             | validated |             | invalid +--+      
+             |           |             |         |         
+             +-----+-----+             +----+----+         
+                   |                        |              
+                   |                        |              
+                   v                        |              
+         +-------------------+              |              
+         |                   |              |              
+         | pendingAllocation +-----------+  |              
+         |                   |           |  |              
+         +---------+---------+           |  |              
+                   |                     |  |              
+                   |                     |  |              
+                   |                     |  |              
+                   |                     |  |              
+                   |                     |  |              
+                   v                     v  v              
+              +---------+             +--------+           
+             /           \           /          \          
+             | allocated |           | rejected |          
+             \           /           \          /          
+              +---------+             +--------+       
 
             ]]></artwork>
           </figure>
@@ -2123,7 +2125,7 @@ END]]></artwork>
              <t>Removed "displayed or" from "displayed or accepted" in the &lt;launch:acceptedDate&gt; description.</t>
              <t>Replaced "given domain name is supported" with "given domain name are supported" in the "Create Response" section.</t>
              <t>Changed the reference of 2303 (object does not exist) in the "Security Considerations" section to 2201 (authorization error).</t>
-             <t>Added arrow from "invalid" status to "pendingAllocation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.</t>  
+             <t>Added arrow from "invalid" status to "pendingValidation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.</t>  
           </list>
         </t>
         <t>Added the "C:" and "S:" example prefixes and related text in the "Conventions Used in This Document" section.</t> 

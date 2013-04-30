@@ -148,10 +148,10 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">VeriSign, Inc.</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">W. Tan</td></tr>
-<tr><td class="header">Expires: October 31, 2013</td><td class="header">Cloud Registry</td></tr>
+<tr><td class="header">Expires: November 1, 2013</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">G. Brown</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">April 29, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">April 30, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
     Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-10</h1>
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on October 31, 2013.</p>
+This Internet-Draft will expire on November 1, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -469,7 +469,10 @@ Status Values</h3>
 </dd>
 <dt>invalid:</dt>
 <dd>The application or registration does not validate according
-            to registry rules.
+              to registry rules. Server policies permitting, it may transition back into "pendingValidation"
+              for revalidation, after modifications are made to ostensibly correct attributes that
+              caused the validation failure.
+            
 </dd>
 <dt>pendingAllocation:</dt>
 <dd>The allocation of the application or registration 
@@ -519,44 +522,43 @@ State Transition</h3>
 <a name="fsm"></a>
 <div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 
-                                       | request
-                                       |
-                                       v
-                             +-------------------+
-                             |                   |
-                             | pendingValidation |
-                             |                   |
-                             +---------+---------+
-                                       |
-                                       |
-                           +-----------+-----------+
-                           |                       |
-                           |                       |
-                           v                       v
-                     +-----------+            +---------+
-                     |           |            |         |
-                     | validated |            | invalid |
-                     |           |            |         |
-                     +-----+-----+            +--+--+---+
-                           |                     |  |
-                           |                     |  |
-                           v                     |  |
-                 +-------------------+           |  |
-                 |                   |           |  |
-                 | pendingAllocation |&lt;----------+  |
-                 |                   |              |
-                 +-------------------+              |
-                           |     |                  |
-                           |     |                  |
-                           |     +---------------+  |
-                           |                     |  |
-                           |                     |  |
-                           v                     v  v
-                      +---------+             +--------+
-                     /           \           /          \
-                     | allocated |           | rejected |
-                     \           /           \          /
-                      +---------+             +--------+
+                   | request
+                   |
+                   |     +--------------------------+
+                   |     |                          |
+                   v     v                          |
+         +-------------------+                      |
+         |                   |                      |
+         | pendingValidation +--------------+       |
+         |                   |              |       |
+         +---------+---------+              |       |
+                   |                        |       |
+                   |                        |       |
+                   v                        v       |
+             +-----------+             +---------+  |
+             |           |             |         |  |
+             | validated |             | invalid +--+
+             |           |             |         |
+             +-----+-----+             +----+----+
+                   |                        |
+                   |                        |
+                   v                        |
+         +-------------------+              |
+         |                   |              |
+         | pendingAllocation +-----------+  |
+         |                   |           |  |
+         +---------+---------+           |  |
+                   |                     |  |
+                   |                     |  |
+                   |                     |  |
+                   |                     |  |
+                   |                     |  |
+                   v                     v  v
+              +---------+             +--------+
+             /           \           /          \
+             | allocated |           | rejected |
+             \           /           \          /
+              +---------+             +--------+
 
 </pre></div><table border="0" cellpadding="0" cellspacing="2" align="center"><tr><td align="center"><font face="monaco, MS Sans Serif" size="1"><b>&nbsp;Figure&nbsp;1&nbsp;</b></font><br /></td></tr></table><hr class="insert" />
 
@@ -2438,7 +2440,7 @@ Change from 09 to 10</h3>
 </li>
 <li>Changed the reference of 2303 (object does not exist) in the "Security Considerations" section to 2201 (authorization error).
 </li>
-<li>Added arrow from "invalid" status to "pendingAllocation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.
+<li>Added arrow from "invalid" status to "pendingValidation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.
 </li>
 </ol>
         
