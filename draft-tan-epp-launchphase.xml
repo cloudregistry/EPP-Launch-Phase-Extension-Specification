@@ -38,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-10" ipr="trust200902">
+<rfc category="std" docName="draft-tan-epp-launchphase-11" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="1" month="May" year="2013"/>
+    <date day="13" month="May" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -714,7 +714,7 @@ C:</epp>]]></artwork>
           </figure>
 
           <t>If the &lt;check&gt; command has been processed successfully, the EPP 
-          &lt;resData&gt; element MUST contain a child &lt;launch:chkData&gt; element 
+          &lt;response&gt; MUST contain an &lt;extension&gt; &lt;launch:chkData&gt; element 
           that identifies the launch namespace.  The &lt;launch:chkData&gt; element 
           contains the following child elements:</t>
 
@@ -759,7 +759,7 @@ S:  <response>
 S:    <result code="1000">
 S:     <msg>Command completed successfully</msg>
 S:    </result>
-S:    <resData>
+S:   <extension>
 S:     <launch:chkData
 S:      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
 S:      <launch:phase>claims</launch:phase>
@@ -768,10 +768,12 @@ S:        <launch:name exists="0">example1.tld</launch:name>
 S:      </launch:cd>
 S:      <launch:cd>
 S:        <launch:name exists="1">example2.tld</launch:name>
-S:        <launch:claimKey>abc123</launch:claimKey>
+S:        <launch:claimKey>
+S:        2013041500/2/6/9/rJ1NrDO92vDsAzf7EQzgjX4R0000000001
+S:        </launch:claimKey>
 S:      </launch:cd>
 S:     </launch:chkData>
-S:    </resData>
+S:    </extension>
 S:    <trID>
 S:     <clTRID>ABC-12345</clTRID>
 S:     <svTRID>54321-XYZ</svTRID>
@@ -2013,7 +2015,7 @@ END]]></artwork>
       Jeff Eckhaus, and Will Shorter.</t>
       <t>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
+      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Francisco Obispo, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.</t>
     </section>
     
@@ -2110,7 +2112,7 @@ END]]></artwork>
     </section>
     <section title="Change from 09 to 10" anchor="change-09-to-10">
       <t><list style="numbers">
-        <t>Changed noticeIDType from base64Binary to be compatible with draft-lozano-tmch-func-spec-05.</t>
+        <t>Changed noticeIDType from base64Binary to token to be compatible with draft-lozano-tmch-func-spec-05.</t>
         <t>Changed codeType from base64Binary to token to be more generic.</t>
         <t>Updated based on feedback from Alexander Mayrhofer, which include:
           <list>
@@ -2129,6 +2131,11 @@ END]]></artwork>
           </list>
         </t>
         <t>Added the "C:" and "S:" example prefixes and related text in the "Conventions Used in This Document" section.</t> 
+      </list></t>
+    </section>
+    <section title="Change from 10 to 11" anchor="change-10-to-11">
+      <t><list style="numbers">
+        <t>Moved the claims check response &lt;launch:chkData&gt; element under the &lt;extension&gt; element instead of the &lt;resData&gt; element based on the request from Francisco Obispo.</t>
       </list></t>
     </section>
    </section>

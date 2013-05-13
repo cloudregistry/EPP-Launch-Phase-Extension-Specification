@@ -148,13 +148,13 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">VeriSign, Inc.</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">W. Tan</td></tr>
-<tr><td class="header">Expires: November 2, 2013</td><td class="header">Cloud Registry</td></tr>
+<tr><td class="header">Expires: November 14, 2013</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">G. Brown</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">May 1, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">May 13, 2013</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
-    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-10</h1>
+    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-11</h1>
 
 <h3>Abstract</h3>
 
@@ -177,7 +177,7 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on November 2, 2013.</p>
+This Internet-Draft will expire on November 14, 2013.</p>
 
 <h3>Copyright Notice</h3>
 <p>
@@ -282,6 +282,8 @@ Change from 07 to 08<br />
 Change from 08 to 09<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-09-to-10">6.10.</a>&nbsp;
 Change from 09 to 10<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-10-to-11">6.11.</a>&nbsp;
+Change from 10 to 11<br />
 <a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
 <a href="#Security">8.</a>&nbsp;
@@ -923,7 +925,7 @@ C:   &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 C:  &lt;/command&gt;
 C:&lt;/epp&gt;</pre></div>
 <p>If the &lt;check&gt; command has been processed successfully, the EPP 
-          &lt;resData&gt; element MUST contain a child &lt;launch:chkData&gt; element 
+          &lt;response&gt; MUST contain an &lt;extension&gt; &lt;launch:chkData&gt; element 
           that identifies the launch namespace.  The &lt;launch:chkData&gt; element 
           contains the following child elements:
 </p>
@@ -975,7 +977,7 @@ S:  &lt;response&gt;
 S:    &lt;result code="1000"&gt;
 S:     &lt;msg&gt;Command completed successfully&lt;/msg&gt;
 S:    &lt;/result&gt;
-S:    &lt;resData&gt;
+S:   &lt;extension&gt;
 S:     &lt;launch:chkData
 S:      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
 S:      &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
@@ -984,10 +986,12 @@ S:        &lt;launch:name exists="0"&gt;example1.tld&lt;/launch:name&gt;
 S:      &lt;/launch:cd&gt;
 S:      &lt;launch:cd&gt;
 S:        &lt;launch:name exists="1"&gt;example2.tld&lt;/launch:name&gt;
-S:        &lt;launch:claimKey&gt;abc123&lt;/launch:claimKey&gt;
+S:        &lt;launch:claimKey&gt;
+S:        2013041500/2/6/9/rJ1NrDO92vDsAzf7EQzgjX4R0000000001
+S:        &lt;/launch:claimKey&gt;
 S:      &lt;/launch:cd&gt;
 S:     &lt;/launch:chkData&gt;
-S:    &lt;/resData&gt;
+S:    &lt;/extension&gt;
 S:    &lt;trID&gt;
 S:     &lt;clTRID&gt;ABC-12345&lt;/clTRID&gt;
 S:     &lt;svTRID&gt;54321-XYZ&lt;/svTRID&gt;
@@ -2212,7 +2216,7 @@ Acknowledgements</h3>
 </p>
 <p>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Bernhard Reutner-Fischer, Trung Tran,  
+      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Francisco Obispo, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -2411,7 +2415,7 @@ Change from 09 to 10</h3>
 
 <p></p>
 <ol class="text">
-<li>Changed noticeIDType from base64Binary to be compatible with draft-lozano-tmch-func-spec-05.
+<li>Changed noticeIDType from base64Binary to token to be compatible with draft-lozano-tmch-func-spec-05.
 </li>
 <li>Changed codeType from base64Binary to token to be more generic.
 </li>
@@ -2446,6 +2450,17 @@ Change from 09 to 10</h3>
         
 </li>
 <li>Added the "C:" and "S:" example prefixes and related text in the "Conventions Used in This Document" section.
+</li>
+</ol>
+
+<a name="change-10-to-11"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.11"></a><h3>6.11.&nbsp;
+Change from 10 to 11</h3>
+
+<p></p>
+<ol class="text">
+<li>Moved the claims check response &lt;launch:chkData&gt; element under the &lt;extension&gt; element instead of the &lt;resData&gt; element based on the request from Francisco Obispo.
 </li>
 </ol>
 
