@@ -85,16 +85,41 @@ Import common element types.
   <!-- 
   Definition for the sunrise code   
   -->
-  <simpleType name="codeType">
+  <simpleType name="codeValue">
     <restriction base="token">
       <minLength value="1"/>
     </restriction>
   </simpleType>
   
+  <complexType name="codeType">
+    <simpleContent>
+      <extension base="launch:codeValue">
+        <attribute name="validatorID" type="launch:validatorIDType" use="optional"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
   <!-- 
   Definition for the notice identifier   
   -->
-  <simpleType name="noticeIDType">
+  <simpleType name="noticeIDValue">
+    <restriction base="token">
+      <minLength value="1"/>
+    </restriction>
+  </simpleType>
+  
+  <complexType name="noticeIDType">
+    <simpleContent>
+      <extension base="launch:noticeIDValue">
+        <attribute name="validatorID" type="launch:validatorIDType" use="optional"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
+  <!-- 
+  Definition for the validator identifier   
+  -->
+  <simpleType name="validatorIDType">
     <restriction base="token">
       <minLength value="1"/>
     </restriction>
@@ -245,7 +270,7 @@ Import common element types.
   <complexType name="cdType">
     <sequence>
       <element name="name" type="launch:cdNameType"/>
-      <element name="claimKey" type="token"
+      <element name="claimKey" type="launch:claimKeyType"
        minOccurs="0"/>
     </sequence>
   </complexType>
@@ -259,8 +284,16 @@ Import common element types.
     </simpleContent>
   </complexType>
   
+  <complexType name="claimKeyType">
+    <simpleContent>
+      <extension base="token">
+        <attribute name="validatorID" type="launch:validatorIDType" use="optional"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  
   <!--
-  <info> response elemenets
+  <info> response elements
   -->
   <complexType name="infDataType">
     <sequence>
