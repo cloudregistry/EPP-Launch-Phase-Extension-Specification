@@ -1356,7 +1356,9 @@ C:      <launch:create
 C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
 C:        <launch:phase>claims</launch:phase>
 C:        <launch:notice>
-C:          <launch:noticeID validatorID="tmch">49FD46E6C4B45C55D4AC</launch:noticeID>
+C:          <launch:noticeID validatorID="tmch">
+C:            49FD46E6C4B45C55D4AC
+C:          </launch:noticeID>
 C:          <launch:notAfter>2012-06-19T10:00:10.0Z
 C:          </launch:notAfter>
 C:          <launch:acceptedDate>2012-06-19T09:01:30.0Z
@@ -1468,7 +1470,9 @@ C:            ...
 C:          </mark:mark>
 C:        </launch:codeMark>
 C:        <launch:notice>
-C:          <launch:noticeID validatorID="tmch">49FD46E6C4B45C55D4AC</launch:noticeID>
+C:          <launch:noticeID validatorID="tmch">
+C:            49FD46E6C4B45C55D4AC
+C:          </launch:noticeID>
 C:          <launch:notAfter>2012-06-19T10:00:10.0Z
 C:          </launch:notAfter>
 C:          <launch:acceptedDate>2012-06-19T09:01:30.0Z
@@ -1840,7 +1844,8 @@ Import common element types.
   <complexType name="codeType">
     <simpleContent>
       <extension base="launch:codeValue">
-        <attribute name="validatorID" type="launch:validatorIDType" use="optional"/>
+        <attribute name="validatorID" 
+          type="launch:validatorIDType" use="optional"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -1857,7 +1862,8 @@ Import common element types.
   <complexType name="noticeIDType">
     <simpleContent>
       <extension base="launch:noticeIDValue">
-        <attribute name="validatorID" type="launch:validatorIDType" use="optional"/>
+        <attribute name="validatorID" 
+          type="launch:validatorIDType" use="optional"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -2033,7 +2039,8 @@ Import common element types.
   <complexType name="claimKeyType">
     <simpleContent>
       <extension base="token">
-        <attribute name="validatorID" type="launch:validatorIDType" use="optional"/>
+        <attribute name="validatorID"
+         type="launch:validatorIDType" use="optional"/>
       </extension>
     </simpleContent>
   </complexType>
@@ -2067,7 +2074,7 @@ END]]></artwork>
       Jeff Eckhaus, and Will Shorter.</t>
       <t>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Francisco Obispo, Bernhard Reutner-Fischer, Trung Tran,  
+      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Francisco Obispo, Mike O'Connell, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.</t>
     </section>
     
@@ -2188,6 +2195,11 @@ END]]></artwork>
     <section title="Change from 10 to 11" anchor="change-10-to-11">
       <t><list style="numbers">
         <t>Moved the claims check response &lt;launch:chkData&gt; element under the &lt;extension&gt; element instead of the &lt;resData&gt; element based on the request from Francisco Obispo.</t>
+      </list></t>
+    </section>
+    <section title="Change from 11 to 12" anchor="change-11-to-12">
+      <t><list style="numbers">
+          <t>Added support for multiple validator identifiers for claims notices and marks.</t>  
       </list></t>
     </section>
    </section>

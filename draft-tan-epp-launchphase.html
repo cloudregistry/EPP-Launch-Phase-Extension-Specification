@@ -204,25 +204,27 @@ Conventions Used in This Document<br />
 Object Attributes<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#applicationID">2.1.</a>&nbsp;
 Application Identifier<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#phases">2.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#validatorID">2.2.</a>&nbsp;
+Validator Identifier<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#phases">2.3.</a>&nbsp;
 Launch Phases<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#statuses">2.3.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#statuses">2.4.</a>&nbsp;
 Status Values<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">2.3.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor3">2.4.1.</a>&nbsp;
 State Transition<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#pollMessaging">2.4.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#pollMessaging">2.5.</a>&nbsp;
 Poll Messaging<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#validationModels">2.5.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#validationModels">2.6.</a>&nbsp;
 Mark Validation Models<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#codeMark">2.5.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#codeMark">2.6.1.</a>&nbsp;
 &lt;launch:codeMark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#mark">2.5.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#mark">2.6.2.</a>&nbsp;
 &lt;mark:mark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.5.3.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#digitalsignature">2.6.3.</a>&nbsp;
 Digital Signature<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedMark">2.5.3.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#signedMark">2.6.3.1.</a>&nbsp;
 &lt;smd:signedMark&gt; element<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#encodedSignedMark">2.5.3.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#encodedSignedMark">2.6.3.2.</a>&nbsp;
 &lt;smd:encodedSignedMark&gt; element<br />
 <a href="#commands">3.</a>&nbsp;
 EPP Command Mapping<br />
@@ -284,6 +286,8 @@ Change from 08 to 09<br />
 Change from 09 to 10<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-10-to-11">6.11.</a>&nbsp;
 Change from 10 to 11<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-11-to-12">6.12.</a>&nbsp;
+Change from 11 to 12<br />
 <a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
 <a href="#Security">8.</a>&nbsp;
@@ -393,9 +397,26 @@ Application Identifier</h3>
         command processes a request synchronously without the use of an intermediate 
         Launch Application, then an application identifier MAY not be needed.
 </p>
-<a name="phases"></a><br /><hr />
+<a name="validatorID"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.2.2"></a><h3>2.2.&nbsp;
+Validator Identifier</h3>
+
+<p>Registries MAY support third party Trademark Validators in addition with the ICANN TMCH. 
+        If no additional validators are utilized during launch then the identifier MUST 
+        be omitted entirely. In the case of multiple validators, an 
+        identifier attribute SHOULD be provided by the respective parties. In the 
+        absence of the validator identifier, the ICANN Trade Mark Clearinghouse (TMCH) 
+        SHOULD be assumed as the default. The validator list and the identifier definition 
+        falls out of the scope of this document.
+</p>
+<p>In order to facilitate differentiation, the identifier SHOULD be 
+        used when the command or command elements relate to a specific trademark validator, such 
+        as when providing Mark information or when processing claim lookup keys. 
+</p>
+<a name="phases"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2.3"></a><h3>2.3.&nbsp;
 Launch Phases</h3>
 
 <p>The server MAY support multiple launch phases sequentially or
@@ -449,7 +470,7 @@ Launch Phases</h3>
 </p>
 <a name="statuses"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.3"></a><h3>2.3.&nbsp;
+<a name="rfc.section.2.4"></a><h3>2.4.&nbsp;
 Status Values</h3>
 
 <p>A Launch Application or Launch Registration object MAY have a launch status value. The
@@ -518,7 +539,7 @@ Status Values</h3>
 </p>
 <a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.3.1"></a><h3>2.3.1.&nbsp;
+<a name="rfc.section.2.4.1"></a><h3>2.4.1.&nbsp;
 State Transition</h3>
 <br /><hr class="insert" />
 <a name="fsm"></a>
@@ -566,13 +587,13 @@ State Transition</h3>
 
 <a name="pollMessaging"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.4"></a><h3>2.4.&nbsp;
+<a name="rfc.section.2.5"></a><h3>2.5.&nbsp;
 Poll Messaging</h3>
 
 <p>A Launch Application MUST and a Launch Registration MAY be handled as a domain name of <a class='info' href='#RFC5731'>[RFC5731]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> 
-        in "pendingCreate" status, with the launch status values defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>.  
+        in "pendingCreate" status, with the launch status values defined in <a class='info' href='#statuses'>Section&nbsp;2.4<span> (</span><span class='info'>Status Values</span><span>)</span></a>.  
         As a Launch Application or Launch Registration transitions between the status values 
-        defined in <a class='info' href='#statuses'>Section&nbsp;2.3<span> (</span><span class='info'>Status Values</span><span>)</span></a>, the server SHOULD insert poll messages, per <a class='info' href='#RFC5730'>[RFC5730]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP),&rdquo; August&nbsp;2009.</span><span>)</span></a>,
+        defined in <a class='info' href='#statuses'>Section&nbsp;2.4<span> (</span><span class='info'>Status Values</span><span>)</span></a>, the server SHOULD insert poll messages, per <a class='info' href='#RFC5730'>[RFC5730]<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP),&rdquo; August&nbsp;2009.</span><span>)</span></a>,
         for the applicable intermediate statuses, including the 
         "pendingValidation", "validated", "pendingAllocation, and "invalid" statuses, using the 
         &lt;domain:infData&gt; element with the &lt;launch:infData&gt; extension.  The &lt;domain:infData&gt; element 
@@ -693,7 +714,7 @@ S:  &lt;/response&gt;
 S:&lt;/epp&gt;</pre></div>
 <a name="validationModels"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.5"></a><h3>2.5.&nbsp;
+<a name="rfc.section.2.6"></a><h3>2.6.&nbsp;
 Mark Validation Models</h3>
 
 <p>A server MUST support at least one of the following models for validating 
@@ -741,7 +762,7 @@ Mark Validation Models</h3>
 </p>
 <a name="codeMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.5.1"></a><h3>2.5.1.&nbsp;
+<a name="rfc.section.2.6.1"></a><h3>2.6.1.&nbsp;
 &lt;launch:codeMark&gt; element</h3>
 
 <p>The &lt;launch:codeMark&gt; element that is used by the "code", "mark", 
@@ -775,7 +796,7 @@ Mark Validation Models</h3>
 &lt;/launch:codeMark&gt;</pre></div>
 <a name="mark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.5.2"></a><h3>2.5.2.&nbsp;
+<a name="rfc.section.2.6.2"></a><h3>2.6.2.&nbsp;
 &lt;mark:mark&gt; element</h3>
 
 <p>A &lt;mark:mark&gt; element describes an applicant's prior right
@@ -788,7 +809,7 @@ Mark Validation Models</h3>
 </p>
 <a name="digitalsignature"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.5.3"></a><h3>2.5.3.&nbsp;
+<a name="rfc.section.2.6.3"></a><h3>2.6.3.&nbsp;
 Digital Signature</h3>
 
 <p>Digital signatures MAY be used by the server to validate either 
@@ -798,7 +819,7 @@ Digital Signature</h3>
 </p>
 <a name="signedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.5.3.1"></a><h3>2.5.3.1.&nbsp;
+<a name="rfc.section.2.6.3.1"></a><h3>2.6.3.1.&nbsp;
 &lt;smd:signedMark&gt; element</h3>
 
 <p>The &lt;smd:signedMark&gt; element contains the digitally signed mark information.  The &lt;smd:signedMark&gt; 
@@ -810,7 +831,7 @@ Digital Signature</h3>
 </p>
 <a name="encodedSignedMark"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<a name="rfc.section.2.5.3.2"></a><h3>2.5.3.2.&nbsp;
+<a name="rfc.section.2.6.3.2"></a><h3>2.6.3.2.&nbsp;
 &lt;smd:encodedSignedMark&gt; element</h3>
 
 <p>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
@@ -883,7 +904,8 @@ Claims Check Form</h3>
         the Trademark Clearinghouse (TMCH).  The third party trademark 
         validator should also return a unique notice identifier  
         that can be passed in the &lt;launch:noticeID&gt; element of the extension to the 
-        <a class='info' href='#createCommand'>Create Command<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a>.
+        <a class='info' href='#createCommand'>Create Command<span> (</span><span class='info'>EPP &lt;create&gt; Command</span><span>)</span></a>. In order to differentiate between third 
+        party trademark validators the validatorID attribute indicating the trademark validator SHOULD be specified
 </p>
 <p>The &lt;domain:name&gt; elements in the EPP &lt;check&gt; 
         command of <a class='info' href='#RFC5731'>EPP domain name mapping<span> (</span><span class='info'>Hollenbeck, S., &ldquo;Extensible Provisioning Protocol (EPP) Domain Name Mapping,&rdquo; August&nbsp;2009.</span><span>)</span></a> [RFC5731] define 
@@ -960,7 +982,9 @@ C:&lt;/epp&gt;</pre></div>
             Trademark Claims Notice.  The &lt;launch:claimKey&gt; is used 
             as the key for the query in place of the domain name 
             to securely query the service without using a well-known 
-            value like a domain name.
+            value like a domain name.  This element MAY contain a 
+            "validatorID" attribute whose value indicates which trademark 
+            validator this claim key relates to in the case of multiple trademark validators.
 </dd>
 </dl></blockquote>
 </dd>
@@ -986,7 +1010,7 @@ S:        &lt;launch:name exists="0"&gt;example1.tld&lt;/launch:name&gt;
 S:      &lt;/launch:cd&gt;
 S:      &lt;launch:cd&gt;
 S:        &lt;launch:name exists="1"&gt;example2.tld&lt;/launch:name&gt;
-S:        &lt;launch:claimKey&gt;
+S:        &lt;launch:claimKey validatorID="tmch"&gt;
 S:        2013041500/2/6/9/rJ1NrDO92vDsAzf7EQzgjX4R0000000001
 S:        &lt;/launch:claimKey&gt;
 S:      &lt;/launch:cd&gt;
@@ -1230,7 +1254,7 @@ EPP &lt;create&gt; Command</h3>
 </dd>
 <dt>landrush</dt>
 <dd>The EPP &lt;create&gt; command with the
-            "landrush" launch phase MAY use the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> to explictly specify the phase and 
+            "landrush" launch phase MAY use the <a class='info' href='#generalCreateForm'>General Create Form<span> (</span><span class='info'>General Create Form</span><span>)</span></a> to explicitly specify the phase and 
             optionally define the expected type of object to create.
 </dd>
 <dt>claims</dt>
@@ -1506,7 +1530,9 @@ Claims Create Form</h3>
 <blockquote class="text"><dl>
 <dt>&lt;launch:noticeID&gt;</dt>
 <dd>Unique notice identifier 
-          generated by the source of the Claims Notice information.
+          generated by the source of the Claims Notice information. The &lt;launch:noticeID&gt; 
+          element has an OPTIONAL "validatorID" attribute that defines which trademark 
+          validator the notice ID relates to.
 </dd>
 <dt>&lt;launch:notAfter&gt;</dt>
 <dd>Expiry of the claims notice.
@@ -1544,7 +1570,9 @@ C:      &lt;launch:create
 C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
 C:        &lt;launch:phase&gt;claims&lt;/launch:phase&gt;
 C:        &lt;launch:notice&gt;
-C:          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
+C:          &lt;launch:noticeID validatorID="tmch"&gt;
+C:            49FD46E6C4B45C55D4AC
+C:          &lt;/launch:noticeID&gt;
 C:          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
 C:          &lt;/launch:notAfter&gt;
 C:          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
@@ -1654,7 +1682,9 @@ C:            ...
 C:          &lt;/mark:mark&gt;
 C:        &lt;/launch:codeMark&gt;
 C:        &lt;launch:notice&gt;
-C:          &lt;launch:noticeID&gt;49FD46E6C4B45C55D4AC&lt;/launch:noticeID&gt;
+C:          &lt;launch:noticeID validatorID="tmch"&gt;
+C:            49FD46E6C4B45C55D4AC
+C:          &lt;/launch:noticeID&gt;
 C:          &lt;launch:notAfter&gt;2012-06-19T10:00:10.0Z
 C:          &lt;/launch:notAfter&gt;
 C:          &lt;launch:acceptedDate&gt;2012-06-19T09:01:30.0Z
@@ -2012,16 +2042,43 @@ Import common element types.
   &lt;!--
   Definition for the sunrise code
   --&gt;
-  &lt;simpleType name="codeType"&gt;
+  &lt;simpleType name="codeValue"&gt;
     &lt;restriction base="token"&gt;
       &lt;minLength value="1"/&gt;
     &lt;/restriction&gt;
   &lt;/simpleType&gt;
 
+  &lt;complexType name="codeType"&gt;
+    &lt;simpleContent&gt;
+      &lt;extension base="launch:codeValue"&gt;
+        &lt;attribute name="validatorID"
+          type="launch:validatorIDType" use="optional"/&gt;
+      &lt;/extension&gt;
+    &lt;/simpleContent&gt;
+  &lt;/complexType&gt;
+
   &lt;!--
   Definition for the notice identifier
   --&gt;
-  &lt;simpleType name="noticeIDType"&gt;
+  &lt;simpleType name="noticeIDValue"&gt;
+    &lt;restriction base="token"&gt;
+      &lt;minLength value="1"/&gt;
+    &lt;/restriction&gt;
+  &lt;/simpleType&gt;
+
+  &lt;complexType name="noticeIDType"&gt;
+    &lt;simpleContent&gt;
+      &lt;extension base="launch:noticeIDValue"&gt;
+        &lt;attribute name="validatorID"
+          type="launch:validatorIDType" use="optional"/&gt;
+      &lt;/extension&gt;
+    &lt;/simpleContent&gt;
+  &lt;/complexType&gt;
+
+  &lt;!--
+  Definition for the validator identifier
+  --&gt;
+  &lt;simpleType name="validatorIDType"&gt;
     &lt;restriction base="token"&gt;
       &lt;minLength value="1"/&gt;
     &lt;/restriction&gt;
@@ -2172,7 +2229,7 @@ Import common element types.
   &lt;complexType name="cdType"&gt;
     &lt;sequence&gt;
       &lt;element name="name" type="launch:cdNameType"/&gt;
-      &lt;element name="claimKey" type="token"
+      &lt;element name="claimKey" type="launch:claimKeyType"
        minOccurs="0"/&gt;
     &lt;/sequence&gt;
   &lt;/complexType&gt;
@@ -2186,8 +2243,17 @@ Import common element types.
     &lt;/simpleContent&gt;
   &lt;/complexType&gt;
 
+  &lt;complexType name="claimKeyType"&gt;
+    &lt;simpleContent&gt;
+      &lt;extension base="token"&gt;
+        &lt;attribute name="validatorID"
+         type="launch:validatorIDType" use="optional"/&gt;
+      &lt;/extension&gt;
+    &lt;/simpleContent&gt;
+  &lt;/complexType&gt;
+
   &lt;!--
-  &lt;info&gt; response elemenets
+  &lt;info&gt; response elements
   --&gt;
   &lt;complexType name="infDataType"&gt;
     &lt;sequence&gt;
@@ -2216,7 +2282,7 @@ Acknowledgements</h3>
 </p>
 <p>Special suggestions that have been incorporated into this document 
       were provided by Jothan Frakes, Keith Gaughan, Seth Goldman, Jan Jansen, Rubens Kuhl, Ben Levac, Gustavo Lozano,
-      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Francisco Obispo, Bernhard Reutner-Fischer, Trung Tran,  
+      Klaus Malorny, Alexander Mayrhofer, Patrick Mevzek, James Mitchell, Francisco Obispo, Mike O'Connell, Bernhard Reutner-Fischer, Trung Tran,  
       Ulrich Wisser and Sharon Wodjenski.
 </p>
 <a name="anchor5"></a><br /><hr />
@@ -2461,6 +2527,17 @@ Change from 10 to 11</h3>
 <p></p>
 <ol class="text">
 <li>Moved the claims check response &lt;launch:chkData&gt; element under the &lt;extension&gt; element instead of the &lt;resData&gt; element based on the request from Francisco Obispo.
+</li>
+</ol>
+
+<a name="change-11-to-12"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.12"></a><h3>6.12.&nbsp;
+Change from 11 to 12</h3>
+
+<p></p>
+<ol class="text">
+<li>Added support for multiple validator identifiers for claims notices and marks.
 </li>
 </ol>
 
