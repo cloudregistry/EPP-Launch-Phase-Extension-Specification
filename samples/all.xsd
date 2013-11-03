@@ -1,0 +1,13 @@
+<schema
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://cloudregistry.net/ns/everything-1.0"
+    elementFormDefault="qualified">
+  <import schemaLocation="eppcom-1.0.xsd"/>
+  <import schemaLocation="epp-1.0.xsd"/>
+  <import schemaLocation="domain-1.0.xsd"/>
+  <import schemaLocation="host-1.0.xsd"/>
+  <import schemaLocation="xmldsig-core-schema.xsd"/>
+  <import schemaLocation="jimMark-1.0.xsd"/>
+  <import schemaLocation="jimSignedMark-1.0.xsd"/>
+  <import schemaLocation="launch-1.0.xsd"/>
+</schema>

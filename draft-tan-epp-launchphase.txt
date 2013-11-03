@@ -11,7 +11,7 @@ Expires: November 18, 2013                                Cloud Registry
 
 
   Launch Phase Mapping for the Extensible Provisioning Protocol (EPP)
-                      draft-tan-epp-launchphase-11
+                      draft-tan-epp-launchphase-12
 
 Abstract
 

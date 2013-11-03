@@ -12,7 +12,7 @@
 Import common element types.
 --> 
   <import namespace="http://www.w3.org/2000/09/xmldsig#"
-          schemaLocation="xmldig-core-schema.xsd"/> 
+          schemaLocation="xmldsig-core-schema.xsd"/> 
           
   <import namespace="urn:ietf:params:xml:ns:signedMark-1.0"
           schemaLocation="signedMark-1.0.xsd"/>           
