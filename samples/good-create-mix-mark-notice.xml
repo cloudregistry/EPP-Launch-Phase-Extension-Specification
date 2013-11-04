@@ -58,7 +58,7 @@
         </mark:mark>
         </launch:codeMark>
         <launch:notice>
-          <launch:noticeID>49FD46E6C4B45C55D4AC</launch:noticeID>
+          <launch:noticeID validatorID="tmch">49FD46E6C4B45C55D4AC</launch:noticeID>
           <launch:notAfter>2012-06-19T10:00:00.0Z</launch:notAfter>
           <launch:acceptedDate>2012-06-19T09:00:00.0Z</launch:acceptedDate>
         </launch:notice>

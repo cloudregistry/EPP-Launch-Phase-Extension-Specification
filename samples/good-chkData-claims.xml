@@ -18,7 +18,7 @@
       </launch:cd>
       <launch:cd>
         <launch:name exists="1">example2.tld</launch:name>
-        <launch:claimKey>
+        <launch:claimKey validatorID="tmch">
         2013041500/2/6/9/rJ1NrDO92vDsAzf7EQzgjX4R0000000001
         </launch:claimKey>
       </launch:cd>
