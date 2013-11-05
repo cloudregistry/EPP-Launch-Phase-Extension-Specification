@@ -1821,7 +1821,6 @@ Internet-Draft        Launch Phase Mapping for EPP              May 2013
    S:         xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
    S:       <domain:name>example.tld</domain:name>
    S:       <domain:crDate>2010-08-10T15:38:26.623854Z</domain:crDate>
-   S:       <domain:exDate>2012-08-10T15:38:26.623854Z</domain:exDate>
    S:      </domain:creData>
    S:    </resData>
    S:    <extension>
@@ -1838,6 +1837,7 @@ Internet-Draft        Launch Phase Mapping for EPP              May 2013
    S:    </trID>
    S:  </response>
    S:</epp>
+
 
 
 
@@ -2666,6 +2666,7 @@ Internet-Draft        Launch Phase Mapping for EPP              May 2013
 
    1.  Added support for multiple validator identifiers for claims
        notices and marks.
+   2.  Removed domain:exDate element from example in section 3.3.5.
 
 
 7.  IANA Considerations
@@ -2679,7 +2680,6 @@ Internet-Draft        Launch Phase Mapping for EPP              May 2013
       URI: urn:ietf:params:xml:ns:launch-1.0
       Registrant Contact: See the "Author's Address" section of this
       document.
-
 
 
 
