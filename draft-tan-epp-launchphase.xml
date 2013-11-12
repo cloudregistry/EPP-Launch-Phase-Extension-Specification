@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="17" month="May" year="2013"/>
+    <date day="12" month="November" year="2013"/>
 
     <!-- Meta-data Declarations -->
 
@@ -231,17 +231,17 @@
       </section>
       
       <section anchor="validatorID" title="Validator Identifier">
-        <t>Registries MAY support third party Trademark Validators in addition with the ICANN TMCH. 
-        If no additional validators are utilized during launch then the identifier MUST 
-        be omitted entirely. In the case of multiple validators, an 
-        identifier attribute SHOULD be provided by the respective parties. In the 
-        absence of the validator identifier, the ICANN Trade Mark Clearinghouse (TMCH) 
-        SHOULD be assumed as the default. The validator list and the identifier definition 
-        falls out of the scope of this document.</t>
-        
-        <t>In order to facilitate differentiation, the identifier SHOULD be 
-        used when the command or command elements relate to a specific trademark validator, such 
-        as when providing Mark information or when processing claim lookup keys. </t>
+        <t>The Validator Identifier is the unique identifier for a Trademark Validator that validates marks and has a repository of validated marks.  
+        The OPTIONAL "validatorID" attribute is used to define the Validator Identifier of the Trademark Validator.  
+        Registries MAY support more than one Third Party Trademark Validator.  The
+        Internet Corporation for Assigned Names and Numbers (ICANN) Trademark Clearinghouse (TMCH) 
+        is the default Trademark Validator and is reserved the Validator Identifier of "tmch".  If the ICANN TMCH 
+        is not used or multiple Trademark Validators are used, the Validator Identifier MUST be 
+        defined using the "validatorID" attribute.</t>
+        <t>The Validator Identifier MAY be related to one or more issuer identifiers of the &lt;mark:id&gt; element 
+        and the &lt;smd:id&gt; element defined in <xref target="draft-lozano-smd"/>.  Both the Validator Identifier and the 
+        Issuer Identifier used MUST be unique.  The list of validator identifiers and the relationship to 
+        issuer identifiers is out of scope for this document.</t>
       </section>
       
       <section anchor="phases" title="Launch Phases">
@@ -680,14 +680,12 @@ S:</epp>]]></artwork>
         or not at least one matching trademark exists for the domain name.  
         If there is at least one matching trademark that exists for the 
         domain name, a &lt;launch:claimKey&gt; element is returned.  
-        The client may then use the value of the &lt;launch:claimKey&gt; element
-        to obtain information needed to generate the trademark Claims Notice from
-        a third-party trademark validator such as
-        the Trademark Clearinghouse (TMCH).  The third party trademark 
-        validator should also return a unique notice identifier  
-        that can be passed in the &lt;launch:noticeID&gt; element of the extension to the 
-        <xref target="createCommand">Create Command</xref>. In order to differentiate between third 
-        party trademark validators the validatorID attribute indicating the trademark validator SHOULD be specified</t>
+        The client MAY then use the value of the &lt;launch:claimKey&gt; element
+        to obtain information needed to generate the Trademark Claims Notice from 
+        Trademark Validator based on the <xref target="validatorID">Validator Identifier</xref>.  The 
+        unique notice identifier of the Trademark Claims Notice MUST be passed in 
+        the &lt;launch:noticeID&gt; element of the extension to the 
+        <xref target="createCommand">Create Command</xref>.</t>  
         
         <t>The &lt;domain:name&gt; elements in the EPP &lt;check&gt; 
         command of <xref target="RFC5731">EPP domain name mapping</xref> define 
@@ -756,9 +754,9 @@ C:</epp>]]></artwork>
             Trademark Claims Notice.  The &lt;launch:claimKey&gt; is used 
             as the key for the query in place of the domain name 
             to securely query the service without using a well-known 
-            value like a domain name.  This element MAY contain a 
-            "validatorID" attribute whose value indicates which trademark 
-            validator this claim key relates to in the case of multiple trademark validators.</t>  
+            value like a domain name.  The OPTIONAL "validatorID" attribute is the <xref target="validatorID">Validator Identifier</xref> 
+            whose value indicates which Trademark Validator to query for the Claims Notice information, with 
+            the default being the ICANN TMCH.</t>  
               </list></t>
 
             </list></t>
@@ -1320,9 +1318,10 @@ C:</epp>]]></artwork>
               <t hangText="&lt;launch:notice&gt;">
               <list hangIndent="4" style="hanging">
             <t hangText="&lt;launch:noticeID&gt;">Unique notice identifier 
-          generated by the source of the Claims Notice information. The &lt;launch:noticeID&gt; 
-          element has an OPTIONAL "validatorID" attribute that defines which trademark 
-          validator the notice ID relates to.</t>
+          for the Claims Notice. The &lt;launch:noticeID&gt; 
+          element has an OPTIONAL "validatorID" attribute is the <xref target="validatorID">Validator Identifier</xref> whose value indicates 
+          which Trademark 
+          Validator is the source of the Claims Notice, with the default being the ICANN TMCH.</t>
                 <t hangText="&lt;launch:notAfter&gt;">Expiry of the claims notice.</t>
                 <t hangText="&lt;launch:acceptedDate&gt;">Contains the
               date and time that the Claims Notice was accepted.</t>
