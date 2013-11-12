@@ -92,7 +92,7 @@ Table of Contents
      3.4.  EPP <update> Command . . . . . . . . . . . . . . . . . . . 35
      3.5.  EPP <delete> Command . . . . . . . . . . . . . . . . . . . 36
      3.6.  EPP <renew> Command  . . . . . . . . . . . . . . . . . . . 37
-     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 37
+     3.7.  EPP <transfer> Command . . . . . . . . . . . . . . . . . . 38
    4.  Formal Syntax  . . . . . . . . . . . . . . . . . . . . . . . . 38
      4.1.  Launch Schema  . . . . . . . . . . . . . . . . . . . . . . 38
    5.  Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . 45
@@ -120,7 +120,7 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    7.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 49
    8.  Security Considerations  . . . . . . . . . . . . . . . . . . . 50
    9.  Normative References . . . . . . . . . . . . . . . . . . . . . 50
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 50
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 51
 
 
 
@@ -1910,9 +1910,11 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    This extension defines additional elements to extend the EPP <update>
    command to be used in conjunction with the domain name mapping.
 
-   A server that does not support multiple applications of a given
-   domain name with an Application Identifier (Section 2.1) during its
-   launch phase operations MUST return an EPP error result code of 2102.
+   A client MUST NOT pass the extension on an EPP <update> command to a
+   server that does not support launch applications.  A server that does
+   not support launch applications during its launch phase MUST return
+   an EPP error result code of 2102 when receiving an EPP <update>
+   command with the extension.
 
    Registry policies permitting, clients may update an application
    object by submitting an EPP <update> command along with a <launch:
@@ -1923,8 +1925,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
        or is associated with.
    <launch:applicationID>  The application identifier for which the
        client wishes to update.
-
-
 
 
 
@@ -2005,10 +2005,10 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    This extension defines additional elements to extend the EPP <delete>
    command to be used in conjunction with the domain name mapping.
 
-   A server that does not support multiple applications of a given
-   domain name with an Application Identifier (Section 2.1) during its
-   launch phase operations MUST return an EPP error result code of 2102.
-
+   A client MUST NOT pass the extension on an EPP <delete> command to a
+   server that does not support launch applications.  A server that does
+   not support launch applications during its launch phase MUST return
+   an EPP error result code of 2102 when receiving an EPP <delete>
 
 
 
@@ -2016,6 +2016,8 @@ Gould, et al.             Expires May 16, 2014                 [Page 36]
 
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
+
+   command with the extension.
 
    Registry policies permitting, clients MAY withdraw an application by
    submitting an EPP <delete> command along with a <launch:delete>
@@ -2061,10 +2063,8 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    command or response described in the EPP domain name mapping
    [RFC5731].
 
-3.7.  EPP <transfer> Command
 
-   This extension does not define any extension to the EPP <transfer>
-   command or response described in the EPP domain name mapping
+
 
 
 
@@ -2073,6 +2073,10 @@ Gould, et al.             Expires May 16, 2014                 [Page 37]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+3.7.  EPP <transfer> Command
+
+   This extension does not define any extension to the EPP <transfer>
+   command or response described in the EPP domain name mapping
    [RFC5731].
 
 
@@ -2117,10 +2121,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-   BEGIN
-   <?xml version="1.0" encoding="UTF-8"?>
 
 
 
@@ -2129,6 +2129,10 @@ Gould, et al.             Expires May 16, 2014                 [Page 38]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+   BEGIN
+   <?xml version="1.0" encoding="UTF-8"?>
    <schema
      targetNamespace="urn:ietf:params:xml:ns:launch-1.0"
      xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"
@@ -2173,10 +2177,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
      <complexType name="idContainerType">
        <sequence>
          <element name="phase" type="launch:phaseType"/>
-         <element name="applicationID" type="launch:applicationIDType"/>
-       </sequence>
-     </complexType>
-
 
 
 
@@ -2184,6 +2184,10 @@ Gould, et al.             Expires May 16, 2014                 [Page 39]
 
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
+
+         <element name="applicationID" type="launch:applicationIDType"/>
+       </sequence>
+     </complexType>
 
      <!--
      Definition for application identifier
@@ -2229,10 +2233,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
        </restriction>
      </simpleType>
 
-     <complexType name="codeType">
-       <simpleContent>
-         <extension base="launch:codeValue">
-           <attribute name="validatorID"
 
 
 
@@ -2241,6 +2241,10 @@ Gould, et al.             Expires May 16, 2014                 [Page 40]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+     <complexType name="codeType">
+       <simpleContent>
+         <extension base="launch:codeValue">
+           <attribute name="validatorID"
              type="launch:validatorIDType" use="optional"/>
          </extension>
        </simpleContent>
@@ -2285,10 +2289,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
            <enumeration value="allocated"/>
            <enumeration value="rejected"/>
            <enumeration value="custom"/>
-         </restriction>
-       </simpleType>
-
-     <!--
 
 
 
@@ -2297,6 +2297,10 @@ Gould, et al.             Expires May 16, 2014                 [Page 41]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+         </restriction>
+       </simpleType>
+
+     <!--
      Status type definition
      -->
      <complexType name="statusType">
@@ -2341,10 +2345,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
          <element name="notice" minOccurs="0"
           type="launch:createNoticeType"/>
        </sequence>
-       <attribute name="type" type="launch:objectType"/>
-     </complexType>
-
-     <!--
 
 
 
@@ -2353,6 +2353,10 @@ Gould, et al.             Expires May 16, 2014                 [Page 42]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+       <attribute name="type" type="launch:objectType"/>
+     </complexType>
+
+     <!--
      Type of launch object
      -->
      <simpleType name="objectType">
@@ -2399,16 +2403,14 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
      </simpleType>
 
 
-     <!--
-     Child elements of info command.
-
-
 
 Gould, et al.             Expires May 16, 2014                 [Page 43]
 
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+     <!--
+     Child elements of info command.
      -->
      <complexType name="infoType">
        <sequence>
@@ -2456,8 +2458,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
        </simpleContent>
      </complexType>
 
-     <complexType name="claimKeyType">
-
 
 
 Gould, et al.             Expires May 16, 2014                 [Page 44]
@@ -2465,6 +2465,7 @@ Gould, et al.             Expires May 16, 2014                 [Page 44]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+     <complexType name="claimKeyType">
        <simpleContent>
          <extension base="token">
            <attribute name="validatorID"
@@ -2509,7 +2510,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
 6.  Change History
-
 
 
 
@@ -2721,8 +2721,14 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
 6.12.  Change from 11 to 12
 
    1.  Added support for multiple validator identifiers for claims
-       notices and marks.
-   2.  Removed domain:exDate element from example in section 3.3.5.
+       notices and marks based on a request and text provided by Mike
+       O'Connell.
+   2.  Removed domain:exDate element from example in section 3.3.5 based
+       on a request from Seth Goldman on the provreg list.
+   3.  Added clarifying text for clients not passing the launch
+       extension on update and delete commands to servers that do not
+       support launch applications based on a request from Sharon
+       Wodjenski on the provreg list.
 
 
 7.  IANA Considerations
@@ -2730,12 +2736,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    This document uses URNs to describe XML namespaces and XML schemas
    conforming to a registry mechanism described in [RFC3688].  Three URI
    assignments have been registered by the IANA.
-
-   Registration request for the Launch namespace:
-
-      URI: urn:ietf:params:xml:ns:launch-1.0
-      Registrant Contact: See the "Author's Address" section of this
-      document.
 
 
 
@@ -2745,6 +2745,11 @@ Gould, et al.             Expires May 16, 2014                 [Page 49]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+   Registration request for the Launch namespace:
+
+      URI: urn:ietf:params:xml:ns:launch-1.0
+      Registrant Contact: See the "Author's Address" section of this
+      document.
       XML: None.  Namespace URIs do not represent an XML specification.
 
 
@@ -2787,11 +2792,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
               Lozano, G., "Mark and Signed Mark Objects Mapping".
 
    [1]  <http://tools.ietf.org/html/draft-lozano-tmch-func-spec>
-
-
-
-
-
 
 
 

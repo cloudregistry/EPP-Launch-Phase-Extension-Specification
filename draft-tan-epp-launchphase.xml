@@ -1557,10 +1557,12 @@ S:</epp>
         &lt;update&gt; command to be used in conjunction with the domain name
         mapping.</t>
 
-        <t>A server that does not support multiple applications of a
-        given domain name with an <xref target="applicationID">Application
-        Identifier</xref> during its launch phase operations MUST return an
-        EPP error result code of 2102.</t>
+        <t>A client MUST NOT pass the extension on 
+        an EPP &lt;update&gt; command to a server that does not support launch 
+        applications.  A server that does not support launch applications during 
+        its launch phase MUST return an
+        EPP error result code of 2102 when receiving an EPP &lt;update&gt; 
+        command with the extension.</t>
 
         <t>Registry policies permitting, clients may update an application
         object by submitting an EPP &lt;update&gt; command along with a
@@ -1629,10 +1631,12 @@ C:</epp>
         &lt;delete&gt; command to be used in conjunction with the domain name
         mapping.</t>
 
-        <t>A server that does not support multiple applications of a
-        given domain name with an <xref target="applicationID">Application
-        Identifier</xref> during its launch phase operations MUST return an
-        EPP error result code of 2102.</t>
+        <t>A client MUST NOT pass the extension on 
+        an EPP &lt;delete&gt; command to a server that does not support launch 
+        applications.  A server that does not support launch applications during 
+        its launch phase MUST return an
+        EPP error result code of 2102 when receiving an EPP &lt;delete&gt; 
+        command with the extension.</t>
 
         <t>Registry policies permitting, clients MAY withdraw an application
         by submitting an EPP &lt;delete&gt; command along with a
@@ -2202,8 +2206,11 @@ END]]></artwork>
     </section>
     <section title="Change from 11 to 12" anchor="change-11-to-12">
       <t><list style="numbers">
-          <t>Added support for multiple validator identifiers for claims notices and marks.</t>  
-          <t>Removed domain:exDate element from example in section 3.3.5.</t>  
+          <t>Added support for multiple validator identifiers for claims notices and marks based on a request and 
+          text provided by Mike O'Connell.</t>  
+          <t>Removed domain:exDate element from example in section 3.3.5 based on a request from Seth Goldman on the provreg list.</t> 
+          <t>Added clarifying text for clients not passing the launch extension on update and delete commands 
+          to servers that do not support launch applications based on a request from Sharon Wodjenski on the provreg list.</t>
       </list></t>
     </section>
    </section>
