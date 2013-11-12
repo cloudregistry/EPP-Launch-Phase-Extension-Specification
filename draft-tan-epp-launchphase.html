@@ -776,7 +776,8 @@ Mark Validation Models</h3>
 <dd>OPTIONAL mark code used to 
               validate the <a class='info' href='#mark'>&lt;mark:mark&gt;<span> (</span><span class='info'>&lt;mark:mark&gt; element</span><span>)</span></a> information.  The mark code 
               is be a mark-specific secret that the server can verify 
-              against a third party.
+              against a third party.  The OPTIONAL "validatorID" attribute is the <a class='info' href='#validatorID'>Validator Identifier<span> (</span><span class='info'>Validator Identifier</span><span>)</span></a> 
+              whose value indicates which Trademark Validator that the code originated from, with no default value.
 </dd>
 <dt>&lt;mark:mark&gt;:</dt>
 <dd>OPTIONAL mark information 
@@ -790,7 +791,8 @@ Mark Validation Models</h3>
             
 </p><div style='display: table; width: 0; margin-left: 3em; margin-right: auto'><pre>
 &lt;launch:codeMark&gt;
-  &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+  &lt;launch:code validatorID="sample"&gt;
+    49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
   &lt;mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
     ...
   &lt;/mark:mark&gt;
@@ -1353,13 +1355,15 @@ C:      &lt;launch:create
 C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
 C:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
 C:        &lt;launch:codeMark&gt;
-C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+C:          &lt;launch:code validatorID="sample1"&gt;
+C:            49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
 C:        &lt;/launch:codeMark&gt;
 C:        &lt;launch:codeMark&gt;
 C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AD&lt;/launch:code&gt;
 C:        &lt;/launch:codeMark&gt;
 C:        &lt;launch:codeMark&gt;
-C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AE&lt;/launch:code&gt;
+C:          &lt;launch:code validatorID="sample2"&gt;
+C:            49FD46E6C4B45C55D4AE&lt;/launch:code&gt;
 C:        &lt;/launch:codeMark&gt;
 C:     &lt;/launch:create&gt;
 C:    &lt;/extension&gt;
@@ -1424,7 +1428,8 @@ C:      &lt;launch:create
 C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0"&gt;
 C:        &lt;launch:phase&gt;sunrise&lt;/launch:phase&gt;
 C:        &lt;launch:codeMark&gt;
-C:          &lt;launch:code&gt;49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
+C:          &lt;launch:code validatorID="sample"&gt;
+C:            49FD46E6C4B45C55D4AC&lt;/launch:code&gt;
 C:          &lt;mark:mark
 C:           xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"&gt;
 C:           ...

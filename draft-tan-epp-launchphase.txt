@@ -760,7 +760,10 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
    <launch:code>:  OPTIONAL mark code used to validate the <mark:mark>
       (Section 2.6.2) information.  The mark code is be a mark-specific
-      secret that the server can verify against a third party.
+      secret that the server can verify against a third party.  The
+      OPTIONAL "validatorID" attribute is the Validator Identifier
+      (Section 2.2) whose value indicates which Trademark Validator that
+      the code originated from, with no default value.
    <mark:mark>:  OPTIONAL mark information with child elements defined
       in the Mark (Section 2.6.2) section.
 
@@ -768,15 +771,12 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    <launch:code> and <mark:mark> (Section 2.6.2) element.
 
    <launch:codeMark>
-     <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+     <launch:code validatorID="sample">
+       49FD46E6C4B45C55D4AC</launch:code>
      <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
        ...
      </mark:mark>
    </launch:codeMark>
-
-
-
-
 
 
 
@@ -1302,9 +1302,9 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
            defined in the <smd:encodedSignedMark> element
            (Section 2.6.3.2) section.
 
-   The following is an example <create> domain command using the
-   <launch:create> extension, following the "code" validation model,
-   with multiple sunrise codes:
+
+
+
 
 
 
@@ -1345,6 +1345,10 @@ Gould, et al.             Expires May 16, 2014                 [Page 24]
 Internet-Draft        Launch Phase Mapping for EPP         November 2013
 
 
+   The following is an example <create> domain command using the
+   <launch:create> extension, following the "code" validation model,
+   with multiple sunrise codes:
+
    C:<?xml version="1.0" encoding="UTF-8" standalone="no"?>
    C:<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
    C:  <command>
@@ -1365,25 +1369,21 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
    C:        <launch:phase>sunrise</launch:phase>
    C:        <launch:codeMark>
-   C:          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+   C:          <launch:code validatorID="sample1">
+   C:            49FD46E6C4B45C55D4AC</launch:code>
    C:        </launch:codeMark>
    C:        <launch:codeMark>
    C:          <launch:code>49FD46E6C4B45C55D4AD</launch:code>
    C:        </launch:codeMark>
    C:        <launch:codeMark>
-   C:          <launch:code>49FD46E6C4B45C55D4AE</launch:code>
+   C:          <launch:code validatorID="sample2">
+   C:            49FD46E6C4B45C55D4AE</launch:code>
    C:        </launch:codeMark>
    C:     </launch:create>
    C:    </extension>
    C:    <clTRID>ABC-12345</clTRID>
    C:  </command>
    C:</epp>
-
-
-
-
-
-
 
 
 
@@ -1481,7 +1481,8 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
    C:        <launch:phase>sunrise</launch:phase>
    C:        <launch:codeMark>
-   C:          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+   C:          <launch:code validatorID="sample">
+   C:            49FD46E6C4B45C55D4AC</launch:code>
    C:          <mark:mark
    C:           xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
    C:           ...
@@ -1492,7 +1493,6 @@ Internet-Draft        Launch Phase Mapping for EPP         November 2013
    C:    <clTRID>ABC-12345</clTRID>
    C:  </command>
    C:</epp>
-
 
 
 

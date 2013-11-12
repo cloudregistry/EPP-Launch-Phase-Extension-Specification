@@ -25,7 +25,8 @@
        launch-1.0.xsd">
         <launch:phase name="test">custom</launch:phase>
         <launch:codeMark>
-          <launch:code validatorID="tmch">49FD46E6C4B45C55D4AC</launch:code>
+          <launch:code validatorID="sample">
+          	49FD46E6C4B45C55D4AC</launch:code>
 			 <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
 			  xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
 				mark-1.0.xsd">

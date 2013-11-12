@@ -577,7 +577,8 @@ S:</epp>]]></artwork>
               <t hangText="&lt;launch:code&gt;:">OPTIONAL mark code used to 
               validate the <xref target="mark">&lt;mark:mark&gt;</xref> information.  The mark code 
               is be a mark-specific secret that the server can verify 
-              against a third party.</t>
+              against a third party.  The OPTIONAL "validatorID" attribute is the <xref target="validatorID">Validator Identifier</xref> 
+              whose value indicates which Trademark Validator that the code originated from, with no default value.</t>
               <t hangText="&lt;mark:mark&gt;:">OPTIONAL mark information 
               with child elements defined in the <xref target="mark">Mark</xref> 
               section.</t>
@@ -589,7 +590,8 @@ S:</epp>]]></artwork>
 
             <artwork><![CDATA[
 <launch:codeMark>
-  <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+  <launch:code validatorID="sample">
+    49FD46E6C4B45C55D4AC</launch:code>
   <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
     ...
   </mark:mark>
@@ -1126,13 +1128,15 @@ C:      <launch:create
 C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
 C:        <launch:phase>sunrise</launch:phase>
 C:        <launch:codeMark>
-C:          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+C:          <launch:code validatorID="sample1">
+C:            49FD46E6C4B45C55D4AC</launch:code>
 C:        </launch:codeMark>
 C:        <launch:codeMark>
 C:          <launch:code>49FD46E6C4B45C55D4AD</launch:code>
 C:        </launch:codeMark>
 C:        <launch:codeMark>
-C:          <launch:code>49FD46E6C4B45C55D4AE</launch:code>
+C:          <launch:code validatorID="sample2">
+C:            49FD46E6C4B45C55D4AE</launch:code>
 C:        </launch:codeMark>
 C:     </launch:create>
 C:    </extension>
@@ -1208,7 +1212,8 @@ C:      <launch:create
 C:       xmlns:launch="urn:ietf:params:xml:ns:launch-1.0">
 C:        <launch:phase>sunrise</launch:phase>
 C:        <launch:codeMark>
-C:          <launch:code>49FD46E6C4B45C55D4AC</launch:code>
+C:          <launch:code validatorID="sample">
+C:            49FD46E6C4B45C55D4AC</launch:code>
 C:          <mark:mark
 C:           xmlns:mark="urn:ietf:params:xml:ns:mark-1.0">
 C:           ...

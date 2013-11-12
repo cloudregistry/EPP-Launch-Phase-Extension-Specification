@@ -25,7 +25,7 @@
        launch-1.0.xsd">
         <launch:phase>sunrise</launch:phase>
         <launch:codeMark>
-          <launch:code validatorID="tmch">49FD46E6C4B45C55D4AC</launch:code>
+          <launch:code validatorID="custom1">49FD46E6C4B45C55D4AC</launch:code>
 			 <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
 			  xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
 				mark-1.0.xsd">
@@ -58,7 +58,7 @@
 			 </mark:mark>
         </launch:codeMark>
       <launch:codeMark>
-        <launch:code validatorID="tmch">49FD46E6C4B45C55D4AD</launch:code>
+        <launch:code validatorID="custom2">49FD46E6C4B45C55D4AD</launch:code>
 			 <mark:mark xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
 			  xsi:schemaLocation="urn:ietf:params:xml:ns:mark-1.0
 				mark-1.0.xsd">
