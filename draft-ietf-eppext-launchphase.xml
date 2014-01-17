@@ -38,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-12" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-eppext-launchphase-00" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="12" month="November" year="2013"/>
+    <date day="17" month="January" year="2014"/>
 
     <!-- Meta-data Declarations -->
 
@@ -166,7 +166,7 @@
       Registration refers to a registration made during a launch phase when the
       server uses a "first-come, first-served" model.  Even in a "first-come,
       first-served" model, additional steps and information might be required, such as trademark information. In addition, the <eref
-      target="http://tools.ietf.org/html/draft-lozano-tmch-func-spec">TMCH Functional Specification</eref> 
+      target="http://tools.ietf.org/html/draft-ietf-eppext-tmch-smd">TMCH Functional Specification</eref> 
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
@@ -195,13 +195,13 @@
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.</t>
         <t>"signedMark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in <xref target="draft-lozano-smd"/>. 
+        "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in <xref target="draft-ietf-eppext-tmch-smd"/>. 
         The XML namespace prefix "smd"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.</t>
         <t>"mark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:mark-1.0" that is defined in <xref target="draft-lozano-smd"/>. 
+        "urn:ietf:params:xml:ns:mark-1.0" that is defined in <xref target="draft-ietf-eppext-tmch-smd"/>. 
         The XML namespace prefix "mark"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
@@ -239,7 +239,7 @@
         is not used or multiple Trademark Validators are used, the Validator Identifier MUST be 
         defined using the "validatorID" attribute.</t>
         <t>The Validator Identifier MAY be related to one or more issuer identifiers of the &lt;mark:id&gt; element 
-        and the &lt;smd:id&gt; element defined in <xref target="draft-lozano-smd"/>.  Both the Validator Identifier and the 
+        and the &lt;smd:id&gt; element defined in <xref target="draft-ietf-eppext-tmch-smd"/>.  Both the Validator Identifier and the 
         Issuer Identifier used MUST be unique.  The list of validator identifiers and the relationship to 
         issuer identifiers is out of scope for this document.</t>
       </section>
@@ -604,10 +604,10 @@ S:</epp>]]></artwork>
         <t>A &lt;mark:mark&gt; element describes an applicant's prior right
         to a given domain name that is used with the "mark", "mark with code", and 
         the "signed mark" validation models.  The &lt;mark:mark&gt; element is defined 
-        in <xref target="draft-lozano-smd"/>.  
+        in <xref target="draft-ietf-eppext-tmch-smd"/>.  
         A new mark format can be supported by creating a new 
         XML schema for the mark that has an element that substitutes 
-        for the &lt;mark:abstractMark&gt; element from <xref target="draft-lozano-smd"/>.</t>
+        for the &lt;mark:abstractMark&gt; element from <xref target="draft-ietf-eppext-tmch-smd"/>.</t>
       </section>
             
       <section anchor="digitalsignature" title="Digital Signature">
@@ -617,20 +617,20 @@ S:</epp>]]></artwork>
         </t>
      <section anchor="signedMark" title="&lt;smd:signedMark&gt; element">
         <t>The &lt;smd:signedMark&gt; element contains the digitally signed mark information.  The &lt;smd:signedMark&gt; 
-        element is defined in <xref target="draft-lozano-smd"/>.  A new 
+        element is defined in <xref target="draft-ietf-eppext-tmch-smd"/>.  A new 
         signed mark format can be supported by creating a new XML schema 
         for the signed mark that has an element that substitutes for 
-        the &lt;smd:abstractSignedMark&gt; element from <xref target="draft-lozano-smd"/>.  
+        the &lt;smd:abstractSignedMark&gt; element from <xref target="draft-ietf-eppext-tmch-smd"/>.  
         </t>
         </section>
 
      <section anchor="encodedSignedMark" title="&lt;smd:encodedSignedMark&gt; element">
         <t>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
         the digitally signed <xref target="signedMark">&lt;smd:signedMark&gt;</xref> element.  The 
-        &lt;smd:encodedSignedMark&gt; element is defined in <xref target="draft-lozano-smd"/>.  
+        &lt;smd:encodedSignedMark&gt; element is defined in <xref target="draft-ietf-eppext-tmch-smd"/>.  
         A new encoded signed mark format can be supported by creating a new XML schema 
         for the encoded signed mark that has an element that substitutes for the 
-        &lt;smd:encodedSignedMark&gt; element from <xref target="draft-lozano-smd"/>.
+        &lt;smd:encodedSignedMark&gt; element from <xref target="draft-ietf-eppext-tmch-smd"/>.
         </t>
         </section>
         
@@ -2086,131 +2086,12 @@ END]]></artwork>
     </section>
     
    <section title="Change History">
-    <section title="Change from 00 to 01" anchor="change-00-to-01">
+    <section title="Initial -00" anchor="initial">
       <t><list style="numbers">
-        <t>Changed to use camel case for the XML elements.</t>
-        <t>Replaced "cancelled" status to "rejected" status.</t>
-        <t>Added the child elements of the &lt;claim&gt; element.</t>
-        <t>Removed the XML schema and replaced with "[TBD]".</t>
-      </list></t>
-    </section>
-    <section title="Change from 01 to 02" anchor="change-01-to-02">
-      <t><list style="numbers">
-        <t>Added support for both the ICANN and ARI/Neustar TMCH models.</t>
-        <t>Changed the namespace URI and prefix to use "launch" instead of "launchphase".</t>
-        <t>Added definition of multiple claim validation models.</t>
-        <t>Added the &lt;launch:signedClaim&gt; and &lt;launch:signedNotice&gt; elements.</t>
-        <t>Added support for Claims Info Command</t>
-      </list></t>
-    </section>
-    <section title="Change from 02 to 03" anchor="change-02-to-03">
-      <t><list style="numbers">
-        <t>Removed XSI namespace per Keith Gaughan's suggestion on the provreg list.</t>
-        <t>Added extensibility to the launch:status element and added the 
-        pendingAuction status per Trung Tran's feedback on the provreg list.</t>
-        <t>Added support for the Claims Check Command, updated the location and 
-        contents of the signedNotice, and replaced most references of Claim to Mark 
-        based on the work being done on the ARI/Neustar launch model.</t>
-      </list></t>
-    </section>
-    <section title="Change from 03 to 04" anchor="change-03-to-04">
-      <t><list style="numbers">
-        <t>Removed references to the ICANN model.</t>
-        <t>Removed support for the Claims Info Command.</t>
-        <t>Removed use of the signedClaim.</t>
-        <t>Revised the method for referring to the signedClaim from the XML Signature using the IDREF URI.</t>
-        <t>Split the launch-1.0.xsd into three XML schemas including launch-1.0.xsd, signeMark-1.0.xsd, and mark-1.0.xsd.</t>
-        <t>Split the "claims" launch phase to the "claims1" and "claims2" launch phases.</t>
-        <t>Added support for the encodedSignedMark with base64 encoded signedMark.</t>
-        <t>Changed the elements in the createNoticeType to include the noticeID, timestamp, and the source elements.</t>
-        <t>Added the class and effectiveDate elements to mark.</t>
-      </list></t>
-    </section>
-    <section title="Change from 04 to 05" anchor="change-04-to-05">
-      <t><list style="numbers">
-        <t>Removed reference to &lt;smd:zone&gt; in the &lt;smd:signedMark&gt; example.</t>
-        <t>Incorporated feedback from Bernhard Reutner-Fischer on the provreg mail list.</t>
-        <t>Added missing launch XML prefix to applicationIDType reference in the idContainerType of the Launch Schema.</t>
-        <t>Added missing description of the &lt;mark:pc&gt; element in the &lt;mark:addr&gt; element.</t>
-        <t>Updated note on replication of the EPP contact mapping elements in the Mark Contact section.</t>
-      </list></t>
-    </section>
-    <section title="Change from 05 to 06" anchor="change-05-to-06">
-      <t><list style="numbers">
-        <t>Removed the definition of the mark-1.0 and signedMark-1.0 and replaced with reference to draft-lozano-smd, that contains the definition for the mark, signed marked, and encoded signed mark.</t>
-        <t>Split the &lt;launch:timestamp&gt; into &lt;launch:generatedDate&gt; and &lt;launch:acceptedDate&gt; based on feedback from Trung Tran.</t>
-        <t>Added the "includeMark" optional attribute to the &lt;launch:info&gt; element to enable the client to request whether or not to include the mark in the info response.</t>
-        <t>Fixed state diagram to remove redundant transition from "invalid" to "rejected"; thanks Klaus Malorny.</t>
-      </list></t>
-    </section>
-    <section title="Change from 06 to 07" anchor="change-06-to-07">
-      <t><list style="numbers">
-        <t>Proof-read grammar and spelling.</t>
-        <t>Changed "pendingAuction" status to "pendingAllocation", changed "pending" to "pendingValidation" status, per proposal from Trung Tran and seconded by Rubens Kuhl.</t>
-        <t>Added text related to the use of RFC 5731 pendingCreate to the Application Identifier section.</t>
-        <t>Added the Poll Messaging section to define the use of poll messaging for intermediate state transitions and pending action poll messaging for final state transitions.</t>
-      </list></t>
-    </section>
-    <section title="Change from 07 to 08" anchor="change-07-to-08">
-      <t><list style="numbers">
-        <t>Added support for use of the launch statuses and poll messaging for Launch Registrations based on feedback from Sharon Wodjenski and Trung Tran.</t>
-        <t>Incorporated changes based on updates or clarifications in draft-lozano-tmch-func-spec-01, which include:
-        	<list>
-        		<t>Removed the unused &lt;launch:generatedDate&gt; element.</t>
-        		<t>Removed the &lt;launch:source&gt; element.</t>
-        		<t>Added the &lt;launch:notAfter&gt; element based on the required &lt;tmNotice:notAfter&gt; element.</t>
-        	</list>
-        </t>
-      </list></t>
-    </section>
-    <section title="Change from 08 to 09" anchor="change-08-to-09">
-      <t><list style="numbers">
-        <t>Made &lt;choice&gt; element optional in &lt;launch:create&gt; to allow passing just the &lt;launch:phase&gt; in &lt;launch:create&gt; per request from Ben Levac.</t>
-        <t>Added optional "type" attribute in &lt;launch:create&gt; to enable the client to explicitly define the desired type of object (application or registration) to create to all forms of the create extension.</t>
-        <t>Added text that the server SHOULD validate the &lt;launch:phase&gt; element in the Launch Phases section.</t>
-        <t>Add the "General Create Form" to the create command extension to support the request from Ben Levac.</t>
-        <t>Updated the text for the Poll Messaging section based on feedback from Klaus Malorny.</t>
-        <t>Replaced the "claims1" and "claims2" phases with the "claims" phase based on discussion on the provreg list.</t>
-        <t>Added support for a mixed create model (Sunrise Create Model and Claims Create Model), where a trademark (encoded signed mark, etc.) and notice can be passed, based on a request from James Mitchell.</t>
-        <t>Added text for the handling of the overlapping "claims" and "landrush" launch phases.</t>
-        <t>Added support for two check forms (claims check form and availability check form) based on a request from James Mitchell.  The availability check form was based on the text in draft-rbp-application-epp-mapping.</t>
-      </list></t>
-    </section>
-    <section title="Change from 09 to 10" anchor="change-09-to-10">
-      <t><list style="numbers">
-        <t>Changed noticeIDType from base64Binary to token to be compatible with draft-lozano-tmch-func-spec-05.</t>
-        <t>Changed codeType from base64Binary to token to be more generic.</t>
-        <t>Updated based on feedback from Alexander Mayrhofer, which include:
-          <list>
-             <t>Changed "extension to the domain name extension" to "extension to the domain name mapping".</t>
-             <t>Changed use of 2004 return code to 2306 return code when phase passed mismatches active phase and sub-phase.</t>
-             <t>Changed description of "allocated" and "rejected" statuses.</t>
-             <t>Moved sentence on a synchronous &lt;domain:create&gt; command without the use of an intermediate application, then an Application Identifier MAY not be needed to the Application Identifier section.</t>    
-             <t>Restructured the Mark Validation Models section to include the "&lt;launch:codeMark&gt; element" sub-section, the "&lt;mark:mark&gt; element" sub-section, and the Digital Signature sub-section.</t> 
-             <t>Changed "Registries may" to "Registries MAY".</t>
-             <t>Changed "extensed" to "extended" in "Availability Check Form" section.</t>
-             <t>Broke the mix of create forms in the "EPP &lt;create&gt; Command" section to a fourth "Mixed Create Form" with its own sub-section.</t>
-             <t>Removed "displayed or" from "displayed or accepted" in the &lt;launch:acceptedDate&gt; description.</t>
-             <t>Replaced "given domain name is supported" with "given domain name are supported" in the "Create Response" section.</t>
-             <t>Changed the reference of 2303 (object does not exist) in the "Security Considerations" section to 2201 (authorization error).</t>
-             <t>Added arrow from "invalid" status to "pendingValidation" status and "pendingAllocation" status to "rejected" status in the State Transition Diagram.</t>  
-          </list>
-        </t>
-        <t>Added the "C:" and "S:" example prefixes and related text in the "Conventions Used in This Document" section.</t> 
-      </list></t>
-    </section>
-    <section title="Change from 10 to 11" anchor="change-10-to-11">
-      <t><list style="numbers">
-        <t>Moved the claims check response &lt;launch:chkData&gt; element under the &lt;extension&gt; element instead of the &lt;resData&gt; element based on the request from Francisco Obispo.</t>
-      </list></t>
-    </section>
-    <section title="Change from 11 to 12" anchor="change-11-to-12">
-      <t><list style="numbers">
-          <t>Added support for multiple validator identifiers for claims notices and marks based on a request and 
-          text provided by Mike O'Connell.</t>  
-          <t>Removed domain:exDate element from example in section 3.3.5 based on a request from Seth Goldman on the provreg list.</t> 
-          <t>Added clarifying text for clients not passing the launch extension on update and delete commands 
-          to servers that do not support launch applications based on a request from Sharon Wodjenski on the provreg list.</t>
+          <t>First eppext working group version.  
+          Changed draft-tan-epp-launchphase-12 to draft-ietf-eppext-launchphase-00 
+          and changed references of draft-lozano-tmch-smd to 
+          draft-ietf-eppext-tmch-smd.</t>
       </list></t>
     </section>
    </section>
@@ -2220,7 +2101,7 @@ END]]></artwork>
          <t>
              This document uses URNs to describe XML namespaces and XML schemas
              conforming to a registry mechanism described in <xref target="RFC3688"/>.
-             Three URI assignments have been registered by the IANA.
+             One URI assignment has been registered by the IANA.
          </t>
 
          <t>Registration request for the Launch namespace:</t>
@@ -2274,12 +2155,12 @@ END]]></artwork>
 
     <references title="Normative References">
     
-      <reference anchor="draft-lozano-smd">
+      <reference anchor="draft-ietf-eppext-tmch-smd">
         <front>
           <title abbrev='Mark and Signed Mark Objects Mapping'>Mark and Signed Mark Objects Mapping</title>
           <author fullname="Gustavo Lozano" initials="G.L." surname="Lozano"/>
         </front>
-        <format type='HTML' target='http://tools.ietf.org/html/draft-lozano-tmch-smd' />
+        <format type='HTML' target='http://tools.ietf.org/html/draft-ietf-eppext-tmch-smd' />
       </reference>    
     
     
