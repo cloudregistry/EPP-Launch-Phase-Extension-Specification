@@ -38,7 +38,7 @@
 <?rfc inline="yes" ?>
 <!-- inline cref output -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-tan-epp-launchphase-12" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-eppext-launchphase-00" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -126,7 +126,7 @@
       </address>
     </author>
 
-    <date day="12" month="November" year="2013"/>
+    <date day="17" month="January" year="2014"/>
 
     <!-- Meta-data Declarations -->
 
@@ -166,7 +166,7 @@
       Registration refers to a registration made during a launch phase when the
       server uses a "first-come, first-served" model.  Even in a "first-come,
       first-served" model, additional steps and information might be required, such as trademark information. In addition, the <eref
-      target="http://tools.ietf.org/html/draft-lozano-tmch-func-spec">TMCH Functional Specification</eref> 
+      target="http://tools.ietf.org/html/draft-ietf-eppext-tmch-smd">TMCH Functional Specification</eref> 
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
@@ -195,13 +195,13 @@
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.</t>
         <t>"signedMark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in <xref target="draft-lozano-smd"/>. 
+        "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in <xref target="draft-ietf-eppext-tmch-smd"/>. 
         The XML namespace prefix "smd"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.</t>
         <t>"mark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:mark-1.0" that is defined in <xref target="draft-lozano-smd"/>. 
+        "urn:ietf:params:xml:ns:mark-1.0" that is defined in <xref target="draft-ietf-eppext-tmch-smd"/>. 
         The XML namespace prefix "mark"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
@@ -239,7 +239,7 @@
         is not used or multiple Trademark Validators are used, the Validator Identifier MUST be 
         defined using the "validatorID" attribute.</t>
         <t>The Validator Identifier MAY be related to one or more issuer identifiers of the &lt;mark:id&gt; element 
-        and the &lt;smd:id&gt; element defined in <xref target="draft-lozano-smd"/>.  Both the Validator Identifier and the 
+        and the &lt;smd:id&gt; element defined in <xref target="draft-ietf-eppext-tmch-smd"/>.  Both the Validator Identifier and the 
         Issuer Identifier used MUST be unique.  The list of validator identifiers and the relationship to 
         issuer identifiers is out of scope for this document.</t>
       </section>
@@ -604,10 +604,10 @@ S:</epp>]]></artwork>
         <t>A &lt;mark:mark&gt; element describes an applicant's prior right
         to a given domain name that is used with the "mark", "mark with code", and 
         the "signed mark" validation models.  The &lt;mark:mark&gt; element is defined 
-        in <xref target="draft-lozano-smd"/>.  
+        in <xref target="draft-ietf-eppext-tmch-smd"/>.  
         A new mark format can be supported by creating a new 
         XML schema for the mark that has an element that substitutes 
-        for the &lt;mark:abstractMark&gt; element from <xref target="draft-lozano-smd"/>.</t>
+        for the &lt;mark:abstractMark&gt; element from <xref target="draft-ietf-eppext-tmch-smd"/>.</t>
       </section>
             
       <section anchor="digitalsignature" title="Digital Signature">
@@ -617,20 +617,20 @@ S:</epp>]]></artwork>
         </t>
      <section anchor="signedMark" title="&lt;smd:signedMark&gt; element">
         <t>The &lt;smd:signedMark&gt; element contains the digitally signed mark information.  The &lt;smd:signedMark&gt; 
-        element is defined in <xref target="draft-lozano-smd"/>.  A new 
+        element is defined in <xref target="draft-ietf-eppext-tmch-smd"/>.  A new 
         signed mark format can be supported by creating a new XML schema 
         for the signed mark that has an element that substitutes for 
-        the &lt;smd:abstractSignedMark&gt; element from <xref target="draft-lozano-smd"/>.  
+        the &lt;smd:abstractSignedMark&gt; element from <xref target="draft-ietf-eppext-tmch-smd"/>.  
         </t>
         </section>
 
      <section anchor="encodedSignedMark" title="&lt;smd:encodedSignedMark&gt; element">
         <t>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
         the digitally signed <xref target="signedMark">&lt;smd:signedMark&gt;</xref> element.  The 
-        &lt;smd:encodedSignedMark&gt; element is defined in <xref target="draft-lozano-smd"/>.  
+        &lt;smd:encodedSignedMark&gt; element is defined in <xref target="draft-ietf-eppext-tmch-smd"/>.  
         A new encoded signed mark format can be supported by creating a new XML schema 
         for the encoded signed mark that has an element that substitutes for the 
-        &lt;smd:encodedSignedMark&gt; element from <xref target="draft-lozano-smd"/>.
+        &lt;smd:encodedSignedMark&gt; element from <xref target="draft-ietf-eppext-tmch-smd"/>.
         </t>
         </section>
         
@@ -2213,6 +2213,13 @@ END]]></artwork>
           to servers that do not support launch applications based on a request from Sharon Wodjenski on the provreg list.</t>
       </list></t>
     </section>
+    <section title="Change from 12 to WG 00" anchor="change-12-to-wg00">
+      <t><list style="numbers">
+          <t>Changed to eppext working group draft by changing draft-tan-epp-launchphase to 
+          draft-ietf-eppext-launchphase and by changing references of draft-lozano-tmch-smd 
+          to draft-ietf-eppext-tmch-smd.</t>
+      </list></t>
+    </section>
    </section>
     
 
@@ -2220,7 +2227,7 @@ END]]></artwork>
          <t>
              This document uses URNs to describe XML namespaces and XML schemas
              conforming to a registry mechanism described in <xref target="RFC3688"/>.
-             Three URI assignments have been registered by the IANA.
+             One URI assignment has been registered by the IANA.
          </t>
 
          <t>Registration request for the Launch namespace:</t>
@@ -2274,12 +2281,12 @@ END]]></artwork>
 
     <references title="Normative References">
     
-      <reference anchor="draft-lozano-smd">
+      <reference anchor="draft-ietf-eppext-tmch-smd">
         <front>
           <title abbrev='Mark and Signed Mark Objects Mapping'>Mark and Signed Mark Objects Mapping</title>
           <author fullname="Gustavo Lozano" initials="G.L." surname="Lozano"/>
         </front>
-        <format type='HTML' target='http://tools.ietf.org/html/draft-lozano-tmch-smd' />
+        <format type='HTML' target='http://tools.ietf.org/html/draft-ietf-eppext-tmch-smd' />
       </reference>    
     
     

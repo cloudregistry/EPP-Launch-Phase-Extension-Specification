@@ -148,13 +148,13 @@
 <tr><td class="header">Internet Engineering Task Force</td><td class="header">J. Gould</td></tr>
 <tr><td class="header">Internet-Draft</td><td class="header">VeriSign, Inc.</td></tr>
 <tr><td class="header">Intended status: Standards Track</td><td class="header">W. Tan</td></tr>
-<tr><td class="header">Expires: May 16, 2014</td><td class="header">Cloud Registry</td></tr>
+<tr><td class="header">Expires: July 21, 2014</td><td class="header">Cloud Registry</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">G. Brown</td></tr>
 <tr><td class="header">&nbsp;</td><td class="header">CentralNic Ltd</td></tr>
-<tr><td class="header">&nbsp;</td><td class="header">November 12, 2013</td></tr>
+<tr><td class="header">&nbsp;</td><td class="header">January 17, 2014</td></tr>
 </table></td></tr></table>
 <h1><br />Launch Phase Mapping for the
-    Extensible Provisioning Protocol (EPP)<br />draft-tan-epp-launchphase-12</h1>
+    Extensible Provisioning Protocol (EPP)<br />draft-ietf-eppext-launchphase-00</h1>
 
 <h3>Abstract</h3>
 
@@ -177,11 +177,11 @@ and may be updated, replaced, or obsoleted by other documents at any time.
 It is inappropriate to use Internet-Drafts as reference material or to cite
 them other than as &ldquo;work in progress.&rdquo;</p>
 <p>
-This Internet-Draft will expire on May 16, 2014.</p>
+This Internet-Draft will expire on July 21, 2014.</p>
 
 <h3>Copyright Notice</h3>
 <p>
-Copyright (c) 2013 IETF Trust and the persons identified as the
+Copyright (c) 2014 IETF Trust and the persons identified as the
 document authors.  All rights reserved.</p>
 <p>
 This document is subject to BCP 78 and the IETF Trust's Legal
@@ -288,6 +288,8 @@ Change from 09 to 10<br />
 Change from 10 to 11<br />
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-11-to-12">6.12.</a>&nbsp;
 Change from 11 to 12<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#change-12-to-wg00">6.13.</a>&nbsp;
+Change from 12 to WG 00<br />
 <a href="#IANA">7.</a>&nbsp;
 IANA Considerations<br />
 <a href="#Security">8.</a>&nbsp;
@@ -323,7 +325,7 @@ Introduction</h3>
       the "Sunrise" launch phase, referred to as a Launch Application.  A Launch
       Registration refers to a registration made during a launch phase when the
       server uses a "first-come, first-served" model.  Even in a "first-come,
-      first-served" model, additional steps and information might be required, such as trademark information. In addition, the <a href='http://tools.ietf.org/html/draft-lozano-tmch-func-spec'>TMCH Functional Specification</a> 
+      first-served" model, additional steps and information might be required, such as trademark information. In addition, the <a href='http://tools.ietf.org/html/draft-ietf-eppext-tmch-smd'>TMCH Functional Specification</a> 
       defines a registry interface for the Trademark Claims or "claims" launch phase that
       includes support for presenting a Trademark Claims Notice to the
       Registrant. This document proposes an extension to the domain name
@@ -356,14 +358,14 @@ Conventions Used in This Document</h3>
         output the XML documents.
 </p>
 <p>"signedMark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>. 
+        "urn:ietf:params:xml:ns:signedMark-1.0" that is defined in <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>. 
         The XML namespace prefix "smd"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
         output the XML documents.
 </p>
 <p>"mark-1.0" is used as an abbreviation for
-        "urn:ietf:params:xml:ns:mark-1.0" that is defined in <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>. 
+        "urn:ietf:params:xml:ns:mark-1.0" that is defined in <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>. 
         The XML namespace prefix "mark"
         is used, but implementations MUST NOT depend on it and instead employ
         a proper namespace-aware XML parser and serializer to interpret and
@@ -411,7 +413,7 @@ Validator Identifier</h3>
         defined using the "validatorID" attribute.
 </p>
 <p>The Validator Identifier MAY be related to one or more issuer identifiers of the &lt;mark:id&gt; element 
-        and the &lt;smd:id&gt; element defined in <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  Both the Validator Identifier and the 
+        and the &lt;smd:id&gt; element defined in <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  Both the Validator Identifier and the 
         Issuer Identifier used MUST be unique.  The list of validator identifiers and the relationship to 
         issuer identifiers is out of scope for this document.
 </p>
@@ -805,10 +807,10 @@ Mark Validation Models</h3>
 <p>A &lt;mark:mark&gt; element describes an applicant's prior right
         to a given domain name that is used with the "mark", "mark with code", and 
         the "signed mark" validation models.  The &lt;mark:mark&gt; element is defined 
-        in <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  
+        in <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  
         A new mark format can be supported by creating a new 
         XML schema for the mark that has an element that substitutes 
-        for the &lt;mark:abstractMark&gt; element from <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.
+        for the &lt;mark:abstractMark&gt; element from <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.
 </p>
 <a name="digitalsignature"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -826,10 +828,10 @@ Digital Signature</h3>
 &lt;smd:signedMark&gt; element</h3>
 
 <p>The &lt;smd:signedMark&gt; element contains the digitally signed mark information.  The &lt;smd:signedMark&gt; 
-        element is defined in <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  A new 
+        element is defined in <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  A new 
         signed mark format can be supported by creating a new XML schema 
         for the signed mark that has an element that substitutes for 
-        the &lt;smd:abstractSignedMark&gt; element from <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  
+        the &lt;smd:abstractSignedMark&gt; element from <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  
         
 </p>
 <a name="encodedSignedMark"></a><br /><hr />
@@ -839,10 +841,10 @@ Digital Signature</h3>
 
 <p>The &lt;smd:encodedSignedMark&gt; element contains an encoded form of 
         the digitally signed <a class='info' href='#signedMark'>&lt;smd:signedMark&gt;<span> (</span><span class='info'>&lt;smd:signedMark&gt; element</span><span>)</span></a> element.  The 
-        &lt;smd:encodedSignedMark&gt; element is defined in <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  
+        &lt;smd:encodedSignedMark&gt; element is defined in <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.  
         A new encoded signed mark format can be supported by creating a new XML schema 
         for the encoded signed mark that has an element that substitutes for the 
-        &lt;smd:encodedSignedMark&gt; element from <a class='info' href='#draft-lozano-smd'>[draft&#8209;lozano&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.
+        &lt;smd:encodedSignedMark&gt; element from <a class='info' href='#draft-ietf-eppext-tmch-smd'>[draft&#8209;ietf&#8209;eppext&#8209;tmch&#8209;smd]<span> (</span><span class='info'>Lozano, G., &ldquo;Mark and Signed Mark Objects Mapping,&rdquo; .</span><span>)</span></a>.
         
 </p>
 <a name="commands"></a><br /><hr />
@@ -2555,6 +2557,19 @@ Change from 11 to 12</h3>
 </li>
 </ol>
 
+<a name="change-12-to-wg00"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6.13"></a><h3>6.13.&nbsp;
+Change from 12 to WG 00</h3>
+
+<p></p>
+<ol class="text">
+<li>Changed to eppext working group draft by changing draft-tan-epp-launchphase to 
+          draft-ietf-eppext-launchphase and by changing references of draft-lozano-tmch-smd 
+          to draft-ietf-eppext-tmch-smd.
+</li>
+</ol>
+
 <a name="IANA"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.7"></a><h3>7.&nbsp;
@@ -2563,7 +2578,7 @@ IANA Considerations</h3>
 <p>
              This document uses URNs to describe XML namespaces and XML schemas
              conforming to a registry mechanism described in <a class='info' href='#RFC3688'>[RFC3688]<span> (</span><span class='info'>Mealling, M., &ldquo;The IETF XML Registry,&rdquo; January&nbsp;2004.</span><span>)</span></a>.
-             Three URI assignments have been registered by the IANA.
+             One URI assignment has been registered by the IANA.
          
 </p>
 <p>Registration request for the Launch namespace:
@@ -2614,8 +2629,8 @@ Security Considerations</h3>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5730">Extensible Provisioning Protocol (EPP)</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5730, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5730.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5731">[RFC5731]</a></td>
 <td class="author-text">Hollenbeck, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5731">Extensible Provisioning Protocol (EPP) Domain Name Mapping</a>,&rdquo; STD&nbsp;69, RFC&nbsp;5731, August&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5731.txt">TXT</a>).</td></tr>
-<tr><td class="author-text" valign="top"><a name="draft-lozano-smd">[draft-lozano-smd]</a></td>
-<td class="author-text">Lozano, G., &ldquo;<a href="http://tools.ietf.org/html/draft-lozano-tmch-smd">Mark and Signed Mark Objects Mapping</a>.&rdquo;</td></tr>
+<tr><td class="author-text" valign="top"><a name="draft-ietf-eppext-tmch-smd">[draft-ietf-eppext-tmch-smd]</a></td>
+<td class="author-text">Lozano, G., &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-eppext-tmch-smd">Mark and Signed Mark Objects Mapping</a>.&rdquo;</td></tr>
 </table>
 
 <a name="rfc.authors"></a><br /><hr />
